@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { SteemconnectAuthService } from '../steemconnect/services/steemconnect-auth.service';
 
 @Component({
   selector: 'app-nav',
@@ -10,6 +11,6 @@ import { map } from 'rxjs/operators';
 })
 export class AppNavComponent {
     
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(private breakpointObserver: BreakpointObserver, public auth: SteemconnectAuthService) {}
   
   }

@@ -12,6 +12,15 @@
       <a routerLink="/wallet" class="nav-link">Wallet</a>
       <a routerLink="/profile" class="nav-link">Profile</a>
       <a routerLink="/dashboard" class="nav-link">Dash</a>
+      <div class="nav offset-sm-6 ">
+        <span *ngIf="(auth.authState | async); else guest ">
+          <button class="nav-link signInLink " (click)="auth.logout() ">Logout</button>
+        </span>
+      </div>
+  
+      <ng-template #guest>
+        <button class="nav-link signInLink " (click)="auth.login() ">Login</button>
+      </ng-template>
     </div>
   </mat-toolbar>
 </div>

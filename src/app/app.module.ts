@@ -1,7 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-
+import { SteemconnectModule } from './steemconnect/steemconnect.module';
 import { AppRoutingModule } from './app-routing.module';
+import { CookieModule } from 'ngx-cookie';
 import { AppComponent } from './app.component';
 import { FooterComponent } from './footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -18,6 +20,8 @@ import { WalletComponent } from './wallet/wallet.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { HelpComponent } from './help/help.component';
+import { RedirectComponent } from './redirect/redirect.component';
+import { environment } from './../environments/environment';
 
 @NgModule({
   declarations: [
@@ -33,7 +37,8 @@ import { HelpComponent } from './help/help.component';
     WalletComponent,
     ProfileComponent,
     PagenotfoundComponent,
-    HelpComponent
+    HelpComponent,
+    RedirectComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +55,10 @@ import { HelpComponent } from './help/help.component';
     MatSortModule,
     MatGridListModule,
     MatCardModule,
-    MatMenuModule
+    MatMenuModule,
+    HttpClientModule,
+    SteemconnectModule.forRoot(environment.steemconnectConfig),
+    CookieModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

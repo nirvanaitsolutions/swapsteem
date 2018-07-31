@@ -10,6 +10,8 @@ import { WalletComponent } from './wallet/wallet.component';
 import { ProfileComponent } from './profile/profile.component';
 import { HelpComponent } from './help/help.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { SteemconnectRedirectGuard } from './redirect/steemconnect-redirect.guard';
+import { RedirectComponent } from './redirect/redirect.component';
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'buy-online',      component: BuyComponent },
@@ -20,6 +22,11 @@ const appRoutes: Routes = [
   { path: 'profile',      component: ProfileComponent },
   { path: 'help',      component: HelpComponent },
   { path: 'dashboard',      component: DashboardComponent },
+  {
+    path: 'steemconnect/redirect',
+    canActivate: [SteemconnectRedirectGuard],
+    component: RedirectComponent
+  },
   { path: '',
     redirectTo: '/home',
     pathMatch: 'full'
