@@ -8,18 +8,17 @@
       <a routerLink="/help" class="nav-link">Help</a>
     </div>
     <div class="nav-left">
-      <a routerLink="/notifications" class="nav-link">Notifs</a>
-      <a routerLink="/wallet" class="nav-link">Wallet</a>
-      <a routerLink="/profile" class="nav-link">Profile</a>
-      <a routerLink="/dashboard" class="nav-link">Dash</a>
       <div class="nav offset-sm-6 ">
         <span *ngIf="(auth.authState | async); else guest ">
-          <button class="nav-link signInLink " (click)="auth.logout() ">Logout</button>
+          <a routerLink="/notifications" class="nav-link">Notifs</a>
+          <a routerLink="/wallet" class="nav-link">Wallet</a>
+          <a routerLink="/dashboard" class="nav-link">Dash</a>
+          <button class=" btn btn-primary signInLink " (click)="auth.logout() ">Profile</button>
         </span>
       </div>
   
       <ng-template #guest>
-        <button class="nav-link signInLink " (click)="auth.login() ">Login</button>
+        <button class=" btn btn-primary signInLink " (click)="auth.login() ">Login</button>
       </ng-template>
     </div>
   </mat-toolbar>
