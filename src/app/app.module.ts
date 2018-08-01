@@ -23,6 +23,7 @@ import { HelpComponent } from './help/help.component';
 import { RedirectComponent } from './redirect/redirect.component';
 import { environment } from './../environments/environment';
 import { SearchBoxComponent } from './search-box/search-box.component';
+import { BuyPageComponent } from './buy-page/buy-page.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { SearchBoxComponent } from './search-box/search-box.component';
     PagenotfoundComponent,
     HelpComponent,
     RedirectComponent,
-    SearchBoxComponent
+    SearchBoxComponent,
+    BuyPageComponent
   ],
   imports: [
     BrowserModule,

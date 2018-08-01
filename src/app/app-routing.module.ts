@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { BuyComponent } from './buy/buy.component';
 import { SellComponent } from './sell/sell.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PostTradeComponent } from './post-trade/post-trade.component';
@@ -12,9 +11,10 @@ import { HelpComponent } from './help/help.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { SteemconnectRedirectGuard } from './redirect/steemconnect-redirect.guard';
 import { RedirectComponent } from './redirect/redirect.component';
+import {BuyPageComponent} from './buy-page/buy-page.component'
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'buy-online',      component: BuyComponent },
+  { path: 'buy-online',      component: BuyPageComponent},
   { path: 'sell-online',      component: SellComponent },
   { path: 'post-trade',      component: PostTradeComponent },
   { path: 'notifications', component: NotificationsComponent },
