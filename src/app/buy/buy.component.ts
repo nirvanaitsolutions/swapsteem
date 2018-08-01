@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort } from '@angular/material';
-import { BuyDataSource } from './buy-datasource';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-buy',
@@ -8,14 +7,12 @@ import { BuyDataSource } from './buy-datasource';
   styleUrls: ['./buy.component.css']
 })
 export class BuyComponent implements OnInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-  dataSource: BuyDataSource;
-
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
 
+  constructor(private http : HttpClient){}
+  buyDetails : any = [];
   ngOnInit() {
-    this.dataSource = new BuyDataSource(this.paginator, this.sort);
+       this.buyDetails = this.http.get('../../assets/sample-buy-online.json');
   }
+
 }
