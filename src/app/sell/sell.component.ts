@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort } from '@angular/material';
-import { SellDataSource } from './sell-datasource';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-sell',
@@ -8,14 +7,12 @@ import { SellDataSource } from './sell-datasource';
   styleUrls: ['./sell.component.css']
 })
 export class SellComponent implements OnInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-  dataSource: SellDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
-
+  constructor(private http : HttpClient){}
+  
+  sellDetails : any = [];
   ngOnInit() {
-    this.dataSource = new SellDataSource(this.paginator, this.sort);
+       this.sellDetails = this.http.get('../../assets/sample-buy-online.json');
   }
 }
