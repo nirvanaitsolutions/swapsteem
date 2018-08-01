@@ -1,0 +1,14 @@
+.scroll{
+    position: relative;
+    height: 300px;
+    overflow: auto;
+    margin-top: 20px;
+    background-color: white;
+}
+
+.box{
+    border: 1px;
+    padding: 10px;
+    box-shadow: 2px 2px 2px 2px #888888;
+
+}
