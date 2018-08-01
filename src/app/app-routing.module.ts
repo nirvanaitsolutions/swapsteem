@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { SellComponent } from './sell/sell.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PostTradeComponent } from './post-trade/post-trade.component';
 import { NotificationsComponent } from './notifications/notifications.component';
@@ -12,10 +11,12 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { SteemconnectRedirectGuard } from './redirect/steemconnect-redirect.guard';
 import { RedirectComponent } from './redirect/redirect.component';
 import {BuyPageComponent} from './buy-page/buy-page.component'
+import {SellPageComponent} from './sell-page/sell-page.component';
+
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'buy-online',      component: BuyPageComponent},
-  { path: 'sell-online',      component: SellComponent },
+  { path: 'sell-online',      component: SellPageComponent },
   { path: 'post-trade',      component: PostTradeComponent },
   { path: 'notifications', component: NotificationsComponent },
   { path: 'wallet',      component: WalletComponent },

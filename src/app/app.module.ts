@@ -24,6 +24,7 @@ import { RedirectComponent } from './redirect/redirect.component';
 import { environment } from './../environments/environment';
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { BuyPageComponent } from './buy-page/buy-page.component';
+import { SellPageComponent } from './sell-page/sell-page.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { BuyPageComponent } from './buy-page/buy-page.component';
     HelpComponent,
     RedirectComponent,
     SearchBoxComponent,
-    BuyPageComponent
+    BuyPageComponent,
+    SellPageComponent
   ],
   imports: [
     BrowserModule,
