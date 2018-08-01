@@ -22,6 +22,7 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { HelpComponent } from './help/help.component';
 import { RedirectComponent } from './redirect/redirect.component';
 import { environment } from './../environments/environment';
+import { SearchBoxComponent } from './search-box/search-box.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { environment } from './../environments/environment';
     ProfileComponent,
     PagenotfoundComponent,
     HelpComponent,
-    RedirectComponent
+    RedirectComponent,
+    SearchBoxComponent
   ],
   imports: [
     BrowserModule,
