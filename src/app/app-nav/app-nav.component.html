@@ -1,32 +1,7 @@
-<!-- <div>
-  <mat-toolbar color="primary">
-    <div class="nav-right">
-      <a routerLink="/home" routerLinkActive="active" class="nav-link">Swapsteem</a>
-      <a routerLink="/buy-online" class="nav-link">Buy</a>
-      <a routerLink="/sell-online" class="nav-link">Sell</a>
-      <a routerLink="/post-trade" class="nav-link">Post a Trade </a>
-      <a routerLink="/help" class="nav-link">Help</a>
-    </div>
-    <div class="nav-left">
-      <a routerLink="/notifications" class="nav-link">Notifs</a>
-      <a routerLink="/wallet" class="nav-link">Wallet</a>
-      <a routerLink="/profile" class="nav-link">Profile</a>
-      <a routerLink="/dashboard" class="nav-link">Dash</a>
-      <div class="nav offset-sm-6 ">
-        <span *ngIf="(auth.authState | async); else guest ">
-          <button class="nav-link signInLink " (click)="auth.logout() ">Logout</button>
-        </span>
-      </div>
-  
-      <ng-template #guest>
-        <button class="nav-link signInLink " (click)="auth.login() ">Login</button>
-      </ng-template>
-    </div>
-  </mat-toolbar>
-</div> -->
+
 <div class="container">
   <nav class="navbar navbar-expand-lg navbar-light">
-  <a class="navbar-brand" href="#">Navbar</a>
+  <a class="navbar-brand" routerLink="/">Navbar</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -34,22 +9,40 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="#">Buy<span class="sr-only">(current)</span></a>
+        <a class="nav-link" routerLink="buy-online">Buy<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Sell</a>
+        <a class="nav-link" routerLink="sell-online">Sell</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Trade</a>
+        <a class="nav-link" routerLink="post-trade">Post a Trade</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Help</a>
+        <a class="nav-link" routerLink="help">Help</a>
       </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
+      </ul>
+      <div>
+          <span *ngIf="(auth.authState | async); else guest ">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="notifications">Notifs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="wallet">Wallet</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="dashboard">Dash</a>
+                </li>
+                <li class="nav-item">
+                    <button class="btn btn-primary signInLink " (click)="auth.logout() ">Profile</button>
+                </li>
+              </ul>
+              
+            </span>
+          <ng-template #guest>
+            <button class="btn btn-primary signInLink " (click)="auth.login() ">Login</button>
+          </ng-template>
+      </div>   
   </div>
 </nav>
 </div>

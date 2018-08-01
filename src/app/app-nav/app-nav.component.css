@@ -1,4 +1,4 @@
-/* .sidenav-container {
+ .sidenav-container {
   height: 100%;
 }
 
@@ -28,7 +28,7 @@
 
 .nav-left{
   margin-left: auto;
-} */
+} 
 
 .active{
   color: blue;
