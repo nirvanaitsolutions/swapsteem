@@ -1,3 +1,86 @@
-<p>
-  post-trade works!
-</p>
+<div class="box container">
+  <form>
+    <div class="form-group col-md-4">
+      <label for="Country">Country</label>
+      <select class="form-control" id="Country">
+        <option *ngFor="let count of country">{{count}}</option>
+      </select>
+    </div>
+
+    <div class="form-group col-md-4">
+      <label for="paymentMethods">Payment Methods</label>
+      <select class="form-control" id="paymentMethods">
+        <option *ngFor="let count of country">{{count}}</option>
+      </select>
+    </div>
+
+    <div class="form-group col-md-4">
+      <label for="Currency">Currency</label>
+      <select class="form-control" id="Currency">
+        <option *ngFor="let count of country">{{count}}</option>
+      </select>
+    </div>
+
+    <div class="form-group col-md-4">
+      <label for="Margin">Margin</label>
+      <input type="number" class="form-control" name="margin" id="Margin">
+    </div>
+
+    <div class="col-md-4 form-row mb-3">
+      <div class="col">
+        <label for="LimitFrom">Limit From</label>
+        <input type="number" name="limitFrom" id="LimitFrom" class="form-control">
+      </div>
+      
+      <div class="col">
+        <label for="LimitTo">Limit To</label>
+        <input type="number" name="limitTo" id="LimitTo" class="form-control">
+      </div>
+    </div>
+
+    <div class="form-group col-md-4">
+      <label for="RestrictedAmount">Restricted Amount</label>
+      <input type="number" class="form-control" name="RestrictedAmount" id="RestrictedAmount">
+    </div>
+
+    <div class="form-group col-md-4">
+      <label for="AdCoin">Ad Coin</label>
+      <select class="form-control" id="AdCoin">
+        <option *ngFor="let count of country">{{count}}</option>
+      </select>
+    </div>
+
+    <div class="form-group col-md-4">
+      <label for="Terms">Terms</label>
+      <textarea class="form-control" id="Terms" rows="3"></textarea>
+    </div>
+
+    <div class="form-group col-md-4">
+      <label for="PhoneNumber">Phone Number</label>
+      <input type="tel" class="form-control" name="PhoneNumber" id="PhoneNumber">
+    </div>
+
+
+    <div class="form-group col-md-4">
+      <label for="MinimumVolume">Minimum Volume</label>
+      <input type="number" class="form-control" name="MinimumVolume" id="MinimumVolume">
+    </div>
+    
+    <div class="form-group col-md-4">
+      <label for="minimumFeedbackScore">Minimum Feedback Score</label>
+      <select class="form-control" id="minimumFeedbackScore">
+        <option *ngFor="let count of country">{{count}}</option>
+      </select>
+    </div>
+
+    <div class="form-group col-md-4">
+      <label for="newBuyerLimit">New Buyer Limit</label>
+      <select class="form-control" id="newBuyerLimit">
+        <option *ngFor="let count of country">{{count}}</option>
+      </select>
+    </div>
+    
+<button type="submit" class="col-sm-5 col-md-3 btn btn-success buttonLocation form-control ml-3 mt-3">Publish Advertisement</button>
+  </form>
+  <div style="margin-bottom: 20px;"></div>
+</div>

@@ -7,9 +7,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PostTradeComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+   }
+
+  advertisement = {
+    country: '',
+    paymentMethod: '',
+    currency: '',
+    margin: '',
+    limitFrom: '',
+    limitTo: '',
+    restrictedAmount: '',
+    adCoin : '',
+    terms: '',
+    phoneNumber: '',
+    minimumVolume: '',
+    maxFeedCount: '',
+    buyLimit: ''
+  };
+
 
   ngOnInit() {
   }
 
+  
+
+  country = ['','1','2','3','4'];
 }
