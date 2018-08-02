@@ -30,7 +30,9 @@ export class PostTradeComponent implements OnInit {
   ngOnInit() {
   }
 
-  
+  onSubmit(){
+    console.log(this.advertisement);
+  }
 
   country = ['','1','2','3','4'];
 }

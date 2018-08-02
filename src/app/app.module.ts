@@ -25,6 +25,7 @@ import { environment } from './../environments/environment';
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { BuyPageComponent } from './buy-page/buy-page.component';
 import { SellPageComponent } from './sell-page/sell-page.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { SellPageComponent } from './sell-page/sell-page.component';
     MatMenuModule,
     HttpClientModule,
     SteemconnectModule.forRoot(environment.steemconnectConfig),
-    CookieModule.forRoot()
+    CookieModule.forRoot(),
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
