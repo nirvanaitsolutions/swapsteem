@@ -26,6 +26,7 @@ import { SearchBoxComponent } from './search-box/search-box.component';
 import { BuyPageComponent } from './buy-page/buy-page.component';
 import { SellPageComponent } from './sell-page/sell-page.component';
 import {FormsModule} from '@angular/forms';
+import { PurchaseComponent } from './purchase/purchase.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import {FormsModule} from '@angular/forms';
     RedirectComponent,
     SearchBoxComponent,
     BuyPageComponent,
-    SellPageComponent
+    SellPageComponent,
+    PurchaseComponent
   ],
   imports: [
     BrowserModule,
