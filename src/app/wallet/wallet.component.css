@@ -1,0 +1,38 @@
+.banner{
+    width: 100%;
+    min-height: 150px;
+    background-color: grey;
+}
+
+.balance{
+    background-color: white;
+    position: absolute;
+    height: 60px;
+    width: 200px;
+    margin-top: 3.9%;
+    margin-left: 75%;
+}
+
+.profile{
+    position: absolute;
+    background-color: white;
+    height: 60px;
+    width: 200px;
+    margin-top: 3.9%;
+    margin-left: 8%;
+}
+
+
+.box{
+    border: 1px;
+    padding: 10px;
+    box-shadow: 2px 2px 2px 2px #888888;
+    margin-top: 20px;
+    background-color: white;
+}
+
+.table-header{
+    font-weight: normal;
+    font-size: 15px;
+    
+}
