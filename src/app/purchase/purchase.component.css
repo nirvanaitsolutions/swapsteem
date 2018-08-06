@@ -1,0 +1,24 @@
+.box{
+    border: 1px;
+    padding: 10px;
+    box-shadow: 2px 2px 2px 2px #888888;
+    margin-top: 20px;
+    background-color: white;
+}
+
+.inner-box{
+    border: 1px;
+    padding: 10px;
+    box-shadow: 1px 1px 1px 1px #888888;
+    margin: 10px;
+    background-color: white;
+}
+
+.inner-box-right{
+    border: 1px;
+    padding: 10px;
+    box-shadow: 1px 1px 1px 1px #888888;
+    margin: 10px;
+    background-color: white;
+    margin-right: 20px;
+}

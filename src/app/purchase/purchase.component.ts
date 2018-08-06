@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {buy} from '../module/buy';
+import {PurchaseService} from '../../service/purchase.service';
 
 @Component({
   selector: 'app-purchase',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PurchaseComponent implements OnInit {
 
-  constructor() { }
+
+  selectedTrade : buy;
+  
+  constructor(private purchaseServ : PurchaseService) { }
 
   ngOnInit() {
+    this.selectedTrade = this.purchaseServ.getSelectedTrade();
   }
 
 }
