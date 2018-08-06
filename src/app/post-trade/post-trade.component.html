@@ -1,22 +1,53 @@
 <div class="box container">
   <form >
     <div class="form-group col-md-4">
-      <label for="Country">Country</label>
-      <select class="form-control" id="Country"
-              [(ngModel)] = "advertisement.country"
-              name = "country"
+      <label for="Country">Ad Type</label>
+      <select class="form-control" id="ad_type"
+              [(ngModel)] = "advertisement.ad_type"
+              name = "ad_type"
               required>
-        <option *ngFor="let count of country">{{count}}</option>
+        <option *ngFor="let count of ad_type">{{count}}</option>
       </select>
     </div>
 
     <div class="form-group col-md-4">
-      <label for="paymentMethods">Payment Methods</label>
-      <select class="form-control" id="paymentMethods"
-               [(ngModel)] = "advertisement.paymentMethod"
-              name = "paymentMethod"
+        <label for="Country">Country</label>
+        <select class="form-control" id="Country"
+                [(ngModel)] = "advertisement.country"
+                name = "country"
+                required>
+          <option *ngFor="let count of country">{{count}}</option>
+        </select>
+    </div>
+
+    <div class="form-group col-md-4">
+        <label for="ad_coin">Ad Coin</label>
+        <select class="form-control" id="ad_coin"
+                name="ad_coin"
+                required
+                 [(ngModel)]="advertisement.ad_coin">
+          <option *ngFor="let count of ad_coin">{{count}}</option>
+        </select>
+    </div>
+
+    <div class="form-group col-md-4">
+        <label for="Margin">Margin</label>
+        <input type="number" class="form-control" 
+                 name="margin"
+                  id="margin"
+                  [(ngModel)] = "advertisement.margin"
+                  required>
+    </div>
+
+
+
+    <div class="form-group col-md-4">
+      <label for="payment_methods">Payment Methods</label>
+      <select class="form-control" id="payment_methods"
+               [(ngModel)] = "advertisement.payment_methods"
+              name = "payment_methods"
               required>
-        <option *ngFor="let count of country">{{count}}</option>
+        <option *ngFor="let count of payment_methods">{{count}}</option>
       </select>
     </div>
 
@@ -30,92 +61,69 @@
       </select>
     </div>
 
-    <div class="form-group col-md-4">
-      <label for="Margin">Margin</label>
-      <input type="number" class="form-control" 
-               name="margin"
-                id="Margin"
-                [(ngModel)] = "advertisement.margin"
+    <div class="col-md-4 form-row mb-3">
+      <div class="col">
+        <label for="ad_coin_amount">Ad Coin Amount</label>
+        <input type="number" name="ad_coin_amount" id="ad_coin_amount" class="form-control"
+                [(ngModel)] = "advertisement.ad_coin_amount"
                 required>
+      </div>
     </div>
 
     <div class="col-md-4 form-row mb-3">
       <div class="col">
-        <label for="LimitFrom">Limit From</label>
-        <input type="number" name="limitFrom" id="LimitFrom" class="form-control"
-                [(ngModel)] = "advertisement.limitFrom"
+        <label for="limit_from">Limit From</label>
+        <input type="number" name="limit_from" id="limit_from" class="form-control"
+                [(ngModel)] = "advertisement.limit_from"
                 required>
       </div>
       
       <div class="col">
-        <label for="LimitTo">Limit To</label>
-        <input type="number" name="limitTo" id="LimitTo" class="form-control"
+        <label for="limit_to">Limit To</label>
+        <input type="number" name="limit_to" id="limit_to" class="form-control"
               required          
-              [(ngModel)]="advertisement.limitTo">
+              [(ngModel)]="advertisement.limit_to">
       </div>
     </div>
 
     <div class="form-group col-md-4">
-      <label for="RestrictedAmount">Restricted Amount</label>
-      <input type="number" class="form-control" name="RestrictedAmount" 
-                id="RestrictedAmount"
+      <label for="restricted_amounts">Restricted Amount</label>
+      <input type="number" class="form-control" name="restricted_amounts" 
+                id="restricted_amounts"
                 required
-               [(ngModel)]="advertisement.restrictedAmount" >
+               [(ngModel)]="advertisement.restricted_amounts" >
     </div>
 
     <div class="form-group col-md-4">
-      <label for="AdCoin">Ad Coin</label>
-      <select class="form-control" id="AdCoin"
-              name="adCoin"
-              required
-               [(ngModel)]="advertisement.adCoin">
-        <option *ngFor="let count of country">{{count}}</option>
-      </select>
-    </div>
-
-    <div class="form-group col-md-4">
-      <label for="Terms">Terms</label>
-      <textarea class="form-control" id="Terms" rows="3"
+      <label for="terms">Terms</label>
+      <textarea class="form-control" id="terms" rows="3"
                   name="terms"
                   required
                   [(ngModel)]="advertisement.terms"></textarea>
     </div>
 
     <div class="form-group col-md-4">
-      <label for="PhoneNumber">Phone Number</label>
-      <input type="tel" class="form-control" name="PhoneNumber" 
-                id="PhoneNumber"
+      <label for="minimum_volume">Minimum Volume</label>
+      <input type="number" class="form-control" name="minimum_volume" 
+                id="minimum_volume"
                 required
-                [(ngModel)] = "advertisement.phoneNumber">
-    </div>
-
-
-    <div class="form-group col-md-4">
-      <label for="MinimumVolume">Minimum Volume</label>
-      <input type="number" class="form-control" name="MinimumVolume" 
-                id="MinimumVolume"
-                required
-                [(ngModel)] = "advertisement.minimumVolume">
+                [(ngModel)] = "advertisement.ad_details.minimum_volume">
     </div>
     
     <div class="form-group col-md-4">
-      <label for="minimumFeedbackScore">Minimum Feedback Score</label>
-      <select class="form-control" id="minimumFeedbackScore"
-                      name="Min Feed Count"
-                      required
-                      [(ngModel)] = "advertisement.maxFeedCount">
-        <option *ngFor="let count of country">{{count}}</option>
-      </select>
+      <label for="minimum_reputation_score">Minimum Reputation Score</label>
+      <input type="number" class="form-control" name="minimum_reputation_score" 
+                id="minimum_reputation_score"
+                required
+                [(ngModel)] = "advertisement.ad_details.minimum_reputation_score">
     </div>
 
     <div class="form-group col-md-4">
-      <label for="newBuyerLimit">New Buyer Limit</label>
-      <select class="form-control" id="newBuyerLimit"
-              name="Buy Limit"
-              required
-              [(ngModel)] = "advertisement.buyLimit">
-        <option *ngFor="let count of country">{{count}}</option>
-      </select>
+      <label for="new_buyer_limit">New Buyer Limit</label>
+      <input type="number" class="form-control" name="new_buyer_limit" 
+                id="new_buyer_limit"
+                required
+                [(ngModel)] = "advertisement.ad_details.new_buyer_limit">
     </div>
     
 <button type="submit" class="col-sm-5 col-md-3 btn btn-success buttonLocation form-control ml-3 mt-3"
