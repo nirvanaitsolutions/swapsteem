@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SteemconnectBroadcastService } from '../steemconnect/services/steemconnect-broadcast.service';
 
 @Component({
   selector: 'app-post-trade',
@@ -7,23 +8,36 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PostTradeComponent implements OnInit {
 
-  constructor() {
+  constructor(public broadcast: SteemconnectBroadcastService) {
    }
 
   advertisement = {
+    createdby: '',
+    ad_type:'',
     country: '',
-    paymentMethod: '',
+    payment_methods: [],
     currency: '',
     margin: '',
-    limitFrom: '',
-    limitTo: '',
-    restrictedAmount: '',
-    adCoin : '',
+    limit_from: '',
+    limit_to: '',
+    restricted_amounts: [],
+    ad_coin : '',
+    ad_coin_amount : '',
     terms: '',
-    phoneNumber: '',
-    minimumVolume: '',
-    maxFeedCount: '',
-    buyLimit: ''
+    ad_details:{
+      minimum_volume: '',
+      minimum_reputation_score:'',
+      new_buyer_limit: '',
+      track_liquidity:true
+    },
+    security_details:{
+      identified_people_only:true,
+      identify_user_before_continuing_trade:true,
+      real_name_required:true,
+      sms_verification_required:true,
+      trusted_people_only:true
+    }
+    
   };
 
 
@@ -32,7 +46,11 @@ export class PostTradeComponent implements OnInit {
 
   onSubmit(){
     console.log(this.advertisement);
+    this.broadcast.broadcastCustomJson('swapsteem',["advertisement",this.advertisement])
   }
 
-  country = ['','1','2','3','4'];
+  country = ['','India','USA','South Korea','Indonesia','Nigeria'];
+  ad_type = ['buy','sell'];
+  ad_coin = ['Steem','SBD'];
+  payment_methods = ['Bank Transfer','Wallet Transfer', 'PayPal'];
 }
