@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { buy } from '../app/module/buy';
+import { Advertisement } from '../app/module/advertisement';
 
 @Injectable({
   providedIn: 'root'
@@ -8,9 +8,9 @@ export class PurchaseService {
 
   constructor() { }
 
-  selectedTrade : buy = null;
+  selectedTrade : Advertisement = null;
 
-  selectTradeEvent(trade: buy){
+  selectTradeEvent(trade: Advertisement){
     this.selectedTrade = trade;
   }
 

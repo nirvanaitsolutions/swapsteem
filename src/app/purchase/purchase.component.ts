@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {buy} from '../module/buy';
+import {Advertisement} from '../module/advertisement';
 import {PurchaseService} from '../../service/purchase.service';
 
 @Component({
@@ -10,7 +10,7 @@ import {PurchaseService} from '../../service/purchase.service';
 export class PurchaseComponent implements OnInit {
 
 
-  selectedTrade : buy;
+  selectedTrade :Advertisement;
   
   constructor(private purchaseServ : PurchaseService) { }
 

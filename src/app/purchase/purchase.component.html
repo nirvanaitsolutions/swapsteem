@@ -10,23 +10,23 @@
                 <table class="table">
                     <tr>
                         <th >Price :</th>
-                        <td>122345</td>
+                        <td>{{selectedTrade.ad_coin_amount}}</td>
                     </tr>
                     <tr>
                         <th>Payment Methods :</th>
-                        <td>{{selectedTrade.Paymentmethod}}</td>
+                        <td>{{selectedTrade.payment_methods}}</td>
                     </tr>
                     <tr>
                         <th>User :</th>
-                        <td>{{selectedTrade.seller}}</td>
+                        <td>{{selectedTrade.createdby}}</td>
                     </tr>
                     <tr>
                         <th>Trade limits :</th>
-                        <td>{{selectedTrade.limit}}</td>
+                        <td>{{selectedTrade.limit_from}} - {{selectedTrade.limit_to}}</td>
                     </tr>
                     <tr>
                         <th>Locations :</th>
-                        <td>India</td>
+                        <td>{{selectedTrade.country}}</td>
                     </tr>
                     <tr>
                         <th>Payment window :</th>
@@ -40,8 +40,9 @@
         </div>
         <div class="col inner-box-right">
             <div>
-                Terms
+                {{selectedTrade.terms}}
             </div>
+            <hr>
             <div>
                 Timimngs
             </div>
