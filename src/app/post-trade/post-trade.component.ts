@@ -44,8 +44,8 @@ export class PostTradeComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSubmit(){
-    console.log(this.advertisement);
+  onSubmit(form){
+    console.log(form);
     this.broadcast.broadcastCustomJson('swapsteem','advertisement',this.advertisement)
     .subscribe(res => console.log(res));
   }

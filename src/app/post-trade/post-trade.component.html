@@ -1,5 +1,5 @@
 <div class="box container">
-  <form >
+<form #tradeForm ="ngForm" (ngSubmit)="onSubmit(tradeForm.value)" ngNativeValidate>
     <div class="form-group col-md-4">
       <label for="Country">Ad Type</label>
       <select class="form-control" id="ad_type"
@@ -126,8 +126,8 @@
                 [(ngModel)] = "advertisement.ad_details.new_buyer_limit">
     </div>
     
-<button type="submit" class="col-sm-5 col-md-3 btn btn-success buttonLocation form-control ml-3 mt-3"
-                      (click) = "onSubmit()">Publish Advertisement</button>
+    <button type="submit" class="col-sm-5 col-md-3 btn btn-success buttonLocation form-control ml-3 mt-3">
+                          Publish Advertisement</button>
   </form>
   <div style="margin-bottom: 20px;"></div>
 </div>
