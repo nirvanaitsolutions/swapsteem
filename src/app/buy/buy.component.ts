@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 //import {take, tap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {PurchaseService} from '../../service/purchase.service';
-import { Router } from '../../../node_modules/@angular/router';
+import { Router } from '@angular/router';
 import {Advertisement} from '../module/advertisement';
 
 @Component({
@@ -23,8 +23,6 @@ export class BuyComponent implements OnInit {
   ngOnInit() {
     this.buyDetails =  this.http.get<Advertisement>('http://swapsteem-api.herokuapp.com/advertisements');
     //this.buyDetails =  this.http.get<Advertisement>('../../assets/sample-buy-online.json');
-
-    console.log("Advertisement"+ this.buyDetails);
   }
 
   buyTrade(trade: Advertisement){
