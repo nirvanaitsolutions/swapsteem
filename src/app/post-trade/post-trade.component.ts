@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SteemconnectBroadcastService } from '../steemconnect/services/steemconnect-broadcast.service';
-
+import {Advertisement} from '../module/advertisement';
 @Component({
   selector: 'app-post-trade',
   templateUrl: './post-trade.component.html',
@@ -11,7 +11,7 @@ export class PostTradeComponent implements OnInit {
   constructor(public broadcast: SteemconnectBroadcastService) {
    }
 
-  advertisement = {
+  advertisement : Advertisement = {
     createdby: '',
     ad_type:'',
     country: '',
