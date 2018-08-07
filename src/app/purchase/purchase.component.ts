@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Advertisement} from '../module/advertisement';
 import {PurchaseService} from '../../service/purchase.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-purchase',
@@ -16,9 +17,13 @@ export class PurchaseComponent implements OnInit {
     fiat: ''
   };
   
-  constructor(private purchaseServ : PurchaseService) { }
+  constructor(private purchaseServ : PurchaseService
+              private router : Router) { }
 
   ngOnInit() {
+    if(this.purchaseServ.getSelectedTrade() == null){
+      this.router.navigate(['home']);
+    }
     this.selectedTrade = this.purchaseServ.getSelectedTrade();
   }
 
