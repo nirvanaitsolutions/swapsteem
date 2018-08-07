@@ -13,6 +13,6 @@ export class SellComponent implements OnInit {
   
   sellDetails : any = [];
   ngOnInit() {
-       this.sellDetails = this.http.get('../../assets/sample-buy-online.json');
+       this.sellDetails = this.http.get('http://swapsteem-api.herokuapp.com/advertisements');
   }
 }

@@ -12,6 +12,7 @@ export class PostTradeComponent implements OnInit {
    }
 
   advertisement : Advertisement = {
+    _id: "",
     createdby: '',
     ad_type:'',
     country: '',
@@ -24,10 +25,13 @@ export class PostTradeComponent implements OnInit {
     ad_coin : '',
     ad_coin_amount : '',
     terms: '',
+    __v:0,
     ad_details:{
-      minimum_volume: '',
+      minimum_volume_sbd: '',
+      minimum_volume_steem: '',
       minimum_reputation_score:'',
-      new_buyer_limit: '',
+      new_buyer_limit_sbd: '',
+      new_buyer_limit_steem: '',
       track_liquidity:true
     },
     security_details:{
