@@ -36,11 +36,11 @@
         <th></th>
       </tr>
       <tr *ngFor = "let sellSteem of sellDetails | async">
-        <td>{{sellSteem.seller}}</td>
-        <td>{{sellSteem.Paymentmethod}}</td>
-        <td>{{sellSteem.Paymentmethod}}</td>
-        <td>{{sellSteem.PricePerSteem}}</td>
-        <td>{{sellSteem.limit}}</td>
+        <td>{{sellSteem.createdby}}</td>
+        <td>BANK</td>
+        <td>{{sellSteem.ad_coin}}</td>
+        <td>{{sellSteem.ad_coin_amount}}</td>
+        <td>{{sellSteem.limit_from}} - {{sellSteem.limit_to}}</td>
     <td><button type="button" class="btn btn-danger btn-sm badge badge-pill">SELL</button></td>
       </tr>
     </table>
