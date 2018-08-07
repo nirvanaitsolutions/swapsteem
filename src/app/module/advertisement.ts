@@ -1,4 +1,5 @@
 export interface Advertisement {
+    _id : string  
     createdby: string,
     ad_type: string,
     country: string,
@@ -11,10 +12,13 @@ export interface Advertisement {
     ad_coin : string,
     ad_coin_amount : string,
     terms: string,
+    __v : Number,
     ad_details:{
-      minimum_volume: string,
+      minimum_volume_steem: string,
+      minimum_volume_sbd: string,
       minimum_reputation_score: string,
-      new_buyer_limit: string,
+      new_buyer_limit_steem: string,
+      new_buyer_limit_sbd: string,
       track_liquidity: Boolean
     },
     security_details:{
