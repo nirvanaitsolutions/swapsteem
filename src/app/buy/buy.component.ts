@@ -2,9 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 //import {take, tap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
-import {buy} from '../module/buy';
 import {PurchaseService} from '../../service/purchase.service';
 import { Router } from '../../../node_modules/@angular/router';
+import {Advertisement} from '../module/advertisement';
 
 @Component({
   selector: 'app-buy',
@@ -18,17 +18,18 @@ export class BuyComponent implements OnInit {
                private purchaseSer : PurchaseService,
                private router : Router){}
   
-  buyDetails : Observable<buy> ;
+  buyDetails : Observable<Advertisement> ;
   
   ngOnInit() {
-    this.buyDetails =  this.http.get<buy>('../../assets/sample-buy-online.json');
+    this.buyDetails =  this.http.get<Advertisement>('http://swapsteem-api.herokuapp.com/advertisements');
+    //this.buyDetails =  this.http.get<Advertisement>('../../assets/sample-buy-online.json');
+
+    console.log("Advertisement"+ this.buyDetails);
   }
 
-  buyTrade(trade: buy){
+  buyTrade(trade: Advertisement){
     this.purchaseSer.selectTradeEvent(trade);
     console.log(trade);
     this.router.navigate(['purchase']);
   }
-
-
 }
