@@ -11,6 +11,10 @@ export class PurchaseComponent implements OnInit {
 
 
   selectedTrade :Advertisement;
+  create_order =  {
+    coin: '',
+    fiat: ''
+  };
   
   constructor(private purchaseServ : PurchaseService) { }
 
@@ -18,4 +22,7 @@ export class PurchaseComponent implements OnInit {
     this.selectedTrade = this.purchaseServ.getSelectedTrade();
   }
 
+  createOrderEvent(form){
+    console.log(form);
+  }
 }
