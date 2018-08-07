@@ -61,6 +61,7 @@ export class SteemconnectBroadcastService {
 
   public broadcastCustomJson(
     id: string,
+    jsonType: string,
     customJson: Object
   ): Observable<BroadcastResult> {
     let username: string;
@@ -77,7 +78,7 @@ export class SteemconnectBroadcastService {
           required_auths: [],
           required_posting_auths: [username],
           id,
-          json: JSON.stringify(customJson)
+          json: JSON.stringify([jsonType,JSON.stringify(customJson)])
         }
       ]
     ]);

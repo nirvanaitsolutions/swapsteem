@@ -46,7 +46,8 @@ export class PostTradeComponent implements OnInit {
 
   onSubmit(){
     console.log(this.advertisement);
-    this.broadcast.broadcastCustomJson('swapsteem',["advertisement",this.advertisement])
+    this.broadcast.broadcastCustomJson('swapsteem','advertisement',this.advertisement)
+    .subscribe(res => console.log(res));
   }
 
   country = ['','India','USA','South Korea','Indonesia','Nigeria'];
