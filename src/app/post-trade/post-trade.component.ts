@@ -52,6 +52,6 @@ export class PostTradeComponent implements OnInit {
 
   country = ['','India','USA','South Korea','Indonesia','Nigeria'];
   ad_type = ['buy','sell'];
-  ad_coin = ['Steem','SBD'];
+  ad_coin = ['STEEM','SBD'];
   payment_methods = ['Bank Transfer','Wallet Transfer', 'PayPal'];
 }
