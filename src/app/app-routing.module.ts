@@ -13,6 +13,7 @@ import {BuyPageComponent} from './buy-page/buy-page.component'
 import {SellPageComponent} from './sell-page/sell-page.component';
 import {PurchaseComponent} from './purchase/purchase.component';
 import {RedirectComponent} from './redirect/redirect.component';
+import {ChatPageComponent} from './chat-page/chat-page.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -25,6 +26,7 @@ const appRoutes: Routes = [
   { path: 'help',      component: HelpComponent },
   { path: 'dashboard',      component: DashboardComponent },
   { path: 'purchase', component: PurchaseComponent},
+  {path: 'chat' , component: ChatPageComponent},
   {
     path: 'steemconnect/redirect',
     canActivate: [SteemconnectRedirectGuard],
