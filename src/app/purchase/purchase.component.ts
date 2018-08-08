@@ -55,5 +55,6 @@ export class PurchaseComponent implements OnInit {
     console.log(this.order)
     this.broadcast.broadcastCustomJson('swapsteem','order',this.order)
     .subscribe(res => this.router.navigate(['profile']));
+    
   }
 }
