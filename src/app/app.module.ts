@@ -32,6 +32,7 @@ import { BuySteemComponent } from './buy-steem/buy-steem.component';
 import { BuySbdComponent } from './buy-sbd/buy-sbd.component';
 import { SellSbdComponent } from './sell-sbd/sell-sbd.component';
 import { SellSteemComponent } from './sell-steem/sell-steem.component';
+import { ChatPageComponent } from './chat-page/chat-page.component';
 
 const config: SocketIoConfig = { url: 'http://swapsteem-api.herokuapp.com', options: {} };
 
@@ -58,7 +59,8 @@ const config: SocketIoConfig = { url: 'http://swapsteem-api.herokuapp.com', opti
     BuySteemComponent,
     BuySbdComponent,
     SellSbdComponent,
-    SellSteemComponent
+    SellSteemComponent,
+    ChatPageComponent,
   ],
   imports: [
     BrowserModule,
