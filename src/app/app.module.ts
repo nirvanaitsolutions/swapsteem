@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { SteemconnectModule } from './steemconnect/steemconnect.module';
 import { AppRoutingModule } from './app-routing.module';
 import { CookieModule } from 'ngx-cookie';
@@ -27,6 +28,12 @@ import { BuyPageComponent } from './buy-page/buy-page.component';
 import { SellPageComponent } from './sell-page/sell-page.component';
 import {FormsModule} from '@angular/forms';
 import { PurchaseComponent } from './purchase/purchase.component';
+import { BuySteemComponent } from './buy-steem/buy-steem.component';
+import { BuySbdComponent } from './buy-sbd/buy-sbd.component';
+import { SellSbdComponent } from './sell-sbd/sell-sbd.component';
+import { SellSteemComponent } from './sell-steem/sell-steem.component';
+
+const config: SocketIoConfig = { url: 'http://swapsteem-api.herokuapp.com', options: {} };
 
 @NgModule({
   declarations: [
@@ -47,7 +54,11 @@ import { PurchaseComponent } from './purchase/purchase.component';
     SearchBoxComponent,
     BuyPageComponent,
     SellPageComponent,
-    PurchaseComponent
+    PurchaseComponent,
+    BuySteemComponent,
+    BuySbdComponent,
+    SellSbdComponent,
+    SellSteemComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +79,8 @@ import { PurchaseComponent } from './purchase/purchase.component';
     HttpClientModule,
     SteemconnectModule.forRoot(environment.steemconnectConfig),
     CookieModule.forRoot(),
-    FormsModule
+    FormsModule,
+    SocketIoModule.forRoot(config)
   ],
   providers: [],
   bootstrap: [AppComponent]

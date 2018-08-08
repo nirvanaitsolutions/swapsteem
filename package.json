@@ -24,7 +24,9 @@
     "@angular/router": "^6.0.3",
     "core-js": "^2.5.4",
     "ngx-cookie": "^4.0.2",
+    "ngx-socket-io": "^1.1.1",
     "rxjs": "^6.0.0",
+    "rxjs-compat": "^6.2.2",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {

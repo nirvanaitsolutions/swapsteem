@@ -54,6 +54,6 @@ export class PurchaseComponent implements OnInit {
     this.order.currency=this.selectedTrade.currency;
     console.log(this.order)
     this.broadcast.broadcastCustomJson('swapsteem','order',this.order)
-    .subscribe(res => console.log(res));
+    .subscribe(res => this.router.navigate(['profile']));
   }
 }
