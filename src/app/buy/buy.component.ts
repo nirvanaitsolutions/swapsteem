@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {PurchaseService} from '../../service/purchase.service';
 import { Router } from '@angular/router';
-import {Advertisement} from '../module/advertisement';
+import {AdvertisementResponse} from '../module/advertisement';
 
 @Component({
   selector: 'app-buy',
@@ -18,14 +18,14 @@ export class BuyComponent implements OnInit {
                private purchaseSer : PurchaseService,
                private router : Router){}
   
-  buyDetails : Observable<Advertisement> ;
+  buyDetails : Observable<AdvertisementResponse> ;
   
   ngOnInit() {
-    this.buyDetails =  this.http.get<Advertisement>('http://swapsteem-api.herokuapp.com/advertisements');
+    this.buyDetails =  this.http.get<AdvertisementResponse>('http://swapsteem-api.herokuapp.com/advertisements');
     //this.buyDetails =  this.http.get<Advertisement>('../../assets/sample-buy-online.json');
   }
 
-  buyTrade(trade: Advertisement){
+  buyTrade(trade: AdvertisementResponse){
     this.purchaseSer.selectTradeEvent(trade);
     console.log(trade);
     this.router.navigate(['purchase']);

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Advertisement} from '../module/advertisement';
+import {AdvertisementResponse} from '../module/advertisement';
+import {OrderRequest} from '../module/order';
 import { SteemconnectBroadcastService } from '../steemconnect/services/steemconnect-broadcast.service';
 import {PurchaseService} from '../../service/purchase.service';
 import { Router } from '@angular/router';
@@ -10,26 +11,24 @@ import { Router } from '@angular/router';
   styleUrls: ['./purchase.component.css']
 })
 export class PurchaseComponent implements OnInit {
+  constructor(private purchaseServ : PurchaseService,
+    private router : Router,public broadcast: SteemconnectBroadcastService) { }
 
-
-  selectedTrade :Advertisement;
-  order =  {
+  selectedTrade :AdvertisementResponse;
+  order: OrderRequest =  {
     ad_id:'',
     createdby:'',
     createdfor:'',
     order_type:'',
-    order_coin_amount:'',
-    order_fiat_amount:'',
+    order_coin_amount:0,
+    order_fiat_amount:0,
     order_coin:'',
-    order_rate:'',
+    order_rate:0,
     order_payment_method: [],
     agree_terms: true,
     country:'',
     currency:''
   };
-  
-  constructor(private purchaseServ : PurchaseService,
-              private router : Router,public broadcast: SteemconnectBroadcastService) { }
 
   ngOnInit() {
     if(this.purchaseServ.getSelectedTrade() == null){
@@ -37,6 +36,12 @@ export class PurchaseComponent implements OnInit {
     }
     this.selectedTrade = this.purchaseServ.getSelectedTrade();
     console.log("selected trade"+this.selectedTrade);
+  }
+
+  createOrderEvent(form){
+    console.log(form);
+  }
+  onSubmit(form){
     this.order.ad_id=this.selectedTrade._id;
     this.order.createdfor=this.selectedTrade.createdby;
     //todo - reverse ad type
@@ -48,15 +53,6 @@ export class PurchaseComponent implements OnInit {
     this.order.country=this.selectedTrade.country;
     this.order.currency=this.selectedTrade.currency;
     console.log(this.order)
-  }
-
-  createOrderEvent(form){
-    console.log(form);
-  }
-  onSubmit(form){
-    console.log(form);
-    
-
     this.broadcast.broadcastCustomJson('swapsteem','order',this.order)
     .subscribe(res => console.log(res));
   }

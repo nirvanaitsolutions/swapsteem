@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SteemconnectBroadcastService } from '../steemconnect/services/steemconnect-broadcast.service';
-import {Advertisement} from '../module/advertisement';
+import {AdvertisementRequest} from '../module/advertisement';
 @Component({
   selector: 'app-post-trade',
   templateUrl: './post-trade.component.html',
@@ -11,21 +11,19 @@ export class PostTradeComponent implements OnInit {
   constructor(public broadcast: SteemconnectBroadcastService) {
    }
 
-  advertisement : Advertisement = {
-    _id: "",
+  advertisement : AdvertisementRequest = {
     createdby: '',
     ad_type:'',
     country: '',
-    payment_methods: [],
+    payment_methods: [''],
     currency: '',
-    margin: '',
-    limit_from: '',
-    limit_to: '',
+    margin: 0,
+    limit_from: 0,
+    limit_to: 0,
     restricted_amounts: [],
     ad_coin : '',
-    ad_coin_amount : '',
+    ad_coin_amount : 0,
     terms: '',
-    __v:0,
     ad_details:{
       minimum_volume_sbd: '',
       minimum_volume_steem: '',

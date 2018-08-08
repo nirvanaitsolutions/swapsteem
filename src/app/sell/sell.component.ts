@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {PurchaseService} from '../../service/purchase.service';
 import { Router } from '@angular/router';
-import { Advertisement } from '../module/advertisement';
+import { AdvertisementResponse } from '../module/advertisement';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -17,13 +17,13 @@ export class SellComponent implements OnInit {
                private purchaseSer : PurchaseService,
                private router : Router){}
   
-  sellDetails : Observable<Advertisement> ;
+  sellDetails : Observable<AdvertisementResponse> ;
   
   ngOnInit() {
-       this.sellDetails = this.http.get<Advertisement>('http://swapsteem-api.herokuapp.com/advertisements');
+       this.sellDetails = this.http.get<AdvertisementResponse>('http://swapsteem-api.herokuapp.com/advertisements');
   }
 
-  sellTrade(trade: Advertisement){
+  sellTrade(trade: AdvertisementResponse){
     this.purchaseSer.selectTradeEvent(trade);
     this.router.navigate(['purchase']);
   }
