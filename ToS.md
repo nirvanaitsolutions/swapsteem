@@ -1,6 +1,7 @@
 # Terms of Service
 
 <hr>
+
 ## Welcome to SwapSteem
 
 SwapSteem is a peer-to-peer platform which the service is dedicated to facilitate the conversion of STEEM or SBD to different fiat currencies. The platform service aims to cater the strong need for peer-to-peer exchange elevated by the escalating growth of user base on STEEM  blockchain adoption, and ease the process by providing with secure escrow transactions in moderation of various influential STEEM escrow agents for their respective country, or currency. 
