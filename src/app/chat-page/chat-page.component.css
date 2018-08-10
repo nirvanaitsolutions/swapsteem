@@ -16,6 +16,8 @@
 
 .message-area{
     height: 250px;
+    overflow: auto;
+    position: relative;
 }
 
 .new-message{

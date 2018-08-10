@@ -8,11 +8,13 @@
     <div class="inner-box col">
       <h6>CHAT</h6>
       <hr>
-      <div class="message-area"></div>
+      <div class="message-area">
+          <p *ngFor="let message of messages | async" class="btn btn-info">{{message.message_text}}</p>
+      </div>
       <hr>
       <div class="write-message">
         <input type="text" name= "message" [(ngModel)]="newMessage" class="new-message">
-        <button type="submit" class="btn btn-success mt-1 col-lg-2 offset-lg-10">SEND</button>
+        <button type="submit" class="btn btn-success mt-1 col-lg-2 offset-lg-10" (click)="sendMessage()">SEND</button>
       </div>
     </div>
     <div class="inner-box col">

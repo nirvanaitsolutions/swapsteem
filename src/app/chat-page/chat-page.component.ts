@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {ChatService} from '../../service/chat.service';
+import {map, tap} from 'rxjs/operators';
+import { Observable } from '../../../node_modules/rxjs';
 
 @Component({
   selector: 'app-chat-page',
@@ -7,9 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _chatService: ChatService) { }
 
+  messages;
+  newMessage;
+  
   ngOnInit() {
+   this.messages =  this._chatService.getMessages();
   }
+
+  sendMessage(){
+    console.log(this.newMessage);
+    
+    this.newMessage = "";
+  }
+
 
 }
