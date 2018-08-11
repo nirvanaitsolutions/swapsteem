@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AdvertisementResponse} from '../module/advertisement';
 import {OrderRequest} from '../module/order';
 import { SteemconnectBroadcastService } from '../steemconnect/services/steemconnect-broadcast.service';
-import {PurchaseService} from '../../service/purchase.service';
+import {APIService} from '../../service/api.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./purchase.component.css']
 })
 export class PurchaseComponent implements OnInit {
-  constructor(private purchaseServ : PurchaseService,
+  constructor(private purchaseServ : APIService,
     private router : Router,public broadcast: SteemconnectBroadcastService) { }
 
   selectedTrade :AdvertisementResponse;

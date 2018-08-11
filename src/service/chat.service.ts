@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient,HttpHeaders,} from '@angular/common/http';
-import {SteemconnectAuthService} from './../app/steemconnect/services/steemconnect-auth.service'
+import {SteemconnectAuthService} from '../app/steemconnect/services/steemconnect-auth.service'
 
 const httpOptions = {
   headers: new HttpHeaders({

@@ -22,7 +22,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { HelpComponent } from './help/help.component';
 import { RedirectComponent } from './redirect/redirect.component';
-import { environment } from './../environments/environment';
+import { environment } from '../environments/environment';
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { BuyPageComponent } from './buy-page/buy-page.component';
 import { SellPageComponent } from './sell-page/sell-page.component';

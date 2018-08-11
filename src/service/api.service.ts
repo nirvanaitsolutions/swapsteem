@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient,HttpHeaders,} from '@angular/common/http';
 import { AdvertisementResponse } from '../app/module/advertisement';
-import {SteemconnectAuthService} from './../app/steemconnect/services/steemconnect-auth.service'
+import {SteemconnectAuthService} from '../app/steemconnect/services/steemconnect-auth.service'
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -17,7 +17,7 @@ export interface OAuth2Token {
 @Injectable({
   providedIn: 'root'
 })
-export class PurchaseService {
+export class APIService {
 
   constructor(private _http: HttpClient,private auth :SteemconnectAuthService, ) {
     httpOptions.headers = httpOptions.headers.set("Authorization",this.token.access_token)
@@ -42,6 +42,11 @@ export class PurchaseService {
   getBuyAds(){
     //httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
     return this._http.get<AdvertisementResponse>("http://swapsteem-api.herokuapp.com/advertisements",httpOptions);
+  }
+
+  getAdsByUser(user){
+    //httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
+    return this._http.get<AdvertisementResponse>("http://swapsteem-api.herokuapp.com/advertisements/by_user/"+user,httpOptions);
   }
 
   getSellAds(){

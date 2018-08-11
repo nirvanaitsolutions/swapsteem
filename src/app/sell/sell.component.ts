@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {PurchaseService} from '../../service/purchase.service';
+import {APIService} from '../../service/api.service';
 import { Router } from '@angular/router';
 import { AdvertisementResponse } from '../module/advertisement';
 import { Observable } from 'rxjs';
@@ -14,7 +14,7 @@ export class SellComponent implements OnInit {
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   constructor(private http : HttpClient,
-               private purchaseSer : PurchaseService,
+               private purchaseSer : APIService,
                private router : Router){}
   
   sellDetails : Observable<AdvertisementResponse> ;

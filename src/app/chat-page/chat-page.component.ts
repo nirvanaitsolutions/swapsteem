@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ChatService} from '../../service/chat.service';
 import {map, tap} from 'rxjs/operators';
-import { Observable, Subject } from '../../../node_modules/rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-chat-page',
