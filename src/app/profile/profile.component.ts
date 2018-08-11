@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {SteemconnectAuthService} from '../steemconnect/services/steemconnect-auth.service';
-//import {take, tap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
+import {tap} from 'rxjs/operators';
 import {APIService} from '../../service/api.service';
 import { Router } from '@angular/router';
 import {AdvertisementResponse} from '../module/advertisement';
-//import {map,tap} from 'rxjs/operators'
 
 @Component({
   selector: 'app-profile',
@@ -14,16 +13,19 @@ import {AdvertisementResponse} from '../module/advertisement';
 })
 export class ProfileComponent implements OnInit {
   userData: any = [];
+  onOfAds =  0;
   constructor(private _auth: SteemconnectAuthService,
-    private purchaseSer : APIService,
-    private router : Router) { }
+              private purchaseSer : APIService,
+              private router : Router) { }
     openAds : Observable<AdvertisementResponse> ;
   
   ngOnInit() {
     this._auth.getUserData().subscribe(data => {
      this.userData = data;
-     this.openAds = this.purchaseSer.getAdsByUser("aneilpatel");
+     console.log(this.userData)
     });
+    this.openAds = this.purchaseSer.getAdsByUser("aneilpatel").pipe(tap(data => this.onOfAds +1));
+    //this.openAds.subscribe(data => console.log(data))
   }
 
 }
