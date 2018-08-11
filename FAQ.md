@@ -1,9 +1,9 @@
 ## SWAPSTEEM – FREQUENTLY ASKED QUESTIONS
-=== 
+---
 - #### What is Swapsteem?
 Swapsteem is a peer-to-peer exchange of STEEM/SBD between users (called traders) in the steem blockchain. We’re a fast, secure and convenient marketplace where traders create advertisements with the price and the payment method they want to offer. You can choose the user you want to trade (buy and/or sell) your STEEM/SBD with. You can also search for the amount, currency, country, and payment method of your preference. 
 - #### How am I protected from being scammed?
-Once you choose to make a trade, an escrow is initiated. Escrow places the seller’s money under our (@swapsteem) care in order to protect both buyer and seller in a transaction. When both parties verify the transaction has been completed per terms set, the money is released. If at any point a dispute arises between the parties in the transaction, we will reimburse the affected person. The outcome of the dispute resolution process will decide what happens to the money in escrow. Please be sure you have received your money before you release them. 
+Once you choose to make a trade, an escrow is initiated. Escrow places the seller’s money under our (@swapsteem) care in order to protect both buyer and seller in a transaction. When both parties verify the transaction has been completed per terms set, the money is released. If at any point a dispute arises between the parties in the transaction, we will reimburse the affected person. The outcome of the dispute resolution process will decide what happens to the money in escrow. **Please be sure you have received your money before you release them. 
 - #### Who manages my transactions?
 All transactions are managed by our escrow agents. Also, the escrow agents pay a certain deposit to us in order to become our trusted agent. We ‘Power up’ with these deposits and also refund the affected party, in any fraud cases. Also, should in case our agent turns out to favor any of the party, we immediately ban him from the role. 
 - #### How long will my transaction take?
@@ -17,7 +17,7 @@ Once an order is created, rate change is irreversible. For creating an ad, we ta
 - #### What is the transaction fee?
 @swapsteem charges a minimum fee of 1SBD. Fees may vary from different agents as they may choose their own fee.
 - #### How do I cancel my transaction?
-Orders can be cancelled any time before an escrow is initiated. Users will be provided with Cancel Order button until the transaction status is escrow transferred. If an escrow has been initiated, the order can be automatically cancelled once it is not yet approved by the receiver and our agent.
+Orders can be cancelled any time before an escrow is initiated. Users will be provided with *Cancel Order* button until the transaction status is escrow transferred. If an escrow has been initiated, the order can be automatically cancelled once it is not yet approved by the receiver and our agent.
 - #### Why is my transaction still waiting for payment if I've already paid?
 You need to notify the seller after making the payment by uploading a proof of your payment and clicking the *Mark Payment Done* button. 
 - #### What will happen if I close the browser tab?
