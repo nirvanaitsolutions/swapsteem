@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {SteemconnectAuthService} from '../steemconnect/services/steemconnect-auth.service';
+//import {map,tap} from 'rxjs/operators'
 
 @Component({
   selector: 'app-profile',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+  userData: any = [];
+  constructor(private _auth: SteemconnectAuthService) { }
 
-  constructor() { }
-
+  
   ngOnInit() {
+    this._auth.getUserData().subscribe(data => {
+     this.userData = data;
+    });
   }
 
 }
