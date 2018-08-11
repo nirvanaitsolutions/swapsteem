@@ -20,7 +20,8 @@ export class SellComponent implements OnInit {
   sellDetails : Observable<AdvertisementResponse> ;
   
   ngOnInit() {
-       this.sellDetails = this.http.get<AdvertisementResponse>('http://swapsteem-api.herokuapp.com/advertisements');
+    this.sellDetails = this.purchaseSer.getSellAds();
+       //this.sellDetails = this.http.get<AdvertisementResponse>('http://swapsteem-api.herokuapp.com/advertisements');
   }
 
   sellTrade(trade: AdvertisementResponse){

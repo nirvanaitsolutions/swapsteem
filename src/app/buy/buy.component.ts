@@ -21,7 +21,8 @@ export class BuyComponent implements OnInit {
   buyDetails : Observable<AdvertisementResponse> ;
   
   ngOnInit() {
-    this.buyDetails =  this.http.get<AdvertisementResponse>('http://swapsteem-api.herokuapp.com/advertisements');
+    this.buyDetails = this.purchaseSer.getBuyAds();
+    //this.buyDetails =  this.http.get<AdvertisementResponse>('http://swapsteem-api.herokuapp.com/advertisements');
     //this.buyDetails =  this.http.get<Advertisement>('../../assets/sample-buy-online.json');
   }
 
