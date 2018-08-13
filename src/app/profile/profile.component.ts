@@ -23,8 +23,9 @@ export class ProfileComponent implements OnInit {
     this._auth.getUserData().subscribe(data => {
      this.userData = data;
      console.log(this.userData);
+     this.openAds = this.apiSer.getAdsByUser(this.userData.name);
+     console.log(this.openAds);
     });
-    this.openAds = this.apiSer.getAdsByUser('aneilpatel');
     //this.openAds.subscribe(data => console.log(data))
   }
 
