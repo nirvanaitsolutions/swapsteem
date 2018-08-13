@@ -17,7 +17,7 @@ export class ProfileComponent implements OnInit {
   constructor(private _auth: SteemconnectAuthService,
               private apiSer : APIService,
               private router : Router) { }
-    openAds : Observable<AdvertisementResponse> ;
+    openAds : Observable<AdvertisementResponse[]> ;
   
   ngOnInit() {
     this._auth.getUserData().subscribe(data => {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,NgZone } from '@angular/core';
 import {AdvertisementResponse} from '../module/advertisement';
 import {OrderRequest} from '../module/order';
 import { SteemconnectBroadcastService } from '../steemconnect/services/steemconnect-broadcast.service';
@@ -12,7 +12,9 @@ import { Router } from '@angular/router';
 })
 export class PurchaseComponent implements OnInit {
   constructor(private purchaseServ : APIService,
-    private router : Router,public broadcast: SteemconnectBroadcastService) { }
+    private router : Router,
+    private zone : NgZone,
+    public broadcast: SteemconnectBroadcastService) { }
 
   selectedTrade :AdvertisementResponse;
   order: OrderRequest =  {
@@ -56,10 +58,10 @@ export class PurchaseComponent implements OnInit {
     console.log(this.order)
     // this.broadcast.broadcastCustomJson('swapsteem','order',this.order)
     // .subscribe(res => this.router.navigate(['profile']));
-    this.purchaseServ.createOrder(this.order).subscribe(res=>function(){
-      console.log(res);
-    });
+    this.purchaseServ.createOrder(this.order).subscribe(res=>this.zone.run(() => {
+      this.router.navigate(['wallet'])
+    }));
     // .subscribe(res => this.router.navigate(['profile']));
-    this.router.navigate(['profile']);
+    
   }
 }

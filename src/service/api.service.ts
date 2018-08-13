@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient,HttpHeaders, HttpParams} from '@angular/common/http';
-import { AdvertisementResponse } from '../app/module/advertisement';
+import { AdvertisementResponse, AdvertisementRequest } from '../app/module/advertisement';
 import {SteemconnectAuthService} from '../app/steemconnect/services/steemconnect-auth.service'
-import { OrderResponse } from '../app/module/order';
+import { OrderResponse, OrderRequest } from '../app/module/order';
+import { Observable } from 'rxjs';
 
 
 export interface OAuth2Token {
@@ -27,43 +28,43 @@ export class APIService {
     this.selectedTrade = trade;
   }
 
-  createOrder(order){
+  createOrder(order:OrderRequest):Observable<OrderRequest>{
    // httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
     console.log(JSON.stringify(order));
-    return this._http.post("http://swapsteem-api.herokuapp.com/orders",JSON.stringify(order));
+    return this._http.post<OrderRequest>("http://swapsteem-api.herokuapp.com/orders",JSON.stringify(order));
     
   }
 
-  createAd(ad){
+  createAd(ad:AdvertisementRequest):Observable<AdvertisementRequest>{
     // httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
      console.log(JSON.stringify(ad));
-     return this._http.post("http://swapsteem-api.herokuapp.com/advertisements",JSON.stringify(ad));
+     return this._http.post<AdvertisementRequest>("http://swapsteem-api.herokuapp.com/advertisements",JSON.stringify(ad));
      
    }
 
   getBuyAds(){
     //httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
-    return this._http.get<AdvertisementResponse>("http://swapsteem-api.herokuapp.com/advertisements/buy-sbd");
+    return this._http.get<AdvertisementResponse[]>("http://swapsteem-api.herokuapp.com/advertisements/buy-sbd");
   }
 
-  getAdsByUser(user){
+  getAdsByUser(user:string){
     //httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
-    return this._http.get<AdvertisementResponse>("http://swapsteem-api.herokuapp.com/advertisements");
+    return this._http.get<AdvertisementResponse[]>("http://swapsteem-api.herokuapp.com/advertisements");
   }
 
-  getOpenOrdersForUser(user){
+  getOpenOrdersForUser(user:string){
     //httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
-    return this._http.get<OrderResponse>("http://swapsteem-api.herokuapp.com/orders");
+    return this._http.get<OrderResponse[]>("http://swapsteem-api.herokuapp.com/orders");
   }
 
-  getClosedOrdersForUser(user){
+  getClosedOrdersForUser(user:string){
     //httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
-    return this._http.get<OrderResponse>("http://swapsteem-api.herokuapp.com/orders");
+    return this._http.get<OrderResponse[]>("http://swapsteem-api.herokuapp.com/orders");
   }
 
   getSellAds(){
     //httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
-    return this._http.get<AdvertisementResponse>("http://swapsteem-api.herokuapp.com/advertisements/sell-sbd");
+    return this._http.get<AdvertisementResponse[]>("http://swapsteem-api.herokuapp.com/advertisements/sell-sbd");
   }
 
   getSelectedTrade(){

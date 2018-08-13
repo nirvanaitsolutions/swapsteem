@@ -13,8 +13,8 @@ export class WalletComponent implements OnInit {
 
   constructor(private apiSer : APIService,
     private router : Router) { }
-  openOrders : Observable<OrderResponse> ;
-  closedOrders : Observable<OrderResponse>;
+  openOrders : Observable<OrderResponse[]> ;
+  closedOrders : Observable<OrderResponse[]>;
 
   ngOnInit() {
     this.openOrders = this.apiSer.getOpenOrdersForUser('aneilpatel');

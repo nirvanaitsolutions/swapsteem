@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { SteemconnectBroadcastService } from '../steemconnect/services/steemconnect-broadcast.service';
 import {AdvertisementRequest} from '../module/advertisement';
 import {APIService} from '../../service/api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-post-trade',
@@ -10,7 +11,7 @@ import {APIService} from '../../service/api.service';
 })
 export class PostTradeComponent implements OnInit {
 
-  constructor(public api: APIService) {
+  constructor(public api: APIService, private router:Router, private zone:NgZone) {
    }
 
   advertisement : AdvertisementRequest = {
@@ -51,7 +52,9 @@ export class PostTradeComponent implements OnInit {
     console.log(form);
     // this.broadcast.broadcastCustomJson('swapsteem','advertisement',this.advertisement)
     // .subscribe(res => console.log(res));
-    this.api.createAd(this.advertisement).subscribe(res=>console.log(res));
+    this.api.createAd(this.advertisement).subscribe(res=>this.zone.run(() => {
+      this.router.navigate(['profile'])
+    }));
   }
 
   country = ['','India','USA','South Korea','Indonesia','Nigeria'];
