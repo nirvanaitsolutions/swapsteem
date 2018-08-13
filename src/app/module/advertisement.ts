@@ -10,6 +10,7 @@ export interface AdvertisementRequest {
     restricted_amounts: string[],
     ad_coin : string,
     ad_coin_amount : number,
+    ad_status:string,
     terms: string,
     ad_details:{
       minimum_volume: Number,
@@ -35,6 +36,7 @@ export interface AdvertisementResponse {
   currency: string,
   margin: number,
   limit_from: number,
+  ad_status:string,
   limit_to: number,
   restricted_amounts: string[],
   ad_coin : string,

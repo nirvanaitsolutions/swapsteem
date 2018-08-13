@@ -24,6 +24,7 @@ export class PurchaseComponent implements OnInit {
     order_fiat_amount:0,
     order_coin:'',
     order_rate:0,
+    order_status:'created',
     order_payment_method: [],
     agree_terms: true,
     country:'',
@@ -55,8 +56,10 @@ export class PurchaseComponent implements OnInit {
     console.log(this.order)
     // this.broadcast.broadcastCustomJson('swapsteem','order',this.order)
     // .subscribe(res => this.router.navigate(['profile']));
-    this.purchaseServ.createOrder(this.order).subscribe(res=>console.log(res));
+    this.purchaseServ.createOrder(this.order).subscribe(res=>function(){
+      console.log(res);
+    });
     // .subscribe(res => this.router.navigate(['profile']));
-    
+    this.router.navigate(['profile']);
   }
 }

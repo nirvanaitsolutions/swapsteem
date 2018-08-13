@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient,HttpHeaders, HttpParams} from '@angular/common/http';
 import { AdvertisementResponse } from '../app/module/advertisement';
 import {SteemconnectAuthService} from '../app/steemconnect/services/steemconnect-auth.service'
+import { OrderResponse } from '../app/module/order';
 
 
 export interface OAuth2Token {
@@ -42,17 +43,27 @@ export class APIService {
 
   getBuyAds(){
     //httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
-    return this._http.get<AdvertisementResponse>("http://swapsteem-api.herokuapp.com/advertisements");
+    return this._http.get<AdvertisementResponse>("http://swapsteem-api.herokuapp.com/advertisements/buy-sbd");
   }
 
   getAdsByUser(user){
     //httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
-    return this._http.get<AdvertisementResponse>("http://swapsteem-api.herokuapp.com/advertisements/by_user/aneilpatel");
+    return this._http.get<AdvertisementResponse>("http://swapsteem-api.herokuapp.com/advertisements");
+  }
+
+  getOpenOrdersForUser(user){
+    //httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
+    return this._http.get<OrderResponse>("http://swapsteem-api.herokuapp.com/orders");
+  }
+
+  getClosedOrdersForUser(user){
+    //httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
+    return this._http.get<OrderResponse>("http://swapsteem-api.herokuapp.com/orders");
   }
 
   getSellAds(){
     //httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
-    return this._http.get<AdvertisementResponse>("http://swapsteem-api.herokuapp.com/advertisements");
+    return this._http.get<AdvertisementResponse>("http://swapsteem-api.herokuapp.com/advertisements/sell-sbd");
   }
 
   getSelectedTrade(){

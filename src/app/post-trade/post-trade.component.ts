@@ -24,6 +24,7 @@ export class PostTradeComponent implements OnInit {
     limit_to: 0,
     restricted_amounts: [],
     ad_coin : '',
+    ad_status : 'open',
     ad_coin_amount : 0,
     terms: '',
     ad_details:{
