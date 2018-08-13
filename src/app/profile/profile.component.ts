@@ -14,6 +14,9 @@ import {AdvertisementResponse} from '../module/advertisement';
 export class ProfileComponent implements OnInit {
   userData: any = [];
   noOfAds =  0;
+  balance_steem;
+  balance_sbd;
+  balance_sp;
   constructor(private _auth: SteemconnectAuthService,
               private apiSer : APIService,
               private router : Router) { }
@@ -25,6 +28,8 @@ export class ProfileComponent implements OnInit {
      console.log(this.userData);
      this.openAds = this.apiSer.getAdsByUser(this.userData.name);
      console.log(this.openAds);
+     this.balance_sbd = this.userData.account.sbd_balance.split(" ")[0];
+     this.balance_steem = this.userData.account.balance.split(" ")[0];
     });
     //this.openAds.subscribe(data => console.log(data))
   }

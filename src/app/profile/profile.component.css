@@ -4,6 +4,14 @@
     background-color: grey;
 }
 
+.balance{
+    background-color: white;
+    position: absolute;
+    height: 80px;
+    width: 250px;
+    margin-top: 3%;
+    margin-left: 72%;
+}
 
 .box{
     border: 1px;
@@ -24,4 +32,11 @@
     width: 450px;
     margin-top: 3.9%;
     margin-left: 8%;
+}
+
+.small-text{
+    font-size: 10px;
+}
+.small-heading{
+    font-size: 15px;
 }
