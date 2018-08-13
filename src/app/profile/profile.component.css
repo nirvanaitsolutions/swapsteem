@@ -35,8 +35,9 @@
 }
 
 .small-text{
-    font-size: 10px;
+    font-size: 9px;
 }
 .small-heading{
     font-size: 15px;
+    font-weight: bold;
 }
