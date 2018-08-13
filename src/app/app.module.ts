@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { SteemconnectModule } from './steemconnect/steemconnect.module';
 import { AppRoutingModule } from './app-routing.module';
 import { CookieModule } from 'ngx-cookie';
@@ -21,12 +22,20 @@ import { ProfileComponent } from './profile/profile.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { HelpComponent } from './help/help.component';
 import { RedirectComponent } from './redirect/redirect.component';
-import { environment } from './../environments/environment';
+import { environment } from '../environments/environment';
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { BuyPageComponent } from './buy-page/buy-page.component';
 import { SellPageComponent } from './sell-page/sell-page.component';
 import {FormsModule} from '@angular/forms';
 import { PurchaseComponent } from './purchase/purchase.component';
+import { BuySteemComponent } from './buy-steem/buy-steem.component';
+import { BuySbdComponent } from './buy-sbd/buy-sbd.component';
+import { SellSbdComponent } from './sell-sbd/sell-sbd.component';
+import { SellSteemComponent } from './sell-steem/sell-steem.component';
+import { ChatPageComponent } from './chat-page/chat-page.component';
+import { AuthInterceptor } from './../service/auth.intercepter';
+
+const config: SocketIoConfig = { url: 'http://swapsteem-api.herokuapp.com', options: {} };
 
 @NgModule({
   declarations: [
@@ -47,7 +56,12 @@ import { PurchaseComponent } from './purchase/purchase.component';
     SearchBoxComponent,
     BuyPageComponent,
     SellPageComponent,
-    PurchaseComponent
+    PurchaseComponent,
+    BuySteemComponent,
+    BuySbdComponent,
+    SellSbdComponent,
+    SellSteemComponent,
+    ChatPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,9 +82,10 @@ import { PurchaseComponent } from './purchase/purchase.component';
     HttpClientModule,
     SteemconnectModule.forRoot(environment.steemconnectConfig),
     CookieModule.forRoot(),
-    FormsModule
+    FormsModule,
+    SocketIoModule.forRoot(config)
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

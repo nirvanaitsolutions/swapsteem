@@ -1,3 +1,51 @@
-<p>
-  purchase works!
-</p>
+<div class="container box">
+    <div>
+        <h3>Buy SwapSteem using Imps Bank Transfer in INR.</h3>
+        <p>SwapSteem.com user {{selectedTrade.seller}} wishes to sell steem to you</p>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col">
+           <div class="inner-box">
+                <table class="table">
+                    <tr>
+                        <th >Price :</th>
+                        <td>{{selectedTrade.ad_coin_amount}}</td>
+                    </tr>
+                    <tr>
+                        <th>Payment Methods :</th>
+                        <td>{{selectedTrade.payment_methods}}</td>
+                    </tr>
+                    <tr>
+                        <th>User :</th>
+                        <td>{{selectedTrade.createdby}}</td>
+                    </tr>
+                    <tr>
+                        <th>Trade limits :</th>
+                        <td>{{selectedTrade.limit_from}} - {{selectedTrade.limit_to}}</td>
+                    </tr>
+                    <tr>
+                        <th>Locations :</th>
+                        <td>{{selectedTrade.country}}</td>
+                    </tr>
+                    <tr>
+                        <th>Payment window :</th>
+                        <td>1 hors 30 minutes</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="inner-box">
+                <form #orderForm = "ngForm" (ngSubmit)="onSubmit(orderForm.value)">
+                    <div class="btn btn-info form-row mr-2">Coin <span><input type="text" name="order_coin_amount" [(ngModel)]="order.order_coin_amount"></span></div>
+                    <div class="btn btn-info form-row">Fiat <span><input type="text" name="order_fiat_amount" [(ngModel)]="order.order_fiat_amount"></span></div>
+                    <div class="form-group mt-3"><button type="submit" class="btn btn-success">Create Order</button></div>
+                </form>
+            </div>
+        </div>
+        <div class="col inner-box-right">
+            <div>
+                {{selectedTrade.terms}}
+            </div>
+        </div>
+    </div>
+</div>

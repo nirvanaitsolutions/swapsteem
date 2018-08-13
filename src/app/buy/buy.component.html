@@ -36,12 +36,12 @@
         <th></th>
       </tr>
       <tr *ngFor = "let buySteem of buyDetails | async">
-        <td>{{buySteem.seller}}</td>
-        <td>{{buySteem.Paymentmethod}}</td>
-        <td>{{buySteem.Paymentmethod}}</td>
-        <td>{{buySteem.PricePerSteem}}</td>
-        <td>{{buySteem.limit}}</td>
-        <td><button type="button" class="btn btn-success btn-sm badge badge-pill">Buy</button></td>
+        <td>{{buySteem.createdby}}</td>
+        <td>BANK</td>
+        <td>{{buySteem.ad_coin}}</td>
+        <td>{{buySteem.ad_coin_amount}}</td>
+        <td>{{buySteem.limit_from}} - {{buySteem.limit_to}}</td>
+        <td><button type="button" class="btn btn-success btn-sm badge badge-pill" (click)="buyTrade(buySteem)">Buy</button></td>
       </tr>
     </table>
   </div>
