@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SteemconnectBroadcastService } from '../steemconnect/services/steemconnect-broadcast.service';
 import {AdvertisementRequest} from '../module/advertisement';
+import {APIService} from '../../service/api.service';
+
 @Component({
   selector: 'app-post-trade',
   templateUrl: './post-trade.component.html',
@@ -8,7 +10,7 @@ import {AdvertisementRequest} from '../module/advertisement';
 })
 export class PostTradeComponent implements OnInit {
 
-  constructor(public broadcast: SteemconnectBroadcastService) {
+  constructor(public api: APIService) {
    }
 
   advertisement : AdvertisementRequest = {
@@ -48,8 +50,9 @@ export class PostTradeComponent implements OnInit {
 
   onSubmit(form){
     console.log(form);
-    this.broadcast.broadcastCustomJson('swapsteem','advertisement',this.advertisement)
-    .subscribe(res => console.log(res));
+    // this.broadcast.broadcastCustomJson('swapsteem','advertisement',this.advertisement)
+    // .subscribe(res => console.log(res));
+    this.api.createAd(this.advertisement).subscribe(res=>console.log(res));
   }
 
   country = ['','India','USA','South Korea','Indonesia','Nigeria'];

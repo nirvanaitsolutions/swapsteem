@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { SteemconnectModule } from './steemconnect/steemconnect.module';
@@ -33,6 +33,7 @@ import { BuySbdComponent } from './buy-sbd/buy-sbd.component';
 import { SellSbdComponent } from './sell-sbd/sell-sbd.component';
 import { SellSteemComponent } from './sell-steem/sell-steem.component';
 import { ChatPageComponent } from './chat-page/chat-page.component';
+import { AuthInterceptor } from './../service/auth.intercepter';
 
 const config: SocketIoConfig = { url: 'http://swapsteem-api.herokuapp.com', options: {} };
 
@@ -84,7 +85,7 @@ const config: SocketIoConfig = { url: 'http://swapsteem-api.herokuapp.com', opti
     FormsModule,
     SocketIoModule.forRoot(config)
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

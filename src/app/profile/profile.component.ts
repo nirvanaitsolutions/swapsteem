@@ -24,7 +24,7 @@ export class ProfileComponent implements OnInit {
      this.userData = data;
      console.log(this.userData)
     });
-    this.openAds = this.purchaseSer.getAdsByUser("aneilpatel").pipe(tap(data => this.onOfAds +1));
+    this.openAds = this.purchaseSer.getAdsByUser("aneilpatel");
     //this.openAds.subscribe(data => console.log(data))
   }
 
