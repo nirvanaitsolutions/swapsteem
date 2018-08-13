@@ -50,17 +50,17 @@ export class APIService {
 
   getAdsByUser(user:string){
     //httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
-    return this._http.get<AdvertisementResponse[]>("http://swapsteem-api.herokuapp.com/advertisements");
+    return this._http.get<AdvertisementResponse[]>("http://swapsteem-api.herokuapp.com/advertisements/by_user/"+user);
   }
 
   getOpenOrdersForUser(user:string){
     //httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
-    return this._http.get<OrderResponse[]>("http://swapsteem-api.herokuapp.com/orders");
+    return this._http.get<OrderResponse[]>("http://swapsteem-api.herokuapp.com/orders/by_reciever/"+user);
   }
 
-  getClosedOrdersForUser(user:string){
+  getOpenOrdersByUser(user:string){
     //httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
-    return this._http.get<OrderResponse[]>("http://swapsteem-api.herokuapp.com/orders");
+    return this._http.get<OrderResponse[]>("http://swapsteem-api.herokuapp.com/orders/by_creator/"+user);
   }
 
   getSellAds(){
