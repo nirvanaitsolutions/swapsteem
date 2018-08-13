@@ -3,6 +3,7 @@ import { SteemconnectBroadcastService } from '../steemconnect/services/steemconn
 import {AdvertisementRequest} from '../module/advertisement';
 import {APIService} from '../../service/api.service';
 import { Router } from '@angular/router';
+import { SteemconnectAuthService } from '../steemconnect/services/steemconnect-auth.service';
 
 @Component({
   selector: 'app-post-trade',
@@ -11,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class PostTradeComponent implements OnInit {
 
-  constructor(public api: APIService, private router:Router, private zone:NgZone) {
+  constructor(public api: APIService, private router:Router, private zone:NgZone,private auth:SteemconnectAuthService) {
    }
 
   advertisement : AdvertisementRequest = {
@@ -44,14 +45,21 @@ export class PostTradeComponent implements OnInit {
     
   };
 
+  userData: any = [];
+
 
   ngOnInit() {
+    this.auth.getUserData().subscribe(data => {
+      this.userData = data;
+      console.log(this.userData);
+     });
   }
 
   onSubmit(form){
     console.log(form);
     // this.broadcast.broadcastCustomJson('swapsteem','advertisement',this.advertisement)
     // .subscribe(res => console.log(res));
+    this.advertisement.createdby=this.userData.name;
     this.api.createAd(this.advertisement).subscribe(res=>this.zone.run(() => {
       this.router.navigate(['profile'])
     }));

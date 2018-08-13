@@ -18,6 +18,7 @@ export interface OAuth2Token {
 export class APIService {
 
   constructor(private _http: HttpClient,private auth :SteemconnectAuthService, ) {  
+    
    }
 
   selectedTrade : AdvertisementResponse = null;
@@ -44,7 +45,7 @@ export class APIService {
 
   getBuyAds(){
     //httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
-    return this._http.get<AdvertisementResponse[]>("http://swapsteem-api.herokuapp.com/advertisements/buy-sbd");
+    return this._http.get<AdvertisementResponse[]>("http://swapsteem-api.herokuapp.com/advertisements/buy");
   }
 
   getAdsByUser(user:string){
@@ -64,7 +65,7 @@ export class APIService {
 
   getSellAds(){
     //httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
-    return this._http.get<AdvertisementResponse[]>("http://swapsteem-api.herokuapp.com/advertisements/sell-sbd");
+    return this._http.get<AdvertisementResponse[]>("http://swapsteem-api.herokuapp.com/advertisements/sell");
   }
 
   getSelectedTrade(){

@@ -4,6 +4,7 @@ import {OrderRequest} from '../module/order';
 import { SteemconnectBroadcastService } from '../steemconnect/services/steemconnect-broadcast.service';
 import {APIService} from '../../service/api.service';
 import { Router } from '@angular/router';
+import { SteemconnectAuthService } from '../steemconnect/services/steemconnect-auth.service';
 
 @Component({
   selector: 'app-purchase',
@@ -14,7 +15,7 @@ export class PurchaseComponent implements OnInit {
   constructor(private purchaseServ : APIService,
     private router : Router,
     private zone : NgZone,
-    public broadcast: SteemconnectBroadcastService) { }
+    public auth: SteemconnectAuthService) { }
 
   selectedTrade :AdvertisementResponse;
   order: OrderRequest =  {
@@ -33,12 +34,18 @@ export class PurchaseComponent implements OnInit {
     currency:''
   };
 
+  userData: any = [];
+
   ngOnInit() {
     if(this.purchaseServ.getSelectedTrade() == null){
       this.router.navigate(['home']);
     }
     this.selectedTrade = this.purchaseServ.getSelectedTrade();
     console.log("selected trade"+this.selectedTrade);
+    this.auth.getUserData().subscribe(data => {
+      this.userData = data;
+      console.log(this.userData);
+     });
   }
 
   createOrderEvent(form){
@@ -55,6 +62,7 @@ export class PurchaseComponent implements OnInit {
     this.order.order_payment_method=this.selectedTrade.payment_methods;
     this.order.country=this.selectedTrade.country;
     this.order.currency=this.selectedTrade.currency;
+    this.order.createdby=this.userData.name;
     console.log(this.order)
     // this.broadcast.broadcastCustomJson('swapsteem','order',this.order)
     // .subscribe(res => this.router.navigate(['profile']));
