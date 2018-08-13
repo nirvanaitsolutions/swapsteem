@@ -51,6 +51,7 @@ export class PostTradeComponent implements OnInit {
   ngOnInit() {
     this.auth.getUserData().subscribe(data => {
       this.userData = data;
+      this.advertisement.createdby=this.userData.name;
       console.log(this.userData);
      });
   }
@@ -59,7 +60,7 @@ export class PostTradeComponent implements OnInit {
     console.log(form);
     // this.broadcast.broadcastCustomJson('swapsteem','advertisement',this.advertisement)
     // .subscribe(res => console.log(res));
-    this.advertisement.createdby=this.userData.name;
+    //this.advertisement.createdby=this.userData.name;
     this.api.createAd(this.advertisement).subscribe(res=>this.zone.run(() => {
       this.router.navigate(['profile'])
     }));

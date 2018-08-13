@@ -44,6 +44,7 @@ export class PurchaseComponent implements OnInit {
     console.log("selected trade"+this.selectedTrade);
     this.auth.getUserData().subscribe(data => {
       this.userData = data;
+      this.order.createdby=this.userData.name;
       console.log(this.userData);
      });
   }
@@ -62,7 +63,7 @@ export class PurchaseComponent implements OnInit {
     this.order.order_payment_method=this.selectedTrade.payment_methods;
     this.order.country=this.selectedTrade.country;
     this.order.currency=this.selectedTrade.currency;
-    this.order.createdby=this.userData.name;
+    //this.order.createdby=this.userData.name;
     console.log(this.order)
     // this.broadcast.broadcastCustomJson('swapsteem','order',this.order)
     // .subscribe(res => this.router.navigate(['profile']));
