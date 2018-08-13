@@ -1,6 +1,14 @@
 <div>
   <div class="banner">
-    <div class="profile"></div>
+    <div class="profile row">
+      <div class="col-sm-3">
+      <img src="" alt="ProfileImg" height="15px" width="10px" class="rounded float-left">
+      </div>
+      <div class="sol-sm-9">
+        <h6 style="color: white;">{{userData.name}}</h6>
+        <p>Registered: {{userData.account.created | date}}</p>
+      </div>
+    </div>
   </div>
   <div class="container box">
     <div>
