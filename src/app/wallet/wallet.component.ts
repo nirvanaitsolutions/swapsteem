@@ -29,7 +29,7 @@ export class WalletComponent implements OnInit {
     this.userData = this._auth.getUserData().subscribe( data => {
       this.userData = data;
       this.openOrders = this.apiSer.getOpenOrdersForUser(this.userData.name);
-      //this.closedOrders = this.apiSer.getClosedOrdersForUser(this.userData.name);
+      this.closedOrders = this.apiSer.getOpenOrdersByUser(this.userData.name);
     });
 
     // this.userData = this._auth.getUserData().pipe(
