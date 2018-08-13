@@ -27,11 +27,9 @@ export class PostTradeComponent implements OnInit {
     ad_coin_amount : 0,
     terms: '',
     ad_details:{
-      minimum_volume_sbd: '',
-      minimum_volume_steem: '',
-      minimum_reputation_score:'',
-      new_buyer_limit_sbd: '',
-      new_buyer_limit_steem: '',
+      minimum_volume:0,
+      minimum_reputation_score:25,
+      new_buyer_limit: 0,
       track_liquidity:true
     },
     security_details:{

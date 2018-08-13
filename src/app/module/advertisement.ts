@@ -12,11 +12,9 @@ export interface AdvertisementRequest {
     ad_coin_amount : number,
     terms: string,
     ad_details:{
-      minimum_volume_steem: string,
-      minimum_volume_sbd: string,
-      minimum_reputation_score: string,
-      new_buyer_limit_steem: string,
-      new_buyer_limit_sbd: string,
+      minimum_volume: Number,
+      minimum_reputation_score: Number,
+      new_buyer_limit: Number,
       track_liquidity: Boolean
     },
     security_details:{
