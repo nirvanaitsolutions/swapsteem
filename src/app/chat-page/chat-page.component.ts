@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ChatService} from '../../service/chat.service';
-import {map, tap} from 'rxjs/operators';
-import { Observable, Subject } from 'rxjs';
+import {OrderService} from '../../service/order.service';
 
 @Component({
   selector: 'app-chat-page',
@@ -11,20 +10,24 @@ import { Observable, Subject } from 'rxjs';
 
 export class ChatPageComponent implements OnInit {
 
-  observer$;
-  constructor(private _chatService: ChatService) { 
+  
+  constructor(private _chatService: ChatService,
+              private _orderService: OrderService) { 
   }
 
   messages;
   newMessage;
+  selectedOrder;
   
   ngOnInit() {
-   this.messages =  this._chatService.getMessages();
+    this.selectedOrder = this._orderService.getSelectedOrder();
+    console.log(this.selectedOrder);
+    this.messages =  this._chatService.getMessages();
+
   }
 
   sendMessage(){
     console.log(this.newMessage);
-    
     this.newMessage = "";
   }
 }

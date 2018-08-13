@@ -5,6 +5,7 @@ import { APIService } from '../../service/api.service';
 import {tap} from 'rxjs/operators';
 import { Router } from '@angular/router';
 import {SteemconnectAuthService} from '../steemconnect/services/steemconnect-auth.service';
+import {OrderService} from '../../service/order.service';
 
 
 
@@ -20,7 +21,8 @@ export class WalletComponent implements OnInit {
 
   constructor( private _auth: SteemconnectAuthService,
               private apiSer : APIService,
-               private router : Router) { }
+              private _router : Router,
+              private _orderService : OrderService  ) { }
   openOrders : Observable<OrderResponse[]> ;
   closedOrders : Observable<OrderResponse[]>;
   
@@ -37,5 +39,9 @@ export class WalletComponent implements OnInit {
     // )
   }
 
+  viewOrder(orderClick: OrderResponse){
+    this._orderService.setSelectedOrder(orderClick);
+    this._router.navigate(['chat']);
+  }
     
 }

@@ -10,6 +10,7 @@
       </div>
     </div>
   </div>
+  
   <div class="container box">
     <div>
       <h5>Open Orders for You</h5>
@@ -29,6 +30,7 @@
         <td>{{openOrder.order_rate}}</td>
         <td>{{openOrder.order_fiat_amount}}</td>
         <td>{{openOrder.order_payment_method}}</td>
+        <td><button class="btn btn-success" (click) = "viewOrder(openOrder)">View</button></td>
       </tr>
     </table>
   </div>
@@ -43,6 +45,7 @@
         <th class="table-header">RATE</th>
         <th class="table-header">FIAT AMOUNT</th>
         <th class="table-header">PAYMENT METHODS</th>
+        <th></th>
       </tr>
       <tr *ngFor = "let closedOrder of closedOrders |async">
         <td>{{closedOrder.createdby}}</td>
@@ -50,6 +53,7 @@
         <td>{{closedOrder.order_rate}}</td>
         <td>{{closedOrder.order_fiat_amount}}</td>
         <td>{{closedOrder.order_payment_method}}</td>
+        <td><button class="btn btn-success" (click) = "viewOrder(closedOrder)">View</button></td>
       </tr>
     </table>
   </div>

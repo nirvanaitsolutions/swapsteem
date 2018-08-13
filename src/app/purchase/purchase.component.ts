@@ -13,9 +13,9 @@ import { SteemconnectAuthService } from '../steemconnect/services/steemconnect-a
 })
 export class PurchaseComponent implements OnInit {
   constructor(private purchaseServ : APIService,
-    private router : Router,
-    private zone : NgZone,
-    public auth: SteemconnectAuthService) { }
+              private router : Router,
+              private zone : NgZone,
+              public auth: SteemconnectAuthService) { }
 
   selectedTrade :AdvertisementResponse;
   order: OrderRequest =  {
