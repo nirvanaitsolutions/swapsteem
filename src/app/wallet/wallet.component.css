@@ -4,20 +4,11 @@
     background-color: grey;
 }
 
-.balance{
-    background-color: white;
-    position: absolute;
-    height: 60px;
-    width: 200px;
-    margin-top: 3.9%;
-    margin-left: 75%;
-}
 
 .profile{
     position: absolute;
-    background-color: white;
     height: 60px;
-    width: 200px;
+    width: 400px;
     margin-top: 3.9%;
     margin-left: 8%;
 }

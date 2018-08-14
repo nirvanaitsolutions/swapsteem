@@ -9,6 +9,7 @@ export interface OrderRequest {
     order_rate:number,
     order_payment_method: string[],
     agree_terms: true,
+    order_status:string,
     country:string,
     currency:string
 }
@@ -25,6 +26,7 @@ export interface OrderResponse {
     order_rate:number,
     order_payment_method: string[],
     agree_terms: true,
+    order_status:string,
     country:string,
     currency:string
 }

@@ -13,18 +13,31 @@ import {AdvertisementResponse} from '../module/advertisement';
 })
 export class ProfileComponent implements OnInit {
   userData: any = [];
-  onOfAds =  0;
+  noOfAds =  0;
+  balance_steem;
+  balance_sbd;
+  balance_sp;
+  profile_url;
+  profile;
   constructor(private _auth: SteemconnectAuthService,
-              private purchaseSer : APIService,
+              private apiSer : APIService,
               private router : Router) { }
-    openAds : Observable<AdvertisementResponse> ;
+    openAds : Observable<AdvertisementResponse[]> ;
   
   ngOnInit() {
     this._auth.getUserData().subscribe(data => {
      this.userData = data;
-     console.log(this.userData)
+     console.log(this.userData);
+     this.openAds = this.apiSer.getAdsByUser(this.userData.name);
+     console.log(this.openAds);
+     this.balance_sbd = this.userData.account.sbd_balance.split(" ")[0];
+     this.balance_steem = this.userData.account.balance.split(" ")[0];
+     this.balance_sp = this.userData.account.vesting_shares.split(" ")[0];
+     this.profile = JSON.parse(this.userData.account.json_metadata);
+     
+     this.profile_url = this.profile.profile.profile_image;
+     console.log(this.profile_url)
     });
-    this.openAds = this.purchaseSer.getAdsByUser("aneilpatel");
     //this.openAds.subscribe(data => console.log(data))
   }
 

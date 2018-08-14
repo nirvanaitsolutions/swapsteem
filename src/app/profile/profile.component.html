@@ -2,12 +2,20 @@
   <div class="banner">
     <div class="profile row">
       <div class="col-sm-3">
-      <img src="" alt="ProfileImg" height="15px" width="10px" class="rounded float-left">
+      <img src="{{profile_url}}" alt="ProfileImg" height="50px" width="50px" class="rounded float-left">
       </div>
       <div class="sol-sm-9">
         <h6 style="color: white;">{{userData.name}}</h6>
         <p>Registered: {{userData.account.created | date}}</p>
       </div>
+    </div>
+    <div class="balance">
+      <div class="row">
+          <div class="col text-center">{{balance_steem}}<p class="text-muted small-text">STEEM</p></div>
+          <div class="col text-center">{{balance_sbd}}<p class="text-muted small-text">SBD</p></div>
+      </div>
+    
+      <div class="text-center small-heading">Balances</div>
     </div>
   </div>
   <div class="container ">
@@ -22,7 +30,7 @@
       </div>
       <div class="card col box mr-2 text-center">
         <div>
-          {{onOfAds}}
+          {{noOfAds}}
         </div>
         <div>
           Open Ads
@@ -30,7 +38,7 @@
       </div>
     </div>
     <div class="box">
-      <h5>Ayush Open AD'S</h5>
+      <h5>Your Open ADs</h5>
       <table class="table">
         <tr>
           <th class="table-header">Payment Methods</th>

@@ -17,7 +17,7 @@ export class SellComponent implements OnInit {
                private purchaseSer : APIService,
                private router : Router){}
   
-  sellDetails : Observable<AdvertisementResponse> ;
+  sellDetails : Observable<AdvertisementResponse[]> ;
   
   ngOnInit() {
     this.sellDetails = this.purchaseSer.getSellAds();

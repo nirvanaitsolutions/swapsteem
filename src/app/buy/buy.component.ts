@@ -18,7 +18,7 @@ export class BuyComponent implements OnInit {
                private purchaseSer : APIService,
                private router : Router){}
   
-  buyDetails : Observable<AdvertisementResponse> ;
+  buyDetails : Observable<AdvertisementResponse[]> ;
   
   ngOnInit() {
     this.buyDetails = this.purchaseSer.getBuyAds();
