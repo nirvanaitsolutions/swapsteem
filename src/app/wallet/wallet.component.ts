@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import {SteemconnectAuthService} from '../steemconnect/services/steemconnect-auth.service';
 import {OrderService} from '../../service/order.service';
 import {HttpClient} from '@angular/common/http';
+import { AdvertisementResponse } from '../module/advertisement';
 
 
 
@@ -43,9 +44,10 @@ export class WalletComponent implements OnInit {
 
 
   viewOrder(orderClick: OrderResponse){
-    this._http.get("http://swapsteem-api.herokuapp.com/advertisements/"+orderClick.ad_id).subscribe( data =>{
+    this._http.get<AdvertisementResponse>("http://swapsteem-api.herokuapp.com/advertisements/"+orderClick.ad_id).subscribe( data =>{
       //console.log(data)  
-      this.apiSer.selectTradeEvent(data);
+      this.apiSer.selectAdEvent(data);
+      this._orderService.setSelectedOrder(orderClick);
      // console.log(data[0])
       this._router.navigate(['chat']);
     });

@@ -10,6 +10,7 @@
       <hr>
       <div class="message-area">
           <p *ngFor="let message of messages | async" class="btn btn-info">{{message.message_text}}</p>
+
       </div>
       <hr>
       <div class="write-message">
@@ -24,11 +25,11 @@
         <div class="row">
           <div class="col">
             <h6>AMOUNT</h6>
-            <p>{{selectedAd.ad_coin_amount}}</p>
+            <p>{{selectedOrder.order_coin_amount}}</p>
           </div>
           <div class="col">
             <h6>FIAT AMOUNT</h6>
-            <p>112569</p>
+            <p>{{selectedOrder.order_fiat_amount}}</p>
           </div>
         </div> 
         <div>

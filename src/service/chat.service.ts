@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient,HttpHeaders,} from '@angular/common/http';
 import {SteemconnectAuthService} from '../app/steemconnect/services/steemconnect-auth.service'
+import { AdvertisementResponse } from '../app/module/advertisement';
+import { MessageResponse } from '../app/module/message';
 
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type':  'application/json'
-  })
-};
 export interface OAuth2Token {
   access_token: string;
   expires_in: number;
@@ -27,7 +24,6 @@ export class ChatService {
 
   getMessages(){
     console.log("Hit service");
-    httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
-    return this._http.get("http://swapsteem-api.herokuapp.com/messages",httpOptions);
+    return this._http.get<MessageResponse[]>("http://swapsteem-api.herokuapp.com/messages");
   }
 }

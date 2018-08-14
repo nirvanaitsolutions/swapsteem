@@ -4,6 +4,7 @@ import { AdvertisementResponse, AdvertisementRequest } from '../app/module/adver
 import {SteemconnectAuthService} from '../app/steemconnect/services/steemconnect-auth.service'
 import { OrderResponse, OrderRequest } from '../app/module/order';
 import { Observable } from 'rxjs';
+import { MessageRequest } from '../app/module/message';
 
 
 export interface OAuth2Token {
@@ -22,11 +23,17 @@ export class APIService {
    }
 
   selectedTrade : any= null;
+  selectedAd:any=null;
   token:OAuth2Token = this.auth.token;
   
   selectTradeEvent(trade: AdvertisementResponse
   ){
     this.selectedTrade = trade;
+  }
+
+  selectAdEvent(trade: AdvertisementResponse
+  ){
+    this.selectedAd = trade;
   }
 
   createOrder(order:OrderRequest):Observable<OrderRequest>{
@@ -35,6 +42,13 @@ export class APIService {
     return this._http.post<OrderRequest>("http://swapsteem-api.herokuapp.com/orders",JSON.stringify(order));
     
   }
+
+  createMessage(message:MessageRequest):Observable<MessageRequest>{
+    // httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
+     console.log(JSON.stringify(message));
+     return this._http.post<MessageRequest>("http://swapsteem-api.herokuapp.com/messages",JSON.stringify(message));
+     
+   }
 
   createAd(ad:AdvertisementRequest):Observable<AdvertisementRequest>{
     // httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
@@ -70,6 +84,10 @@ export class APIService {
 
   getSelectedTrade(){
     return this.selectedTrade;
+  }
+
+  getSelectedAd(){
+    return this.selectedAd;
   }
 
 }
