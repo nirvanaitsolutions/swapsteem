@@ -41,6 +41,7 @@ export class WalletComponent implements OnInit {
     // )
   }
 
+
   viewOrder(orderClick: OrderResponse){
     this._http.get("http://swapsteem-api.herokuapp.com/advertisements/"+orderClick.ad_id).subscribe( data =>{
       //console.log(data)  
@@ -50,5 +51,5 @@ export class WalletComponent implements OnInit {
     });
     //this._orderService.setSelectedOrder(orderClick);
   }
-    
+
 }

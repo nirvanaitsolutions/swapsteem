@@ -17,6 +17,8 @@ export class ProfileComponent implements OnInit {
   balance_steem;
   balance_sbd;
   balance_sp;
+  profile_url;
+  profile;
   constructor(private _auth: SteemconnectAuthService,
               private apiSer : APIService,
               private router : Router) { }
@@ -30,6 +32,11 @@ export class ProfileComponent implements OnInit {
      console.log(this.openAds);
      this.balance_sbd = this.userData.account.sbd_balance.split(" ")[0];
      this.balance_steem = this.userData.account.balance.split(" ")[0];
+     this.balance_sp = this.userData.account.vesting_shares.split(" ")[0];
+     this.profile = JSON.parse(this.userData.account.json_metadata);
+     
+     this.profile_url = this.profile.profile.profile_image;
+     console.log(this.profile_url)
     });
     //this.openAds.subscribe(data => console.log(data))
   }
