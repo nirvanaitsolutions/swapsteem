@@ -21,7 +21,7 @@ export class APIService {
     
    }
 
-  selectedTrade : AdvertisementResponse = null;
+  selectedTrade : any= null;
   token:OAuth2Token = this.auth.token;
   
   selectTradeEvent(trade: AdvertisementResponse
