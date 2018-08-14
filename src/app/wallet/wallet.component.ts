@@ -43,9 +43,9 @@ export class WalletComponent implements OnInit {
 
   viewOrder(orderClick: OrderResponse){
     this._http.get("http://swapsteem-api.herokuapp.com/advertisements/"+orderClick.ad_id).subscribe( data =>{
-      console.log(data)  
+      //console.log(data)  
       this.apiSer.selectTradeEvent(data);
-      console.log(data[0])
+     // console.log(data[0])
       this._router.navigate(['chat']);
     });
     //this._orderService.setSelectedOrder(orderClick);
