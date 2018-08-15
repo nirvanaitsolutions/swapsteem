@@ -41,7 +41,7 @@ export class ChatPageComponent implements OnInit {
     this.selectedOrder = this._orderService.getSelectedOrder();
     console.log("SelectedOrder");
     console.log(this.selectedOrder);
-    this.messages=this._chatService.getMessages()
+    this.messages=this._chatService.getMessages(this.selectedOrder._id);
   
   }
 

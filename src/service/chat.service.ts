@@ -22,8 +22,8 @@ export class ChatService {
   
     token:OAuth2Token = this.auth.token;
 
-  getMessages(){
+  getMessages(order_id:string){
     console.log("Hit service");
-    return this._http.get<MessageResponse[]>("http://swapsteem-api.herokuapp.com/messages");
+    return this._http.get<MessageResponse[]>("http://swapsteem-api.herokuapp.com/messages/by_order/"+order_id);
   }
 }
