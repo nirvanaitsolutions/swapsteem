@@ -23,8 +23,8 @@ const appRoutes: Routes = [
   { path: 'wallet',      component: WalletComponent },
   { path: 'profile',      component: ProfileComponent },
   { path: 'dashboard',      component: DashboardComponent },
-  { path: 'purchase', component: PurchaseComponent},
-  {path: 'chat' , component: ChatPageComponent},
+  { path: 'purchase/:id', component: PurchaseComponent},
+  {path: 'chat/:id' , component: ChatPageComponent},
   {
     path: 'steemconnect/redirect',
     canActivate: [SteemconnectRedirectGuard],

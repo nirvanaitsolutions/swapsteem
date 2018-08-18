@@ -2,7 +2,7 @@ import { Component, OnInit,NgZone } from '@angular/core';
 import {ChatService} from '../../service/chat.service';
 import {OrderService} from '../../service/order.service';
 import {APIService} from '../../service/api.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MessageRequest,MessageResponse } from '../module/message';
 import { Observable } from 'rxjs';
 
@@ -19,7 +19,8 @@ export class ChatPageComponent implements OnInit {
               private _orderService: OrderService,
               private _apiSer: APIService,
               private router : Router,
-              private zone : NgZone,) { 
+              private zone : NgZone,
+              private route: ActivatedRoute) { 
   }
 
   messages:Observable<MessageResponse[]>;
@@ -35,13 +36,20 @@ export class ChatPageComponent implements OnInit {
     order_id:''
   };
   ngOnInit() {
-    this.selectedAd = this._apiSer.getSelectedAd();
-    console.log("SelectedAd");
-    console.log(this.selectedAd);
-    this.selectedOrder = this._orderService.getSelectedOrder();
-    console.log("SelectedOrder");
+
+    let id = this.route.snapshot.paramMap.get('id');
+    this._apiSer.getSelectedOrderFromAPI(id).subscribe(data=>{
+      this.selectedOrder=data;
+      console.log("SelectedOrder");
     console.log(this.selectedOrder);
-    this.messages=this._chatService.getMessages(this.selectedOrder._id);
+    this._apiSer.getSelectedTradeFromAPI(this.selectedOrder.ad_id).subscribe(res=>{
+      this.selectedAd=res;
+      console.log("SelectedAd");
+    console.log(this.selectedAd);
+
+    });
+    });
+    this.messages=this._chatService.getMessages(id);
   
   }
 
@@ -56,6 +64,8 @@ export class ChatPageComponent implements OnInit {
     console.log(this.message);
     this._apiSer.createMessage(this.message).subscribe(
     );
+    let id = this.route.snapshot.paramMap.get('id');
+    this.messages=this._chatService.getMessages(id);
     this.newMessage = "";
   }
 }

@@ -44,13 +44,14 @@ export class WalletComponent implements OnInit {
 
 
   viewOrder(orderClick: OrderResponse){
-    this._http.get<AdvertisementResponse>("http://swapsteem-api.herokuapp.com/advertisements/"+orderClick.ad_id).subscribe( data =>{
+    this._router.navigate(['chat/'+orderClick._id]);
+    //this._http.get<AdvertisementResponse>("http://swapsteem-api.herokuapp.com/advertisements/"+orderClick.ad_id).subscribe( data =>{
       //console.log(data)  
-      this.apiSer.selectAdEvent(data);
-      this._orderService.setSelectedOrder(orderClick);
+      //this.apiSer.selectAdEvent(data);
+      //this._orderService.setSelectedOrder(orderClick);
      // console.log(data[0])
-      this._router.navigate(['chat']);
-    });
+      //this._router.navigate(['chat/'+orderClick._id]);
+    //});
     //this._orderService.setSelectedOrder(orderClick);
   }
 

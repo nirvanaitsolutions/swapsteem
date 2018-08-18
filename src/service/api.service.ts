@@ -90,4 +90,12 @@ export class APIService {
     return this.selectedAd;
   }
 
+  getSelectedTradeFromAPI(id:string){
+    return this._http.get<AdvertisementResponse>("http://swapsteem-api.herokuapp.com/advertisements/"+id);
+  }
+
+  getSelectedOrderFromAPI(id:string){
+    return this._http.get<OrderResponse>("http://swapsteem-api.herokuapp.com/orders/"+id);
+  }
+
 }

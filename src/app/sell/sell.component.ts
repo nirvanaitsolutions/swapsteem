@@ -26,6 +26,6 @@ export class SellComponent implements OnInit {
 
   sellTrade(trade: AdvertisementResponse){
     this.purchaseSer.selectTradeEvent(trade);
-    this.router.navigate(['purchase']);
+    this.router.navigate(['purchase/'+trade._id]);
   }
 }
