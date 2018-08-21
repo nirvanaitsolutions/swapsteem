@@ -6,7 +6,6 @@ import { PostTradeComponent } from './post-trade/post-trade.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { WalletComponent } from './wallet/wallet.component';
 import { ProfileComponent } from './profile/profile.component';
-import { HelpComponent } from './help/help.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { SteemconnectRedirectGuard } from './redirect/steemconnect-redirect.guard';
 import {BuyPageComponent} from './buy-page/buy-page.component'
@@ -23,10 +22,9 @@ const appRoutes: Routes = [
   { path: 'notifications', component: NotificationsComponent },
   { path: 'wallet',      component: WalletComponent },
   { path: 'profile',      component: ProfileComponent },
-  { path: 'help',      component: HelpComponent },
   { path: 'dashboard',      component: DashboardComponent },
-  { path: 'purchase', component: PurchaseComponent},
-  {path: 'chat' , component: ChatPageComponent},
+  { path: 'purchase/:id', component: PurchaseComponent},
+  {path: 'chat/:id' , component: ChatPageComponent},
   {
     path: 'steemconnect/redirect',
     canActivate: [SteemconnectRedirectGuard],

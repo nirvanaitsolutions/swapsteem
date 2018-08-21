@@ -5,6 +5,9 @@ import { APIService } from '../../service/api.service';
 import {tap} from 'rxjs/operators';
 import { Router } from '@angular/router';
 import {SteemconnectAuthService} from '../steemconnect/services/steemconnect-auth.service';
+import {OrderService} from '../../service/order.service';
+import {HttpClient} from '@angular/common/http';
+import { AdvertisementResponse } from '../module/advertisement';
 
 
 
@@ -20,7 +23,9 @@ export class WalletComponent implements OnInit {
 
   constructor( private _auth: SteemconnectAuthService,
               private apiSer : APIService,
-               private router : Router) { }
+              private _router : Router,
+              private _http : HttpClient,
+              private _orderService : OrderService  ) { }
   openOrders : Observable<OrderResponse[]> ;
   closedOrders : Observable<OrderResponse[]>;
   
@@ -37,5 +42,17 @@ export class WalletComponent implements OnInit {
     // )
   }
 
-    
+
+  viewOrder(orderClick: OrderResponse){
+    this._router.navigate(['chat/'+orderClick._id]);
+    //this._http.get<AdvertisementResponse>("http://swapsteem-api.herokuapp.com/advertisements/"+orderClick.ad_id).subscribe( data =>{
+      //console.log(data)  
+      //this.apiSer.selectAdEvent(data);
+      //this._orderService.setSelectedOrder(orderClick);
+     // console.log(data[0])
+      //this._router.navigate(['chat/'+orderClick._id]);
+    //});
+    //this._orderService.setSelectedOrder(orderClick);
+  }
+
 }

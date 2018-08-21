@@ -20,7 +20,6 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { WalletComponent } from './wallet/wallet.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
-import { HelpComponent } from './help/help.component';
 import { RedirectComponent } from './redirect/redirect.component';
 import { environment } from '../environments/environment';
 import { SearchBoxComponent } from './search-box/search-box.component';
@@ -51,7 +50,6 @@ const config: SocketIoConfig = { url: 'http://swapsteem-api.herokuapp.com', opti
     WalletComponent,
     ProfileComponent,
     PagenotfoundComponent,
-    HelpComponent,
     RedirectComponent,
     SearchBoxComponent,
     BuyPageComponent,

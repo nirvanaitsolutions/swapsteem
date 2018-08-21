@@ -29,6 +29,6 @@ export class BuyComponent implements OnInit {
   buyTrade(trade: AdvertisementResponse){
     this.purchaseSer.selectTradeEvent(trade);
     console.log(trade);
-    this.router.navigate(['purchase']);
+    this.router.navigate(['purchase/'+trade._id]);
   }
 }
