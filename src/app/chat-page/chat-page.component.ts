@@ -50,7 +50,6 @@ export class ChatPageComponent implements OnInit {
     });
     });
     this.messages=this._chatService.getMessages(id);
-  
   }
 
   sendMessage(){
