@@ -3,6 +3,7 @@ import {HttpClient,HttpHeaders,} from '@angular/common/http';
 import {SteemconnectAuthService} from '../app/steemconnect/services/steemconnect-auth.service'
 import { AdvertisementResponse } from '../app/module/advertisement';
 import { MessageResponse } from '../app/module/message';
+import { WebsocketsService } from './websockets.service';
 
 export interface OAuth2Token {
   access_token: string;
@@ -16,14 +17,16 @@ export interface OAuth2Token {
 export class ChatService {
  
 
-  constructor(private _http: HttpClient,private auth :SteemconnectAuthService) {
+  constructor(private _http: HttpClient,private auth :SteemconnectAuthService,private ws :WebsocketsService) {
     
    }
   
     token:OAuth2Token = this.auth.token;
 
   getMessages(order_id:string){
-    console.log("Hit service");
+    //console.log("Hit service");
+    this.ws.getNotifs();
     return this._http.get<MessageResponse[]>("http://swapsteem-api.herokuapp.com/messages/by_order/"+order_id);
+    //return this.ws.getMessages(order_id)
   }
 }
