@@ -17,17 +17,17 @@ export class WebsocketsService {
 
   constructor(private auth :SteemconnectAuthService) {
     
-    this.busy.call('get_notifications', ['aneilpatel'], function(err, result) {
-      console.log(err, result);
-    })
-    
     this.busy.subscribe( function(err, result) {
+      // TODO - Route data to notifications page
       console.log(err, result);
     })
    }
    token:OAuth2Token = this.auth.token;
 
    getNotifs(){
+     this.busy.call('get_notifications', ['aneilpatel'], function(err, result) {
+        console.log(err, result);
+      })
      this.busy.call('login', [this.token.access_token], function(err, result) {
        console.log(err, result);
       })
