@@ -11,8 +11,8 @@
     "postinstall": "ng build --aot --prod"
   },
   "engines": {
-    "node":"",
-    "npm":""
+    "node": "",
+    "npm": ""
   },
   "private": true,
   "dependencies": {
@@ -27,6 +27,7 @@
     "@angular/platform-browser": "^6.0.3",
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/router": "^6.0.3",
+    "busyjs": "^1.0.2",
     "core-js": "^2.5.4",
     "ngx-cookie": "^4.0.2",
     "ngx-socket-io": "^1.1.1",
