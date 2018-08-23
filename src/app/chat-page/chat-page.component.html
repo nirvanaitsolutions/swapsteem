@@ -9,8 +9,7 @@
       <h6>CHAT</h6>
       <hr>
       <div class="message-area">
-          <p *ngFor="let message of messages | async" class="btn btn-info">{{message.message_text}}</p>
-
+          <div *ngFor="let message of messages | async"><div class="btn btn-info message">{{message.message_text}}</div></div>
       </div>
       <hr>
       <div class="write-message">
