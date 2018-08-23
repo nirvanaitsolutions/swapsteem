@@ -3,7 +3,7 @@
       <tr *ngFor = "let notification of notifications">
         <td scope="row">
           <p>
-          <span style="font-weight: bold">SwapSteem</span> {{notification.follower}} <br>
+          <span style="font-weight: bold">{{notification.type}}</span> {{notification.follower}} <br>
           <span class="text-muted">{{notification.timestamp | amTimeAgo}}</span>
           </p>
         </td>
