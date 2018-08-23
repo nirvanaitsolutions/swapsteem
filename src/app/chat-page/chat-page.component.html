@@ -9,7 +9,16 @@
       <h6>CHAT</h6>
       <hr>
       <div class="message-area">
-          <div *ngFor="let message of messages | async"><div class="btn btn-info message">{{message.message_text}}</div></div>
+          <div *ngFor="let message of messages | async">
+
+            <div *ngIf= "message.createdby == token.username" class = "badge badge-pill badge-info message float-right">
+              {{message.message_text}}
+            </div>
+            <div *ngIf= "message.createdby != token.username" class = "badge badge-pill badge-success message">
+              {{message.message_text}}
+            </div>
+            <br>
+          </div>
       </div>
       <hr>
       <div class="write-message">

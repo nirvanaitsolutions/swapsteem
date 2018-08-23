@@ -27,6 +27,9 @@ export class ChatPageComponent implements OnInit {
   newMessage;
   selectedAd;
   selectedOrder;
+  token;
+
+
   message: MessageRequest =  {
     ad_id:'',
     createdby:'',
@@ -41,14 +44,14 @@ export class ChatPageComponent implements OnInit {
     this._apiSer.getSelectedOrderFromAPI(id).subscribe(data=>{
       this.selectedOrder=data;
       console.log("SelectedOrder");
-    console.log(this.selectedOrder);
-    this._apiSer.getSelectedTradeFromAPI(this.selectedOrder.ad_id).subscribe(res=>{
-      this.selectedAd=res;
-      console.log("SelectedAd");
-    console.log(this.selectedAd);
-
+      console.log(this.selectedOrder);
+      this._apiSer.getSelectedTradeFromAPI(this.selectedOrder.ad_id).subscribe(res=>{
+        this.selectedAd=res;
+        console.log("SelectedAd");
+        console.log(this.selectedAd);
+      });
     });
-    });
+    this.token = this._chatService.token;
     this.messages=this._chatService.getMessages(id);
   }
 
