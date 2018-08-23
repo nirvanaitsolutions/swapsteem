@@ -53,13 +53,14 @@ export class ChatPageComponent implements OnInit {
     });
     this.token = this._chatService.token;
     this.messages=this._chatService.getMessages(id);
+    console.log(this.message);
   }
 
   sendMessage(){
     
     this.message.ad_id=this.selectedAd._id;    
     this.message.order_id=this.selectedOrder._id;    
-    this.message.createdby=this.selectedOrder.createdby;    
+    this.message.createdby=this.token.username;    
     this.message.createdfor=this.selectedAd.createdby;    
     this.message.message_text=this.newMessage;    
     this.message.message_type='message';    
