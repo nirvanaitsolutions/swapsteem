@@ -27,6 +27,7 @@
     "@angular/platform-browser": "^6.0.3",
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/router": "^6.0.3",
+    "angular2-moment": "^1.9.0",
     "busyjs": "^1.0.2",
     "core-js": "^2.5.4",
     "ngx-cookie": "^4.0.2",
