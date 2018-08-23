@@ -30,6 +30,7 @@
     "angular2-moment": "^1.9.0",
     "busyjs": "^1.0.2",
     "core-js": "^2.5.4",
+    "ngx-auto-scroll": "^1.1.0",
     "ngx-cookie": "^4.0.2",
     "ngx-socket-io": "^1.1.1",
     "rxjs": "^6.0.0",
