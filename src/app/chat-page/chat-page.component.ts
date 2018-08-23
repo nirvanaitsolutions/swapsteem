@@ -61,10 +61,12 @@ export class ChatPageComponent implements OnInit {
     this.message.message_text=this.newMessage;    
     this.message.message_type='message';    
     console.log(this.message);
-    this._apiSer.createMessage(this.message).subscribe(
+    this._apiSer.createMessage(this.message).subscribe(res => {
+      let id = this.route.snapshot.paramMap.get('id');
+      this.messages=this._chatService.getMessages(id);
+      this.newMessage = "";
+    }
     );
-    let id = this.route.snapshot.paramMap.get('id');
-    this.messages=this._chatService.getMessages(id);
-    this.newMessage = "";
+    
   }
 }
