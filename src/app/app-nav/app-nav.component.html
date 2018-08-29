@@ -1,26 +1,27 @@
 
-<div class="container">
+<div class="container-fluid">
   <nav class="navbar navbar-expand-lg navbar-light">
-  <a class="navbar-brand" routerLink="/">SwapSteem</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+    <a class="navbar-brand" routerLink="/">SwapSteem</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="buy-online">Buy<span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="sell-online">Sell</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="post-trade">Post a Trade</a>
-      </li>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="buy-online">Buy<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="sell-online">Sell</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="post-trade">Post a Trade</a>
+        </li>
       </ul>
+      <div class="mx-auto btn btn-success">STEEM RATE: {{price.STEEM.USD}}</div>
       <div>
-          <span *ngIf="(auth.authState | async); else guest ">
-              <ul class="navbar-nav mr-auto">
+        <span *ngIf="(auth.authState | async); else guest ">
+          <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <a class="nav-link" routerLink="wallet">Wallet</a>
                 </li>
@@ -33,13 +34,13 @@
                 <li class="nav-item">
                     <button class="btn btn-primary signInLink " (click)="auth.logout() ">Logout</button>
                 </li>
-              </ul>
+          </ul>
               
-            </span>
+        </span>
           <ng-template #guest>
             <button class="btn btn-primary signInLink " (click)="auth.login() ">Login</button>
           </ng-template>
       </div>   
-  </div>
-</nav>
+    </div>
+  </nav>
 </div>
