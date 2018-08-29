@@ -8,7 +8,7 @@
     <div class="inner-box col">
       <h6>CHAT</h6>
       <hr>
-      <div class="message-area">
+      <div ngx-auto-scroll class="message-area">
           <div *ngFor="let message of messages | async">
 
             <div *ngIf= "message.createdby == token.username" class = "badge badge-pill badge-info message float-right">
