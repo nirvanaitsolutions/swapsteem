@@ -44,8 +44,10 @@ export class PostTradeComponent implements OnInit {
     }
     
   };
-
+  objectKeys = Object.keys;
   userData: any = [];
+  cryptos:any;
+  effectivePrice:any;
 
 
   ngOnInit() {
@@ -53,6 +55,10 @@ export class PostTradeComponent implements OnInit {
       this.userData = data;
       this.advertisement.createdby=this.userData.name;
       console.log(this.userData);
+     });
+     this.api.getPrice().subscribe(data => {
+      this.cryptos=data;
+      console.log(data)
      });
   }
 

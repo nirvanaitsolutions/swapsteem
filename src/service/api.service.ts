@@ -5,7 +5,9 @@ import {SteemconnectAuthService} from '../app/steemconnect/services/steemconnect
 import {WebsocketsService} from './websockets.service'
 import { OrderResponse, OrderRequest } from '../app/module/order';
 import { Observable } from 'rxjs';
+import  'rxjs/add/operator/map';
 import { MessageRequest } from '../app/module/message';
+import { hostReportError } from 'rxjs/internal-compatibility';
 
 
 export interface OAuth2Token {
@@ -26,6 +28,7 @@ export class APIService {
   selectedTrade : any= null;
   selectedAd:any=null;
   token:OAuth2Token = this.auth.token;
+  result:any;
   
   selectTradeEvent(trade: AdvertisementResponse
   ){
@@ -81,6 +84,13 @@ export class APIService {
   getSellAds(){
     //httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
     return this._http.get<AdvertisementResponse[]>("http://swapsteem-api.herokuapp.com/advertisements/sell");
+  }
+
+  getPrice(){
+    //httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
+    const headers = new HttpHeaders({'No-Auth':'True'});
+    //return this._http.get<AdvertisementResponse[]>("http://swapsteem-api.herokuapp.com/price/"+coin);
+    return this._http.get("https://min-api.cryptocompare.com/data/pricemulti?fsyms=,STEEM,SBD*&tsyms=USD",{headers: headers}).map(result =>  this.result = result);
   }
 
   getSelectedTrade(){
