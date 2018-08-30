@@ -18,7 +18,8 @@
           <a class="nav-link" routerLink="post-trade">Post a Trade</a>
         </li>
       </ul>
-      <div class="mx-auto btn btn-success">STEEM RATE: {{price.STEEM.USD}}</div>
+      <div class="mx-auto btn btn-success">STEEM : {{price.STEEM.USD}} USD</div>
+      <div class="mx-auto btn btn-success">SBD : {{price["SBD*"].USD}} USD</div>
       <div>
         <span *ngIf="(auth.authState | async); else guest ">
           <ul class="navbar-nav mr-auto">
