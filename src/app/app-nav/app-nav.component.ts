@@ -1,16 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { SteemconnectAuthService } from '../steemconnect/services/steemconnect-auth.service';
+import { APIService } from '../../service/api.service';
 
 @Component({
   selector: 'app-nav',
   templateUrl: './app-nav.component.html',
   styleUrls: ['./app-nav.component.css'],
 })
-export class AppNavComponent {
+export class AppNavComponent implements OnInit {
+
+  price : any;
     
-  constructor(private breakpointObserver: BreakpointObserver, public auth: SteemconnectAuthService) {}
-  
+  constructor(private breakpointObserver: BreakpointObserver,
+              public auth: SteemconnectAuthService,
+              private _apiService : APIService) 
+  {}
+
+  ngOnInit(){
+    this._apiService.getPrice().subscribe(data => {
+      console.log(data);
+      this.price = data;
+    })
   }
+}
