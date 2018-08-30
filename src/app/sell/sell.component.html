@@ -6,7 +6,6 @@
         <th class="">Seller</th>
         <th class="">Payment</th>
         <th class="">Currency</th>
-        <th class="">Price</th>
         <th class="">Limits</th>
         <th class="">Price/Coin</th>
         <th></th>
@@ -15,10 +14,9 @@
         <td>{{sellSteem.createdby}}</td>
         <td>{{sellSteem.payment_methods}}</td>
         <td>{{sellSteem.ad_coin}}</td>
-        <td>{{sellSteem.ad_coin_amount}}</td>
         <td>{{sellSteem.limit_from}} - {{sellSteem.limit_to}}</td>
-        <td><span *ngIf = "buySteem.ad_coin == 'STEEM'">{{price.STEEM.USD}}</span><span *ngIf = "buySteem.ad_coin == 'SBD'">{{price["SBD*"].USD}}</span></td>                                                                                                                                                                 
-    <td><button type="button" class="btn btn-danger btn-sm badge badge-pill" (click)="sellTrade(sellSteem)">SELL</button></td>
+        <td><span *ngIf = "sellSteem.ad_coin == 'STEEM'">{{price.STEEM.USD}}</span><span *ngIf = "sellSteem.ad_coin == 'SBD'">{{price["SBD*"].USD}}</span></td>                                                                                                                                                                 
+        <td><button type="button" class="btn btn-danger btn-sm badge badge-pill" (click)="sellTrade(sellSteem)">SELL</button></td>
       </tr>
     </table>
   </div>
