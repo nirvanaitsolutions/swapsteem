@@ -76,5 +76,5 @@ export class PostTradeComponent implements OnInit {
   currency = ['','INR','USD','KRW'];
   ad_type = ['buy','sell'];
   ad_coin = ['STEEM','SBD'];
-  payment_methods = ['Bank Transfer','Wallet Transfer', 'PayPal'];
+  payment_methods = ['Bank Transfer','In Cash', 'PayPal'];
 }
