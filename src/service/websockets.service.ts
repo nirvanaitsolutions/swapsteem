@@ -13,7 +13,8 @@ export interface OAuth2Token {
   providedIn: 'root'
 })
 export class WebsocketsService {
-  public busy = new busy.Client('wss://swapsteem-api.herokuapp.com');;
+ // public busy = new busy.Client('wss://swapsteem-api.herokuapp.com');;
+ public busy = new busy.Client('wss://api.busy.org');
 
   constructor(private auth :SteemconnectAuthService) {
     

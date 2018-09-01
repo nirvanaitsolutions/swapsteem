@@ -1,3 +1,12 @@
-<p>
-  notifications works!
-</p>
+<div class="box container">
+  <table class="table">
+      <tr *ngFor = "let notification of notifications">
+        <td scope="row">
+          <p>
+          <span style="font-weight: bold">{{notification.text}} from </span> {{notification.from}} <br>
+          <span class="text-muted">{{notification.timestamp | amTimeAgo}}</span>
+          </p>
+        </td>
+      </tr>
+  </table>
+</div>

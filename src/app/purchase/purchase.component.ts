@@ -36,6 +36,7 @@ export class PurchaseComponent implements OnInit {
   };
 
   userData: any = [];
+  price : any;
 
   ngOnInit() {
     let id = this.route.snapshot.paramMap.get('id');
@@ -43,15 +44,21 @@ export class PurchaseComponent implements OnInit {
       this.selectedTrade = data;
       console.log(this.selectedTrade);
       this.order.ad_id=this.selectedTrade._id;
-    this.order.createdfor=this.selectedTrade.createdby;
-    //todo - reverse ad type
-    this.order.order_type=this.selectedTrade.ad_type;
-    this.order.order_coin=this.selectedTrade.ad_coin;
-    //todo - calculate rate from margin
-    this.order.order_rate=this.selectedTrade.margin;
-    this.order.order_payment_method=this.selectedTrade.payment_methods;
-    this.order.country=this.selectedTrade.country;
-    this.order.currency=this.selectedTrade.currency;
+      this.order.createdfor=this.selectedTrade.createdby;
+      //todo - reverse ad type
+      this.order.order_type=this.selectedTrade.ad_type;
+      this.order.order_coin=this.selectedTrade.ad_coin;
+      //todo - calculate rate from margin
+      //this.order.order_rate=this.selectedTrade.margin;
+      if(this.order.order_coin == "STEEM"){
+        this.order.order_rate = this.price.STEEM.USD;
+      }
+      if(this.order.order_coin == "SBD"){
+        this.order.order_rate =  this.price["SBD*"].USD;
+      }
+      this.order.order_payment_method=this.selectedTrade.payment_methods;
+      this.order.country=this.selectedTrade.country;
+      this.order.currency=this.selectedTrade.currency;
     });
     
     console.log("selected trade"+this.selectedTrade);
@@ -59,12 +66,24 @@ export class PurchaseComponent implements OnInit {
       this.userData = data;
       this.order.createdby=this.userData.name;
       console.log(this.userData);
-     });
+    });
+
+    this.purchaseServ.getPrice().subscribe(data => {
+      this.price = data;
+      if(this.order.order_coin == "STEEM"){
+        this.order.order_rate = this.price.STEEM.USD;
+      }
+      if(this.order.order_coin == "SBD"){
+        this.order.order_rate =  this.price["SBD*"].USD;
+      }
+    });
+    
   }
 
   createOrderEvent(form){
     console.log(form);
   }
+
   onSubmit(form){
     // this.order.ad_id=this.selectedTrade._id;
     // this.order.createdfor=this.selectedTrade.createdby;
@@ -85,5 +104,23 @@ export class PurchaseComponent implements OnInit {
     }));
     // .subscribe(res => this.router.navigate(['profile']));
     
+  }
+
+  changeToFiat(){
+    if(this.order.order_coin == "STEEM"){
+      this.order.order_fiat_amount = this.order.order_coin_amount * this.price.STEEM.USD;
+    }
+    if(this.order.order_coin == "SBD"){
+      this.order.order_fiat_amount = this.order.order_coin_amount * this.price["SBD*"].USD;
+    }
+  }
+
+  changeToCoin(){
+    if(this.order.order_coin == "STEEM"){
+      this.order.order_coin_amount = this.order.order_fiat_amount * (1/this.price.STEEM.USD);
+    }
+    if(this.order.order_coin == "SBD"){
+      this.order.order_coin_amount = this.order.order_fiat_amount * (1/this.price["SBD*"].USD);
+    }
   }
 }

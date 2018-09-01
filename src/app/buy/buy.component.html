@@ -1,28 +1,3 @@
-<!-- <div class="mat-elevation-z8">
-  <table mat-table #table [dataSource]="dataSource" matSort aria-label="Elements">
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
-      <td mat-cell *matCellDef="let row">{{row.id}}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-      <td mat-cell *matCellDef="let row">{{row.name}}</td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-
-  <mat-paginator #paginator
-    [length]="dataSource.data.length"
-    [pageIndex]="0"
-    [pageSize]="50"
-    [pageSizeOptions]="[25, 50, 100, 250]">
-  </mat-paginator>
-</div> -->
-
-
 <div>
   <h6 class="buyHeading">Buy Steem Online In USA</h6>
   <div class="table-padding">
@@ -31,16 +6,16 @@
         <th class="">Seller</th>
         <th class="">Payment</th>
         <th class="">Coin</th>
-        <th class="">Price</th>
         <th class="">Limits</th>
+        <th class="">Price/Coin</th>
         <th></th>
       </tr>
       <tr *ngFor = "let buySteem of buyDetails | async">
         <td>{{buySteem.createdby}}</td>
-        <td>BANK</td>
+        <td>{{buySteem.payment_methods}}</td>
         <td>{{buySteem.ad_coin}}</td>
-        <td>{{buySteem.ad_coin_amount}}</td>
         <td>{{buySteem.limit_from}} - {{buySteem.limit_to}}</td>
+        <td><span *ngIf = "buySteem.ad_coin == 'STEEM'">{{price.STEEM.USD}}</span><span *ngIf = "buySteem.ad_coin == 'SBD'">{{price["SBD*"].USD}}</span></td>                                                                                                                                                                 
         <td><button type="button" class="btn btn-success btn-sm badge badge-pill" (click)="buyTrade(buySteem)">Buy</button></td>
       </tr>
     </table>
