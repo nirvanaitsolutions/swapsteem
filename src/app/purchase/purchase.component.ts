@@ -86,4 +86,22 @@ export class PurchaseComponent implements OnInit {
     // .subscribe(res => this.router.navigate(['profile']));
     
   }
+
+  changeToFiat(){
+    if(this.order.order_coin == "STEEM"){
+      this.order.order_fiat_amount = this.order.order_coin_amount * .5;
+    }
+    if(this.order.order_coin == "SBD"){
+      this.order.order_fiat_amount = this.order.order_coin_amount * .7;
+    }
+  }
+
+  changeToCoin(){
+    if(this.order.order_coin == "STEEM"){
+      this.order.order_coin_amount = this.order.order_fiat_amount * 2;
+    }
+    if(this.order.order_coin == "SBD"){
+      this.order.order_coin_amount = this.order.order_fiat_amount * 1.42;
+    }
+  }
 }
