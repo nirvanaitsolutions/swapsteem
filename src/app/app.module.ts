@@ -10,7 +10,6 @@ import { FooterComponent } from './footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppNavComponent } from './app-nav/app-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatTableModule, MatPaginatorModule, MatSortModule, MatGridListModule, MatCardModule, MatMenuModule } from '@angular/material';
 import { HomeComponent } from './home/home.component';
 import { BuyComponent } from './buy/buy.component';
 import { SellComponent } from './sell/sell.component';
@@ -33,6 +32,10 @@ import { SellSbdComponent } from './sell-sbd/sell-sbd.component';
 import { SellSteemComponent } from './sell-steem/sell-steem.component';
 import { ChatPageComponent } from './chat-page/chat-page.component';
 import { AuthInterceptor } from './../service/auth.intercepter';
+import {MomentModule} from 'angular2-moment';
+import {NgxAutoScrollModule} from 'ngx-auto-scroll';
+import { SearchBuyBoxComponent } from './search-buy-box/search-buy-box.component';
+import { SearchSellBoxComponent } from './search-sell-box/search-sell-box.component';
 
 const config: SocketIoConfig = { url: 'http://swapsteem-api.herokuapp.com', options: {} };
 
@@ -60,23 +63,16 @@ const config: SocketIoConfig = { url: 'http://swapsteem-api.herokuapp.com', opti
     SellSbdComponent,
     SellSteemComponent,
     ChatPageComponent,
+    SearchBuyBoxComponent,
+    SearchSellBoxComponent,
   ],
   imports: [
+    NgxAutoScrollModule,
+    MomentModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatGridListModule,
-    MatCardModule,
-    MatMenuModule,
     HttpClientModule,
     SteemconnectModule.forRoot(environment.steemconnectConfig),
     CookieModule.forRoot(),

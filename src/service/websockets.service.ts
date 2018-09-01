@@ -13,7 +13,8 @@ export interface OAuth2Token {
   providedIn: 'root'
 })
 export class WebsocketsService {
-  public busy = new busy.Client('wss://api.busy.org');;
+ // public busy = new busy.Client('wss://swapsteem-api.herokuapp.com');;
+ public busy = new busy.Client('wss://api.busy.org');
 
   constructor(private auth :SteemconnectAuthService) {
     
@@ -24,8 +25,8 @@ export class WebsocketsService {
    }
    token:OAuth2Token = this.auth.token;
 
-   getNotifs(){
-     this.busy.call('get_notifications', ['aneilpatel'], function(err, result) {
+   getNotifs(order_id:string){
+     this.busy.call('get_notifications', [this.token.username], function(err, result) {
         console.log(err, result);
       })
      this.busy.call('login', [this.token.access_token], function(err, result) {
@@ -34,6 +35,10 @@ export class WebsocketsService {
       this.busy.call( 'subscribe', [this.token.username],function(err, result) {
         console.log(err, result);
       })
+      this.busy.call('get_messages', [this.token.access_token,order_id], function(err, result) {
+        console.log(err, result);
+        return result;
+       })
     
   }
   

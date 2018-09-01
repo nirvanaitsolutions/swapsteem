@@ -20,12 +20,12 @@ export class PostTradeComponent implements OnInit {
     ad_type:'',
     country: '',
     payment_methods: [''],
-    currency: '',
+    currency: 'USD',
     margin: 0,
     limit_from: 0,
     limit_to: 0,
     restricted_amounts: [],
-    ad_coin : '',
+    ad_coin : 'STEEM',
     ad_status : 'open',
     ad_coin_amount : 0,
     terms: '',
@@ -44,8 +44,10 @@ export class PostTradeComponent implements OnInit {
     }
     
   };
-
+  objectKeys = Object.keys;
   userData: any = [];
+  cryptos:any;
+  effectivePrice:any;
 
 
   ngOnInit() {
@@ -53,6 +55,10 @@ export class PostTradeComponent implements OnInit {
       this.userData = data;
       this.advertisement.createdby=this.userData.name;
       console.log(this.userData);
+     });
+     this.api.getPriceByPair(this.advertisement.ad_coin,this.advertisement.currency).subscribe(data => {
+      this.cryptos=data;
+      console.log(data)
      });
   }
 
@@ -67,7 +73,8 @@ export class PostTradeComponent implements OnInit {
   }
 
   country = ['','India','USA','South Korea','Indonesia','Nigeria'];
+  currency = ['','INR','USD','KRW'];
   ad_type = ['buy','sell'];
   ad_coin = ['STEEM','SBD'];
-  payment_methods = ['Bank Transfer','Wallet Transfer', 'PayPal'];
+  payment_methods = ['Bank Transfer','In Cash', 'PayPal'];
 }

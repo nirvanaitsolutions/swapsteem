@@ -18,6 +18,7 @@
     <table class="table">
       <tr>
         <th class="table-header">FROM</th>
+        <th class="table-header">TO</th>
         <th class="table-header">COIN AMOUNT</th>
         <th class="table-header">RATE</th>
         <th class="table-header">FIAT AMOUNT</th>
@@ -26,6 +27,7 @@
       </tr>
       <tr *ngFor = "let openOrder of openOrders |async">
         <td>{{openOrder.createdby}}</td>
+        <td>{{openOrder.createdfor}}</td>
         <td>{{openOrder.order_coin_amount}}</td>
         <td>{{openOrder.order_rate}}</td>
         <td>{{openOrder.order_fiat_amount}}</td>
@@ -41,6 +43,7 @@
     <table class="table">
       <tr>
         <th class="table-header">FROM</th>
+        <th class="table-header">TO</th>
         <th class="table-header">COIN AMOUNT</th>
         <th class="table-header">RATE</th>
         <th class="table-header">FIAT AMOUNT</th>
@@ -49,6 +52,7 @@
       </tr>
       <tr *ngFor = "let closedOrder of closedOrders |async">
         <td>{{closedOrder.createdby}}</td>
+        <td>{{closedOrder.createdfor}}</td>
         <td>{{closedOrder.order_coin_amount}}</td>
         <td>{{closedOrder.order_rate}}</td>
         <td>{{closedOrder.order_fiat_amount}}</td>

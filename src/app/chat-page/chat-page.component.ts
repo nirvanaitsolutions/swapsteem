@@ -27,6 +27,9 @@ export class ChatPageComponent implements OnInit {
   newMessage;
   selectedAd;
   selectedOrder;
+  token;
+
+
   message: MessageRequest =  {
     ad_id:'',
     createdby:'',
@@ -41,31 +44,33 @@ export class ChatPageComponent implements OnInit {
     this._apiSer.getSelectedOrderFromAPI(id).subscribe(data=>{
       this.selectedOrder=data;
       console.log("SelectedOrder");
-    console.log(this.selectedOrder);
-    this._apiSer.getSelectedTradeFromAPI(this.selectedOrder.ad_id).subscribe(res=>{
-      this.selectedAd=res;
-      console.log("SelectedAd");
-    console.log(this.selectedAd);
-
+      console.log(this.selectedOrder);
+      this._apiSer.getSelectedTradeFromAPI(this.selectedOrder.ad_id).subscribe(res=>{
+        this.selectedAd=res;
+        console.log("SelectedAd");
+        console.log(this.selectedAd);
+      });
     });
-    });
+    this.token = this._chatService.token;
     this.messages=this._chatService.getMessages(id);
-  
+    console.log(this.message);
   }
 
   sendMessage(){
     
     this.message.ad_id=this.selectedAd._id;    
     this.message.order_id=this.selectedOrder._id;    
-    this.message.createdby=this.selectedOrder.createdby;    
+    this.message.createdby=this.token.username;    
     this.message.createdfor=this.selectedAd.createdby;    
     this.message.message_text=this.newMessage;    
     this.message.message_type='message';    
     console.log(this.message);
-    this._apiSer.createMessage(this.message).subscribe(
+    this._apiSer.createMessage(this.message).subscribe(res => {
+      let id = this.route.snapshot.paramMap.get('id');
+      this.messages=this._chatService.getMessages(id);
+      this.newMessage = "";
+    }
     );
-    let id = this.route.snapshot.paramMap.get('id');
-    this.messages=this._chatService.getMessages(id);
-    this.newMessage = "";
+    
   }
 }

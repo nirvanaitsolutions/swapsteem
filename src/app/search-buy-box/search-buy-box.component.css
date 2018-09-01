@@ -1,7 +1,9 @@
-.box{
+.searchBox{
     border: 1px;
     padding: 10px;
     box-shadow: 2px 2px 2px 2px #888888;
-    margin-top: 20px;
-    background-color: white;
+}
+
+.searchBtn{
+    margin-top: 30px;
 }
