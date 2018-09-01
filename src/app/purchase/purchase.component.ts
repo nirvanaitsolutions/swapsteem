@@ -70,12 +70,7 @@ export class PurchaseComponent implements OnInit {
 
     this.purchaseServ.getPrice().subscribe(data => {
       this.price = data;
-      if(this.order.order_coin == "STEEM"){
-        this.order.order_rate = this.price.STEEM.USD;
-      }
-      if(this.order.order_coin == "SBD"){
-        this.order.order_rate =  this.price["SBD*"].USD;
-      }
+      
     });
     
   }
