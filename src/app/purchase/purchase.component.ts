@@ -70,7 +70,6 @@ export class PurchaseComponent implements OnInit {
 
     this.purchaseServ.getPrice().subscribe(data => {
       this.price = data;
-      
     });
     
   }
