@@ -6,23 +6,26 @@ Welcome to SwapSteem and thank you for entrusting our service to facilitate your
 Here's a friendly reminder before proceeding to the tutorial. By using our service, you explicitly agree to our [ToS](https://github.com/nirvanaitsolutions/swapsteem/blob/master/ToS.md). Please consider visiting the page if you are unsure with any terms or limitations.  
   
 <hr>  
-1.To get started, you would have to first login to our platform. The login button is conveniently placed at the uppermost right corner of the user preface.  
+1. To get started, you would have to first login to our platform. The login button is conveniently placed at the uppermost right corner of the user preface.
+
 ![](https://i.imgur.com/SL76yXU.jpg)  
   
 <br><hr> <br>  
-2.If you are familiar with the whole login process, you could directly skip to Step 4. But don't worry if you aren't, we are here to help. After you have clicked on the button, you would be redirected to another web page, which looks similar when compared to the following.  
+2. If you are familiar with the whole login process, you could directly skip to Step 4. But don't worry if you aren't, we are here to help. After you have clicked on the button, you would be redirected to another web page, which looks similar when compared to the following.  
+
 ![](https://i.imgur.com/bLbCGZe.png)  
   
 The circled box should be displaying the logo of SwapSteem. (Oh yes, you would need to have a Steemit account beforehand! [Register here!](https://signup.steemit.com/)) The authorization permissions requested by SwapSteem would also be listed there as well, please make sure you have read all the terms and only proceed if you agree with the said authorization.  
   
 <br>  
+
 ![](https://i.imgur.com/wSHtjzU.jpg)  
   
 Also, do note that your browser address bar should be utilizing v2.steemconnect ([learn more about v2.steemconnect here!](https://steemit.com/steemit/@steemitblog/steemconnect-2-0-easy-fast-efficient-access-to-the-steem-blockchain)) and the protocol of https ([learn more about https protocol here!](https://en.wikipedia.org/wiki/HTTPS)). It is crucial to double check because at SwapSteem, we truly value your account security.  
 
 <br><hr> <br>  
 
-3.Once you have press 'continue', you would be redirected to one of the following web pages, depending on whether you've logged in your Steemit account on your browser. Once you have arrived at these pages, just either click on your account or enter your account details. Poof, and you are now logged in to our SwapSteem platform!
+3. Once you have press 'continue', you would be redirected to one of the following web pages, depending on whether you've logged in your Steemit account on your browser. Once you have arrived at these pages, just either click on your account or enter your account details. Poof, and you are now logged in to our SwapSteem platform!
 
 ![](https://i.imgur.com/rMZZxrD.png)
 
@@ -30,7 +33,7 @@ Also, do note that your browser address bar should be utilizing v2.steemconnect 
 
 <br><hr> <br>  
 
-4.Welcome to the SwapSteem!
+4. Welcome to the SwapSteem!
 
 You could first notice that your uppermost right corner has a 'logout' which indicates that you have successfully logged in. In order to proceed to initiate a trade, select the 'Post a Trade' tab which is located at the top of the page.
 
@@ -38,7 +41,7 @@ You could first notice that your uppermost right corner has a 'logout' which ind
 
 <br><hr> <br>  
 
-5.You will then greeted by the following page.
+5. You will then greeted by the following page.
 
 ![](https://i.imgur.com/NGdNNdE.png)
 
@@ -56,8 +59,10 @@ For the 'Ad Coin' field,
 - You should specify the type of currencies you are accepting for this advertisement, either STEEM or SBD.
  
 For the 'Margin' field,
+- **Currently, this selection is being disabled and is set as 0 by default. All trades would be done based on real time price API from [cryptocompare](https://www.cryptocompare.com/api/). However, in the future, margin option would be activated.**
 - You could select the margin you prefer. 
 - For instance, 1% means that you would like to price your advertisement as 1% above the current STEEM or SBD price. Negative margin could be selected as well.
+- That is, if the price is 100 USD for either STEEM or SBD, margin of 1% means 101 USD as price.
 
 For the 'Payment Methods' field,
 - You could specify the payment methods you would like to offer or accept. You could choose your preferred option from the dropdown menu.
@@ -100,13 +105,13 @@ For the 'New Buyer Limit' field,
 
 <br><hr> <br>  
 
-5.After you have completed filling all the necessary details, you would then see a 'Publish Advertisement' button located at the end of the page.
+5. After you have completed filling all the necessary details, you would then see a 'Publish Advertisement' button located at the end of the page.
 ![](https://i.imgur.com/7dfRA6e.png)
 
 Simply click the button, and Taaa daa! You have successfully posted a trade! Congratulations!
 
 <br><hr> <br>
 
-6.To check or edit your posted advertisement trade, you could hover your mouse to the 'Profile' tab on the uppermost right corner of the page. You could then clearly see that all the listed advertisement made by you.
+6. To check or edit your posted advertisement trade, you could hover your mouse to the 'Profile' tab on the uppermost right corner of the page. You could then clearly see that all the listed advertisement made by you.
 
 ![](https://i.imgur.com/LqCEFsw.png)
