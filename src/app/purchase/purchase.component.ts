@@ -49,7 +49,13 @@ export class PurchaseComponent implements OnInit {
       this.order.order_type=this.selectedTrade.ad_type;
       this.order.order_coin=this.selectedTrade.ad_coin;
       //todo - calculate rate from margin
-      this.order.order_rate=this.selectedTrade.margin;
+      //this.order.order_rate=this.selectedTrade.margin;
+      if(this.order.order_coin == "STEEM"){
+        this.order.order_rate = this.price.STEEM.USD;
+      }
+      if(this.order.order_coin == "SBD"){
+        this.order.order_rate =  this.price["SBD*"].USD;
+      }
       this.order.order_payment_method=this.selectedTrade.payment_methods;
       this.order.country=this.selectedTrade.country;
       this.order.currency=this.selectedTrade.currency;
@@ -64,6 +70,12 @@ export class PurchaseComponent implements OnInit {
 
     this.purchaseServ.getPrice().subscribe(data => {
       this.price = data;
+      if(this.order.order_coin == "STEEM"){
+        this.order.order_rate = this.price.STEEM.USD;
+      }
+      if(this.order.order_coin == "SBD"){
+        this.order.order_rate =  this.price["SBD*"].USD;
+      }
     });
     
   }
