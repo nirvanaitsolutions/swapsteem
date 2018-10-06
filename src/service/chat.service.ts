@@ -25,7 +25,7 @@ export class ChatService {
 
   getMessages(order_id:string){
     //console.log("Hit service");
-    this.ws.getNotifs(order_id);
+    //this.ws.getNotifs(order_id);
     return this._http.get<MessageResponse[]>("http://swapsteem-api.herokuapp.com/messages/by_order/"+order_id);
     //return this.ws.getMessages(order_id)
   }
