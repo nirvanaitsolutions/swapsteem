@@ -33,9 +33,9 @@ export class ChatPageComponent implements OnInit {
   sender;
   reciever;
   agent='swapsteem';
-  fee:'0.oo1 SBD';
-  rDeadline= Date.now();
-  eDeadline=Date.now();
+  fee:0.001;
+  rDeadline;
+  eDeadline;
 
 
   message: MessageRequest =  {
@@ -51,6 +51,8 @@ export class ChatPageComponent implements OnInit {
     let id = this.route.snapshot.paramMap.get('id');
     this._apiSer.getSelectedOrderFromAPI(id).subscribe(data=>{
       this.selectedOrder=data;
+      this.selectedOrder.order_sbd_amount=data.order_sbd_amount||0.001;
+      this.selectedOrder.order_steem_amount=data.order_steem_amount||0.001;
       console.log("SelectedOrder");
       console.log(this.selectedOrder);
       var temp = new Date(this.selectedOrder.createdAt);
@@ -108,6 +110,13 @@ export class ChatPageComponent implements OnInit {
   }
 
   transferEscrow(){
-    window.location.href = 'https://steemconnect.com/sign/escrow-transfer?from=' + this.sender + '&to=' + this.reciever + '&agent=' + this.agent + '&escrow_id=' + this.selectedOrder.escrowID + '&sbd_amount=' + this.selectedOrder.sbd_amount + '&steem_amount=' + this.selectedOrder.steemAmount + '&fee=' + this.fee + '&ratification_deadline=' + this.rDeadline + '&escrow_expiration=' + this.eDeadline + '&json_meta={"terms":' + this.selectedOrder.terms + ',"memo":"testing escrow transaction 2334305953"}'    
+    let now = new Date();
+    this.rDeadline= now.setHours(now.getHours()+2);
+    let temprDeadline= new Date(this.rDeadline);
+    this.rDeadline=temprDeadline.toISOString();
+    this.eDeadline=now.setDate(now.getDate()+3);
+    let tempeDeadline= new Date(this.eDeadline);
+    this.eDeadline=tempeDeadline.toISOString();
+    window.location.href = 'https://steemconnect.com/sign/escrow-transfer?from=' + this.sender + '&to=' + this.reciever + '&agent=' + this.agent + '&escrow_id=' + this.selectedOrder.escrowID + '&sbd_amount=' + this.selectedOrder.order_sbd_amount + '%20SBD&steem_amount=' + this.selectedOrder.order_steem_amount + '%20STEEM&fee=' + 0.001 + '%20STEEM&ratification_deadline=' + this.rDeadline + '&escrow_expiration=' + this.eDeadline + '&json_meta={"memo":"testing escrow transaction 2334305953"}'    
   }
 }
