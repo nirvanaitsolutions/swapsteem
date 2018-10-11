@@ -56,7 +56,7 @@ export class ChatPageComponent implements OnInit {
       console.log("SelectedOrder");
       console.log(this.selectedOrder);
       var temp = new Date(this.selectedOrder.createdAt);
-      this.selectedOrder.escrowID= temp.getTime();
+      this.selectedOrder.escrowID= Math.floor(temp.getTime()/1000) ;
       // milliseconds since Jan 1, 1970, 00:00:00.000 GMT
       if(this.selectedOrder.createdby==this.token.username && this.selectedOrder.order_type =='buy'){
         this.sender=this.selectedOrder.createdfor;
@@ -118,5 +118,17 @@ export class ChatPageComponent implements OnInit {
     let tempeDeadline= new Date(this.eDeadline);
     this.eDeadline=tempeDeadline.toISOString();
     window.location.href = 'https://steemconnect.com/sign/escrow-transfer?from=' + this.sender + '&to=' + this.reciever + '&agent=' + this.agent + '&escrow_id=' + this.selectedOrder.escrowID + '&sbd_amount=' + this.selectedOrder.order_sbd_amount + '%20SBD&steem_amount=' + this.selectedOrder.order_steem_amount + '%20STEEM&fee=' + 0.001 + '%20STEEM&ratification_deadline=' + this.rDeadline + '&escrow_expiration=' + this.eDeadline + '&json_meta={"memo":"testing escrow transaction 2334305953"}'    
+  }
+  releaseEscrow(){
+    window.location.href = 'https://steemconnect.com/sign/escrow-release?from=' + this.sender + '&to=' + this.reciever + '&agent=' + this.agent + '&who=' + this.token.username + '&receiver=' + this.sender + '&escrow_id=' + this.selectedOrder.escrowID + '&sbd_amount=' + this.selectedOrder.order_sbd_amount + '%20SBD&steem_amount=' + this.selectedOrder.order_steem_amount + '%20STEEM'
+  }
+  raiseDispute(){
+    window.location.href = 'https://steemconnect.com/sign/escrow-dispute?from=' + this.sender + '&to=' + this.reciever + '&agent=' + this.agent + '&who=' + this.token.username + '&escrow_id=' + this.selectedOrder.escrowID 
+  }
+  approveEscrow(){
+    window.location.href = 'https://steemconnect.com/sign/escrow-approve?from=' + this.sender + '&to=' + this.reciever + '&agent=' + this.agent + '&who=' + this.token.username + '&escrow_id=' + this.selectedOrder.escrowID + '&approve=1'
+  }
+  rejectEscrow(){
+    window.location.href = 'https://steemconnect.com/sign/escrow-approve?from=' + this.sender + '&to=' + this.reciever + '&agent=' + this.agent + '&who=' + this.token.username + '&escrow_id=' + this.selectedOrder.escrowID + '&approve=0'
   }
 }
