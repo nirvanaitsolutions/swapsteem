@@ -28,6 +28,7 @@ export class ChatPageComponent implements OnInit {
   selectedAd;
   selectedOrder;
   token;
+  escrowid;
 
 
   message: MessageRequest =  {
@@ -45,6 +46,9 @@ export class ChatPageComponent implements OnInit {
       this.selectedOrder=data;
       console.log("SelectedOrder");
       console.log(this.selectedOrder);
+      var temp = new Date(this.selectedOrder.createdAt);
+      this.selectedOrder.escrowID= temp.getTime();
+      // milliseconds since Jan 1, 1970, 00:00:00.000 GMT
       this._apiSer.getSelectedTradeFromAPI(this.selectedOrder.ad_id).subscribe(res=>{
         this.selectedAd=res;
         console.log("SelectedAd");
