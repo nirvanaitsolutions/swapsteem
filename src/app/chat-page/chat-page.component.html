@@ -41,17 +41,45 @@
             <p>{{selectedOrder.order_fiat_amount}}</p>
           </div>
         </div> 
-        <div>
-          <h6>PAYMENT METHODS</h6>
-          <p>{{selectedAd.payment_methods[0]}}</p>
-        </div>   
-        <div>
-          <h6>ESCROW ID</h6>
-          <p>{{selectedOrder.escrowID}}</p>
-        </div>      
-        <div>
+        <div class="row">
+          <div class="col">
+            <h6>PAYMENT METHODS</h6>
+            <p>{{selectedAd.payment_methods[0]}}</p>
+          </div>   
+          <div class="col">
+            <h6>ESCROW ID</h6>
+            <p>{{selectedOrder.escrowID}}</p>
+          </div>  
+        </div>    
+        <div class="row">
           <h6>TERMS</h6>
           <p>{{selectedAd.terms}}</p>
+        </div>
+        <div class="row">
+          <div>
+              <span *ngIf="(sender); else reciever ">
+                  <div class="col">
+                      <button type="submit" class="btn btn-primary  " (click)="sendMessage()">TRANSFER TO ESCROW</button>
+                    </div>
+                    <div class="col">
+                        <button type="submit" class="btn btn-success   " (click)="sendMessage()">RELEASE ESCROW</button>
+                    </div>
+                    <div class="col">
+                        <button type="submit" class="btn btn-danger   " (click)="sendMessage()">RAISE A DISPUTE</button>
+                    </div>                                    
+              </span>
+                <ng-template #reciever>
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary  " (click)="sendMessage()">APPROVE ESCROW</button>
+                      </div>
+                      <div class="col">
+                          <button type="submit" class="btn btn-danger   " (click)="sendMessage()">REJECT ESCROW</button>
+                      </div>
+                      <div class="col">
+                          <button type="submit" class="btn btn-danger   " (click)="sendMessage()">RAISE A DISPUTE</button>
+                      </div> 
+                </ng-template>
+            </div>
         </div>
       </div>
     </div>

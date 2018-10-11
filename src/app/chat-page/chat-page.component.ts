@@ -29,6 +29,7 @@ export class ChatPageComponent implements OnInit {
   selectedOrder;
   token;
   escrowid;
+  sender=false;
 
 
   message: MessageRequest =  {
