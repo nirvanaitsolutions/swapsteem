@@ -29,7 +29,13 @@ export class ChatPageComponent implements OnInit {
   selectedOrder;
   token;
   escrowid;
-  sender=false;
+  isSender=false;
+  sender;
+  reciever;
+  agent='swapsteem';
+  fee:'0.oo1 SBD';
+  rDeadline= Date.now();
+  eDeadline=Date.now();
 
 
   message: MessageRequest =  {
@@ -50,6 +56,29 @@ export class ChatPageComponent implements OnInit {
       var temp = new Date(this.selectedOrder.createdAt);
       this.selectedOrder.escrowID= temp.getTime();
       // milliseconds since Jan 1, 1970, 00:00:00.000 GMT
+      if(this.selectedOrder.createdby==this.token.username && this.selectedOrder.order_type =='buy'){
+        this.sender=this.selectedOrder.createdfor;
+        this.reciever=this.selectedOrder.createdby;
+        this.isSender=false;
+      }
+      else if (this.selectedOrder.createdby==this.token.username && this.selectedOrder.order_type =='sell'){
+        this.sender=this.selectedOrder.createdby;
+        this.reciever=this.selectedOrder.createdfor;
+        this.isSender=true;
+      }
+      else if (this.selectedOrder.createdfor==this.token.username && this.selectedOrder.order_type =='buy'){
+        this.sender=this.selectedOrder.createdfor;
+        this.reciever=this.selectedOrder.createdby;
+        this.isSender=true;
+      }
+      else if (this.selectedOrder.createdfor==this.token.username && this.selectedOrder.order_type =='sell'){
+        this.sender=this.selectedOrder.createdby;
+        this.reciever=this.selectedOrder.createdfor;
+        this.isSender=false;
+      }
+      console.log("sender : ",this.sender);
+        console.log("reciever : ",this.reciever);
+        console.log("isSender : ",this.isSender);
       this._apiSer.getSelectedTradeFromAPI(this.selectedOrder.ad_id).subscribe(res=>{
         this.selectedAd=res;
         console.log("SelectedAd");
@@ -76,5 +105,9 @@ export class ChatPageComponent implements OnInit {
     }
     );
     
+  }
+
+  transferEscrow(){
+    window.location.href = 'https://steemconnect.com/sign/escrow-transfer?from=' + this.sender + '&to=' + this.reciever + '&agent=' + this.agent + '&escrow_id=' + this.selectedOrder.escrowID + '&sbd_amount=' + this.selectedOrder.sbd_amount + '&steem_amount=' + this.selectedOrder.steemAmount + '&fee=' + this.fee + '&ratification_deadline=' + this.rDeadline + '&escrow_expiration=' + this.eDeadline + '&json_meta={"terms":' + this.selectedOrder.terms + ',"memo":"testing escrow transaction 2334305953"}'    
   }
 }
