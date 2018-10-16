@@ -41,13 +41,45 @@
             <p>{{selectedOrder.order_fiat_amount}}</p>
           </div>
         </div> 
-        <div>
-          <h6>PAYMENT METHODS</h6>
-          <p>{{selectedAd.payment_methods[0]}}</p>
-        </div>       
-        <div>
+        <div class="row">
+          <div class="col">
+            <h6>PAYMENT METHODS</h6>
+            <p>{{selectedAd.payment_methods[0]}}</p>
+          </div>   
+          <div class="col">
+            <h6>ESCROW ID</h6>
+            <p>{{selectedOrder.escrowID}}</p>
+          </div>  
+        </div>    
+        <div class="row">
           <h6>TERMS</h6>
           <p>{{selectedAd.terms}}</p>
+        </div>
+        <div class="row">
+          <div>
+              <span *ngIf="(isSender); else reciever ">
+                  <div class="col">
+                      <button type="submit" class="btn btn-primary  " (click)="transferEscrow()">TRANSFER TO ESCROW</button>
+                    </div>
+                    <div class="col">
+                        <button type="submit" class="btn btn-success   " (click)="releaseEscrow()">RELEASE ESCROW</button>
+                    </div>
+                    <div class="col">
+                        <button type="submit" class="btn btn-danger   " (click)="raiseDispute()">RAISE A DISPUTE</button>
+                    </div>                                    
+              </span>
+                <ng-template #reciever>
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary  " (click)="approveEscrow()">APPROVE ESCROW</button>
+                      </div>
+                      <div class="col">
+                          <button type="submit" class="btn btn-danger   " (click)="rejectEscrow()">REJECT ESCROW</button>
+                      </div>
+                      <div class="col">
+                          <button type="submit" class="btn btn-danger   " (click)="raiseDispute()">RAISE A DISPUTE</button>
+                      </div> 
+                </ng-template>
+            </div>
         </div>
       </div>
     </div>

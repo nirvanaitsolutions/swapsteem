@@ -17,10 +17,12 @@ export interface OrderRequest {
 export interface OrderResponse {
     _id : string  
     createdby: string,
-    ad_id:string
-    createdfor:string
+    ad_id:string,
+    createdfor:string,
+    escrowID:number,
     order_type:string,
-    order_coin_amount:number,
+    order_steem_amount:number,
+    order_sbd_amount:number,
     order_fiat_amount:number,
     order_coin:string,
     order_rate:number,

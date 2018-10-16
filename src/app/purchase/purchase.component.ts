@@ -46,7 +46,7 @@ export class PurchaseComponent implements OnInit {
       this.order.ad_id=this.selectedTrade._id;
       this.order.createdfor=this.selectedTrade.createdby;
       //todo - reverse ad type
-      this.order.order_type=this.selectedTrade.ad_type;
+      this.order.order_type=this.selectedTrade.ad_type == "buy" ? "sell" : "buy" ;
       this.order.order_coin=this.selectedTrade.ad_coin;
       //todo - calculate rate from margin
       //this.order.order_rate=this.selectedTrade.margin;
@@ -70,12 +70,6 @@ export class PurchaseComponent implements OnInit {
 
     this.purchaseServ.getPrice().subscribe(data => {
       this.price = data;
-      if(this.order.order_coin == "STEEM"){
-        this.order.order_rate = this.price.STEEM.USD;
-      }
-      if(this.order.order_coin == "SBD"){
-        this.order.order_rate =  this.price["SBD*"].USD;
-      }
     });
     
   }

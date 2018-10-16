@@ -28,6 +28,14 @@ export class ChatPageComponent implements OnInit {
   selectedAd;
   selectedOrder;
   token;
+  escrowid;
+  isSender=false;
+  sender;
+  reciever;
+  agent='swapsteem';
+  fee:0.001;
+  rDeadline;
+  eDeadline;
 
 
   message: MessageRequest =  {
@@ -43,8 +51,36 @@ export class ChatPageComponent implements OnInit {
     let id = this.route.snapshot.paramMap.get('id');
     this._apiSer.getSelectedOrderFromAPI(id).subscribe(data=>{
       this.selectedOrder=data;
+      this.selectedOrder.order_sbd_amount=data.order_sbd_amount||0.001;
+      this.selectedOrder.order_steem_amount=data.order_steem_amount||0.001;
       console.log("SelectedOrder");
       console.log(this.selectedOrder);
+      var temp = new Date(this.selectedOrder.createdAt);
+      this.selectedOrder.escrowID= Math.floor(temp.getTime()/1000) ;
+      // milliseconds since Jan 1, 1970, 00:00:00.000 GMT
+      if(this.selectedOrder.createdby==this.token.username && this.selectedOrder.order_type =='buy'){
+        this.sender=this.selectedOrder.createdfor;
+        this.reciever=this.selectedOrder.createdby;
+        this.isSender=false;
+      }
+      else if (this.selectedOrder.createdby==this.token.username && this.selectedOrder.order_type =='sell'){
+        this.sender=this.selectedOrder.createdby;
+        this.reciever=this.selectedOrder.createdfor;
+        this.isSender=true;
+      }
+      else if (this.selectedOrder.createdfor==this.token.username && this.selectedOrder.order_type =='buy'){
+        this.sender=this.selectedOrder.createdfor;
+        this.reciever=this.selectedOrder.createdby;
+        this.isSender=true;
+      }
+      else if (this.selectedOrder.createdfor==this.token.username && this.selectedOrder.order_type =='sell'){
+        this.sender=this.selectedOrder.createdby;
+        this.reciever=this.selectedOrder.createdfor;
+        this.isSender=false;
+      }
+      console.log("sender : ",this.sender);
+        console.log("reciever : ",this.reciever);
+        console.log("isSender : ",this.isSender);
       this._apiSer.getSelectedTradeFromAPI(this.selectedOrder.ad_id).subscribe(res=>{
         this.selectedAd=res;
         console.log("SelectedAd");
@@ -61,7 +97,6 @@ export class ChatPageComponent implements OnInit {
     this.message.ad_id=this.selectedAd._id;    
     this.message.order_id=this.selectedOrder._id;    
     this.message.createdby=this.token.username;    
-    this.message.createdfor=this.selectedAd.createdby;    
     this.message.message_text=this.newMessage;    
     this.message.message_type='message';    
     console.log(this.message);
@@ -72,5 +107,28 @@ export class ChatPageComponent implements OnInit {
     }
     );
     
+  }
+
+  transferEscrow(){
+    let now = new Date();
+    this.rDeadline= now.setHours(now.getHours()+2);
+    let temprDeadline= new Date(this.rDeadline);
+    this.rDeadline=temprDeadline.toISOString();
+    this.eDeadline=now.setDate(now.getDate()+3);
+    let tempeDeadline= new Date(this.eDeadline);
+    this.eDeadline=tempeDeadline.toISOString();
+    window.location.href = 'https://steemconnect.com/sign/escrow-transfer?from=' + this.sender + '&to=' + this.reciever + '&agent=' + this.agent + '&escrow_id=' + this.selectedOrder.escrowID + '&sbd_amount=' + this.selectedOrder.order_sbd_amount + '%20SBD&steem_amount=' + this.selectedOrder.order_steem_amount + '%20STEEM&fee=' + 0.001 + '%20STEEM&ratification_deadline=' + this.rDeadline + '&escrow_expiration=' + this.eDeadline + '&json_meta={"memo":"testing escrow transaction 2334305953"}'    
+  }
+  releaseEscrow(){
+    window.location.href = 'https://steemconnect.com/sign/escrow-release?from=' + this.sender + '&to=' + this.reciever + '&agent=' + this.agent + '&who=' + this.token.username + '&receiver=' + this.sender + '&escrow_id=' + this.selectedOrder.escrowID + '&sbd_amount=' + this.selectedOrder.order_sbd_amount + '%20SBD&steem_amount=' + this.selectedOrder.order_steem_amount + '%20STEEM'
+  }
+  raiseDispute(){
+    window.location.href = 'https://steemconnect.com/sign/escrow-dispute?from=' + this.sender + '&to=' + this.reciever + '&agent=' + this.agent + '&who=' + this.token.username + '&escrow_id=' + this.selectedOrder.escrowID 
+  }
+  approveEscrow(){
+    window.location.href = 'https://steemconnect.com/sign/escrow-approve?from=' + this.sender + '&to=' + this.reciever + '&agent=' + this.agent + '&who=' + this.token.username + '&escrow_id=' + this.selectedOrder.escrowID + '&approve=1'
+  }
+  rejectEscrow(){
+    window.location.href = 'https://steemconnect.com/sign/escrow-approve?from=' + this.sender + '&to=' + this.reciever + '&agent=' + this.agent + '&who=' + this.token.username + '&escrow_id=' + this.selectedOrder.escrowID + '&approve=0'
   }
 }
