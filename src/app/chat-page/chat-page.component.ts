@@ -55,8 +55,6 @@ export class ChatPageComponent implements OnInit {
       this.selectedOrder.order_steem_amount=data.order_steem_amount||0.001;
       console.log("SelectedOrder");
       console.log(this.selectedOrder);
-      var temp = new Date(this.selectedOrder.createdAt);
-      this.selectedOrder.escrowID= Math.floor(temp.getTime()/1000) ;
       // milliseconds since Jan 1, 1970, 00:00:00.000 GMT
       if(this.selectedOrder.createdby==this.token.username && this.selectedOrder.order_type =='buy'){
         this.sender=this.selectedOrder.createdfor;

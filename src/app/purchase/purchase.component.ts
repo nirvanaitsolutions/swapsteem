@@ -24,7 +24,9 @@ export class PurchaseComponent implements OnInit {
     createdby:'',
     createdfor:'',
     order_type:'',
-    order_coin_amount:0,
+    escrowID:0,
+    order_steem_amount:0,
+    order_sbd_amount:0,
     order_fiat_amount:0,
     order_coin:'',
     order_rate:0,
@@ -90,7 +92,10 @@ export class PurchaseComponent implements OnInit {
     // this.order.country=this.selectedTrade.country;
     // this.order.currency=this.selectedTrade.currency;
     //this.order.createdby=this.userData.name;
-    console.log("order : "+this.order)
+    let now = new Date();
+    this.order.escrowID= Math.floor(now.getTime()/1000)
+
+    console.log("escrow : "+this.order.escrowID)
     // this.broadcast.broadcastCustomJson('swapsteem','order',this.order)
     // .subscribe(res => this.router.navigate(['profile']));
     this.purchaseServ.createOrder(this.order).subscribe(res=>this.zone.run(() => {
@@ -102,19 +107,19 @@ export class PurchaseComponent implements OnInit {
 
   changeToFiat(){
     if(this.order.order_coin == "STEEM"){
-      this.order.order_fiat_amount = this.order.order_coin_amount * this.price.STEEM.USD;
+      this.order.order_fiat_amount = this.order.order_steem_amount * this.price.STEEM.USD;
     }
     if(this.order.order_coin == "SBD"){
-      this.order.order_fiat_amount = this.order.order_coin_amount * this.price["SBD*"].USD;
+      this.order.order_fiat_amount = this.order.order_sbd_amount * this.price["SBD*"].USD;
     }
   }
 
   changeToCoin(){
     if(this.order.order_coin == "STEEM"){
-      this.order.order_coin_amount = this.order.order_fiat_amount * (1/this.price.STEEM.USD);
+      this.order.order_steem_amount = this.order.order_fiat_amount * (1/this.price.STEEM.USD);
     }
     if(this.order.order_coin == "SBD"){
-      this.order.order_coin_amount = this.order.order_fiat_amount * (1/this.price["SBD*"].USD);
+      this.order.order_sbd_amount = this.order.order_fiat_amount * (1/this.price["SBD*"].USD);
     }
   }
 }

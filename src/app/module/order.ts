@@ -3,7 +3,9 @@ export interface OrderRequest {
     ad_id:string
     createdfor:string
     order_type:string,
-    order_coin_amount:number,
+    escrowID:number,
+    order_steem_amount:number,
+    order_sbd_amount:number,
     order_fiat_amount:number,
     order_coin:string,
     order_rate:number,
