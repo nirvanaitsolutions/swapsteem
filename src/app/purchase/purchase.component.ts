@@ -25,8 +25,7 @@ export class PurchaseComponent implements OnInit {
     createdfor:'',
     order_type:'',
     escrowID:0,
-    order_steem_amount:0,
-    order_sbd_amount:0,
+    order_coin_amount:0,
     order_fiat_amount:0,
     order_coin:'',
     order_rate:0,
@@ -50,17 +49,35 @@ export class PurchaseComponent implements OnInit {
       //todo - reverse ad type
       this.order.order_type=this.selectedTrade.ad_type == "buy" ? "sell" : "buy" ;
       this.order.order_coin=this.selectedTrade.ad_coin;
-      //todo - calculate rate from margin
-      //this.order.order_rate=this.selectedTrade.margin;
-      if(this.order.order_coin == "STEEM"){
-        this.order.order_rate = this.price.STEEM.USD;
-      }
-      if(this.order.order_coin == "SBD"){
-        this.order.order_rate =  this.price["SBD*"].USD;
-      }
       this.order.order_payment_method=this.selectedTrade.payment_methods;
       this.order.country=this.selectedTrade.country;
       this.order.currency=this.selectedTrade.currency;
+      //todo - calculate rate from margin
+      //this.order.order_rate=this.selectedTrade.margin;
+      if(this.order.order_coin == "STEEM"){
+        this.purchaseServ.getPriceByPair(this.order.order_coin,this.order.currency).subscribe(data => {
+          let priceResponse = Object.values(data);
+
+          this.price = priceResponse[0];
+          console.log("price "+this.price)
+        this.order.order_rate = this.price;
+        });
+        
+      }
+      else if(this.order.order_coin == "SBD"){
+        this.purchaseServ.getPriceByPair(this.order.order_coin,this.order.currency).subscribe(data => {
+          let priceResponse = Object.values(data);
+
+          this.price = priceResponse[0];
+          this.order.order_rate =  this.price;
+        });
+        
+      }
+      
+
+      this.purchaseServ.getPrice().subscribe(data => {
+        this.price = data;
+      });
     });
     
     console.log("selected trade"+this.selectedTrade);
@@ -70,9 +87,7 @@ export class PurchaseComponent implements OnInit {
       console.log(this.userData);
     });
 
-    this.purchaseServ.getPrice().subscribe(data => {
-      this.price = data;
-    });
+    
     
   }
 
@@ -107,19 +122,19 @@ export class PurchaseComponent implements OnInit {
 
   changeToFiat(){
     if(this.order.order_coin == "STEEM"){
-      this.order.order_fiat_amount = this.order.order_steem_amount * this.price.STEEM.USD;
+      this.order.order_fiat_amount = this.order.order_coin_amount * this.price;
     }
     if(this.order.order_coin == "SBD"){
-      this.order.order_fiat_amount = this.order.order_sbd_amount * this.price["SBD*"].USD;
+      this.order.order_fiat_amount = this.order.order_coin_amount * this.price;
     }
   }
 
   changeToCoin(){
     if(this.order.order_coin == "STEEM"){
-      this.order.order_steem_amount = this.order.order_fiat_amount * (1/this.price.STEEM.USD);
+      this.order.order_coin_amount = this.order.order_fiat_amount * (1/this.price);
     }
     if(this.order.order_coin == "SBD"){
-      this.order.order_sbd_amount = this.order.order_fiat_amount * (1/this.price["SBD*"].USD);
+      this.order.order_coin_amount = this.order.order_fiat_amount * (1/this.price);
     }
   }
 }

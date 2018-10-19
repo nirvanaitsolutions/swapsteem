@@ -90,14 +90,17 @@ export class APIService {
     //httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
     const headers = new HttpHeaders({'No-Auth':'True'});
     //return this._http.get<AdvertisementResponse[]>("http://swapsteem-api.herokuapp.com/price/"+coin);
-    return this._http.get("https://min-api.cryptocompare.com/data/pricemulti?fsyms=,STEEM,SBD*&tsyms=USD",{headers: headers}).map(result =>  this.result = result);
+    return this._http.get("https://min-api.cryptocompare.com/data/pricemulti?fsyms=,STEEM,SBD*&tsyms=USD,INR,KRW",{headers: headers}).map(result =>  this.result = result);
   }
 
   getPriceByPair(coin:string,fiat:string){
     //httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
     const headers = new HttpHeaders({'No-Auth':'True'});
+    if(coin=="SBD"){
+      coin='SBD*'
+    }
     //return this._http.get<AdvertisementResponse[]>("http://swapsteem-api.herokuapp.com/price/"+coin);
-    return this._http.get('https://min-api.cryptocompare.com/data/pricemulti?fsyms='+coin+'&tsyms='+fiat,{headers: headers}).map(result =>  this.result = result);
+    return this._http.get('https://min-api.cryptocompare.com/data/price?fsym='+coin+'&tsyms='+fiat,{headers: headers}).map(result =>  this.result = result);
   }
 
   getSelectedTrade(){

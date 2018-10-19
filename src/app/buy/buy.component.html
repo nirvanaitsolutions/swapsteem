@@ -6,6 +6,7 @@
         <th class="">Seller</th>
         <th class="">Payment</th>
         <th class="">Coin</th>
+        <th class="">Fiat</th>
         <th class="">Limits</th>
         <th class="">Price/Coin</th>
         <th></th>
@@ -14,8 +15,9 @@
         <td>{{buySteem.createdby}}</td>
         <td>{{buySteem.payment_methods}}</td>
         <td>{{buySteem.ad_coin}}</td>
+        <td>{{buySteem.currency}}</td>
         <td>{{buySteem.limit_from}} - {{buySteem.limit_to}}</td>
-        <td><span *ngIf = "buySteem.ad_coin == 'STEEM'">{{price.STEEM.USD}}</span><span *ngIf = "buySteem.ad_coin == 'SBD'">{{price["SBD*"].USD}}</span></td>                                                                                                                                                                 
+        <td><span >{{calculatePrice(buySteem.ad_coin,buySteem.currency)}}</span></td>                                                                                                                                                                 
         <td><button type="button" class="btn btn-success btn-sm badge badge-pill" (click)="buyTrade(buySteem)">Buy</button></td>
       </tr>
     </table>

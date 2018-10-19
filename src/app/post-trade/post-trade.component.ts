@@ -72,7 +72,6 @@ export class PostTradeComponent implements OnInit {
     }));
   }
 
-  country = ['','India','USA','South Korea','Indonesia','Nigeria'];
   currency = ['','INR','USD','KRW'];
   ad_type = ['buy','sell'];
   ad_coin = ['STEEM','SBD'];

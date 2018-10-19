@@ -36,7 +36,8 @@ export class ChatPageComponent implements OnInit {
   fee:0.001;
   rDeadline;
   eDeadline;
-
+  steemAmount=0;
+  sbdAmount=0 ;
 
   message: MessageRequest =  {
     ad_id:'',
@@ -51,8 +52,8 @@ export class ChatPageComponent implements OnInit {
     let id = this.route.snapshot.paramMap.get('id');
     this._apiSer.getSelectedOrderFromAPI(id).subscribe(data=>{
       this.selectedOrder=data;
-      this.selectedOrder.order_sbd_amount=data.order_sbd_amount||0.001;
-      this.selectedOrder.order_steem_amount=data.order_steem_amount||0.001;
+      //this.selectedOrder.order_sbd_amount=data.order_sbd_amount||0.001;
+      //this.selectedOrder.order_steem_amount=data.order_steem_amount||0.001;
       console.log("SelectedOrder");
       console.log(this.selectedOrder);
       // milliseconds since Jan 1, 1970, 00:00:00.000 GMT
@@ -79,6 +80,12 @@ export class ChatPageComponent implements OnInit {
       console.log("sender : ",this.sender);
         console.log("reciever : ",this.reciever);
         console.log("isSender : ",this.isSender);
+        if (this.selectedOrder.order_coin =="STEEM"){
+          this.steemAmount=this.selectedOrder.order_coin_amount;
+        }
+        else if(this.selectedOrder.order_coin =="SBD"){
+          this.sbdAmount=this.selectedOrder.order_coin_amount;
+        }
       this._apiSer.getSelectedTradeFromAPI(this.selectedOrder.ad_id).subscribe(res=>{
         this.selectedAd=res;
         console.log("SelectedAd");
@@ -115,7 +122,9 @@ export class ChatPageComponent implements OnInit {
     this.eDeadline=now.setDate(now.getDate()+3);
     let tempeDeadline= new Date(this.eDeadline);
     this.eDeadline=tempeDeadline.toISOString();
-    window.location.href = 'https://steemconnect.com/sign/escrow-transfer?from=' + this.sender + '&to=' + this.reciever + '&agent=' + this.agent + '&escrow_id=' + this.selectedOrder.escrowID + '&sbd_amount=' + this.selectedOrder.order_sbd_amount + '%20SBD&steem_amount=' + this.selectedOrder.order_steem_amount + '%20STEEM&fee=' + 0.001 + '%20STEEM&ratification_deadline=' + this.rDeadline + '&escrow_expiration=' + this.eDeadline + '&json_meta={"memo":"testing escrow transaction 2334305953"}'    
+    
+    
+    window.location.href = 'https://steemconnect.com/sign/escrow-transfer?from=' + this.sender + '&to=' + this.reciever + '&agent=' + this.agent + '&escrow_id=' + this.selectedOrder.escrowID + '&sbd_amount=' + this.sbdAmount + '%20SBD&steem_amount=' + this.steemAmount + '%20STEEM&fee=' + 0.001 + '%20STEEM&ratification_deadline=' + this.rDeadline + '&escrow_expiration=' + this.eDeadline + '&json_meta={"memo":"testing escrow transaction 2334305953"}'    
   }
   releaseEscrow(){
     window.location.href = 'https://steemconnect.com/sign/escrow-release?from=' + this.sender + '&to=' + this.reciever + '&agent=' + this.agent + '&who=' + this.token.username + '&receiver=' + this.sender + '&escrow_id=' + this.selectedOrder.escrowID + '&sbd_amount=' + this.selectedOrder.order_sbd_amount + '%20SBD&steem_amount=' + this.selectedOrder.order_steem_amount + '%20STEEM'
