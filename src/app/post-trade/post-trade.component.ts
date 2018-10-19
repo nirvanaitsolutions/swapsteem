@@ -72,8 +72,8 @@ export class PostTradeComponent implements OnInit {
     }));
   }
 
-  currency = ['','INR','USD','KRW'];
-  ad_type = ['buy','sell'];
+  currency = ['INR','USD','KRW'];
+  ad_type = ['BUY','SELL'];
   ad_coin = ['STEEM','SBD'];
   payment_methods = ['Bank Transfer','In Cash', 'PayPal'];
 }
