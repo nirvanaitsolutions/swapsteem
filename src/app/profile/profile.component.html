@@ -22,7 +22,7 @@
     <div class="row">
       <div class="card col box mr-2 text-center">
         <div>
-          {{userData.account.reputation}}/5
+          {{userData.account.reputation}}
         </div>
         <div>
           Reputation Score
@@ -42,18 +42,20 @@
       <table class="table">
         <tr>
           <th class="table-header">Payment Methods</th>
-          <th class="table-header">Sell Or Buy</th>
-          <th class="table-header">Currency</th>
-          <th class="table-header">Price</th>
+          <th class="table-header">Type</th>
+          <th class="table-header">Coin</th>
+          <th class="table-header">Fiat</th>
+          <th class="table-header">Amount</th>
           <th class="table-header">Limits(USD)</th>
           <th class="table-header"></th>
         </tr>
         <tr *ngFor = "let ad of openAds |async">
           <td>{{ad.payment_methods}}</td>
           <td>{{ad.ad_type}}</td>
+          <td>{{ad.ad_coin}}</td>
           <td>{{ad.currency}}</td>
           <td>{{ad.ad_coin_amount}}</td>
-          <td>{{ad.limit_from}}</td>
+          <td>{{ad.limit_from}} - {{ad.limit_to}}</td>
           <td><button class="btn btn-info ">View/ Edit</button></td>
         </tr>
       </table>
