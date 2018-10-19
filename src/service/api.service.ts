@@ -63,7 +63,8 @@ export class APIService {
 
   getBuyAds(){
     //httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
-    return this._http.get<AdvertisementResponse[]>("http://swapsteem-api.herokuapp.com/advertisements/sell");
+    const headers = new HttpHeaders({'No-Auth':'True'});
+    return this._http.get<AdvertisementResponse[]>("http://swapsteem-api.herokuapp.com/advertisements/sell",{headers: headers});
   }
 
   getAdsByUser(user:string){
@@ -83,7 +84,8 @@ export class APIService {
 
   getSellAds(){
     //httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
-    return this._http.get<AdvertisementResponse[]>("http://swapsteem-api.herokuapp.com/advertisements/buy");
+    const headers = new HttpHeaders({'No-Auth':'True'});
+    return this._http.get<AdvertisementResponse[]>("http://swapsteem-api.herokuapp.com/advertisements/buy",{headers: headers});
   }
 
   getPrice(){

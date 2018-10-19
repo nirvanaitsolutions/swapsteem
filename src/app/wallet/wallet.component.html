@@ -20,8 +20,10 @@
         <th class="table-header">FROM</th>
         <th class="table-header">TO</th>
         <th class="table-header">COIN AMOUNT</th>
+        <th class="table-header">COIN</th>
         <th class="table-header">RATE</th>
         <th class="table-header">FIAT AMOUNT</th>
+        <th class="table-header">FIAT</th>
         <th class="table-header">PAYMENT METHODS</th>
         <th></th>
       </tr>
@@ -29,8 +31,10 @@
         <td>{{openOrder.createdby}}</td>
         <td>{{openOrder.createdfor}}</td>
         <td>{{openOrder.order_coin_amount}}</td>
+        <td>{{openOrder.order_coin}}</td>
         <td>{{openOrder.order_rate}}</td>
         <td>{{openOrder.order_fiat_amount}}</td>
+        <td>{{openOrder.currency}}</td>
         <td>{{openOrder.order_payment_method}}</td>
         <td><button class="btn btn-success" (click) = "viewOrder(openOrder)">View</button></td>
       </tr>
@@ -45,8 +49,10 @@
         <th class="table-header">FROM</th>
         <th class="table-header">TO</th>
         <th class="table-header">COIN AMOUNT</th>
+        <th class="table-header">COIN </th>
         <th class="table-header">RATE</th>
         <th class="table-header">FIAT AMOUNT</th>
+        <th class="table-header">FIAT </th>
         <th class="table-header">PAYMENT METHODS</th>
         <th></th>
       </tr>
@@ -54,8 +60,10 @@
         <td>{{closedOrder.createdby}}</td>
         <td>{{closedOrder.createdfor}}</td>
         <td>{{closedOrder.order_coin_amount}}</td>
+        <td>{{closedOrder.order_coin}}</td>
         <td>{{closedOrder.order_rate}}</td>
         <td>{{closedOrder.order_fiat_amount}}</td>
+        <td>{{closedOrder.currency}}</td>
         <td>{{closedOrder.order_payment_method}}</td>
         <td><button class="btn btn-success" (click) = "viewOrder(closedOrder)">View</button></td>
       </tr>
