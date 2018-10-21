@@ -64,9 +64,6 @@ export class PostTradeComponent implements OnInit {
 
   onSubmit(form){
     console.log(form);
-    // this.broadcast.broadcastCustomJson('swapsteem','advertisement',this.advertisement)
-    // .subscribe(res => console.log(res));
-    //this.advertisement.createdby=this.userData.name;
     this.api.createAd(this.advertisement).subscribe(res=>this.zone.run(() => {
       this.router.navigate(['profile'])
     }));
