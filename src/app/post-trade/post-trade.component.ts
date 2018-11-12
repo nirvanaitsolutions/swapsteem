@@ -64,17 +64,13 @@ export class PostTradeComponent implements OnInit {
 
   onSubmit(form){
     console.log(form);
-    // this.broadcast.broadcastCustomJson('swapsteem','advertisement',this.advertisement)
-    // .subscribe(res => console.log(res));
-    //this.advertisement.createdby=this.userData.name;
     this.api.createAd(this.advertisement).subscribe(res=>this.zone.run(() => {
       this.router.navigate(['profile'])
     }));
   }
 
-  country = ['','India','USA','South Korea','Indonesia','Nigeria'];
-  currency = ['','INR','USD','KRW'];
-  ad_type = ['buy','sell'];
+  currency = ['INR','USD','KRW'];
+  ad_type = ['BUY','SELL'];
   ad_coin = ['STEEM','SBD'];
   payment_methods = ['Bank Transfer','In Cash', 'PayPal'];
 }

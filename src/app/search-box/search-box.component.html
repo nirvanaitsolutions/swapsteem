@@ -1,97 +1,75 @@
 <div class="searchBox container">
-  <ul class="nav nav-tabs ul-padding">
-    <li class="nav-item col-3">
-      <a href="#buy" routerLink="/buy-online" data-toggle="tab" class="nav-link">Buy</a>
-    </li>
-    <li class="nav-item col-3">
-      <a href="#sell" routerLink="/sell-online" data-toggle="tab" class="nav-link">Sell</a>
-    </li>
-  </ul>
-  <div class="tab-content clearfix">
-    <div class="tab-pane active" id="buy">
-      <div>
-        <form>
-          <table class="table">
-            <tr>
-              <th>Amuount</th>
-              <th>Payment Currenct</th>
-              <th>Location</th>
-              <th>Payment Methods</th>
-              <th></th>
-            </tr>
-            <tr>
-              <td>
-                <select name="" id="" class="form-control"></select>
-              </td>
-              <td>
-                <select name="" id="" class="form-control"></select>
-              </td>
-              <td>
-                <select name="" id="" class="form-control"></select>
-              </td>
-              <td>
-                <select name="" id="" class="form-control"></select>
-              </td>
-              <td>
-                <button class="btn badge-pill badge-success">Options</button>
-              </td>
-            </tr>
-          </table>
-        </form>
-        <!-- <form>
-          <div class="form-row">
-            <div class="col mb-3">
-              <label for="">Amount</label>
-              <select name="" id="" class="form-control"></select>
-            </div>
-            <div class="col mb-3">
-              <label for="">Payment Currenct</label>
-              <select name="" id="" class="form-control"></select>
-            </div>
-            <div class="col mb-3">
-              <label for="">Location</label>
-              <select name="" id="" class="form-control"></select>
-            </div>
-            <div class="col mb-3">
-              <label for="">Payment Method</label>
-              <select name="" id="" class="form-control"></select>
-            </div>
-            <div class="searchBtn col">
-              <button class="btn badge-pill badge-success">Search Options</button>
-            </div>
-          </div>
-        </form> -->
+  <div>
+    <form>
+      <table class="table">
+        <tr>
+          <th>Type</th>
+          <th>Coin</th>
+          <th>Fiat</th>
+          <th>Payment Method</th>
+          <th></th>
+        </tr>
+        <tr>
+          <td>
+              <select class="form-control" id="ad_type"
+              [(ngModel)] = "ad_type"
+              name = "ad_type"
+              required>
+                <option *ngFor="let count of ad_type">{{count}}</option>
+              </select>
+          </td>
+          <td>
+            <select class="form-control" id="ad_coin"
+              name="ad_coin"
+              required
+                [(ngModel)]="ad_coin">
+                <option *ngFor="let count of ad_coin">{{count}}</option>
+            </select>
+          </td>
+          <td>
+            <select class="form-control" id="Currency"
+                    [(ngModel)] = "currency"
+                    name = "currency"
+                    required>
+              <option *ngFor="let count of currency">{{count}}</option>
+            </select>
+          </td>
+          <td>
+            <select class="form-control" id="payment_methods"
+                      [(ngModel)] = "payment_methods"
+                    name = "payment_methods"
+                    required>
+              <option *ngFor="let count of payment_methods">{{count}}</option>
+            </select>
+          </td>
+          <td>
+            <button  type="submit" class="btn badge-pill badge-success">Search</button>
+          </td>
+        </tr>
+      </table>
+    </form>
+    <!-- <form>
+      <div class="form-row">
+        <div class="col mb-3">
+          <label for="">Amount</label>
+          <select name="" id="" class="form-control"></select>
+        </div>
+        <div class="col mb-3">
+          <label for="">Payment Currenct</label>
+          <select name="" id="" class="form-control"></select>
+        </div>
+        <div class="col mb-3">
+          <label for="">Location</label>
+          <select name="" id="" class="form-control"></select>
+        </div>
+        <div class="col mb-3">
+          <label for="">Payment Method</label>
+          <select name="" id="" class="form-control"></select>
+        </div>
+        <div class="searchBtn col">
+          <button class="btn badge-pill badge-success">Search Options</button>
+        </div>
       </div>
-    </div>
-
-
-    
-    <div class="tab-pane " id="sell">
-      <div>
-        <form>
-          <div class="form-row">
-            <div class="col mb-3">
-              <label for="">Amount</label>
-              <select name="" id="" class="form-control"></select>
-            </div>
-            <div class="col mb-3">
-              <label for="">Payment Currenct</label>
-              <select name="" id="" class="form-control"></select>
-            </div>
-            <div class="col mb-3">
-              <label for="">Location</label>
-              <select name="" id="" class="form-control"></select>
-            </div>
-            <div class="col mb-3">
-              <label for="">Payment Method</label>
-              <select name="" id="" class="form-control"></select>
-            </div>
-            <div class="searchBtn col">
-              <button class="btn badge-pill badge-success">Search Options</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
+    </form> -->
   </div>
 </div>

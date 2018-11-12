@@ -18,14 +18,44 @@ export class SellComponent implements OnInit {
                private router : Router){}
   
   sellDetails : Observable<AdvertisementResponse[]> ;
-  price : any;
+  steemPrice : any;
+  sbdPrice:any;
   
   ngOnInit() {
     this.sellDetails = this.purchaseSer.getSellAds();
        //this.sellDetails = this.http.get<AdvertisementResponse>('http://swapsteem-api.herokuapp.com/advertisements');
     this.purchaseSer.getPrice().subscribe( data => {
-      this.price = data;
+      let resPrice = Object.values(data);
+      let calSteemPrice = Object.values(resPrice[0]);
+      let calSBDPrice = Object.values(resPrice[1])
+      this.steemPrice = calSteemPrice;
+      this.sbdPrice = calSBDPrice;
+      
     })
+  }
+  calculatePrice(from:String,to:String){
+    if(from=="STEEM"){
+      switch(to){
+        case  "USD":
+        return this.steemPrice[0];
+        case "INR":
+        return this.steemPrice[1];
+        case "KRW":
+        return this.sbdPrice[2];
+      }
+      
+    }
+    else if (from=="SBD"){
+      switch(to){
+        case  "USD":
+        return this.sbdPrice[0];
+        case "INR":
+        return this.sbdPrice[1];
+        case "KRW":
+        return this.sbdPrice[2];
+      }
+      
+    }
   }
 
   sellTrade(trade: AdvertisementResponse){

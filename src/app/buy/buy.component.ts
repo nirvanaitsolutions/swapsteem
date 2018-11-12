@@ -19,15 +19,45 @@ export class BuyComponent implements OnInit {
                private router : Router){}
   
   buyDetails : Observable<AdvertisementResponse[]> ;
-  price : any;
+  steemPrice : any;
+  sbdPrice : any;
 
   ngOnInit() {
     this.buyDetails = this.purchaseSer.getBuyAds();
     //this.buyDetails =  this.http.get<AdvertisementResponse>('http://swapsteem-api.herokuapp.com/advertisements');
     //this.buyDetails =  this.http.get<Advertisement>('../../assets/sample-buy-online.json');
     this.purchaseSer.getPrice().subscribe( data => {
-      this.price = data;
+      let resPrice = Object.values(data);
+      let calSteemPrice = Object.values(resPrice[0]);
+      let calSBDPrice = Object.values(resPrice[1])
+      this.steemPrice = calSteemPrice;
+      this.sbdPrice = calSBDPrice;
+      
     })
+  }
+  calculatePrice(from:String,to:String){
+    if(from=="STEEM"){
+      switch(to){
+        case  "USD":
+        return this.steemPrice[0];
+        case "INR":
+        return this.steemPrice[1];
+        case "KRW":
+        return this.steemPrice[2];
+      }
+      
+    }
+    else if (from=="SBD"){
+      switch(to){
+        case  "USD":
+        return this.sbdPrice[0];
+        case "INR":
+        return this.sbdPrice[1];
+        case "KRW":
+        return this.steemPrice[2];
+      }
+      
+    }
   }
 
   buyTrade(trade: AdvertisementResponse){
