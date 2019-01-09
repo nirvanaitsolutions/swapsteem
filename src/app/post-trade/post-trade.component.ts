@@ -49,7 +49,7 @@ export class PostTradeComponent implements OnInit {
   cryptos: any;
   effectivePrice: any;
   adId: string = ''
-
+  priceEquation:string= ''
   ngOnInit() {
     this.adId = this.route.snapshot.paramMap.get('id');
     this.getSelectedTradeFromAPI(this.adId);
@@ -68,7 +68,36 @@ export class PostTradeComponent implements OnInit {
   getSelectedTradeFromAPI(id: string) {
     if (id) {
       this.api.getSelectedTradeFromAPI(id).subscribe((res) => this.zone.run(() => {
-        this.advertisement = { ...this.advertisement, ...res };
+        this.advertisement = {
+          ...this.advertisement, ...{
+            createdby: res.createdby,
+            ad_type: res.ad_type,
+            country: res.country,
+            payment_methods: res.payment_methods,
+            currency: res.currency,
+            margin: res.margin,
+            limit_from: res.limit_from,
+            limit_to: res.limit_to,
+            restricted_amounts: res.restricted_amounts,
+            ad_coin: res.ad_coin,
+            ad_status: res.ad_status,
+            ad_coin_amount: res.ad_coin_amount,
+            terms: res.terms,
+            ad_details: {
+              minimum_volume: res.ad_details.minimum_volume,
+              minimum_reputation_score: res.ad_details.minimum_reputation_score,
+              new_buyer_limit: res.ad_details.new_buyer_limit,
+              track_liquidity: res.ad_details.track_liquidity
+            },
+            security_details: {
+              identified_people_only: res.security_details.identified_people_only,
+              identify_user_before_continuing_trade: res.security_details.identify_user_before_continuing_trade,
+              real_name_required: res.security_details.real_name_required,
+              sms_verification_required: res.security_details.sms_verification_required,
+              trusted_people_only: res.security_details.trusted_people_only
+            }
+          }
+        };
         console.log(this.advertisement);
       }));
     }
