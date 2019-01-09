@@ -54,10 +54,10 @@ export class APIService {
 
   }
 
-  createAd(ad: AdvertisementRequest, id?:string): Observable<AdvertisementRequest> {
+  createAd(ad: AdvertisementRequest, id?: string): Observable<AdvertisementRequest> {
     // httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
     console.log(JSON.stringify(ad));
-    return this._http[id ? 'put': 'post']<AdvertisementRequest>(`http://swapsteem-api.herokuapp.com/advertisements/${id || ''}`, JSON.stringify(ad));
+    return this._http[id ? 'put' : 'post']<AdvertisementRequest>(`http://swapsteem-api.herokuapp.com/advertisements/${id || ''}`, JSON.stringify(ad));
 
   }
 
@@ -119,6 +119,18 @@ export class APIService {
 
   getSelectedOrderFromAPI(id: string) {
     return this._http.get<OrderResponse>("http://swapsteem-api.herokuapp.com/orders/" + id);
+  }
+
+  deleteAd(id: string): Observable<AdvertisementRequest> {
+    // httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
+    return this._http.delete<AdvertisementRequest>(`http://swapsteem-api.herokuapp.com/advertisements/${id}`);
+  }
+
+  pauseAd(id: string): Observable<AdvertisementRequest> {
+    // httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
+    return this._http.put<AdvertisementRequest>(`http://swapsteem-api.herokuapp.com/advertisements/${id}`, JSON.stringify({
+      ad_status: "pause"
+    }));
   }
 
 }

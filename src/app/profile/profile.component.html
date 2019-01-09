@@ -2,7 +2,7 @@
   <div class="banner">
     <div class="profile row">
       <div class="col-sm-3">
-      <img src="{{profile_url}}" alt="ProfileImg" height="50px" width="50px" class="rounded float-left">
+        <img src="{{profile_url}}" alt="ProfileImg" height="50px" width="50px" class="rounded float-left">
       </div>
       <div class="sol-sm-9">
         <h6 style="color: white;">{{userData.name}}</h6>
@@ -11,10 +11,12 @@
     </div>
     <div class="balance">
       <div class="row">
-          <div class="col text-center">{{balance_steem}}<p class="text-muted small-text">STEEM</p></div>
-          <div class="col text-center">{{balance_sbd}}<p class="text-muted small-text">SBD</p></div>
+        <div class="col text-center">{{balance_steem}}<p class="text-muted small-text">STEEM</p>
+        </div>
+        <div class="col text-center">{{balance_sbd}}<p class="text-muted small-text">SBD</p>
+        </div>
       </div>
-    
+
       <div class="text-center small-heading">Balances</div>
     </div>
   </div>
@@ -47,18 +49,57 @@
           <th class="table-header">Fiat</th>
           <th class="table-header">Amount</th>
           <th class="table-header">Limits(USD)</th>
-          <th class="table-header"></th>
+          <th class="table-header">Actions</th>
+
         </tr>
-        <tr *ngFor = "let ad of openAds |async">
+        <tr *ngFor="let ad of openAds |async">
           <td>{{ad.payment_methods}}</td>
           <td>{{ad.ad_type}}</td>
           <td>{{ad.ad_coin}}</td>
           <td>{{ad.currency}}</td>
           <td>{{ad.ad_coin_amount}}</td>
           <td>{{ad.limit_from}} - {{ad.limit_to}}</td>
-          <td><button class="btn btn-info" (click)="viewAds(ad)">View/ Edit</button></td>
+          <td></td>
+          <td>
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Actions
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="btn dropdown-item" (click)="viewAds(ad)">View/ Edit</a>
+                <a class="btn dropdown-item" (click)="pauseAd(ad._id)">
+                  Pause
+                </a>
+                <a class="btn dropdown-item" data-toggle="modal" data-target="#exampleModal" (click)="selectedAdId = ad._id;">
+                  Delete
+                </a>
+              </div>
+            </div>
+          </td>
         </tr>
       </table>
+    </div>
+  </div>
+</div>
+
+<!-- Confirmation Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure want to delete advertisement?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="selectedAdId = ''">No</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteAd(selectedAdId);">Yes</button>
+      </div>
     </div>
   </div>
 </div>
