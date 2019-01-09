@@ -46,8 +46,8 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['post-trade/' + ad._id]);
   }
 
-  pauseAd(id: string) {
-    this.apiSer.pauseAd(id).subscribe(res => {
+  pauseAd(id: string, currentStatus:string) {
+    this.apiSer.pauseAd(id, currentStatus).subscribe(res => {
       this.openAds = this.apiSer.getAdsByUser(this.userData.name);
     });
   }

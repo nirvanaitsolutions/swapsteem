@@ -17,7 +17,7 @@
         <td>{{buySteem.ad_coin}}</td>
         <td>{{buySteem.currency}}</td>
         <td>{{buySteem.limit_from}} - {{buySteem.limit_to}}</td>
-        <td><span >{{calculatePrice(buySteem.ad_coin,buySteem.currency)}}</span></td>                                                                                                                                                                 
+        <td><span >{{calculatePrice(buySteem.ad_coin,buySteem.currency, buySteem.margin)}}</span></td>                                                                                                                                                                 
         <td><button type="button" class="btn btn-success btn-sm badge badge-pill" (click)="buyTrade(buySteem)">Buy</button></td>
       </tr>
     </table>

@@ -126,10 +126,10 @@ export class APIService {
     return this._http.delete<AdvertisementRequest>(`http://swapsteem-api.herokuapp.com/advertisements/${id}`);
   }
 
-  pauseAd(id: string): Observable<AdvertisementRequest> {
+  pauseAd(id: string, currentStatus: string): Observable<AdvertisementRequest> {
     // httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
     return this._http.put<AdvertisementRequest>(`http://swapsteem-api.herokuapp.com/advertisements/${id}`, JSON.stringify({
-      ad_status: "pause"
+      ad_status: currentStatus === "pause" ? "open" : "pause"
     }));
   }
 

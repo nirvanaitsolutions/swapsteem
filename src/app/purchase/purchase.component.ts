@@ -57,8 +57,7 @@ export class PurchaseComponent implements OnInit {
       if(this.order.order_coin == "STEEM"){
         this.purchaseServ.getPriceByPair(this.order.order_coin,this.order.currency).subscribe(data => {
           let priceResponse = Object.values(data);
-
-          this.price = priceResponse[0];
+          this.price = Math.round(priceResponse[0] * (1 + this.selectedTrade.margin / 100) * 100) / 100;
           console.log("price "+this.price)
         this.order.order_rate = this.price;
         });
@@ -67,8 +66,7 @@ export class PurchaseComponent implements OnInit {
       else if(this.order.order_coin == "SBD"){
         this.purchaseServ.getPriceByPair(this.order.order_coin,this.order.currency).subscribe(data => {
           let priceResponse = Object.values(data);
-
-          this.price = priceResponse[0];
+          this.price = Math.round(priceResponse[0] * (1 + this.selectedTrade.margin / 100) * 100) / 100;
           this.order.order_rate =  this.price;
         });
         

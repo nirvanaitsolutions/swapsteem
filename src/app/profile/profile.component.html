@@ -59,7 +59,6 @@
           <td>{{ad.currency}}</td>
           <td>{{ad.ad_coin_amount}}</td>
           <td>{{ad.limit_from}} - {{ad.limit_to}}</td>
-          <td></td>
           <td>
             <div class="dropdown">
               <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
@@ -68,8 +67,8 @@
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a class="btn dropdown-item" (click)="viewAds(ad)">View/ Edit</a>
-                <a class="btn dropdown-item" (click)="pauseAd(ad._id)">
-                  Pause
+                <a class="btn dropdown-item" (click)="pauseAd(ad._id, ad.ad_status)">
+                  <span [innerText]="ad.ad_status==='pause' ? 'Open': 'Pause'"></span>
                 </a>
                 <a class="btn dropdown-item" data-toggle="modal" data-target="#exampleModal" (click)="selectedAdId = ad._id;">
                   Delete
