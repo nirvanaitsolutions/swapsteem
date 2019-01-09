@@ -41,4 +41,7 @@ export class ProfileComponent implements OnInit {
     //this.openAds.subscribe(data => console.log(data))
   }
 
+  viewAds(ad:AdvertisementResponse) {
+    this.router.navigate(['post-trade/'+ad._id]);
+  }
 }
