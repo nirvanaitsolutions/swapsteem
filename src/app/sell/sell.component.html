@@ -11,7 +11,7 @@
         <th class="">Price/Coin</th>
         <th></th>
       </tr>
-      <tr *ngFor = "let sellSteem of sellDetails | async">
+      <tr *ngFor = "let sellSteem of sellDetails | async  | tradePipe: 'ad_status' : 'pause'">
         <td>{{sellSteem.createdby}}</td>
         <td>{{sellSteem.payment_methods}}</td>
         <td>{{sellSteem.ad_coin}}</td>
