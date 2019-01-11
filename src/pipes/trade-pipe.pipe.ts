@@ -5,6 +5,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class TradePipePipe implements PipeTransform {
   transform(ads: any, filedName?: any, filedValue?: any): any {
-    return ads.filter(ad => ad[filedName] !== filedValue);
+    if (ads instanceof Array)
+      return ads.filter(ad => ad[filedName] !== filedValue);
+    else 
+      return [];
   }
 }

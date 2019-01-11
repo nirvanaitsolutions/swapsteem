@@ -35,8 +35,7 @@ export class ProfileComponent implements OnInit {
       this.balance_steem = this.userData.account.balance.split(" ")[0];
       this.balance_sp = this.userData.account.vesting_shares.split(" ")[0];
       this.profile = JSON.parse(this.userData.account.json_metadata);
-
-      this.profile_url = this.profile.profile.profile_image;
+      this.profile_url = this.profile && this.profile.profile ? this.profile.profile.profile_image : '';
       console.log(this.profile_url)
     });
     //this.openAds.subscribe(data => console.log(data))
