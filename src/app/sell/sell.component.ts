@@ -33,26 +33,26 @@ export class SellComponent implements OnInit {
       
     })
   }
-  calculatePrice(from:String,to:String){
+  calculatePrice(from:string,to:string, margin:number){
     if(from=="STEEM"){
       switch(to){
         case  "USD":
-        return this.steemPrice[0];
+        return Math.round(this.steemPrice[0] * (1 + margin / 100) * 100) / 100;
         case "INR":
-        return this.steemPrice[1];
+        return Math.round(this.steemPrice[1] * (1 + margin / 100) * 100) / 100;
         case "KRW":
-        return this.sbdPrice[2];
+        return Math.round(this.sbdPrice[2] * (1 + margin / 100) * 100) / 100;
       }
       
     }
     else if (from=="SBD"){
       switch(to){
         case  "USD":
-        return this.sbdPrice[0];
+        return Math.round(this.sbdPrice[0] * (1 + margin / 100) * 100) / 100;
         case "INR":
-        return this.sbdPrice[1];
+        return Math.round(this.sbdPrice[1] * (1 + margin / 100) * 100) / 100;
         case "KRW":
-        return this.sbdPrice[2];
+        return Math.round(this.sbdPrice[2] * (1 + margin / 100) * 100) / 100;
       }
       
     }

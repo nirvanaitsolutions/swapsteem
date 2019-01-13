@@ -8,29 +8,42 @@ import { WalletComponent } from './wallet/wallet.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { SteemconnectRedirectGuard } from './redirect/steemconnect-redirect.guard';
-import {BuyPageComponent} from './buy-page/buy-page.component'
-import {SellPageComponent} from './sell-page/sell-page.component';
-import {PurchaseComponent} from './purchase/purchase.component';
-import {RedirectComponent} from './redirect/redirect.component';
-import {ChatPageComponent} from './chat-page/chat-page.component';
+import { BuyPageComponent } from './buy-page/buy-page.component'
+import { SellPageComponent } from './sell-page/sell-page.component';
+import { PurchaseComponent } from './purchase/purchase.component';
+import { RedirectComponent } from './redirect/redirect.component';
+import { ChatPageComponent } from './chat-page/chat-page.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'buy-online',      component: BuyPageComponent},
-  { path: 'sell-online',      component: SellPageComponent },
-  { path: 'post-trade',      component: PostTradeComponent },
+  { path: 'buy-online', component: BuyPageComponent },
+  { path: 'sell-online', component: SellPageComponent },
+  {
+    path: 'post-trade',
+    children: [
+      {
+        path: ':id', 
+        component: PostTradeComponent
+      },
+      {
+        path: '',
+        component: PostTradeComponent
+      },
+    ]
+  },
   { path: 'notifications', component: NotificationsComponent },
-  { path: 'wallet',      component: WalletComponent },
-  { path: 'profile',      component: ProfileComponent },
-  { path: 'dashboard',      component: DashboardComponent },
-  { path: 'purchase/:id', component: PurchaseComponent},
-  {path: 'chat/:id' , component: ChatPageComponent},
+  { path: 'wallet', component: WalletComponent },
+  { path: 'profile', component: ProfileComponent },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'purchase/:id', component: PurchaseComponent },
+  { path: 'chat/:id', component: ChatPageComponent },
   {
     path: 'steemconnect/redirect',
     canActivate: [SteemconnectRedirectGuard],
     component: RedirectComponent
   },
-  { path: '',
+  {
+    path: '',
     redirectTo: '/home',
     pathMatch: 'full'
   },

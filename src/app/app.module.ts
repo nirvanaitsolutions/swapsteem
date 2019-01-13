@@ -34,6 +34,7 @@ import { ChatPageComponent } from './chat-page/chat-page.component';
 import { AuthInterceptor } from './../service/auth.intercepter';
 import {MomentModule} from 'angular2-moment';
 import {NgxAutoScrollModule} from 'ngx-auto-scroll';
+import { TradePipePipe } from '../pipes/trade-pipe.pipe';
 
 const config: SocketIoConfig = { url: 'http://swapsteem-api.herokuapp.com', options: {} };
 
@@ -60,7 +61,8 @@ const config: SocketIoConfig = { url: 'http://swapsteem-api.herokuapp.com', opti
     BuySbdComponent,
     SellSbdComponent,
     SellSteemComponent,
-    ChatPageComponent
+    ChatPageComponent,
+    TradePipePipe
   ],
   imports: [
     NgxAutoScrollModule,
