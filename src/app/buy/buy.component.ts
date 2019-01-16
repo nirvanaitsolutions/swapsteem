@@ -26,9 +26,17 @@ export class BuyComponent implements OnInit {
   adCoinFilter: any = ''
   paymentMethodFilter: any = '';
   adTypeFilter: any = '';
+  totalBuy: any = [];
 
   ngOnInit() {
     this.buyDetails = this.purchaseSer.getBuyAds();
+    this.buyDetails.subscribe((data) => {
+      
+    console.log(this.totalBuy);
+      this.totalBuy = data;
+      
+    console.log(this.totalBuy);
+    })
     //this.buyDetails =  this.http.get<AdvertisementResponse>('http://swapsteem-api.herokuapp.com/advertisements');
     //this.buyDetails =  this.http.get<Advertisement>('../../assets/sample-buy-online.json');
     this.purchaseSer.getPrice().subscribe(data => {

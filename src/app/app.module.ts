@@ -24,7 +24,7 @@ import { environment } from '../environments/environment';
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { BuyPageComponent } from './buy-page/buy-page.component';
 import { SellPageComponent } from './sell-page/sell-page.component';
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { PurchaseComponent } from './purchase/purchase.component';
 import { BuySteemComponent } from './buy-steem/buy-steem.component';
 import { BuySbdComponent } from './buy-sbd/buy-sbd.component';
@@ -32,9 +32,10 @@ import { SellSbdComponent } from './sell-sbd/sell-sbd.component';
 import { SellSteemComponent } from './sell-steem/sell-steem.component';
 import { ChatPageComponent } from './chat-page/chat-page.component';
 import { AuthInterceptor } from './../service/auth.intercepter';
-import {MomentModule} from 'angular2-moment';
-import {NgxAutoScrollModule} from 'ngx-auto-scroll';
+import { MomentModule } from 'angular2-moment';
+import { NgxAutoScrollModule } from 'ngx-auto-scroll';
 import { TradePipePipe } from '../pipes/trade-pipe.pipe';
+import { CurrenyPipePipe } from '../pipes/curreny-pipe.pipe';
 
 const config: SocketIoConfig = { url: 'http://swapsteem-api.herokuapp.com', options: {} };
 
@@ -62,7 +63,8 @@ const config: SocketIoConfig = { url: 'http://swapsteem-api.herokuapp.com', opti
     SellSbdComponent,
     SellSteemComponent,
     ChatPageComponent,
-    TradePipePipe
+    TradePipePipe,
+    CurrenyPipePipe
   ],
   imports: [
     NgxAutoScrollModule,

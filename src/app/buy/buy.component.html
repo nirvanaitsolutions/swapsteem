@@ -11,7 +11,7 @@
         <th class="">Price/Coin</th>
         <th></th>
       </tr>
-      <tr *ngFor="let buySteem of buyDetails | async | tradePipe: 'ad_status' : 'pause' | tradePipe: 'ad_status' : 'pause'">
+      <tr *ngFor="let buySteem of buyDetails | async | tradePipe: 'ad_status' : 'pause' | currenyPipe : currenyFilter : adCoinFilter : paymentMethodFilter : adTypeFilter : 'BUY' : totalBuy">
         <td>{{buySteem.createdby}}</td>
         <td>{{buySteem.payment_methods}}</td>
         <td>{{buySteem.ad_coin}}</td>

@@ -9,13 +9,13 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject'
   providedIn: 'root'
 })
 export class AdverstisementService {
-  private filterCurrency = new BehaviorSubject<any>(['INR', 'USD', 'KRW']);
+  private filterCurrency = new BehaviorSubject<any>(false);
   currenyFilter = this.filterCurrency.asObservable();
-  private filterAdCoin = new BehaviorSubject<any>(['STEEM', 'SBD']);
+  private filterAdCoin = new BehaviorSubject<any>(false);
   adCoinFilter = this.filterAdCoin.asObservable();
-  private filterPaymentMethod = new BehaviorSubject<any>(['Bank Transfer', 'In Cash', 'PayPal']);
+  private filterPaymentMethod = new BehaviorSubject<any>(false);
   paymentMethodFilter = this.filterPaymentMethod.asObservable();
-  private filterAdType = new BehaviorSubject<any>(['BUY', 'SELL']);
+  private filterAdType = new BehaviorSubject<any>(false);
   adTypeFilter = this.filterAdType.asObservable();
   private _advertisement: Observable<AdvertisementResponse>;
   constructor(private _http: HttpClient) {
