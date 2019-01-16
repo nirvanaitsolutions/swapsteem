@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { APIService } from '../../service/api.service';
 import { Router } from '@angular/router';
 import { AdvertisementResponse } from '../module/advertisement';
+import { AdverstisementService } from '../../service/adverstisement.service'
 
 @Component({
   selector: 'app-buy',
@@ -16,11 +17,15 @@ export class BuyComponent implements OnInit {
 
   constructor(private http: HttpClient,
     private purchaseSer: APIService,
-    private router: Router) { }
+    private router: Router, private adverstisementService: AdverstisementService) { }
 
   buyDetails: Observable<AdvertisementResponse[]>;
   steemPrice: any;
   sbdPrice: any;
+  currenyFilter: any = ''
+  adCoinFilter: any = ''
+  paymentMethodFilter: any = '';
+  adTypeFilter: any = '';
 
   ngOnInit() {
     this.buyDetails = this.purchaseSer.getBuyAds();
@@ -34,6 +39,11 @@ export class BuyComponent implements OnInit {
       this.sbdPrice = calSBDPrice;
 
     })
+    this.adverstisementService.currenyFilter.subscribe(filter => this.currenyFilter = filter)
+    this.adverstisementService.adCoinFilter.subscribe(filter => this.adCoinFilter = filter)
+    this.adverstisementService.paymentMethodFilter.subscribe(filter => this.paymentMethodFilter = filter)
+    this.adverstisementService.adTypeFilter.subscribe(filter => this.adTypeFilter = filter)
+    console.log(this.currenyFilter, this.adCoinFilter, this.paymentMethodFilter, this.adTypeFilter)
   }
   calculatePrice(from: string, to: string, margin: number) {
     if (from == "STEEM") {
