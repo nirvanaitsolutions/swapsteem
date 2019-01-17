@@ -4,9 +4,8 @@
       <table class="table">
         <tr>
           <th>Type</th>
-          <th>Coin</th>
-          <th>Fiat</th>
-          <th>Payment Method</th>
+          <th>From</th>
+          <th>to</th>
           <th></th>
         </tr>
         <tr>
@@ -26,12 +25,7 @@
             </select>
           </td>
           <td>
-            <select class="form-control" id="payment_methods" [(ngModel)]="payment_methods" name="payment_methods" required>
-              <option *ngFor="let count of payment_methods_options">{{count}}</option>
-            </select>
-          </td>
-          <td>
-            <button type="submit" class="btn badge-pill badge-success" (click)="searchResult(ad_type,currency,ad_coin,payment_methods)">Search</button>
+            <button  type="submit" class="btn badge-pill badge-success">Search For Trades</button>
           </td>
         </tr>
       </table>
