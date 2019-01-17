@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { APIService } from '../../service/api.service';
 import { Router } from '@angular/router';
 import { AdvertisementResponse } from '../module/advertisement';
+import { AdverstisementService } from '../../service/adverstisement.service'
 
 @Component({
   selector: 'app-buy',
@@ -16,14 +17,42 @@ export class BuyComponent implements OnInit {
 
   constructor(private http: HttpClient,
     private purchaseSer: APIService,
-    private router: Router) { }
+    private router: Router, private adverstisementService: AdverstisementService) { }
 
   buyDetails: Observable<AdvertisementResponse[]>;
   steemPrice: any;
   sbdPrice: any;
-
+  currenyFilter: any = ''
+  adCoinFilter: any = ''
+  paymentMethodFilter: any = '';
+  adTypeFilter: any = '';
+  totalBuy: any = [];
+  totalBuyArray: Observable<AdvertisementResponse[]>;
+  showElement(buySteem) {
+    if (this.adTypeFilter && this.adTypeFilter !== 'BUY') {
+      return true;
+    }
+    if (this.currenyFilter && buySteem.currency !== this.currenyFilter) {
+      return false;
+    }
+    if (this.adCoinFilter && buySteem.ad_coin !== this.adCoinFilter) {
+      return false;
+    }
+    if (this.paymentMethodFilter && buySteem.payment_methods.indexOf(this.paymentMethodFilter) === -1) {
+      return false;
+    }
+    return true;
+  }
   ngOnInit() {
     this.buyDetails = this.purchaseSer.getBuyAds();
+    this.totalBuyArray = this.purchaseSer.getBuyAds();
+    this.totalBuyArray.subscribe((data) => {
+
+      console.log(this.totalBuy);
+      this.totalBuy = data;
+
+      console.log(this.totalBuy);
+    })
     //this.buyDetails =  this.http.get<AdvertisementResponse>('http://swapsteem-api.herokuapp.com/advertisements');
     //this.buyDetails =  this.http.get<Advertisement>('../../assets/sample-buy-online.json');
     this.purchaseSer.getPrice().subscribe(data => {
@@ -34,6 +63,11 @@ export class BuyComponent implements OnInit {
       this.sbdPrice = calSBDPrice;
 
     })
+    this.adverstisementService.currenyFilter.subscribe(filter => this.currenyFilter = filter)
+    this.adverstisementService.adCoinFilter.subscribe(filter => this.adCoinFilter = filter)
+    this.adverstisementService.paymentMethodFilter.subscribe(filter => this.paymentMethodFilter = filter)
+    this.adverstisementService.adTypeFilter.subscribe(filter => this.adTypeFilter = filter)
+    console.log(this.currenyFilter, this.adCoinFilter, this.paymentMethodFilter, this.adTypeFilter)
   }
   calculatePrice(from: string, to: string, margin: number) {
     if (from == "STEEM") {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AdverstisementService } from '../../service/adverstisement.service'
 
 @Component({
   selector: 'app-search-box',
@@ -7,19 +8,35 @@ import { Router } from '@angular/router';
   styleUrls: ['./search-box.component.css']
 })
 export class SearchBoxComponent implements OnInit {
+  currency_options = ['INR', 'USD', 'KRW'];
+  ad_coin_options = ['STEEM', 'SBD'];
+  payment_methods_options = ['Bank Transfer', 'In Cash', 'PayPal'];
+  ad_type_options = ['BUY', 'SELL'];
+  currency: any = ''
+  ad_coin: any = ''
+  payment_methods: any = '';
+  ad_type: any = '';
+  constructor(public adverstisementService: AdverstisementService, private router: Router) {
+    this.adverstisementService.currenyFilter.subscribe(filter => this.currency = filter)
+    this.adverstisementService.adCoinFilter.subscribe(filter => this.ad_coin = filter)
+    this.adverstisementService.paymentMethodFilter.subscribe(filter => this.payment_methods = filter)
+    this.adverstisementService.adTypeFilter.subscribe(filter => this.ad_type = filter)
+  }
 
-  constructor(private router:Router) { }
   ngOnInit() {
-
   }
-  onSubmit(form){
-    console.log(form);
+
+  onSubmit(form) {
     this.router.navigate(['/home'])
-    
   }
-  currency = ['INR','USD','KRW'];
-  ad_coin = ['STEEM','SBD'];
-  payment_methods = ['Bank Transfer','In Cash', 'PayPal'];
-  ad_type = ['BUY','SELL'];
 
+  searchResult(ad_type, currency, ad_coin, payment_methods) {
+    if (ad_type === 'SELL') {
+      this.router.navigate(['/sell-online'])
+    }
+    else if (ad_type === 'BUY') {
+      this.router.navigate(['/buy-online'])
+    }
+    this.adverstisementService.changefilter(ad_type, currency, ad_coin, payment_methods)
+  }
 }
