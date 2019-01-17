@@ -1,4 +1,4 @@
-<div> 
+<div>
   <h6 class="buyHeading">Sell Steem/SBD In USA</h6>
   <div class="table-padding">
     <table class="table table-striped">
@@ -11,14 +11,18 @@
         <th class="">Price/Coin</th>
         <th></th>
       </tr>
-      <tr *ngFor = "let sellSteem of sellDetails | async  | tradePipe: 'ad_status' : 'pause'">
-        <td>{{sellSteem.createdby}}</td>
-        <td>{{sellSteem.payment_methods}}</td>
-        <td>{{sellSteem.ad_coin}}</td>
-        <td>{{sellSteem.currency}}</td>
-        <td>{{sellSteem.limit_from}} - {{sellSteem.limit_to}}</td>
-        <td><span >{{calculatePrice(sellSteem.ad_coin,sellSteem.currency, sellSteem.margin)}}</span></td>                                                                                                                                                                 
-        <td><button type="button" class="btn btn-danger btn-sm badge badge-pill" (click)="sellTrade(sellSteem)">SELL</button></td>
+      <tr *ngFor="let sellSteem of sellDetails | async  | tradePipe: 'ad_status' : 'pause'">
+        <td *ngIf="showElement(sellSteem)">{{sellSteem.createdby}}</td>
+        <td *ngIf="showElement(sellSteem)">{{sellSteem.payment_methods}}</td>
+        <td *ngIf="showElement(sellSteem)">{{sellSteem.ad_coin}}</td>
+        <td *ngIf="showElement(sellSteem)">{{sellSteem.currency}}</td>
+        <td *ngIf="showElement(sellSteem)">{{sellSteem.limit_from}} - {{sellSteem.limit_to}}</td>
+        <td *ngIf="showElement(sellSteem)">
+          <span>{{calculatePrice(sellSteem.ad_coin,sellSteem.currency, sellSteem.margin)}}</span>
+        </td>
+        <td *ngIf="showElement(sellSteem)">
+          <button type="button" class="btn btn-danger btn-sm badge badge-pill" (click)="sellTrade(sellSteem)">SELL</button>
+        </td>
       </tr>
     </table>
   </div>

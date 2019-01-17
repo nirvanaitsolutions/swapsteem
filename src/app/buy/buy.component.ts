@@ -27,15 +27,31 @@ export class BuyComponent implements OnInit {
   paymentMethodFilter: any = '';
   adTypeFilter: any = '';
   totalBuy: any = [];
-
+  totalBuyArray: Observable<AdvertisementResponse[]>;
+  showElement(buySteem) {
+    if (this.adTypeFilter && this.adTypeFilter !== 'BUY') {
+      return true;
+    }
+    if (this.currenyFilter && buySteem.currency !== this.currenyFilter) {
+      return false;
+    }
+    if (this.adCoinFilter && buySteem.ad_coin !== this.adCoinFilter) {
+      return false;
+    }
+    if (this.paymentMethodFilter && buySteem.payment_methods.indexOf(this.paymentMethodFilter) === -1) {
+      return false;
+    }
+    return true;
+  }
   ngOnInit() {
     this.buyDetails = this.purchaseSer.getBuyAds();
-    this.buyDetails.subscribe((data) => {
-      
-    console.log(this.totalBuy);
+    this.totalBuyArray = this.purchaseSer.getBuyAds();
+    this.totalBuyArray.subscribe((data) => {
+
+      console.log(this.totalBuy);
       this.totalBuy = data;
-      
-    console.log(this.totalBuy);
+
+      console.log(this.totalBuy);
     })
     //this.buyDetails =  this.http.get<AdvertisementResponse>('http://swapsteem-api.herokuapp.com/advertisements');
     //this.buyDetails =  this.http.get<Advertisement>('../../assets/sample-buy-online.json');
