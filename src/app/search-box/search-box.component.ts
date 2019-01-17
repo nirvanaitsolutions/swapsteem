@@ -30,7 +30,7 @@ export class SearchBoxComponent implements OnInit {
     this.router.navigate(['/home'])
   }
 
-  searchResult(ad_type, currency, ad_coin, payment_methods) {
+  searchResult(ad_type, ad_coin, currency, payment_methods) {
     if (ad_type === 'SELL') {
       this.router.navigate(['/sell-online'])
     }
