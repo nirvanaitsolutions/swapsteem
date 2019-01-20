@@ -69,17 +69,17 @@ export class OrderComponent implements OnInit {
     const steemAmount: number = this.selectedOrder.order_coin == "STEEM" ? this.selectedOrder.order_coin_amount : 0;
     const sbdAmount: number = this.selectedOrder.order_coin == "SBD" ? this.selectedOrder.order_coin_amount : 0;
     console.log(rDeadline, eDeadline, steemAmount, sbdAmount);
-    window.location.href = `https://steemconnect.com/sign/escrow-transfer?from=${this.sender}&to=${this.reciever}&agent=${this.agent}&escrow_id=${this.selectedOrder.escrowID}&sbd_amount=${sbdAmount}%20SBD&steem_amount=${steemAmount}%20STEEM&fee=${0.001}%20STEEM&ratification_deadline=${rDeadline}&escrow_expiration=${eDeadline}&json_meta={"memo":"testing escrow transaction 2334305953", "order_id": ${this.selectedOrder._id}}&redirect_uri=http://swapsteem.herokuapp.com/order/${this.selectedOrder._id}?status=escrow_transfer`;
+    window.location.href = `https://steemconnect.com/sign/escrow-transfer?from=${this.sender}&to=${this.reciever}&agent=${this.agent}&escrow_id=${this.selectedOrder.escrowID}&sbd_amount=${sbdAmount}%20SBD&steem_amount=${steemAmount}%20STEEM&fee=${0.001}%20STEEM&ratification_deadline=${rDeadline}&escrow_expiration=${eDeadline}&json_meta={"memo":"testing escrow transaction 2334305953", "order_id": "${this.selectedOrder._id}"}&redirect_uri=http://swapsteem.herokuapp.com/order/${this.selectedOrder._id}?status=escrow_transfer`;
   }
 
   approveRejectEscrow(approve: number) {
-    window.location.href = `https://steemconnect.com/sign/escrow-approve?from=${this.sender}&to=${this.reciever}&agent=${this.agent}&who=${this.userData._id}&escrow_id=${this.selectedOrder.escrowID}&approve=${approve}&json_meta={"memo":"testing escrow transaction 2334305953", "order_id": ${this.selectedOrder._id}}&redirect_uri=http://swapsteem.herokuapp.com/order/${this.selectedOrder._id}?status=escrow_${approve ? 'approve' : 'reject'}`;
+    window.location.href = `https://steemconnect.com/sign/escrow-approve?from=${this.sender}&to=${this.reciever}&agent=${this.agent}&who=${this.userData._id}&escrow_id=${this.selectedOrder.escrowID}&approve=${approve}&json_meta={"memo":"testing escrow transaction 2334305953", "order_id": "${this.selectedOrder._id}"}&redirect_uri=http://swapsteem.herokuapp.com/order/${this.selectedOrder._id}?status=escrow_${approve ? 'approve' : 'reject'}`;
   }
 
   releaseEscrow() {
     const steemAmount: number = this.selectedOrder.order_coin == "STEEM" ? this.selectedOrder.order_coin_amount : 0;
     const sbdAmount: number = this.selectedOrder.order_coin == "SBD" ? this.selectedOrder.order_coin_amount : 0;
-    window.location.href = `https://steemconnect.com/sign/escrow-release?from=${this.sender}&to=${this.reciever}&agent=${this.agent}&who=${this.userData._id}&receiver=${this.reciever}&escrow_id=${this.selectedOrder.escrowID}&sbd_amount=${sbdAmount}%20SBD&steem_amount=${steemAmount}%20STEEM&json_meta={"memo":"testing escrow transaction 2334305953", "order_id": ${this.selectedOrder._id}}&redirect_uri=http://swapsteem.herokuapp.com/order/${this.selectedOrder._id}?status=escrow_release`;
+    window.location.href = `https://steemconnect.com/sign/escrow-release?from=${this.sender}&to=${this.reciever}&agent=${this.agent}&who=${this.userData._id}&receiver=${this.reciever}&escrow_id=${this.selectedOrder.escrowID}&sbd_amount=${sbdAmount}%20SBD&steem_amount=${steemAmount}%20STEEM&json_meta={"memo":"testing escrow transaction 2334305953", "order_id": "${this.selectedOrder._id}"}&redirect_uri=http://swapsteem.herokuapp.com/order/${this.selectedOrder._id}?status=escrow_release`;
   }
 
 
