@@ -32,6 +32,7 @@
     "busyjs": "^1.0.2",
     "core-js": "^2.5.4",
     "express": "^4.16.4",
+    "moment": "^2.23.0",
     "ngx-auto-scroll": "^1.1.0",
     "ngx-cookie": "^4.0.2",
     "ngx-socket-io": "^1.1.1",

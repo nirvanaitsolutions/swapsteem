@@ -10,7 +10,14 @@ import { APIService } from '../../service/api.service';
 })
 export class AppNavComponent implements OnInit {
 
-  price : any;
+  price : any = {
+    STEEM: {
+      USD: ''
+    },
+    'SBD*': {
+      USD: ''
+    }
+  };
     
   constructor(private breakpointObserver: BreakpointObserver,
               public auth: SteemconnectAuthService,

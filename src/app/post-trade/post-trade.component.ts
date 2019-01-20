@@ -48,8 +48,22 @@ export class PostTradeComponent implements OnInit {
   userData: any = [];
   cryptos: any;
   effectivePrice: any;
-  adId: string = ''
-  priceEquation:string= ''
+  adId: string = '';
+  account_details: {
+    account_holder_name: string;
+    account_number: string;
+    bank_name: string;
+    bank_address?: string;
+    swift_bic_code?: string;
+    bank_code?: string;
+  } = {
+      account_holder_name: '',
+      account_number: '',
+      bank_name: '',
+      bank_address: '',
+      swift_bic_code: '',
+      bank_code: '',
+    }
   ngOnInit() {
     this.adId = this.route.snapshot.paramMap.get('id');
     this.getSelectedTradeFromAPI(this.adId);
