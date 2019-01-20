@@ -4,6 +4,7 @@ Swapsteem is a peer to peer exchange, similar to localbitcoins.com. With increas
 
 # How to contribute
 - fork and Clone the repo 
+- Pick an task from the project board and get it assigned to yourself.
 - Implement features or bug fixes in a feature branch
 - Create a PR 
 
