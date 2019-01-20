@@ -12,7 +12,7 @@
       <div>
         <div class="row">
           <div class="col">
-            <h6>AMOUNT</h6>
+            <h6>AMOUNT {{selectedOrder.order_status}}</h6>
             <p>{{selectedOrder.order_coin_amount}}</p>
           </div>
           <div class="col">
@@ -47,35 +47,176 @@
           <div class="col">
             <div [ngSwitch]="userData._id">
               <div *ngSwitchCase="sender">
-                <div *ngIf="selectedOrder.order_status === 'created' else canceled" class="d-flex flex-column align-items-center">
-                  <div>
+                <div [ngSwitch]="selectedOrder.order_status">
+                  <div *ngSwitchCase="'created'" class="d-flex flex-column align-items-center">
+                    <div>
+                      <p>
+                        Do you want to transfer escrow?
+                      </p>
+                      <div class="d-flex flex-row align-items-center w-100 justify-content-between">
+                        <button type="button" class="btn btn-success" (click)="transferEscrow();">
+                          Transfer escrow
+                        </button>
+                        <button type="button" class="btn btn-danger" (click)="updateOrderStatus('canceled');">
+                          Cancel order
+                        </button>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div *ngSwitchCase="'escrow_transfer'" class="d-flex flex-column align-items-center">
+                    <div>
+                      <p>
+                        Please wait for buyer to approve your escrow ...
+                      </p>
+                    </div>
+                    <div>
+                      <button type="button" class="btn btn-danger" (click)="updateOrderStatus('canceled');">
+                        Cancel order
+                      </button>
+                    </div>
+                  </div>
+                  <div *ngSwitchCase="'escrow_approve'" class="d-flex flex-column align-items-center">
+                    <div>
+                      <p>
+                        Please wait for agent to approve escrow...
+                      </p>
+                    </div>
+
+                  </div>
+                  <div *ngSwitchCase="'agent_escrow_approved'" class="d-flex flex-column align-items-center">
+                    <div>
+                      <p>
+                        Please wait for buyer to done payment of your escrow ...
+                      </p>
+                    </div>
+                    <div>
+                      <button type="button" class="btn btn-danger" (click)="updateOrderStatus('canceled');">
+                        Cancel order
+                      </button>
+                    </div>
+                  </div>
+                  <div *ngSwitchCase="'buyer_payment_done'" class="d-flex flex-column align-items-center">
+                    <div class="w-75 text-center">
+                      <p>
+                        Do you want to release escrow?
+                      </p>
+                      <div class="d-flex flex-row align-items-center w-100 justify-content-between">
+                        <button type="button" class="btn btn-success" (click)="releaseEscrow();">
+                          Release escrow
+                        </button>
+                        <button type="button" class="btn btn-danger" (click)="updateOrderStatus('canceled');">
+                          Cancel order
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngSwitchCase="'escrow_release'" class="d-flex flex-column align-items-center">
+                    <div class="w-75 text-center">
+                      <p>
+                        You successfully release escrow and you recived your payment.
+                      </p>
+                    </div>
+                  </div>
+                  <div *ngSwitchCase="'escrow_reject'" class="d-flex flex-column align-items-center">
                     <p>
-                      Do you want to transfer escrow?
+                      This order has been rejected.
                     </p>
                   </div>
-                  <div class="d-flex flex-row align-items-center w-50 justify-content-between">
-                    <button type="button" class="btn btn-success" (click)="transferEscrow();">
-                      Transfer escrow
-                    </button>
-                    <button type="button" class="btn btn-danger" (click)="cancelOrder();">
-                      Cancel order
-                    </button>
+                  <div *ngSwitchCase="'canceled'" class="d-flex flex-column align-items-center">
+                    <p>
+                      This order has been canceled.
+                    </p>
                   </div>
+
                 </div>
+
               </div>
               <div *ngSwitchCase="reciever">
-                <div *ngIf="selectedOrder.order_status === 'created' else canceled" class="d-flex flex-column align-items-center">
-                  <div>
+                <div [ngSwitch]="selectedOrder.order_status">
+                  <div *ngSwitchCase="'created'" class="d-flex flex-column align-items-center">
+                    <div>
+                      <p>
+                        Please wait for seller to transfer your escrow...
+                      </p>
+                    </div>
+                    <div>
+                      <button type="button" class="btn btn-danger" (click)="updateOrderStatus('canceled');">
+                        Cancel order
+                      </button>
+                    </div>
+                  </div>
+                  <div *ngSwitchCase="'escrow_transfer'" class="d-flex flex-column align-items-center">
+                    <div>
+                      <p>
+                        Do you want to approve transfer escrow?
+                      </p>
+                      <div class="d-flex flex-row align-items-center w-100 justify-content-between">
+                        <button type="button" class="btn btn-success" (click)="approveRejectEscrow(1);">
+                          Approve escrow
+                        </button>
+                        <button type="button" class="btn btn-danger" (click)="approveRejectEscrow(0);">
+                          Reject escrow
+                        </button>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div *ngSwitchCase="'escrow_approve'" class="d-flex flex-column align-items-center">
+                    <div>
+                      <p>
+                        Please wait for agent to approve escrow...
+                      </p>
+                    </div>
+
+                  </div>
+                  <div *ngSwitchCase="'agent_escrow_approved'" class="d-flex flex-column align-items-center">
+                    <div>
+                      <p>
+                        Do you want to confirm your payment of escrow?
+                      </p>
+                      <div class="d-flex flex-row align-items-center w-100 justify-content-between">
+                        <button type="button" class="btn btn-success" (click)="updateOrderStatus('buyer_payment_done');">
+                          Confirm Payment
+                        </button>
+                        <button type="button" class="btn btn-danger" (click)="updateOrderStatus('canceled');">
+                          Cancel Order
+                        </button>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div *ngSwitchCase="'escrow_reject'" class="d-flex flex-column align-items-center">
                     <p>
-                      Please wait for seller to transfer your escrow...
+                      This order has been rejected.
                     </p>
                   </div>
-                  <div>
-                    <button type="button" class="btn btn-danger" (click)="updateOrderStatus('canceled');">
-                      Cancel order
-                    </button>
+                  <div *ngSwitchCase="'buyer_payment_done'" class="d-flex flex-column align-items-center">
+                    <div>
+                      <p>
+                        Please wait for seller to release escrow...
+                      </p>
+                    </div>
+                    <div>
+                      <button type="button" class="btn btn-danger" (click)="updateOrderStatus('canceled');">
+                        Cancel order
+                      </button>
+                    </div>
+                  </div>
+                  <div *ngSwitchCase="'escrow_release'" class="d-flex flex-column align-items-center">
+                    <div class="w-75 text-center">
+                      <p>
+                        You successfully get escrow and you done your payment.
+                      </p>
+                    </div>
+                  </div>
+                  <div *ngSwitchCase="'canceled'" class="d-flex flex-column align-items-center">
+                    <p>
+                      This order has been canceled.
+                    </p>
                   </div>
                 </div>
+
               </div>
             </div>
 
@@ -86,11 +227,3 @@
     </div>
   </div>
 </div>
-
-<ng-template #canceled>
-  <div class="d-flex flex-column align-items-center justify-content-center">
-    <p>
-      This order has been canceled.
-    </p>
-  </div>
-</ng-template>
