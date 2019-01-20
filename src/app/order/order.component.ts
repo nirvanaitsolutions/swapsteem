@@ -39,11 +39,11 @@ export class OrderComponent implements OnInit {
       this.selectedOrder = {
         _id: id
       }
-      if (['escrow_transfer', 'escrow_approve', 'escrow_reject', 'escrow_release', 'agent_escrow_approved'].indexOf(status) > -1) {
+      if (['escrow_transfer', 'escrow_approve', 'escrow_reject', 'escrow_release', 'agent_escrow_approved', 'buyer_escrow_dispute', 'seller_escrow_dispute'].indexOf(status) > -1) {
         this.updateOrderStatus(status, true);
         return;
       }
-      this._apiSer.getSelectedOrderFromAPI(id).subscribe(data  =>  this.zone.run(() => {
+      this._apiSer.getSelectedOrderFromAPI(id).subscribe(data => this.zone.run(() => {
         this.selectedOrder = data;
         if (data.order_type === 'buy') {
           this.sender = data.createdfor;
@@ -69,17 +69,21 @@ export class OrderComponent implements OnInit {
     const steemAmount: number = this.selectedOrder.order_coin == "STEEM" ? this.selectedOrder.order_coin_amount : 0;
     const sbdAmount: number = this.selectedOrder.order_coin == "SBD" ? this.selectedOrder.order_coin_amount : 0;
     console.log(rDeadline, eDeadline, steemAmount, sbdAmount);
-    window.location.href = `https://steemconnect.com/sign/escrow-transfer?from=${this.sender}&to=${this.reciever}&agent=${this.agent}&escrow_id=${this.selectedOrder.escrowID}&sbd_amount=${sbdAmount}%20SBD&steem_amount=${steemAmount}%20STEEM&fee=${0.001}%20STEEM&ratification_deadline=${rDeadline}&escrow_expiration=${eDeadline}&json_meta={"memo":"testing escrow transaction 2334305953", "order_id": "${this.selectedOrder._id}"}&redirect_uri=http://swapsteem.herokuapp.com/order/${this.selectedOrder._id}?status=escrow_transfer`;
+    window.location.href = `https://steemconnect.com/sign/escrow-transfer?from=${this.sender}&to=${this.reciever}&agent=${this.agent}&escrow_id=${this.selectedOrder.escrowID}&sbd_amount=${sbdAmount}%20SBD&steem_amount=${steemAmount}%20STEEM&fee=${0.001}%20STEEM&ratification_deadline=${rDeadline}&escrow_expiration=${eDeadline}&json_meta={"terms":"${this.selectedAd.terms}", "order_id": "${this.selectedOrder._id}"}&redirect_uri=${window.location.origin}/order/${this.selectedOrder._id}?status=escrow_transfer`;
   }
 
   approveRejectEscrow(approve: number) {
-    window.location.href = `https://steemconnect.com/sign/escrow-approve?from=${this.sender}&to=${this.reciever}&agent=${this.agent}&who=${this.userData._id}&escrow_id=${this.selectedOrder.escrowID}&approve=${approve}&json_meta={"memo":"testing escrow transaction 2334305953", "order_id": "${this.selectedOrder._id}"}&redirect_uri=http://swapsteem.herokuapp.com/order/${this.selectedOrder._id}?status=escrow_${approve ? 'approve' : 'reject'}`;
+    window.location.href = `https://steemconnect.com/sign/escrow-approve?from=${this.sender}&to=${this.reciever}&agent=${this.agent}&who=${this.userData._id}&escrow_id=${this.selectedOrder.escrowID}&approve=${approve}&json_meta={"terms":"${this.selectedAd.terms}", "order_id": "${this.selectedOrder._id}"}&redirect_uri=${window.location.origin}/order/${this.selectedOrder._id}?status=escrow_${approve ? 'approve' : 'reject'}`;
   }
 
   releaseEscrow() {
     const steemAmount: number = this.selectedOrder.order_coin == "STEEM" ? this.selectedOrder.order_coin_amount : 0;
     const sbdAmount: number = this.selectedOrder.order_coin == "SBD" ? this.selectedOrder.order_coin_amount : 0;
-    window.location.href = `https://steemconnect.com/sign/escrow-release?from=${this.sender}&to=${this.reciever}&agent=${this.agent}&who=${this.userData._id}&receiver=${this.reciever}&escrow_id=${this.selectedOrder.escrowID}&sbd_amount=${sbdAmount}%20SBD&steem_amount=${steemAmount}%20STEEM&json_meta={"memo":"testing escrow transaction 2334305953", "order_id": "${this.selectedOrder._id}"}&redirect_uri=http://swapsteem.herokuapp.com/order/${this.selectedOrder._id}?status=escrow_release`;
+    window.location.href = `https://steemconnect.com/sign/escrow-release?from=${this.sender}&to=${this.reciever}&agent=${this.agent}&who=${this.userData._id}&receiver=${this.reciever}&escrow_id=${this.selectedOrder.escrowID}&sbd_amount=${sbdAmount}%20SBD&steem_amount=${steemAmount}%20STEEM&json_meta={"terms":"${this.selectedAd.terms}", "order_id": "${this.selectedOrder._id}"}&redirect_uri=${window.location.origin}/order/${this.selectedOrder._id}?status=escrow_release`;
+  }
+
+  raiseDispute(disputeType) {
+    window.location.href = `https://steemconnect.com/sign/escrow-dispute?from=${this.sender}&to=${this.reciever}&agent=${this.agent}&who=${this.userData._id}&escrow_id=${this.selectedOrder.escrowID}&json_meta={"terms":"${this.selectedAd.terms}", "order_id": "${this.selectedOrder._id}"}&redirect_uri=${window.location.origin}/order/${this.selectedOrder._id}?status=${disputeType}_escrow_dispute`
   }
 
 
