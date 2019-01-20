@@ -125,8 +125,8 @@ export class PurchaseComponent implements OnInit {
     console.log("escrow : " + this.order.escrowID)
     // this.broadcast.broadcastCustomJson('swapsteem','order',this.order)
     // .subscribe(res => this.router.navigate(['profile']));
-    this.purchaseServ.createOrder(this.order).subscribe(res => this.zone.run(() => {
-      this.router.navigate(['wallet'])
+    this.purchaseServ.createOrder(this.order).subscribe((res: any) => this.zone.run(() => {
+      this.router.navigate([`order/${res._id}`])
     }));
     // .subscribe(res => this.router.navigate(['profile']));
 
