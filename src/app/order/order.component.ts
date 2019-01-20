@@ -2,8 +2,8 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { ChatService } from '../../service/chat.service';
 import { APIService } from '../../service/api.service';
 import { Router, ActivatedRoute } from '@angular/router';
-
 import { SteemconnectAuthService } from '../steemconnect/services/steemconnect-auth.service';
+import * as moment from 'moment';
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
@@ -54,14 +54,15 @@ export class OrderComponent implements OnInit {
   }
 
   transferEscrow() {
-    const now = new Date();
-    const rDeadline: string = new Date(now.setHours(now.getHours() + 2)).toUTCString();
-    const eDeadline: string = new Date(now.setDate(now.getDate() + 3)).toUTCString();
+    const now = moment();
+    const rDeadline: string = now.add(2, 'hours').format('YYYY-MM-DDTHH:MM:SS');
+    const eDeadline: string = now.add(3, 'days').format('YYYY-MM-DDTHH:MM:SS');
     const steemAmount: number = this.selectedOrder.order_coin == "STEEM" ? this.selectedOrder.order_coin_amount : 0;
     const sbdAmount: number = this.selectedOrder.order_coin == "SVD" ? this.selectedOrder.order_coin_amount : 0;
     const agent: string = 'swapsteem';
     console.log(rDeadline, eDeadline, steemAmount, sbdAmount);
-    window.location.href = 'https://steemconnect.com/sign/escrow-transfer?from=' + this.sender + '&to=' + this.reciever + '&agent=' + agent + '&escrow_id=' + this.selectedOrder.escrowID + '&sbd_amount=' + sbdAmount + '%20SBD&steem_amount=' + steemAmount + '%20STEEM&fee=' + 0.001 + '%20STEEM&ratification_deadline=' + rDeadline + '&escrow_expiration=' + eDeadline + '&json_meta={"memo":"testing escrow transaction 2334305953"}'
+   window.location.href = 'https://steemconnect.com/sign/escrow-transfer?from=' + this.sender + '&to=' + this.reciever + '&agent=' + agent + '&escrow_id=' + this.selectedOrder.escrowID + '&sbd_amount=' + sbdAmount + '%20SBD&steem_amount=' + steemAmount + '%20STEEM&fee=' + 0.001 + '%20STEEM&ratification_deadline=' + rDeadline + '&escrow_expiration=' + eDeadline + '&json_meta={"memo":"testing escrow transaction 2334305953"}'
+    
   }
 
   updateOrderStatus(order_status) {
