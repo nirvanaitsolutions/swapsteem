@@ -15,7 +15,7 @@
         <th class="">Price/Coin</th>
         <th></th>
       </tr>
-      <tr *ngFor="let sellSteem of sellDetails | async  | tradePipe: 'ad_status' : 'pause' | paginate: { itemsPerPage: 5, currentPage: q }">
+      <tr *ngFor="let sellSteem of sellDetails | async  | tradePipe: 'ad_status' : 'pause' | paginate: {id: 'foo', itemsPerPage: 5, currentPage: q }">
         <td *ngIf="showElement(sellSteem)">{{sellSteem.createdby}}</td>
         <td *ngIf="showElement(sellSteem)">{{sellSteem.payment_methods}}</td>
         <td *ngIf="showElement(sellSteem)">{{sellSteem.ad_coin}}</td>
@@ -29,6 +29,6 @@
         </td>
       </tr>
     </table>
-    <pagination-controls *ngIf="emptySell === false" (pageChange)="q = $event" class="page-controls"></pagination-controls>
+    <pagination-controls *ngIf="emptySell === false"  id="foo" (pageChange)="q = $event" class="page-controls"></pagination-controls>
   </div>
 </div>

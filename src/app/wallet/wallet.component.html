@@ -31,7 +31,7 @@
         <th class="table-header">PAYMENT METHODS</th>
         <th></th>
       </tr>
-      <tr *ngFor="let openOrder of openOrders |async  | paginate: { itemsPerPage: 5, currentPage: q }">
+      <tr *ngFor="let openOrder of openOrders |async  | paginate: { id : 'openOrder',itemsPerPage: 5, currentPage: q }">
         <td>{{openOrder.createdby}}</td>
         <td>{{openOrder.createdfor}}</td>
         <td>{{openOrder.order_coin_amount}}</td>
@@ -45,7 +45,7 @@
         </td>
       </tr>
     </table>
-    <pagination-controls *ngIf="emptyOpenOrder === false" (pageChange)="q = $event" class="page-controls"></pagination-controls>
+    <pagination-controls id='openOrder' *ngIf="emptyOpenOrder === false" (pageChange)="q = $event" class="page-controls"></pagination-controls>
   </div>
   <div class="container box">
     <div>
@@ -67,7 +67,7 @@
         <th class="table-header">PAYMENT METHODS</th>
         <th></th>
       </tr>
-      <tr *ngFor="let closedOrder of closedOrders |async  | paginate: { itemsPerPage: 5, currentPage: q }">
+      <tr *ngFor="let closedOrder of closedOrders |async  | paginate: { id: 'closedOrder',itemsPerPage: 5, currentPage: q }">
         <td>{{closedOrder.createdby}}</td>
         <td>{{closedOrder.createdfor}}</td>
         <td>{{closedOrder.order_coin_amount}}</td>
@@ -81,7 +81,7 @@
         </td>
       </tr>
     </table>
-    <pagination-controls *ngIf="emptyCloseOrders === false" (pageChange)="q = $event" class="page-controls"></pagination-controls>
+    <pagination-controls id='closedOrder' *ngIf="emptyCloseOrders === false" (pageChange)="q = $event" class="page-controls"></pagination-controls>
 
   </div>
 </div>
