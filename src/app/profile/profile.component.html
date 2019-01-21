@@ -41,7 +41,10 @@
     </div>
     <div class="box">
       <h5>Your Open ADs</h5>
-      <table class="table">
+      <div *ngIf="noAds" class="no-data"><p>No Data! Go play Around to see something here</p>
+        <a style="padding-right: 18px;" routerLink="/post-trade">Post a trade</a>
+      </div>
+      <table class="table" *ngIf="noAds === false">
         <tr>
           <th class="table-header">Payment Methods</th>
           <th class="table-header">Type</th>
@@ -91,6 +94,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
+        
       </div>
       <div class="modal-body">
         Are you sure want to delete advertisement?

@@ -41,3 +41,9 @@
     font-size: 15px;
     font-weight: bold;
 }
+.no-data{
+    text-align: center;
+    margin: 100px;
+    font-weight: bold;
+    font-size: 20px;
+}

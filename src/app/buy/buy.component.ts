@@ -28,6 +28,7 @@ export class BuyComponent implements OnInit {
   paymentMethodFilter: any = '';
   adTypeFilter: any = '';
   totalBuy: any = [];
+  emptyBuy: boolean;
   showElement(buySteem) {
     // Hack for show hide data In Table according to filter
     if (this.adTypeFilter && this.adTypeFilter !== 'BUY') {
@@ -49,6 +50,11 @@ export class BuyComponent implements OnInit {
     this.buyDetails = this.purchaseSer.getBuyAds();
     this.buyDetails.subscribe((data) => {
       this.ngxService.stop();
+      if(data.length){
+        this.emptyBuy = false
+      }else{
+        this.emptyBuy = true
+      }
     })
     //this.buyDetails =  this.http.get<AdvertisementResponse>('http://swapsteem-api.herokuapp.com/advertisements');
     //this.buyDetails =  this.http.get<Advertisement>('../../assets/sample-buy-online.json');

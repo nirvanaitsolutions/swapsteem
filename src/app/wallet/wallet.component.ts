@@ -28,14 +28,29 @@ export class WalletComponent implements OnInit {
     private _orderService: OrderService) { }
   openOrders: Observable<OrderResponse[]>;
   closedOrders: Observable<OrderResponse[]>;
-
+  emptyOpenOrder: boolean;
+  emptyCloseOrders : boolean;
 
   ngOnInit() {
     this.ngxService.start();
     this.userData = this._auth.getUserData().subscribe(data => {
       this.userData = data;
       this.openOrders = this.apiSer.getOpenOrdersForUser(this.userData.name);
+      this.openOrders.subscribe((data) => {
+        if (data.length) {
+          this.emptyOpenOrder = false
+        } else {
+          this.emptyOpenOrder = true;
+        }
+      })
       this.closedOrders = this.apiSer.getOpenOrdersByUser(this.userData.name);
+      this.closedOrders.subscribe((data)=>{
+        if(data.length){
+          this.emptyCloseOrders = false
+        }else{
+          this.emptyCloseOrders = true;
+        }
+      })
       this.ngxService.stop();
     });
 

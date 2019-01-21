@@ -16,6 +16,7 @@ export class SellComponent implements OnInit {
   adCoinFilter: any = ''
   paymentMethodFilter: any = '';
   adTypeFilter: any = '';
+  emptySell: boolean;
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   constructor(private ngxService: NgxUiLoaderService, private http: HttpClient,
     private purchaseSer: APIService,
@@ -46,6 +47,11 @@ export class SellComponent implements OnInit {
     this.sellDetails = this.purchaseSer.getSellAds();
     this.sellDetails.subscribe((data) => {
       this.ngxService.stop();
+      if(data.length){
+        this.emptySell = false
+      }else{
+        this.emptySell = true
+      }
     })
     // Added suscribe for all filter(Observable) for real time data change 
     this.adverstisementService.currenyFilter.subscribe(filter => this.currenyFilter = filter)

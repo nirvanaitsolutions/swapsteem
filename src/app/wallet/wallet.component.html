@@ -14,8 +14,11 @@
   <div class="container box">
     <div>
       <h5>Open Orders for You</h5>
+      <div *ngIf="emptyOpenOrder" class="no-data"><p>No Data! Go play Around to see something here</p>
+        <!-- <a style="padding-right: 18px;" routerLink="/post-trade">Post a trade</a> -->
+      </div>
     </div>
-    <table class="table">
+    <table class="table" *ngIf="emptyOpenOrder === false">
       <tr>
         <th class="table-header">FROM</th>
         <th class="table-header">TO</th>
@@ -43,8 +46,11 @@
   <div class="container box">
     <div>
       <h5>Orders Created By you</h5>
+      <div *ngIf="emptyCloseOrders" class="no-data"><p>No Data! Go play Around to see something here</p>
+        <!-- <a style="padding-right: 18px;" routerLink="/post-trade">Post a trade</a> -->
+      </div>
     </div>
-    <table class="table">
+    <table class="table" *ngIf="emptyCloseOrders === false">
       <tr>
         <th class="table-header">FROM</th>
         <th class="table-header">TO</th>

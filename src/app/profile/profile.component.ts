@@ -21,6 +21,7 @@ export class ProfileComponent implements OnInit {
   profile_url;
   profile;
   selectedAdId: string = '';
+  noAds: boolean;
   constructor(private ngxService: NgxUiLoaderService, private _auth: SteemconnectAuthService,
     private apiSer: APIService,
     private router: Router) {
@@ -37,6 +38,13 @@ export class ProfileComponent implements OnInit {
       console.log(this.userData);
       this.openAds = this.apiSer.getAdsByUser(this.userData.name);
       console.log(this.openAds);
+      this.openAds.subscribe((data) => {
+        if (data.length === 0) {
+          this.noAds = true;
+        } else {
+          this.noAds = false;
+        }
+      })
       this.balance_sbd = this.userData.account.sbd_balance.split(" ")[0];
       this.balance_steem = this.userData.account.balance.split(" ")[0];
       this.balance_sp = this.userData.account.vesting_shares.split(" ")[0];
@@ -58,7 +66,14 @@ export class ProfileComponent implements OnInit {
     this.ngxService.start();
     this.apiSer.pauseAd(id, currentStatus).subscribe(res => {
       this.openAds = this.apiSer.getAdsByUser(this.userData.name);
-      this.ngxService.stop();
+      this.openAds.subscribe((data) => {
+        if (data.length === 0) {
+          this.noAds = true;
+        } else {
+          this.noAds = false;
+        }
+        this.ngxService.stop();
+      })
     });
   }
 
@@ -66,7 +81,15 @@ export class ProfileComponent implements OnInit {
     this.ngxService.start();
     this.apiSer.deleteAd(id).subscribe(res => {
       this.openAds = this.apiSer.getAdsByUser(this.userData.name);
-      this.ngxService.stop();
+      this.openAds.subscribe((data) => {
+        if (data.length === 0) {
+          this.noAds = true;
+        } else {
+          this.noAds = false;
+        }
+        this.ngxService.stop();
+      })
+
     });
   }
 }

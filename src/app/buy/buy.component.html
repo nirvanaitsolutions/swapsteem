@@ -1,7 +1,10 @@
 <div>
   <h6 class="buyHeading">Buy Steem Online In USA</h6>
+  <div *ngIf="emptyBuy" class="no-data"><p>No Data! Go play Around to see something here</p>
+    <!-- <a style="padding-right: 18px;" routerLink="/post-trade">Post a trade</a> -->
+  </div>
   <div class="table-padding">
-    <table class="table table-striped">
+    <table class="table table-striped" *ngIf="emptyBuy === false">
       <tr>
         <th class="">Seller</th>
         <th class="">Payment</th>
