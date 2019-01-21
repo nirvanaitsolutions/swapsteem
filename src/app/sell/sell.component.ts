@@ -47,6 +47,7 @@ export class SellComponent implements OnInit {
     this.sellDetails = this.purchaseSer.getSellAds();
     this.sellDetails.subscribe((data) => {
       this.ngxService.stop();
+      // Hack for check data existance
       if(data.length){
         this.emptySell = false
       }else{

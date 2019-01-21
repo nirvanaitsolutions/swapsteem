@@ -39,6 +39,7 @@ export class ProfileComponent implements OnInit {
       this.openAds = this.apiSer.getAdsByUser(this.userData.name);
       console.log(this.openAds);
       this.openAds.subscribe((data) => {
+        // Hack for check data existance
         if (data.length === 0) {
           this.noAds = true;
         } else {

@@ -37,6 +37,7 @@ export class WalletComponent implements OnInit {
       this.userData = data;
       this.openOrders = this.apiSer.getOpenOrdersForUser(this.userData.name);
       this.openOrders.subscribe((data) => {
+        // Hack for check data existance
         if (data.length) {
           this.emptyOpenOrder = false
         } else {

@@ -50,6 +50,7 @@ export class BuyComponent implements OnInit {
     this.buyDetails = this.purchaseSer.getBuyAds();
     this.buyDetails.subscribe((data) => {
       this.ngxService.stop();
+      // Hack for check data existance
       if(data.length){
         this.emptyBuy = false
       }else{
