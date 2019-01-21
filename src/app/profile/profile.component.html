@@ -6,7 +6,7 @@
       </div>
       <div class="sol-sm-9">
         <h6 style="color: white;">{{userData.name}}</h6>
-        <p>Registered: {{userData.account.created | date}}</p>
+        <p *ngIf="userData && userData.account">Registered: {{userData.account.created | date}}</p>
       </div>
     </div>
     <div class="balance">
@@ -23,7 +23,7 @@
   <div class="container ">
     <div class="row">
       <div class="card col box mr-2 text-center">
-        <div>
+        <div *ngIf="userData && userData.account">
           {{userData.account.reputation}}
         </div>
         <div>

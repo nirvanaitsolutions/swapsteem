@@ -8,7 +8,7 @@ import { SteemconnectAuthService } from '../steemconnect/services/steemconnect-a
 import { OrderService } from '../../service/order.service';
 import { HttpClient } from '@angular/common/http';
 import { AdvertisementResponse } from '../module/advertisement';
-
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 
 @Component({
@@ -21,7 +21,7 @@ export class WalletComponent implements OnInit {
 
   userData: any = [];
 
-  constructor(private _auth: SteemconnectAuthService,
+  constructor(private ngxService: NgxUiLoaderService, private _auth: SteemconnectAuthService,
     private apiSer: APIService,
     private _router: Router,
     private _http: HttpClient,
@@ -31,10 +31,12 @@ export class WalletComponent implements OnInit {
 
 
   ngOnInit() {
+    this.ngxService.start();
     this.userData = this._auth.getUserData().subscribe(data => {
       this.userData = data;
       this.openOrders = this.apiSer.getOpenOrdersForUser(this.userData.name);
       this.closedOrders = this.apiSer.getOpenOrdersByUser(this.userData.name);
+      this.ngxService.stop();
     });
 
     // this.userData = this._auth.getUserData().pipe(

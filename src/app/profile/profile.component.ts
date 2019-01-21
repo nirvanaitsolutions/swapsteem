@@ -5,6 +5,7 @@ import { tap } from 'rxjs/operators';
 import { APIService } from '../../service/api.service';
 import { Router } from '@angular/router';
 import { AdvertisementResponse } from '../module/advertisement';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-profile',
@@ -20,12 +21,17 @@ export class ProfileComponent implements OnInit {
   profile_url;
   profile;
   selectedAdId: string = '';
-  constructor(private _auth: SteemconnectAuthService,
+  constructor(private ngxService: NgxUiLoaderService, private _auth: SteemconnectAuthService,
     private apiSer: APIService,
-    private router: Router) { }
+    private router: Router) {
+    // this.apiSer.showLoader();
+
+    console.log('constructor called');
+  }
   openAds: Observable<AdvertisementResponse[]>;
 
   ngOnInit() {
+    this.ngxService.start();
     this._auth.getUserData().subscribe(data => {
       this.userData = data;
       console.log(this.userData);
@@ -37,6 +43,9 @@ export class ProfileComponent implements OnInit {
       this.profile = JSON.parse(this.userData.account.json_metadata);
       this.profile_url = this.profile && this.profile.profile ? this.profile.profile.profile_image : '';
       console.log(this.profile_url)
+      // this.apiSer.hideLoader();
+      // this.ngxService.stop();
+      this.ngxService.stop();
     });
     //this.openAds.subscribe(data => console.log(data))
   }
@@ -45,15 +54,19 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['post-trade/' + ad._id]);
   }
 
-  pauseAd(id: string, currentStatus:string) {
+  pauseAd(id: string, currentStatus: string) {
+    this.ngxService.start();
     this.apiSer.pauseAd(id, currentStatus).subscribe(res => {
       this.openAds = this.apiSer.getAdsByUser(this.userData.name);
+      this.ngxService.stop();
     });
   }
 
   deleteAd(id: string) {
+    this.ngxService.start();
     this.apiSer.deleteAd(id).subscribe(res => {
       this.openAds = this.apiSer.getAdsByUser(this.userData.name);
+      this.ngxService.stop();
     });
   }
 }

@@ -6,7 +6,7 @@
       </div>
       <div class="sol-sm-9">
         <h6 style="color: white;">{{userData.name}}</h6>
-        <p>Registered: {{userData.account.created | date}}</p>
+        <p *ngIf="userData && userData.account">Registered: {{userData.account.created | date}}</p>
       </div>
     </div>
   </div>
