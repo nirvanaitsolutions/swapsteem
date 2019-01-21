@@ -29,6 +29,6 @@
         </td>
       </tr>
     </table>
-    <pagination-controls (pageChange)="q = $event" class="page-controls"></pagination-controls>
+    <pagination-controls *ngIf="emptySell === false" (pageChange)="q = $event" class="page-controls"></pagination-controls>
   </div>
 </div>
