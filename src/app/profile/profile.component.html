@@ -55,7 +55,7 @@
           <th class="table-header">Actions</th>
 
         </tr>
-        <tr *ngFor="let ad of openAds |async">
+        <tr *ngFor="let ad of openAds |async  | paginate: { itemsPerPage: 5, currentPage: q }">
           <td>{{ad.payment_methods}}</td>
           <td>{{ad.ad_type}}</td>
           <td>{{ad.ad_coin}}</td>
@@ -81,6 +81,7 @@
           </td>
         </tr>
       </table>
+      <pagination-controls *ngIf="noAds === false" (pageChange)="q = $event" class="page-controls"></pagination-controls>
     </div>
   </div>
 </div>

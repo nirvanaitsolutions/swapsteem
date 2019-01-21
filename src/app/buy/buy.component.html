@@ -1,6 +1,7 @@
 <div>
   <h6 class="buyHeading">Buy Steem Online In USA</h6>
-  <div *ngIf="emptyBuy" class="no-data"><p>No Data! Go play Around to see something here</p>
+  <div *ngIf="emptyBuy" class="no-data">
+    <p>No Data! Go play Around to see something here</p>
     <!-- <a style="padding-right: 18px;" routerLink="/post-trade">Post a trade</a> -->
   </div>
   <div class="table-padding">
@@ -14,7 +15,7 @@
         <th class="">Price/Coin</th>
         <th></th>
       </tr>
-      <tr *ngFor="let buySteem of buyDetails | async | tradePipe: 'ad_status' : 'pause'">
+      <tr *ngFor="let buySteem of buyDetails | async | tradePipe: 'ad_status' : 'pause'  | paginate: { itemsPerPage: 5, currentPage: p }">
         <td *ngIf="showElement(buySteem)">{{buySteem.createdby}}</td>
         <td *ngIf="showElement(buySteem)">{{buySteem.payment_methods}}</td>
         <td *ngIf="showElement(buySteem)">{{buySteem.ad_coin}}</td>
@@ -28,5 +29,6 @@
         </td>
       </tr>
     </table>
+    <pagination-controls (pageChange)="p = $event" class="page-controls"></pagination-controls>
   </div>
 </div>
