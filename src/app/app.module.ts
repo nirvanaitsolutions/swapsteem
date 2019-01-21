@@ -36,6 +36,7 @@ import { MomentModule } from 'angular2-moment';
 import { NgxAutoScrollModule } from 'ngx-auto-scroll';
 import { TradePipePipe } from '../pipes/trade-pipe.pipe';
 import { OrderComponent } from './order/order.component';
+import { NgxUiLoaderModule } from  'ngx-ui-loader';
 
 const config: SocketIoConfig = { url: 'http://swapsteem-api.herokuapp.com', options: {} };
 
@@ -77,6 +78,7 @@ const config: SocketIoConfig = { url: 'http://swapsteem-api.herokuapp.com', opti
     SteemconnectModule.forRoot(environment.steemconnectConfig),
     CookieModule.forRoot(),
     FormsModule,
+    NgxUiLoaderModule,
     SocketIoModule.forRoot(config)
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },],

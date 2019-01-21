@@ -36,6 +36,7 @@
     "ngx-auto-scroll": "^1.1.0",
     "ngx-cookie": "^4.0.2",
     "ngx-socket-io": "^1.1.1",
+    "ngx-ui-loader": "^1.2.5",
     "rxjs": "^6.0.0",
     "rxjs-compat": "^6.2.2",
     "zone.js": "^0.8.26"

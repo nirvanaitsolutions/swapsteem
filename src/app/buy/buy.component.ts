@@ -6,6 +6,7 @@ import { APIService } from '../../service/api.service';
 import { Router } from '@angular/router';
 import { AdvertisementResponse } from '../module/advertisement';
 import { AdverstisementService } from '../../service/adverstisement.service'
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-buy',
@@ -15,7 +16,7 @@ import { AdverstisementService } from '../../service/adverstisement.service'
 export class BuyComponent implements OnInit {
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
 
-  constructor(private http: HttpClient,
+  constructor(private ngxService: NgxUiLoaderService,private http: HttpClient,
     private purchaseSer: APIService,
     private router: Router, private adverstisementService: AdverstisementService) { }
 
@@ -44,7 +45,11 @@ export class BuyComponent implements OnInit {
     return true;
   }
   ngOnInit() {
+    this.ngxService.start();
     this.buyDetails = this.purchaseSer.getBuyAds();
+    this.buyDetails.subscribe((data) => {
+      this.ngxService.stop();
+    })
     //this.buyDetails =  this.http.get<AdvertisementResponse>('http://swapsteem-api.herokuapp.com/advertisements');
     //this.buyDetails =  this.http.get<Advertisement>('../../assets/sample-buy-online.json');
     this.purchaseSer.getPrice().subscribe(data => {
