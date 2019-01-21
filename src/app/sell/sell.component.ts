@@ -25,6 +25,7 @@ export class SellComponent implements OnInit {
   steemPrice : any;
   sbdPrice:any;
   showElement(sellSteem) {
+    // Hack for show hide data In Table according to filter
     if (this.adTypeFilter && this.adTypeFilter !== 'SELL') {
       return true;
     }
@@ -42,6 +43,7 @@ export class SellComponent implements OnInit {
   
   ngOnInit() {
     this.sellDetails = this.purchaseSer.getSellAds();
+    // Added suscribe for all filter(Observable) for real time data change 
     this.adverstisementService.currenyFilter.subscribe(filter => this.currenyFilter = filter)
     this.adverstisementService.adCoinFilter.subscribe(filter => this.adCoinFilter = filter)
     this.adverstisementService.paymentMethodFilter.subscribe(filter => this.paymentMethodFilter = filter)

@@ -9,6 +9,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject'
   providedIn: 'root'
 })
 export class AdverstisementService {
+  // Declare All variable for Handling Oservable Filters
   private filterCurrency = new BehaviorSubject<any>(false);
   currenyFilter = this.filterCurrency.asObservable();
   private filterAdCoin = new BehaviorSubject<any>(false);
@@ -22,11 +23,11 @@ export class AdverstisementService {
 
   }
   changefilter(ad_type, currency, ad_coin, payment_methods) {
+    // Change Value for all Observable
     this.filterCurrency.next(currency);
     this.filterAdCoin.next(ad_coin);
     this.filterPaymentMethod.next(payment_methods);
     this.filterAdType.next(ad_type);
-    console.log(this.currenyFilter, this.adCoinFilter, this.paymentMethodFilter, this.adTypeFilter)
   }
   getAdvertisementApi() {
     this._advertisement = this._http.get<AdvertisementResponse>('http://swapsteem-api.herokuapp.com/listings')

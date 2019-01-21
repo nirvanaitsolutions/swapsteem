@@ -27,8 +27,8 @@ export class BuyComponent implements OnInit {
   paymentMethodFilter: any = '';
   adTypeFilter: any = '';
   totalBuy: any = [];
-  totalBuyArray: Observable<AdvertisementResponse[]>;
   showElement(buySteem) {
+    // Hack for show hide data In Table according to filter
     if (this.adTypeFilter && this.adTypeFilter !== 'BUY') {
       return true;
     }
@@ -45,14 +45,6 @@ export class BuyComponent implements OnInit {
   }
   ngOnInit() {
     this.buyDetails = this.purchaseSer.getBuyAds();
-    this.totalBuyArray = this.purchaseSer.getBuyAds();
-    this.totalBuyArray.subscribe((data) => {
-
-      console.log(this.totalBuy);
-      this.totalBuy = data;
-
-      console.log(this.totalBuy);
-    })
     //this.buyDetails =  this.http.get<AdvertisementResponse>('http://swapsteem-api.herokuapp.com/advertisements');
     //this.buyDetails =  this.http.get<Advertisement>('../../assets/sample-buy-online.json');
     this.purchaseSer.getPrice().subscribe(data => {
@@ -61,13 +53,12 @@ export class BuyComponent implements OnInit {
       let calSBDPrice = Object.values(resPrice[1])
       this.steemPrice = calSteemPrice;
       this.sbdPrice = calSBDPrice;
-
     })
+    // Added suscribe for all filter(Observable) for real time data change 
     this.adverstisementService.currenyFilter.subscribe(filter => this.currenyFilter = filter)
     this.adverstisementService.adCoinFilter.subscribe(filter => this.adCoinFilter = filter)
     this.adverstisementService.paymentMethodFilter.subscribe(filter => this.paymentMethodFilter = filter)
     this.adverstisementService.adTypeFilter.subscribe(filter => this.adTypeFilter = filter)
-    console.log(this.currenyFilter, this.adCoinFilter, this.paymentMethodFilter, this.adTypeFilter)
   }
   calculatePrice(from: string, to: string, margin: number) {
     if (from == "STEEM") {
