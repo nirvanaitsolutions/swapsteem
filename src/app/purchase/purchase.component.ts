@@ -87,9 +87,9 @@ export class PurchaseComponent implements OnInit {
       }
 
 
-      this.purchaseServ.getPrice().subscribe(data => {
-        this.price = data;
-      });
+      // this.purchaseServ.getPrice().subscribe(data => {
+      //   this.price = data;
+      // });
     });
 
     console.log("selected trade" + this.selectedTrade);
@@ -139,6 +139,7 @@ export class PurchaseComponent implements OnInit {
     if (this.order.order_coin == "SBD") {
       this.order.order_fiat_amount = this.order.order_coin_amount * this.price;
     }
+    console.log('this.order.order_fiat_amount', this.order.order_coin_amount , this.price)
   }
 
   changeToCoin() {

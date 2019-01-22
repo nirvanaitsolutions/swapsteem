@@ -17,6 +17,7 @@ export class SellComponent implements OnInit {
   paymentMethodFilter: any = '';
   adTypeFilter: any = '';
   emptySell: boolean;
+  emptyBuy: boolean;
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   constructor(private ngxService: NgxUiLoaderService, private http: HttpClient,
     private purchaseSer: APIService,
