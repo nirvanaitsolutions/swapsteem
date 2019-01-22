@@ -49,7 +49,7 @@ export class PostTradeComponent implements OnInit {
   cryptos: any;
   effectivePrice: any;
   adId: string = '';
-  account_details: {
+  account_details: { /* account_details object */
     account_holder_name: string;
     account_number: string;
     bank_name: string;

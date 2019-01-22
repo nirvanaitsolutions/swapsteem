@@ -125,7 +125,17 @@ export class APIService {
     // httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
     return this._http.delete<AdvertisementRequest>(`http://swapsteem-api.herokuapp.com/listings/${id}`);
   }
-
+  
+  /**
+   *
+   * @name pauseAd 
+   *
+   * @description
+   * This method used to open/paused a advertisement
+   * @param id advertisement id
+   * @param currentStatus current ad_status
+   * @returns {Api response}
+  */
   pauseAd(id: string, currentStatus: string): Observable<AdvertisementRequest> {
     // httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
     return this._http.put<AdvertisementRequest>(`http://swapsteem-api.herokuapp.com/listings/${id}`, JSON.stringify({
@@ -133,6 +143,16 @@ export class APIService {
     }));
   }
 
+  /**
+   *
+   * @name updateSelectedOrderFromAPI 
+   *
+   * @description
+   * This method used to update order details
+   * @param id order id
+   * @param body order details in json stringify format
+   * @returns {Api response}
+  */
   updateSelectedOrderFromAPI(id: string, body: any) {
     return this._http.put<OrderResponse>(`http://swapsteem-api.herokuapp.com/orders/${id}`, body);
   }

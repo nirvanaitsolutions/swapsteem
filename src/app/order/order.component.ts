@@ -1,3 +1,13 @@
+/**
+ *
+ * @name order.component
+ * @author Shubham Vijay Vargiy (Shubh1692)
+ * @description
+ * This component used for view selected order status and perform escrow action by seller/buyer 
+ * @requires id order id from url params
+ * @requires status status for update after redirect from steemconnect
+ */
+
 import { Component, OnInit, NgZone } from '@angular/core';
 import { ChatService } from '../../service/chat.service';
 import { APIService } from '../../service/api.service';
@@ -63,6 +73,20 @@ export class OrderComponent implements OnInit {
     });
 
   }
+  /**
+   *
+   * @name transferEscrow 
+   *
+   * @description
+   * This method used to generate escrow-transfer link for transfer escrow from seller to buyer
+   * @requires sender Seller username
+   * @requires reciever  Buyer username
+   * @requires id order id 
+   * @requires order_coin coin type STEEM/SBD from order details
+   * @requires order_coin_amount coin amount from order details
+   * @requires terms Terms from advertisement detail
+   * @requires agent agent name
+  */
 
   transferEscrow() {
     const now = moment();
@@ -74,9 +98,39 @@ export class OrderComponent implements OnInit {
     window.location.href = `https://steemconnect.com/sign/escrow-transfer?from=${this.sender}&to=${this.reciever}&agent=${this.agent}&escrow_id=${this.selectedOrder.escrowID}&sbd_amount=${sbdAmount}%20SBD&steem_amount=${steemAmount}%20STEEM&fee=${0.001}%20STEEM&ratification_deadline=${rDeadline}&escrow_expiration=${eDeadline}&json_meta={"terms":"${this.selectedAd.terms}", "order_id": "${this.selectedOrder._id}"}&redirect_uri=${window.location.origin}/order/${this.selectedOrder._id}?status=escrow_transfer`;
   }
 
+  /**
+   *
+   * @name approveRejectEscrow 
+   *
+   * @description
+   * This method used to approve/reject escrow-approve link for approve/reject escrow from buyer
+   * @requires sender Buyer username
+   * @requires reciever  Seller username
+   * @requires id order id 
+   * @requires userData logged in user detail
+   * @requires order_coin_amount coin amount from order details
+   * @requires terms Terms from advertisement detail
+   * @requires agent agent name
+  */
+
   approveRejectEscrow(approve: number) {
     window.location.href = `https://steemconnect.com/sign/escrow-approve?from=${this.sender}&to=${this.reciever}&agent=${this.agent}&who=${this.userData._id}&escrow_id=${this.selectedOrder.escrowID}&approve=${approve}&json_meta={"terms":"${this.selectedAd.terms}", "order_id": "${this.selectedOrder._id}"}&redirect_uri=${window.location.origin}/order/${this.selectedOrder._id}?status=escrow_${approve ? 'approve' : 'reject'}`;
   }
+
+  /**
+   *
+   * @name releaseEscrow 
+   *
+   * @description
+   * This method used to relese escrow-release link for relese escrow from seller
+   * @requires sender Seller username
+   * @requires reciever  Buyer username
+   * @requires id order id 
+   * @requires order_coin coin type STEEM/SBD from order details
+   * @requires order_coin_amount coin amount from order details
+   * @requires terms Terms from advertisement detail
+   * @requires agent agent name
+  */
 
   releaseEscrow() {
     const steemAmount: number = this.selectedOrder.order_coin == "STEEM" ? this.selectedOrder.order_coin_amount : 0;
@@ -84,11 +138,33 @@ export class OrderComponent implements OnInit {
     window.location.href = `https://steemconnect.com/sign/escrow-release?from=${this.sender}&to=${this.reciever}&agent=${this.agent}&who=${this.userData._id}&receiver=${this.reciever}&escrow_id=${this.selectedOrder.escrowID}&sbd_amount=${sbdAmount}%20SBD&steem_amount=${steemAmount}%20STEEM&json_meta={"terms":"${this.selectedAd.terms}", "order_id": "${this.selectedOrder._id}"}&redirect_uri=${window.location.origin}/order/${this.selectedOrder._id}?status=escrow_release`;
   }
 
+  /**
+   *
+   * @name releaseEscrow 
+   *
+   * @description
+   * This method used to relese escrow-release link for relese escrow from seller/buyer
+   * @requires sender sender username
+   * @requires reciever  reciver username
+   * @requires id order id 
+   * @requires agent agent name
+   * @param disputeType buyer/seller who are raising a dispute
+  */
   raiseDispute(disputeType) {
     window.location.href = `https://steemconnect.com/sign/escrow-dispute?from=${this.sender}&to=${this.reciever}&agent=${this.agent}&who=${this.userData._id}&escrow_id=${this.selectedOrder.escrowID}&json_meta={"terms":"${this.selectedAd.terms}", "order_id": "${this.selectedOrder._id}"}&redirect_uri=${window.location.origin}/order/${this.selectedOrder._id}?status=${disputeType}_escrow_dispute`
   }
 
-
+  
+  /**
+   *
+   * @name updateOrderStatus 
+   *
+   * @description
+   * This method used to update order status
+   * @param order_status for update
+   * @param getAdd A flag for fetch order and advertisement detail 
+   * @requires id order id
+  */
   updateOrderStatus(order_status: string, getAdd?: boolean) {
     this._apiSer.updateSelectedOrderFromAPI(this.selectedOrder._id, JSON.stringify({
       order_status
