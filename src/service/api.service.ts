@@ -133,4 +133,8 @@ export class APIService {
     }));
   }
 
+  updateSelectedOrderFromAPI(id: string, body: any) {
+    return this._http.put<OrderResponse>(`http://swapsteem-api.herokuapp.com/orders/${id}`, body);
+  }
+
 }

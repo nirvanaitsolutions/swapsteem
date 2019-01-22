@@ -4,46 +4,28 @@
       <table class="table">
         <tr>
           <th>Type</th>
-          <th>Coin</th>
-          <th>Fiat</th>
-          <th>Payment Method</th>
+          <th>From</th>
+          <th>to</th>
           <th></th>
         </tr>
         <tr>
           <td>
-              <select class="form-control" id="ad_type"
-              [(ngModel)] = "ad_type"
-              name = "ad_type"
-              required>
-                <option *ngFor="let count of ad_type">{{count}}</option>
-              </select>
-          </td>
-          <td>
-            <select class="form-control" id="ad_coin"
-              name="ad_coin"
-              required
-                [(ngModel)]="ad_coin">
-                <option *ngFor="let count of ad_coin">{{count}}</option>
+            <select class="form-control" id="ad_type" [(ngModel)]="ad_type" name="ad_type" required>
+              <option *ngFor="let count of ad_type_options">{{count}}</option>
             </select>
           </td>
           <td>
-            <select class="form-control" id="Currency"
-                    [(ngModel)] = "currency"
-                    name = "currency"
-                    required>
-              <option *ngFor="let count of currency">{{count}}</option>
+            <select class="form-control" id="ad_coin" name="ad_coin" required [(ngModel)]="ad_coin">
+              <option *ngFor="let count of ad_coin_options">{{count}}</option>
             </select>
           </td>
           <td>
-            <select class="form-control" id="payment_methods"
-                      [(ngModel)] = "payment_methods"
-                    name = "payment_methods"
-                    required>
-              <option *ngFor="let count of payment_methods">{{count}}</option>
+            <select class="form-control" id="Currency" [(ngModel)]="currency" name="currency" required>
+              <option *ngFor="let count of currency_options">{{count}}</option>
             </select>
           </td>
           <td>
-            <button  type="submit" class="btn badge-pill badge-success">Search</button>
+            <button type="submit" class="btn badge-pill badge-success" (click)="searchResult(ad_type,ad_coin,currency,payment_methods)">Search For Trades</button>
           </td>
         </tr>
       </table>

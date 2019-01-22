@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { APIService } from '../../service/api.service';
 import { Router } from '@angular/router';
 import { AdvertisementResponse } from '../module/advertisement';
+import { AdverstisementService } from '../../service/adverstisement.service'
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-buy',
@@ -14,16 +16,48 @@ import { AdvertisementResponse } from '../module/advertisement';
 export class BuyComponent implements OnInit {
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
 
-  constructor(private http: HttpClient,
+  constructor(private ngxService: NgxUiLoaderService,private http: HttpClient,
     private purchaseSer: APIService,
-    private router: Router) { }
+    private router: Router, private adverstisementService: AdverstisementService) { }
 
   buyDetails: Observable<AdvertisementResponse[]>;
   steemPrice: any;
   sbdPrice: any;
-
+  currenyFilter: any = ''
+  adCoinFilter: any = ''
+  paymentMethodFilter: any = '';
+  adTypeFilter: any = '';
+  totalBuy: any = [];
+  emptyBuy: boolean;
+  showElement(buySteem) {
+    // Hack for show hide data In Table according to filter
+    if (this.adTypeFilter && this.adTypeFilter !== 'BUY') {
+      return true;
+    }
+    if (this.currenyFilter && buySteem.currency !== this.currenyFilter) {
+      return false;
+    }
+    if (this.adCoinFilter && buySteem.ad_coin !== this.adCoinFilter) {
+      return false;
+    }
+    if (this.paymentMethodFilter && buySteem.payment_methods.indexOf(this.paymentMethodFilter) === -1) {
+      return false;
+    }
+    return true;
+  }
   ngOnInit() {
+    this.ngxService.start();
     this.buyDetails = this.purchaseSer.getBuyAds();
+    this.buyDetails.subscribe((data) => {
+     
+      // Hack for check data existance
+      if(data.length){
+        this.emptyBuy = false
+      }else{
+        this.emptyBuy = true
+      }
+      this.ngxService.stop();
+    })
     //this.buyDetails =  this.http.get<AdvertisementResponse>('http://swapsteem-api.herokuapp.com/advertisements');
     //this.buyDetails =  this.http.get<Advertisement>('../../assets/sample-buy-online.json');
     this.purchaseSer.getPrice().subscribe(data => {
@@ -32,8 +66,12 @@ export class BuyComponent implements OnInit {
       let calSBDPrice = Object.values(resPrice[1])
       this.steemPrice = calSteemPrice;
       this.sbdPrice = calSBDPrice;
-
     })
+    // Added suscribe for all filter(Observable) for real time data change 
+    this.adverstisementService.currenyFilter.subscribe(filter => this.currenyFilter = filter)
+    this.adverstisementService.adCoinFilter.subscribe(filter => this.adCoinFilter = filter)
+    this.adverstisementService.paymentMethodFilter.subscribe(filter => this.paymentMethodFilter = filter)
+    this.adverstisementService.adTypeFilter.subscribe(filter => this.adTypeFilter = filter)
   }
   calculatePrice(from: string, to: string, margin: number) {
     if (from == "STEEM") {

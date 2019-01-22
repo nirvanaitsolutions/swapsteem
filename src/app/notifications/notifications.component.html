@@ -1,6 +1,9 @@
 <div class="box container">
-  <table class="table">
-      <tr *ngFor = "let notification of notifications">
+    <div *ngIf="notifications.length === 0" class="no-data"><p>No Data! Go play Around to see something here</p>
+      <!-- <a style="padding-right: 18px;" routerLink="/post-trade">Post a trade</a> -->
+    </div>
+  <table class="table" *ngIf="notifications.length">
+      <tr *ngFor = "let notification of notifications  | paginate: { itemsPerPage: 5, currentPage: q }">
         <td scope="row">
           <p>
           <span style="font-weight: bold">{{notification.text}} from </span> {{notification.from}} <br>
@@ -9,4 +12,6 @@
         </td>
       </tr>
   </table>
+  <pagination-controls *ngIf="notifications.length" (pageChange)="q = $event" class="page-controls"></pagination-controls>
+
 </div>

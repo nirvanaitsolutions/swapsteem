@@ -1,7 +1,11 @@
 <div>
   <h6 class="buyHeading">Buy Steem Online In USA</h6>
+  <div *ngIf="emptyBuy" class="no-data">
+    <p>No Data! Go play Around to see something here</p>
+    <!-- <a style="padding-right: 18px;" routerLink="/post-trade">Post a trade</a> -->
+  </div>
   <div class="table-padding">
-    <table class="table table-striped">
+    <table class="table table-striped" *ngIf="emptyBuy === false">
       <tr>
         <th class="">Seller</th>
         <th class="">Payment</th>
@@ -11,15 +15,20 @@
         <th class="">Price/Coin</th>
         <th></th>
       </tr>
-      <tr *ngFor = "let buySteem of buyDetails | async | tradePipe: 'ad_status' : 'pause'">
-        <td>{{buySteem.createdby}}</td>
-        <td>{{buySteem.payment_methods}}</td>
-        <td>{{buySteem.ad_coin}}</td>
-        <td>{{buySteem.currency}}</td>
-        <td>{{buySteem.limit_from}} - {{buySteem.limit_to}}</td>
-        <td><span >{{calculatePrice(buySteem.ad_coin,buySteem.currency, buySteem.margin)}}</span></td>                                                                                                                                                                 
-        <td><button type="button" class="btn btn-success btn-sm badge badge-pill" (click)="buyTrade(buySteem)">Buy</button></td>
+      <tr *ngFor="let buySteem of buyDetails | async | tradePipe: 'ad_status' : 'pause'  | paginate: { itemsPerPage: 5, currentPage: p }">
+        <td *ngIf="showElement(buySteem)">{{buySteem.createdby}}</td>
+        <td *ngIf="showElement(buySteem)">{{buySteem.payment_methods}}</td>
+        <td *ngIf="showElement(buySteem)">{{buySteem.ad_coin}}</td>
+        <td *ngIf="showElement(buySteem)">{{buySteem.currency}}</td>
+        <td *ngIf="showElement(buySteem)">{{buySteem.limit_from}} - {{buySteem.limit_to}}</td>
+        <td *ngIf="showElement(buySteem)">
+          <span>{{calculatePrice(buySteem.ad_coin,buySteem.currency, buySteem.margin)}}</span>
+        </td>
+        <td *ngIf="showElement(buySteem)">
+          <button type="button" class="btn btn-success btn-sm badge badge-pill" (click)="buyTrade(buySteem)">Buy</button>
+        </td>
       </tr>
     </table>
+    <pagination-controls *ngIf="emptyBuy === false" (pageChange)="p = $event" class="page-controls"></pagination-controls>
   </div>
 </div>

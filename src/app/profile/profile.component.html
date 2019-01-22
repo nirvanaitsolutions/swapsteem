@@ -6,7 +6,7 @@
       </div>
       <div class="sol-sm-9">
         <h6 style="color: white;">{{userData.name}}</h6>
-        <p>Registered: {{userData.account.created | date}}</p>
+        <p *ngIf="userData && userData.account">Registered: {{userData.account.created | date}}</p>
       </div>
     </div>
     <div class="balance">
@@ -23,7 +23,7 @@
   <div class="container ">
     <div class="row">
       <div class="card col box mr-2 text-center">
-        <div>
+        <div *ngIf="userData && userData.account">
           {{userData.account.reputation}}
         </div>
         <div>
@@ -41,7 +41,10 @@
     </div>
     <div class="box">
       <h5>Your Open ADs</h5>
-      <table class="table">
+      <div *ngIf="noAds" class="no-data"><p>No Data! Go play Around to see something here</p>
+        <a style="padding-right: 18px;" routerLink="/post-trade">Post a trade</a>
+      </div>
+      <table class="table" *ngIf="noAds === false">
         <tr>
           <th class="table-header">Payment Methods</th>
           <th class="table-header">Type</th>
@@ -52,7 +55,7 @@
           <th class="table-header">Actions</th>
 
         </tr>
-        <tr *ngFor="let ad of openAds |async">
+        <tr *ngFor="let ad of openAds |async  | paginate: { itemsPerPage: 5, currentPage: q }">
           <td>{{ad.payment_methods}}</td>
           <td>{{ad.ad_type}}</td>
           <td>{{ad.ad_coin}}</td>
@@ -78,6 +81,7 @@
           </td>
         </tr>
       </table>
+      <pagination-controls *ngIf="noAds === false" (pageChange)="q = $event" class="page-controls"></pagination-controls>
     </div>
   </div>
 </div>
@@ -91,6 +95,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
+        
       </div>
       <div class="modal-body">
         Are you sure want to delete advertisement?
