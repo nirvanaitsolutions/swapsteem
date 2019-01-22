@@ -4,7 +4,7 @@ import { AdvertisementRequest } from '../module/advertisement';
 import { APIService } from '../../service/api.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SteemconnectAuthService } from '../steemconnect/services/steemconnect-auth.service';
-
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 @Component({
   selector: 'app-post-trade',
   templateUrl: './post-trade.component.html',
@@ -12,7 +12,7 @@ import { SteemconnectAuthService } from '../steemconnect/services/steemconnect-a
 })
 export class PostTradeComponent implements OnInit {
 
-  constructor(public api: APIService, private router: Router, private zone: NgZone, private auth: SteemconnectAuthService, private route: ActivatedRoute) {
+  constructor(private ngxService: NgxUiLoaderService,public api: APIService, private router: Router, private zone: NgZone, private auth: SteemconnectAuthService, private route: ActivatedRoute) {
   }
 
   advertisement: AdvertisementRequest = {
@@ -67,20 +67,24 @@ export class PostTradeComponent implements OnInit {
   ngOnInit() {
     this.adId = this.route.snapshot.paramMap.get('id');
     this.getSelectedTradeFromAPI(this.adId);
+    this.ngxService.start();
     this.auth.getUserData().subscribe(data => {
       this.userData = data;
       this.advertisement.createdby = this.userData.name;
       console.log(this.userData);
+      
     });
     this.api.getPriceByPair(this.advertisement.ad_coin, this.advertisement.currency).subscribe(data => {
       this.cryptos = data;
       console.log(data)
+      this.ngxService.stop();
     });
   }
 
 
   getSelectedTradeFromAPI(id: string) {
     if (id) {
+      this.ngxService.start();
       this.api.getSelectedTradeFromAPI(id).subscribe((res) => this.zone.run(() => {
         this.advertisement = {
           ...this.advertisement, ...{
@@ -113,14 +117,17 @@ export class PostTradeComponent implements OnInit {
           }
         };
         console.log(this.advertisement);
+        this.ngxService.stop();
       }));
     }
   }
 
   onSubmit(form) {
     console.log(form);
+    this.ngxService.start();
     this.api.createAd(this.advertisement, this.adId).subscribe(res => this.zone.run(() => {
       this.router.navigate(['profile'])
+      this.ngxService.stop();
     }));
   }
   currency = ['INR', 'USD', 'KRW'];

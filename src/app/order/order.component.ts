@@ -4,6 +4,7 @@ import { APIService } from '../../service/api.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SteemconnectAuthService } from '../steemconnect/services/steemconnect-auth.service';
 import * as moment from 'moment';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
@@ -24,14 +25,14 @@ export class OrderComponent implements OnInit {
   private reciever: string = '';
   private userData: any = '';
   private agent: string = 'swapsteem';
-  constructor(private _chatService: ChatService, private auth: SteemconnectAuthService,
+  constructor(private ngxService: NgxUiLoaderService, private _chatService: ChatService, private auth: SteemconnectAuthService,
     private _apiSer: APIService,
     private router: Router,
     private zone: NgZone,
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-    console.log()
+    this.ngxService.start();
     this.auth.getUserData().subscribe(data => {
       this.userData = data;
       const id: string = this.route.snapshot.paramMap.get('id');
@@ -56,6 +57,7 @@ export class OrderComponent implements OnInit {
         this._apiSer.getSelectedTradeFromAPI(this.selectedOrder.ad_id).subscribe(res => {
           this.selectedAd = res;
           console.log(this.selectedAd);
+          this.ngxService.stop();
         });
       }));
     });

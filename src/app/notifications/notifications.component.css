@@ -5,3 +5,13 @@
     margin-top: 20px;
     background-color: white;
 }
+.no-data{
+    text-align: center;
+    margin: 100px;
+    font-weight: bold;
+    font-size: 20px;
+}
+.page-controls{
+    text-align: center;
+    margin-top: 50px;
+}
