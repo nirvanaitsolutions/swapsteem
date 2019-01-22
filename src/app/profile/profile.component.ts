@@ -49,7 +49,7 @@ export class ProfileComponent implements OnInit {
       this.balance_sbd = this.userData.account.sbd_balance.split(" ")[0];
       this.balance_steem = this.userData.account.balance.split(" ")[0];
       this.balance_sp = this.userData.account.vesting_shares.split(" ")[0];
-      this.profile = JSON.parse(this.userData.account.json_metadata);
+      this.profile = this.userData.account.json_metadata ? JSON.parse(this.userData.account.json_metadata) : {};
       this.profile_url = this.profile && this.profile.profile ? this.profile.profile.profile_image : '';
       console.log(this.profile_url)
       // this.apiSer.hideLoader();

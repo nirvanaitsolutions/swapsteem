@@ -49,13 +49,14 @@ export class BuyComponent implements OnInit {
     this.ngxService.start();
     this.buyDetails = this.purchaseSer.getBuyAds();
     this.buyDetails.subscribe((data) => {
-      this.ngxService.stop();
+     
       // Hack for check data existance
       if(data.length){
         this.emptyBuy = false
       }else{
         this.emptyBuy = true
       }
+      this.ngxService.stop();
     })
     //this.buyDetails =  this.http.get<AdvertisementResponse>('http://swapsteem-api.herokuapp.com/advertisements');
     //this.buyDetails =  this.http.get<Advertisement>('../../assets/sample-buy-online.json');

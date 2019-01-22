@@ -51,8 +51,9 @@ export class WalletComponent implements OnInit {
         }else{
           this.emptyCloseOrders = true;
         }
+        this.ngxService.stop();
       })
-      this.ngxService.stop();
+     
     });
 
     // this.userData = this._auth.getUserData().pipe(
