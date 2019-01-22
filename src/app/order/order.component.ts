@@ -11,25 +11,25 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
   styleUrls: ['./order.component.css']
 })
 export class OrderComponent implements OnInit {
-  private selectedOrder: any = {
+  public selectedOrder: any = {
     order_coin_amount: '',
     order_fiat_amount: '',
     order_status: '',
     escrowID: '',
   };
-  private selectedAd: any = {
+  public selectedAd: any = {
     terms: '',
     payment_methods: [''],
   };
-  private sender: string = '';
-  private reciever: string = '';
-  private userData: any = '';
-  private agent: string = 'swapsteem';
-  constructor(private ngxService: NgxUiLoaderService, private _chatService: ChatService, private auth: SteemconnectAuthService,
-    private _apiSer: APIService,
-    private router: Router,
-    private zone: NgZone,
-    private route: ActivatedRoute) { }
+  public sender: string = '';
+  public reciever: string = '';
+  public userData: any = '';
+  public agent: string = 'swapsteem';
+  constructor(public ngxService: NgxUiLoaderService, public _chatService: ChatService, public auth: SteemconnectAuthService,
+    public _apiSer: APIService,
+    public router: Router,
+    public zone: NgZone,
+    public route: ActivatedRoute) { }
 
   ngOnInit() {
     this.ngxService.start();
