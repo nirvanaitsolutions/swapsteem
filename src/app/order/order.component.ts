@@ -111,6 +111,7 @@ export class OrderComponent implements OnInit {
               status: ''
             }
           });
+          this.ngxService.stop();
         });
       }
     }));
