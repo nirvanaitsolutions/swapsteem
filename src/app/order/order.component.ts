@@ -15,6 +15,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { SteemconnectAuthService } from '../steemconnect/services/steemconnect-auth.service';
 import * as moment from 'moment';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { ReviewComponent } from '../components/review/review.component';
+
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
@@ -39,7 +42,7 @@ export class OrderComponent implements OnInit {
     public _apiSer: APIService,
     public router: Router,
     public zone: NgZone,
-    public route: ActivatedRoute) { }
+    public route: ActivatedRoute, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.ngxService.start();
@@ -154,7 +157,7 @@ export class OrderComponent implements OnInit {
     window.location.href = `https://steemconnect.com/sign/escrow-dispute?from=${this.sender}&to=${this.reciever}&agent=${this.agent}&who=${this.userData._id}&escrow_id=${this.selectedOrder.escrowID}&json_meta={"terms":"${this.selectedAd.terms}", "order_id": "${this.selectedOrder._id}"}&auto_return=1&redirect_uri=${window.location.origin}/order/${this.selectedOrder._id}?status=${disputeType}_escrow_dispute`
   }
 
-  
+
   /**
    *
    * @name updateOrderStatus 
@@ -191,5 +194,27 @@ export class OrderComponent implements OnInit {
         });
       }
     }));
+  }
+
+  /**
+    *
+    * @name openReviewDialog 
+    *
+    * @description
+    * This method used to update order status
+    * @param order_status for update
+    * @param getAdd A flag for fetch order and advertisement detail 
+    * @requires id order id
+   */
+
+  openReviewDialog(): void {
+    const dialogRef = this.dialog.open(ReviewComponent, {
+      width: '250px',
+      data: {  }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 }
