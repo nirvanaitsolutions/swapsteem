@@ -18,6 +18,7 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { MatDialog } from '@angular/material';
 import { ReviewComponent } from '../components/review/review.component';
 import { forkJoin } from 'rxjs';
+import { ReviewResponse } from '../module/review';
 
 @Component({
   selector: 'app-order',
@@ -39,6 +40,7 @@ export class OrderComponent implements OnInit {
   public reciever: string = '';
   public userData: any = '';
   public agent: string = 'swapsteem';
+  public reviews: Array<ReviewResponse> = [];
   constructor(public ngxService: NgxUiLoaderService, public _chatService: ChatService, public auth: SteemconnectAuthService,
     public _apiSer: APIService,
     public router: Router,
@@ -71,8 +73,11 @@ export class OrderComponent implements OnInit {
         forkJoin(this._apiSer.getSelectedTradeFromAPI(this.selectedOrder.ad_id), this._apiSer.getReviews(this.selectedOrder._id, 'by_order'))
           .subscribe(res => {
             this.selectedAd = res[0];
-            if (this.selectedOrder.order_status === 'escrow_release' && res && res[1] && !res[1].length) {
-              this.openReviewDialog();
+            if (res && res[1]) {
+              this.reviews = res[1];
+              if (this.selectedOrder.order_status === 'escrow_release' && res && res[1] && res[1].findIndex((review) => review.createdby === this.userData._id) === -1) {
+                this.openReviewDialog();
+              }
             }
             this.ngxService.stop();
           });
@@ -190,9 +195,13 @@ export class OrderComponent implements OnInit {
         forkJoin(this._apiSer.getSelectedTradeFromAPI(this.selectedOrder.ad_id), this._apiSer.getReviews(this.selectedOrder._id, 'by_order'))
           .subscribe(res => {
             this.selectedAd = res[0];
-            if (this.selectedOrder.order_status === 'escrow_release' && res && res[1] && !res[1].length) {
-              this.openReviewDialog();
+            if (res && res[1]) {
+              this.reviews = res[1];
+              if (this.selectedOrder.order_status === 'escrow_release' && res && res[1] && res[1].findIndex((review) => review.createdby === this.userData._id) === -1) {
+                this.openReviewDialog();
+              }
             }
+
             this.router.navigate([`/order/${this.selectedOrder._id}`], {
               queryParams: {
                 status: ''
@@ -225,7 +234,9 @@ export class OrderComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      this.reviews.push(result);
+      if (result && result._id && this.reviews.findIndex((review) => review.createdby === this.reciever) > -1 && this.reviews.findIndex((review) => review.createdby === this.sender) > -1)
+        this.updateOrderStatus('order_complete', true);
     });
   }
 }
