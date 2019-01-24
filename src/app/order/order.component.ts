@@ -15,8 +15,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { SteemconnectAuthService } from '../steemconnect/services/steemconnect-auth.service';
 import * as moment from 'moment';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { ReviewComponent } from '../components/review/review.component';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-order',
@@ -67,11 +68,15 @@ export class OrderComponent implements OnInit {
           this.reciever = data.createdfor
         }
         console.log(this.selectedOrder, this.userData);
-        this._apiSer.getSelectedTradeFromAPI(this.selectedOrder.ad_id).subscribe(res => {
-          this.selectedAd = res;
-          console.log(this.selectedAd);
-          this.ngxService.stop();
-        });
+        forkJoin(this._apiSer.getSelectedTradeFromAPI(this.selectedOrder.ad_id), this._apiSer.getReviews(this.selectedOrder._id, 'by_order'))
+          .subscribe(res => {
+            this.selectedAd = res[0];
+            if (this.selectedOrder.order_status === 'escrow_release' && res && res[1] && !res[1].length) {
+              this.openReviewDialog();
+            }
+            this.ngxService.stop();
+          });
+
       }));
     });
 
@@ -182,16 +187,19 @@ export class OrderComponent implements OnInit {
         this.reciever = data.createdfor
       }
       if (getAdd) {
-        this._apiSer.getSelectedTradeFromAPI(this.selectedOrder.ad_id).subscribe(res => {
-          this.selectedAd = res;
-          console.log(this.selectedAd, 'afjsfhj');
-          this.router.navigate([`/order/${this.selectedOrder._id}`], {
-            queryParams: {
-              status: ''
+        forkJoin(this._apiSer.getSelectedTradeFromAPI(this.selectedOrder.ad_id), this._apiSer.getReviews(this.selectedOrder._id, 'by_order'))
+          .subscribe(res => {
+            this.selectedAd = res[0];
+            if (this.selectedOrder.order_status === 'escrow_release' && res && res[1] && !res[1].length) {
+              this.openReviewDialog();
             }
+            this.router.navigate([`/order/${this.selectedOrder._id}`], {
+              queryParams: {
+                status: ''
+              }
+            });
+            this.ngxService.stop();
           });
-          this.ngxService.stop();
-        });
       }
     }));
   }
@@ -201,16 +209,19 @@ export class OrderComponent implements OnInit {
     * @name openReviewDialog 
     *
     * @description
-    * This method used to update order status
-    * @param order_status for update
-    * @param getAdd A flag for fetch order and advertisement detail 
-    * @requires id order id
+    * This method used to open review component in modal
    */
 
   openReviewDialog(): void {
     const dialogRef = this.dialog.open(ReviewComponent, {
-      width: '250px',
-      data: {  }
+      width: '300px',
+      disableClose: true,
+      data: {
+        ad_id: this.selectedAd._id,
+        order_id: this.selectedOrder._id,
+        createdby: this.userData._id,
+        createdFor: this.reciever
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {

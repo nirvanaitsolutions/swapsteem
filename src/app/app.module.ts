@@ -8,7 +8,15 @@ import { CookieModule } from 'ngx-cookie';
 import { AppComponent } from './app.component';
 import { FooterComponent } from './footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDialogModule } from '@angular/material';
+import {
+  MatDialogModule,
+  MatInputModule,
+  MatButtonModule,
+  MatFormFieldModule,
+  MatProgressSpinnerModule,
+  MatTableModule,
+  MatPaginatorModule
+} from '@angular/material';
 import { AppNavComponent } from './app-nav/app-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { HomeComponent } from './home/home.component';
@@ -40,7 +48,7 @@ import { OrderComponent } from './order/order.component';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ReviewComponent } from './components/review/review.component';
-
+import { BarRatingModule } from "ngx-bar-rating";
 const config: SocketIoConfig = { url: 'http://swapsteem-api.herokuapp.com', options: {} };
 
 @NgModule({
@@ -86,7 +94,14 @@ const config: SocketIoConfig = { url: 'http://swapsteem-api.herokuapp.com', opti
     FormsModule,
     NgxUiLoaderModule,
     SocketIoModule.forRoot(config),
-    MatDialogModule
+    MatInputModule,
+    MatDialogModule,
+    MatButtonModule,
+    BarRatingModule,
+    MatFormFieldModule,
+    MatProgressSpinnerModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },],
   bootstrap: [AppComponent]

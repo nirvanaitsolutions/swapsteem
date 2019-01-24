@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SteemconnectAuthService } from '../steemconnect/services/steemconnect-auth.service';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
 import { APIService } from '../../service/api.service';
 import { Router } from '@angular/router';
 import { AdvertisementResponse } from '../module/advertisement';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { ReviewResponse } from '../module/review';
+import { forkJoin } from 'rxjs';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-profile',
@@ -29,7 +31,12 @@ export class ProfileComponent implements OnInit {
 
     console.log('constructor called');
   }
+  displayedColumns: string[] = ['order_id', 'review_text', 'review_score'];
+  reviewsDataSource: MatTableDataSource<ReviewResponse>;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   openAds: Observable<AdvertisementResponse[]>;
+  reviews: Observable<ReviewResponse[]>;
 
   ngOnInit() {
     this.ngxService.start();
@@ -37,32 +44,40 @@ export class ProfileComponent implements OnInit {
       this.userData = data;
       console.log(this.userData);
       this.openAds = this.apiSer.getAdsByUser(this.userData.name);
-      console.log(this.openAds);
-      this.openAds.subscribe((data) => {
+      this.reviews = this.apiSer.getReviews(this.userData._id, 'by_creator');
+      forkJoin(this.openAds, this.reviews).subscribe((data) => {
         // Hack for check data existance
-        if (data.length === 0) {
+        if (!data || !data[0] || !data[0].length) {
           this.noAds = true;
         } else {
           this.noAds = false;
         }
-      })
+        const reviews = data && data[1] && data[1].length ? data[1] : [];
+        this.reviewsDataSource = new MatTableDataSource(reviews);
+        this.reviewsDataSource.paginator = this.paginator;
+        this.reviewsDataSource.sort = this.sort;
+      });
       this.balance_sbd = this.userData.account.sbd_balance.split(" ")[0];
       this.balance_steem = this.userData.account.balance.split(" ")[0];
       this.balance_sp = this.userData.account.vesting_shares.split(" ")[0];
       this.profile = this.userData.account.json_metadata ? JSON.parse(this.userData.account.json_metadata) : {};
       this.profile_url = this.profile && this.profile.profile ? this.profile.profile.profile_image : '';
-      console.log(this.profile_url)
-      // this.apiSer.hideLoader();
-      // this.ngxService.stop();
       this.ngxService.stop();
     });
-    //this.openAds.subscribe(data => console.log(data))
   }
 
-  viewAds(ad: AdvertisementResponse) {
-    this.router.navigate(['post-trade/' + ad._id]);
-  }
 
+
+  /**
+   *
+   * @name pauseAd 
+   *
+   * @description
+   * This method used to pause  and open selected advertisement 
+   * @param id advertisement id 
+   * @param currentStatus current advertisement status
+   * @requires username current login username
+  */
   pauseAd(id: string, currentStatus: string) {
     this.ngxService.start();
     this.apiSer.pauseAd(id, currentStatus).subscribe(res => {
@@ -78,6 +93,15 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  /**
+   *
+   * @name deleteAd 
+   *
+   * @description
+   * This method used to delete selected advertisement 
+   * @param id advertisement id 
+   * @requires username current login username
+  */
   deleteAd(id: string) {
     this.ngxService.start();
     this.apiSer.deleteAd(id).subscribe(res => {
@@ -93,4 +117,5 @@ export class ProfileComponent implements OnInit {
 
     });
   }
+
 }
