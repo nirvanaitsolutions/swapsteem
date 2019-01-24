@@ -111,11 +111,8 @@ export class ProfileComponent implements OnInit {
     this.apiSer.deleteAd(id).subscribe(res => {
       this.openAds = this.apiSer.getAdsByUser(this.userData.name);
       this.openAds.subscribe((data) => {
-        if (data.length === 0) {
-          this.noAds = true;
-        } else {
-          this.noAds = false;
-        }
+        const advertisements = data || [];
+        this.advertisementsDataSource = new MatTableDataSource(advertisements);
         this.ngxService.stop();
       })
 
