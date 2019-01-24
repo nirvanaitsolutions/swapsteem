@@ -41,80 +41,111 @@
     </div>
     <div class="box">
       <h5>Your Open ADs</h5>
-      <div *ngIf="noAds" class="no-data">
+      <div *ngIf="!advertisementsDataSource.data.length" class="no-data">
         <p>No Data! Go play Around to see something here</p>
         <a style="padding-right: 18px;" routerLink="/post-trade">Post a trade</a>
       </div>
-      <table class="table" *ngIf="noAds === false">
-        <tr>
-          <th class="table-header">Payment Methods</th>
-          <th class="table-header">Type</th>
-          <th class="table-header">Coin</th>
-          <th class="table-header">Fiat</th>
-          <th class="table-header">Amount</th>
-          <th class="table-header">Limits(USD)</th>
-          <th class="table-header">Actions</th>
+      <div >
+        <table *ngIf="advertisementsDataSource.data.length" mat-table [dataSource]="advertisementsDataSource" class="mat-elevation-z8 w-100">
+          <!--- Note that these columns can be defined in any order.
+                        The actual rendered columns are set as a property on the row definition" -->
 
-        </tr>
-        <tr *ngFor="let ad of openAds |async  | paginate: { itemsPerPage: 5, currentPage: q }">
-          <td>{{ad.payment_methods}}</td>
-          <td>{{ad.ad_type}}</td>
-          <td>{{ad.ad_coin}}</td>
-          <td>{{ad.currency}}</td>
-          <td>{{ad.ad_coin_amount}}</td>
-          <td>{{ad.limit_from}} - {{ad.limit_to}}</td>
-          <td>
-            <div class="dropdown">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                Actions
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="btn dropdown-item" routerLink="/post-trade/{{ad._id}}">View/ Edit</a>
-                <a class="btn dropdown-item" (click)="pauseAd(ad._id, ad.ad_status)">
-                  <span [innerText]="ad.ad_status==='pause' ? 'Open': 'Pause'"></span>
-                </a>
-                <a class="btn dropdown-item" data-toggle="modal" data-target="#exampleModal" (click)="selectedAdId = ad._id;">
-                  Delete
-                </a>
+          <!-- Payment Methods Column -->
+          <ng-container matColumnDef="payment_methods">
+            <th mat-header-cell fxFlex="100" *matHeaderCellDef> Payment Methods </th>
+            <td mat-cell fxFlex="100" *matCellDef="let element">
+              {{element.payment_methods}}
+            </td>
+          </ng-container>
+
+          <!-- Type Column -->
+          <ng-container matColumnDef="ad_type">
+            <th mat-header-cell *matHeaderCellDef> Type </th>
+            <td mat-cell *matCellDef="let element"> {{element.ad_type}} </td>
+          </ng-container>
+
+          <!-- Coin Column -->
+          <ng-container matColumnDef="ad_coin">
+            <th mat-header-cell *matHeaderCellDef> Coin </th>
+            <td mat-cell *matCellDef="let element"> {{element.ad_coin}} </td>
+          </ng-container>
+          <!-- Fiat Column -->
+          <ng-container matColumnDef="currency">
+            <th mat-header-cell *matHeaderCellDef> Fiat </th>
+            <td mat-cell *matCellDef="let element"> {{element.currency}} </td>
+          </ng-container>
+
+          <!--  Amount Column -->
+          <ng-container matColumnDef="ad_coin_amount">
+            <th mat-header-cell *matHeaderCellDef> Amount </th>
+            <td mat-cell *matCellDef="let element"> {{element.ad_coin_amount}} </td>
+          </ng-container>
+          <!-- Limits(USD) Column -->
+          <ng-container matColumnDef="limits">
+            <th mat-header-cell *matHeaderCellDef> Limits(USD) </th>
+            <td mat-cell *matCellDef="let element"> {{element.limit_from}} - {{element.limit_to}} </td>
+          </ng-container>
+
+          <!-- Actions  Column -->
+          <ng-container matColumnDef="buttons">
+            <th mat-header-cell *matHeaderCellDef> Actions </th>
+            <td mat-cell *matCellDef="let element">
+              <div class="dropdown">
+                <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item routerLink="/post-trade/{{element_id}}">View/ Edit</button>
+                  <button mat-menu-item (click)="pauseAd(element_id, elementad_status)">
+                    <span [innerText]="elementad_status==='pause' ? 'Open': 'Pause'"></span></button>
+                  <button mat-menu-item data-toggle="modal" data-target="#exampleModal" (click)="selectedAdId = element_id;">Delete</button>
+                </mat-menu>
               </div>
-            </div>
-          </td>
-        </tr>
-      </table>
-      <pagination-controls *ngIf="noAds === false" (pageChange)="q = $event" class="page-controls"></pagination-controls>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="advertisementDisplayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: advertisementDisplayedColumns;"></tr>
+        </table>
+        <mat-paginator  [ngStyle]="{'display': advertisementsDataSource.data.length ? 'block' : 'none'}" 
+        #advertisements [pageSizeOptions]="[10, 20, 50, 100]"></mat-paginator>
+      </div>
+
     </div>
     <div class="box">
       <h5>Your Reviews</h5>
-      <table mat-table [dataSource]="reviewsDataSource" class="mat-elevation-z8 w-100">
+      <div *ngIf="!reviewsDataSource.data.length" class="no-data">
+        <p>No Data! Go play Around to see something here</p>
+      </div>
+      <div >
+        <table *ngIf="reviewsDataSource.data.length" mat-table [dataSource]="reviewsDataSource" class="mat-elevation-z8 w-100">
 
-        <!--- Note that these columns can be defined in any order.
-            The actual rendered columns are set as a property on the row definition" -->
+          <!--- Note that these columns can be defined in any order.
+                  The actual rendered columns are set as a property on the row definition" -->
 
-        <!-- Name Column -->
-        <ng-container matColumnDef="order_id">
-          <th mat-header-cell *matHeaderCellDef> Order Id </th>
-          <td mat-cell *matCellDef="let element">
-            <a routerLink="/order/{{element.order_id}}" routerLinkActive="active">{{element.order_id}}</a>
-          </td>
-        </ng-container>
+          <!-- Name Column -->
+          <ng-container matColumnDef="order_id">
+            <th mat-header-cell *matHeaderCellDef> Order Id </th>
+            <td mat-cell *matCellDef="let element">
+              <a routerLink="/order/{{element.order_id}}" routerLinkActive="active">{{element.order_id}}</a>
+            </td>
+          </ng-container>
 
-        <!-- Weight Column -->
-        <ng-container matColumnDef="review_text">
-          <th mat-header-cell *matHeaderCellDef> Review </th>
-          <td mat-cell *matCellDef="let element"> {{element.review_text}} </td>
-        </ng-container>
+          <!-- Weight Column -->
+          <ng-container matColumnDef="review_text">
+            <th mat-header-cell *matHeaderCellDef> Review </th>
+            <td mat-cell *matCellDef="let element"> {{element.review_text}} </td>
+          </ng-container>
 
-        <!-- Symbol Column -->
-        <ng-container matColumnDef="review_score">
-          <th mat-header-cell *matHeaderCellDef> Rating </th>
-          <td mat-cell *matCellDef="let element"> {{element.review_score}} </td>
-        </ng-container>
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="review_score">
+            <th mat-header-cell *matHeaderCellDef> Rating </th>
+            <td mat-cell *matCellDef="let element"> {{element.review_score}} </td>
+          </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
-      <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]"></mat-paginator>
+          <tr mat-header-row *matHeaderRowDef="reviewsDisplayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: reviewsDisplayedColumns;"></tr>
+        </table>
+        <mat-paginator  [ngStyle]="{'display': reviewsDataSource.data.length ? 'block' : 'none'}" 
+        #reviews [pageSizeOptions]="[10, 20, 50, 100]"></mat-paginator>
+      </div>
     </div>
   </div>
 </div>

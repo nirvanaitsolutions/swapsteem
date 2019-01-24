@@ -25,20 +25,31 @@ export class ProfileComponent implements OnInit {
   selectedAdId: string = '';
   noAds: boolean;
   constructor(private ngxService: NgxUiLoaderService, private _auth: SteemconnectAuthService,
-    private apiSer: APIService,
-    private router: Router) {
-    // this.apiSer.showLoader();
-
-    console.log('constructor called');
+    private apiSer: APIService) {
   }
-  displayedColumns: string[] = ['order_id', 'review_text', 'review_score'];
-  reviewsDataSource: MatTableDataSource<ReviewResponse>;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  reviewsDisplayedColumns: string[] = ['order_id', 'review_text', 'review_score'];
+  advertisementDisplayedColumns:string[] = ['payment_methods', 'ad_type', 'ad_coin', 'currency', 'ad_coin_amount', 'limits', 'buttons'];
+  advertisementsDataSource: MatTableDataSource<AdvertisementResponse> = new MatTableDataSource([]);
+  reviewsDataSource: MatTableDataSource<ReviewResponse> = new MatTableDataSource([]);
+  @ViewChild('reviews') reviewsPaginator: MatPaginator;
+  @ViewChild('advertisements') advertisementsPaginator: MatPaginator;
   openAds: Observable<AdvertisementResponse[]>;
   reviews: Observable<ReviewResponse[]>;
 
   ngOnInit() {
+    this.getReviewsAndAdvt();
+  }
+
+
+  /**
+   *
+   * @name getReviewsAndAdvt 
+   *
+   * @description
+   * This method used to get user reviews on order and advertisement
+   * @requires username current login username
+  */
+  getReviewsAndAdvt() {
     this.ngxService.start();
     this._auth.getUserData().subscribe(data => {
       this.userData = data;
@@ -47,15 +58,12 @@ export class ProfileComponent implements OnInit {
       this.reviews = this.apiSer.getReviews(this.userData._id, 'by_creator');
       forkJoin(this.openAds, this.reviews).subscribe((data) => {
         // Hack for check data existance
-        if (!data || !data[0] || !data[0].length) {
-          this.noAds = true;
-        } else {
-          this.noAds = false;
-        }
+        const advertisements = data && data[0] && data[0].length ? data[0] : [];
+        this.advertisementsDataSource = new MatTableDataSource(advertisements);
+        this.advertisementsDataSource.paginator = this.advertisementsPaginator;
         const reviews = data && data[1] && data[1].length ? data[1] : [];
         this.reviewsDataSource = new MatTableDataSource(reviews);
-        this.reviewsDataSource.paginator = this.paginator;
-        this.reviewsDataSource.sort = this.sort;
+        this.reviewsDataSource.paginator = this.reviewsPaginator;
       });
       this.balance_sbd = this.userData.account.sbd_balance.split(" ")[0];
       this.balance_steem = this.userData.account.balance.split(" ")[0];
@@ -65,7 +73,6 @@ export class ProfileComponent implements OnInit {
       this.ngxService.stop();
     });
   }
-
 
 
   /**

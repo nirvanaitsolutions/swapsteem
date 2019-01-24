@@ -1,14 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { OrderResponse } from '../module/order';
 import { APIService } from '../../service/api.service';
-import { tap } from 'rxjs/operators';
-import { Router } from '@angular/router';
 import { SteemconnectAuthService } from '../steemconnect/services/steemconnect-auth.service';
-import { OrderService } from '../../service/order.service';
-import { HttpClient } from '@angular/common/http';
-import { AdvertisementResponse } from '../module/advertisement';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { forkJoin } from 'rxjs';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 
 
 @Component({
@@ -19,47 +16,59 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 export class WalletComponent implements OnInit {
 
 
-  userData: any = [];
+  userData: any = {};
+  @ViewChild('openordersforyou') openOrdersForYouPaginator: MatPaginator;
+  @ViewChild('openordersbyyou') closeOrdersPaginator: MatPaginator;
+  @ViewChild('canceledorders') canceledOrdersPaginator: MatPaginator;
+  @ViewChild('completeorders') completedOrdersPaginator: MatPaginator;
 
+  ordersDisplayedColumns: string[] = ['createdby', 'createdfor', 'order_coin_amount', 'order_coin', 'order_rate', 'order_fiat_amount', 'currency', 'order_payment_method', 'buttons'];
   constructor(private ngxService: NgxUiLoaderService, private _auth: SteemconnectAuthService,
-    private apiSer: APIService,
-    private _router: Router,
-    private _http: HttpClient,
-    private _orderService: OrderService) { }
-  openOrders: Observable<OrderResponse[]>;
-  closedOrders: Observable<OrderResponse[]>;
+    private apiSer: APIService) { }
+  openOrdersForYou: Observable<OrderResponse[]>;
+  openOrdersByYou: Observable<OrderResponse[]>;
   emptyOpenOrder: boolean;
-  emptyCloseOrders : boolean;
-
+  emptyCloseOrders: boolean;
+  openOrdersForYouDataSource: MatTableDataSource<OrderResponse> = new MatTableDataSource([]);
+  openOrdersByYouDataSource: MatTableDataSource<OrderResponse> = new MatTableDataSource([]);
+  completeOrdersDataSource: MatTableDataSource<OrderResponse> = new MatTableDataSource([]);
+  canceledOrdersDataSource: MatTableDataSource<OrderResponse> = new MatTableDataSource([]);
   ngOnInit() {
+    this.getOrders();
+  }
+
+  /**
+   *
+   * @name getOrders 
+   *
+   * @description
+   * This method used to get orders created by user, for user, canceled orders and completed orders
+   * @requires username current login username
+  */
+  getOrders() {
     this.ngxService.start();
     this.userData = this._auth.getUserData().subscribe(data => {
       this.userData = data;
-      this.openOrders = this.apiSer.getOpenOrdersForUser(this.userData.name);
-      this.openOrders.subscribe((data) => {
-        // Hack for check data existance
-        if (data.length) {
-          this.emptyOpenOrder = false
-        } else {
-          this.emptyOpenOrder = true;
-        }
-      })
-      this.closedOrders = this.apiSer.getOpenOrdersByUser(this.userData.name);
-      this.closedOrders.subscribe((data)=>{
-        if(data.length){
-          this.emptyCloseOrders = false
-        }else{
-          this.emptyCloseOrders = true;
-        }
-        this.ngxService.stop();
-      })
-     
+      forkJoin(this.apiSer.getOpenOrdersForUser(this.userData.name), this.apiSer.getOpenOrdersByUser(this.userData.name))
+        .subscribe((data) => {
+          const openOrdersForYou = data && data[0] && data[0].length ? data[0] : [];
+          this.openOrdersForYouDataSource = new MatTableDataSource(openOrdersForYou.filter((order: OrderResponse) => (order.order_status !== 'canceled' && order.order_status !== 'order_complete')));
+          this.openOrdersForYouDataSource.paginator = this.openOrdersForYouPaginator;
+          const openOrdersByYou = data && data[1] && data[1].length ? data[1] : [];
+          this.openOrdersByYouDataSource = new MatTableDataSource(openOrdersByYou.filter((order: OrderResponse) => (order.order_status !== 'canceled' && order.order_status !== 'order_complete')));
+          this.openOrdersByYouDataSource.paginator = this.closeOrdersPaginator;
+          let completeOrders = openOrdersForYou.filter((order: OrderResponse) => (order.order_status === 'order_complete'));
+          console.log(openOrdersByYou.filter((order: OrderResponse) => (order.order_status === 'order_complete')));
+          Array.prototype.push.apply(completeOrders, openOrdersByYou.filter((order: OrderResponse) => (order.order_status === 'order_complete')));
+          console.log(completeOrders)
+          let canceledOrders = openOrdersForYou.filter((order: OrderResponse) => (order.order_status === 'canceled'));
+          Array.prototype.push.apply(canceledOrders, openOrdersByYou.filter((order: OrderResponse) => (order.order_status === 'canceled')));
+          this.completeOrdersDataSource = new MatTableDataSource(completeOrders);
+          this.completeOrdersDataSource.paginator = this.completedOrdersPaginator;
+          this.canceledOrdersDataSource = new MatTableDataSource(canceledOrders);
+          this.canceledOrdersDataSource.paginator = this.canceledOrdersPaginator;
+          this.ngxService.stop();
+        });
     });
   }
-
-
-  viewOrder(orderClick: OrderResponse) {
-    this._router.navigate([`order/${orderClick._id}`]);
-  }
-
 }
