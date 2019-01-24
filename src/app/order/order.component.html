@@ -137,6 +137,13 @@
                       This order has been rejected.
                     </p>
                   </div>
+                  <div *ngSwitchCase="'order_complete'" class="d-flex flex-column align-items-center">
+                    <div>
+                      <p>
+                        This order has been completed.
+                      </p>
+                    </div>
+                  </div>
                   <div *ngSwitchCase="'canceled'" class="d-flex flex-column align-items-center">
                     <p>
                       This order has been canceled.
@@ -235,6 +242,13 @@
                     <div>
                       <p>
                         Seller raise dispute. Please wait for agent interaction and decision...
+                      </p>
+                    </div>
+                  </div>
+                  <div *ngSwitchCase="'order_complete'" class="d-flex flex-column align-items-center">
+                    <div>
+                      <p>
+                        This order has been completed.
                       </p>
                     </div>
                   </div>

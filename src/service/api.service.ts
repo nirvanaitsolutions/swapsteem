@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 import { MessageRequest } from '../app/module/message';
 import { hostReportError } from 'rxjs/internal-compatibility';
-
+import { ReviewRequest, ReviewResponse } from '../app/module/review';
 
 export interface OAuth2Token {
   access_token: string;
@@ -126,6 +126,16 @@ export class APIService {
     return this._http.delete<AdvertisementRequest>(`http://swapsteem-api.herokuapp.com/listings/${id}`);
   }
 
+  /**
+   *
+   * @name pauseAd 
+   *
+   * @description
+   * This method used to open/paused a advertisement
+   * @param id advertisement id
+   * @param currentStatus current ad_status
+   * @returns {Api response}
+  */
   pauseAd(id: string, currentStatus: string): Observable<AdvertisementRequest> {
     // httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
     return this._http.put<AdvertisementRequest>(`http://swapsteem-api.herokuapp.com/listings/${id}`, JSON.stringify({
@@ -133,8 +143,45 @@ export class APIService {
     }));
   }
 
+  /**
+   *
+   * @name updateSelectedOrderFromAPI 
+   *
+   * @description
+   * This method used to update order details
+   * @param id order id
+   * @param body order details in json stringify format
+   * @returns {Api response}
+  */
   updateSelectedOrderFromAPI(id: string, body: any) {
     return this._http.put<OrderResponse>(`http://swapsteem-api.herokuapp.com/orders/${id}`, body);
+  }
+
+
+  /**
+   *
+   * @name createReview 
+   *
+   * @description
+   * This method used to add review details
+   * @param body review details
+   * @returns {Api response}
+  */
+  createReview(body: any, id?: string): Observable<ReviewRequest> {
+    return this._http[id ? 'put' : 'post']<ReviewResponse>(`http://swapsteem-api.herokuapp.com/reviews/${id || ''}`, JSON.stringify(body));
+  }
+
+  /**
+   *
+   * @name getReviews 
+   *
+   * @description
+   * This method used to get review details
+   * @param body review details
+   * @returns {Api response}
+  */
+  getReviews(id:string, by_type:string) {
+    return this._http.get<[ReviewResponse]>(`http://swapsteem-api.herokuapp.com/reviews/${by_type}/${id || ''}`);
   }
 
 }
