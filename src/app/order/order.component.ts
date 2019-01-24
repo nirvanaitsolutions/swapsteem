@@ -68,7 +68,7 @@ export class OrderComponent implements OnInit {
           this.reciever = data.createdfor
         }
         console.log(this.selectedOrder, this.userData);
-        forkJoin(this._apiSer.getSelectedTradeFromAPI(this.selectedOrder.ad_id), this._apiSer.getReviewsByOrder(this.selectedOrder._id))
+        forkJoin(this._apiSer.getSelectedTradeFromAPI(this.selectedOrder.ad_id), this._apiSer.getReviews(this.selectedOrder._id, 'by_order'))
           .subscribe(res => {
             this.selectedAd = res[0];
             if (this.selectedOrder.order_status === 'escrow_release' && res && res[1] && !res[1].length) {
@@ -187,7 +187,7 @@ export class OrderComponent implements OnInit {
         this.reciever = data.createdfor
       }
       if (getAdd) {
-        forkJoin(this._apiSer.getSelectedTradeFromAPI(this.selectedOrder.ad_id), this._apiSer.getReviewsByOrder(this.selectedOrder._id))
+        forkJoin(this._apiSer.getSelectedTradeFromAPI(this.selectedOrder.ad_id), this._apiSer.getReviews(this.selectedOrder._id, 'by_order'))
           .subscribe(res => {
             this.selectedAd = res[0];
             if (this.selectedOrder.order_status === 'escrow_release' && res && res[1] && !res[1].length) {
@@ -215,6 +215,7 @@ export class OrderComponent implements OnInit {
   openReviewDialog(): void {
     const dialogRef = this.dialog.open(ReviewComponent, {
       width: '300px',
+      disableClose: true,
       data: {
         ad_id: this.selectedAd._id,
         order_id: this.selectedOrder._id,

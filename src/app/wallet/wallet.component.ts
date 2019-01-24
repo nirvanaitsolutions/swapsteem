@@ -55,10 +55,6 @@ export class WalletComponent implements OnInit {
       })
      
     });
-
-    // this.userData = this._auth.getUserData().pipe(
-    //                                         tap(data =>  )
-    // )
   }
 
 

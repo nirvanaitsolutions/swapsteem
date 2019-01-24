@@ -173,15 +173,15 @@ export class APIService {
 
   /**
    *
-   * @name createReview 
+   * @name getReviews 
    *
    * @description
-   * This method used to add review details
+   * This method used to get review details
    * @param body review details
    * @returns {Api response}
   */
-  getReviewsByOrder(id:string) {
-    return this._http.get<[ReviewResponse]>(`http://swapsteem-api.herokuapp.com/reviews/by_order/${id || ''}`);
+  getReviews(id:string, by_type:string) {
+    return this._http.get<[ReviewResponse]>(`http://swapsteem-api.herokuapp.com/reviews/${by_type}/${id || ''}`);
   }
 
 }
