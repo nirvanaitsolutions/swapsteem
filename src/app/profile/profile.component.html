@@ -93,10 +93,10 @@
               <div class="dropdown">
                 <button mat-button [matMenuTriggerFor]="menu">Menu</button>
                 <mat-menu #menu="matMenu">
-                  <button mat-menu-item routerLink="/post-trade/{{element_id}}">View/ Edit</button>
-                  <button mat-menu-item (click)="pauseAd(element_id, elementad_status)">
+                  <button mat-menu-item routerLink="/post-trade/{{element._id}}">View/ Edit</button>
+                  <button mat-menu-item (click)="pauseAd(element._id, element.ad_status)">
                     <span [innerText]="elementad_status==='pause' ? 'Open': 'Pause'"></span></button>
-                  <button mat-menu-item data-toggle="modal" data-target="#exampleModal" (click)="selectedAdId = element_id;">Delete</button>
+                  <button mat-menu-item data-toggle="modal" data-target="#exampleModal" (click)="selectedAdId = element._id;">Delete</button>
                 </mat-menu>
               </div>
             </td>
