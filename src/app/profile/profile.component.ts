@@ -2,12 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { SteemconnectAuthService } from '../steemconnect/services/steemconnect-auth.service';
 import { Observable } from 'rxjs';
 import { APIService } from '../../service/api.service';
-import { Router } from '@angular/router';
 import { AdvertisementResponse } from '../module/advertisement';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { ReviewResponse } from '../module/review';
 import { forkJoin } from 'rxjs';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { calculateReputation } from '../../utils';
 
 @Component({
   selector: 'app-profile',
@@ -15,8 +15,8 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  userData: any = [];
-  noOfAds = 0;
+  userData: any = {account: {reputationScore: 0, reputation: 0}};
+  noOfOpenAds:number = 0;
   balance_steem;
   balance_sbd;
   balance_sp;
@@ -28,7 +28,7 @@ export class ProfileComponent implements OnInit {
     private apiSer: APIService) {
   }
   reviewsDisplayedColumns: string[] = ['order_id', 'review_text', 'review_score'];
-  advertisementDisplayedColumns:string[] = ['payment_methods', 'ad_type', 'ad_coin', 'currency', 'ad_coin_amount', 'limits', 'buttons'];
+  advertisementDisplayedColumns: string[] = ['payment_methods', 'ad_type', 'ad_coin', 'currency', 'ad_coin_amount', 'limits', 'buttons'];
   advertisementsDataSource: MatTableDataSource<AdvertisementResponse> = new MatTableDataSource([]);
   reviewsDataSource: MatTableDataSource<ReviewResponse> = new MatTableDataSource([]);
   @ViewChild('reviews') reviewsPaginator: MatPaginator;
@@ -53,6 +53,7 @@ export class ProfileComponent implements OnInit {
     this.ngxService.start();
     this._auth.getUserData().subscribe(data => {
       this.userData = data;
+      this.userData.account.reputationScore = calculateReputation(this.userData.account.reputation);
       console.log(this.userData);
       this.openAds = this.apiSer.getAdsByUser(this.userData.name);
       this.reviews = this.apiSer.getReviews(this.userData._id, 'by_creator');
@@ -61,6 +62,7 @@ export class ProfileComponent implements OnInit {
         const advertisements = data && data[0] && data[0].length ? data[0] : [];
         this.advertisementsDataSource = new MatTableDataSource(advertisements);
         this.advertisementsDataSource.paginator = this.advertisementsPaginator;
+        this.noOfOpenAds = advertisements.filter((ad)=> (ad.ad_status === 'open')).length;
         const reviews = data && data[1] && data[1].length ? data[1] : [];
         this.reviewsDataSource = new MatTableDataSource(reviews);
         this.reviewsDataSource.paginator = this.reviewsPaginator;
@@ -92,6 +94,7 @@ export class ProfileComponent implements OnInit {
       this.openAds.subscribe((data) => {
         const advertisements = data || [];
         this.advertisementsDataSource = new MatTableDataSource(advertisements);
+        this.noOfOpenAds = advertisements.filter((ad)=> (ad.ad_status === 'open')).length;
         this.ngxService.stop();
       })
     });
@@ -113,6 +116,7 @@ export class ProfileComponent implements OnInit {
       this.openAds.subscribe((data) => {
         const advertisements = data || [];
         this.advertisementsDataSource = new MatTableDataSource(advertisements);
+        this.noOfOpenAds = advertisements.filter((ad)=> (ad.ad_status === 'open')).length;
         this.ngxService.stop();
       })
 
