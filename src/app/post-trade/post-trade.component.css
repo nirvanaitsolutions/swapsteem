@@ -6,6 +6,14 @@
     background-color: white;
 }
 
+.full-width {
+    width: 100% !important;
+}
+
+.button {
+    background-color: #28a745 !important;
+}
+
 /* .buttonLocation{
     margin-top: 10px;
     margin-bottom: 20px;

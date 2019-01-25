@@ -2,7 +2,7 @@ export interface AdvertisementRequest {
   createdby: string,
   ad_type: string,
   country: string,
-  payment_methods: string[],
+  payment_methods: string,
   currency: string,
   margin: number,
   limit_from: number,

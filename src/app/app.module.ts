@@ -16,7 +16,9 @@ import {
   MatProgressSpinnerModule,
   MatTableModule,
   MatPaginatorModule,
-  MatMenuModule
+  MatMenuModule,
+  MatChipsModule,
+  MatSelectModule
 } from '@angular/material';
 import { AppNavComponent } from './app-nav/app-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -103,7 +105,9 @@ const config: SocketIoConfig = { url: 'http://swapsteem-api.herokuapp.com', opti
     MatProgressSpinnerModule,
     MatTableModule,
     MatPaginatorModule,
-    MatMenuModule
+    MatMenuModule,
+    MatChipsModule,
+    MatSelectModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },],
   bootstrap: [AppComponent]

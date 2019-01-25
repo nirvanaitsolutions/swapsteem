@@ -26,10 +26,6 @@ export class SearchBoxComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSubmit(form) {
-    this.router.navigate(['/home'])
-  }
-
   searchResult(ad_type, ad_coin, currency, payment_methods) {
     if (ad_type === 'SELL') {
       this.router.navigate(['/sell-online'])
