@@ -1,35 +1,58 @@
-<div>
-  <h6 class="buyHeading">Sell Steem/SBD In USA</h6>
-  <div *ngIf="emptySell" class="no-data">
+
+
+<div class="box">
+  <h6 class="sellHeading">Sell Steem Online In USA</h6>
+  <div *ngIf="!sellSteemDataSource.data.length" class="no-data">
     <p>No Data! Go play Around to see something here</p>
-    <!-- <a style="padding-right: 18px;" routerLink="/post-trade">Post a trade</a> -->
   </div>
-  <div class="table-padding">
-    <table class="table table-striped" *ngIf="emptySell === false">
-      <tr>
-        <th class="">Seller</th>
-        <th class="">Payment</th>
-        <th class="">Coin</th>
-        <th class="">Fiat</th>
-        <th class="">Limits</th>
-        <th class="">Price/Coin</th>
-        <th></th>
-      </tr>
-      <tr *ngFor="let sellSteem of sellDetails | async  | tradePipe: 'ad_status' : 'pause' | paginate: {id: 'foo', itemsPerPage: 5, currentPage: q }">
-        <td *ngIf="showElement(sellSteem)">{{sellSteem.createdby}}</td>
-        <td *ngIf="showElement(sellSteem)">{{sellSteem.payment_methods}}</td>
-        <td *ngIf="showElement(sellSteem)">{{sellSteem.ad_coin}}</td>
-        <td *ngIf="showElement(sellSteem)">{{sellSteem.currency}}</td>
-        <td *ngIf="showElement(sellSteem)">{{sellSteem.limit_from}} - {{sellSteem.limit_to}}</td>
-        <td *ngIf="showElement(sellSteem)">
-          <span>{{calculatePrice(sellSteem.ad_coin,sellSteem.currency, sellSteem.margin)}}</span>
+  <div *ngIf="sellSteemDataSource.data.length">
+    <table mat-table [dataSource]="sellSteemDataSource" class="mat-elevation-z8 w-100">
+      <!-- Seller Column -->
+      <ng-container matColumnDef="createdby">
+        <th mat-header-cell *matHeaderCellDef> Seller </th>
+        <td mat-cell *matCellDef="let element">
+          {{element.createdby}}
         </td>
-        <td *ngIf="showElement(sellSteem)">
-          <button type="button" class="btn btn-danger btn-sm badge badge-pill" (click)="sellTrade(sellSteem)">SELL</button>
+      </ng-container>
+      <!--  PAYMENT METHODS  Column -->
+      <ng-container matColumnDef="payment_methods">
+        <th mat-header-cell *matHeaderCellDef> PAYMENT METHODS </th>
+        <td mat-cell *matCellDef="let element"> {{element.payment_methods}} </td>
+      </ng-container>
+      <!-- Coin Column -->
+      <ng-container matColumnDef="ad_coin">
+        <th mat-header-cell *matHeaderCellDef> To </th>
+        <td mat-cell *matCellDef="let element"> {{element.ad_coin}} </td>
+      </ng-container>
+
+      <!-- Fiat Column -->
+      <ng-container matColumnDef="currency">
+        <th mat-header-cell *matHeaderCellDef> Fiat </th>
+        <td mat-cell *matCellDef="let element"> {{element.currency}} </td>
+      </ng-container>
+      <!-- Limits Column -->
+      <ng-container matColumnDef="limits">
+        <th mat-header-cell *matHeaderCellDef> Limits </th>
+        <td mat-cell *matCellDef="let element"> {{element.limit_from}} - {{element.limit_to}} </td>
+      </ng-container>
+      <!-- Price/Coin Column -->
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef> Price/Coin </th>
+        <td mat-cell *matCellDef="let element"> {{calculatePrice(element.ad_coin,element.currency, element.margin)}}
         </td>
-      </tr>
+      </ng-container>
+
+      <!-- Action  Column -->
+      <ng-container matColumnDef="buttons">
+        <th mat-header-cell *matHeaderCellDef> Action </th>
+        <td mat-cell *matCellDef="let element">
+          <a routerLink="/purchase/{{element._id}}" routerLinkActive="active">Sell</a>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="sellSteemDisplayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: sellSteemDisplayedColumns;"></tr>
     </table>
-    <!-- Using Id for different Pagination on different Table-->
-    <pagination-controls *ngIf="emptySell === false"  id="foo" (pageChange)="q = $event" class="page-controls"></pagination-controls>
   </div>
+  <mat-paginator [ngStyle]="{'display': sellSteemDataSource.data.length ? 'block' : 'none'}" #sellsteem
+    [pageSizeOptions]="[10, 20, 50, 100]"></mat-paginator>
 </div>

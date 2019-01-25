@@ -11,7 +11,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 export class AdverstisementService {
   // Declare All variable for Handling Oservable Filters
   private filterCurrency = new BehaviorSubject<any>(false);
-  currenyFilter = this.filterCurrency.asObservable();
+  currencyFilter = this.filterCurrency.asObservable();
   private filterAdCoin = new BehaviorSubject<any>(false);
   adCoinFilter = this.filterAdCoin.asObservable();
   private filterPaymentMethod = new BehaviorSubject<any>(false);

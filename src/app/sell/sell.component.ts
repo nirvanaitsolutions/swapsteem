@@ -1,75 +1,89 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { APIService } from '../../service/api.service';
-import { Router } from '@angular/router';
 import { AdvertisementResponse } from '../module/advertisement';
-import { Observable } from 'rxjs';
 import { AdverstisementService } from '../../service/adverstisement.service'
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { forkJoin } from 'rxjs';
+import { MatPaginator, MatTableDataSource } from '@angular/material';
+
 @Component({
   selector: 'app-sell',
   templateUrl: './sell.component.html',
   styleUrls: ['./sell.component.css']
 })
 export class SellComponent implements OnInit {
-  currenyFilter: any = ''
-  adCoinFilter: any = ''
-  paymentMethodFilter: any = '';
-  adTypeFilter: any = '';
-  emptySell: boolean;
-  emptyBuy: boolean;
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  constructor(private ngxService: NgxUiLoaderService, private http: HttpClient,
-    private purchaseSer: APIService,
-    private router: Router, private adverstisementService: AdverstisementService) { }
 
-  sellDetails: Observable<AdvertisementResponse[]>;
+  constructor(private ngxService: NgxUiLoaderService, 
+    private purchaseSer: APIService, private adverstisementService: AdverstisementService) { }
+
   steemPrice: any;
   sbdPrice: any;
-  showElement(sellSteem) {
-    // Hack for show hide data In Table according to filter
-    if (this.adTypeFilter && this.adTypeFilter !== 'SELL') {
-      return true;
-    }
-    if (this.currenyFilter && sellSteem.currency !== this.currenyFilter) {
-      return false;
-    }
-    if (this.adCoinFilter && sellSteem.ad_coin !== this.adCoinFilter) {
-      return false;
-    }
-    if (this.paymentMethodFilter && sellSteem.payment_methods.indexOf(this.paymentMethodFilter) === -1) {
-      return false;
-    }
-    return true;
-  }
+  currencyFilter: any = false;
+  adCoinFilter: any = false;
+  sellSteemDisplayedColumns: string[] = ['createdby', 'payment_methods', 'ad_coin', 'currency', 'limits', 'price', 'buttons'];
+  sellSteemDataSource: MatTableDataSource<AdvertisementResponse> = new MatTableDataSource([]);
+  sellSteem: Array<AdvertisementResponse> = [];
+  @ViewChild('sellsteem') sellSteemPaginator: MatPaginator;
+
 
   ngOnInit() {
     this.ngxService.start();
-    this.sellDetails = this.purchaseSer.getSellAds();
-    this.sellDetails.subscribe((data) => {
-      this.ngxService.stop();
-      // Hack for check data existance
-      if(data.length){
-        this.emptySell = false
-      }else{
-        this.emptySell = true
-      }
-    })
-    // Added suscribe for all filter(Observable) for real time data change 
-    this.adverstisementService.currenyFilter.subscribe(filter => this.currenyFilter = filter)
-    this.adverstisementService.adCoinFilter.subscribe(filter => this.adCoinFilter = filter)
-    this.adverstisementService.paymentMethodFilter.subscribe(filter => this.paymentMethodFilter = filter)
-    this.adverstisementService.adTypeFilter.subscribe(filter => this.adTypeFilter = filter)
-    //this.sellDetails = this.http.get<AdvertisementResponse>('http://swapsteem-api.herokuapp.com/advertisements');
-    this.purchaseSer.getPrice().subscribe(data => {
-      let resPrice = Object.values(data);
-      let calSteemPrice = Object.values(resPrice[0]);
-      let calSBDPrice = Object.values(resPrice[1])
-      this.steemPrice = calSteemPrice;
-      this.sbdPrice = calSBDPrice;
+    forkJoin(this.purchaseSer.getSellAds(), this.purchaseSer.getPrice())
+      .subscribe((data) => {
+        this.sellSteem = data && data[0] && data[0].length ? data[0] : [];
+        this.sellSteem = this.sellSteem.filter((ad) => (ad.ad_status === 'open'))
+        this.sellSteemDataSource = new MatTableDataSource(this.sellSteem);
+        this.sellSteemDataSource.paginator = this.sellSteemPaginator;
+        const resPrice = Object.values(data[1]);
+        const calSteemPrice = Object.values(resPrice[0]);
+        const calSBDPrice = Object.values(resPrice[1])
+        this.steemPrice = calSteemPrice;
+        this.sbdPrice = calSBDPrice;
+        this.ngxService.stop();
+      });
 
+    // Added suscribe for all filter(Observable) for real time data change 
+    this.adverstisementService.currencyFilter.subscribe(filter => {
+      this.currencyFilter = filter;
+      this.updateSellSteemDataSource();
     })
+    this.adverstisementService.adCoinFilter.subscribe(filter => {
+      this.adCoinFilter = filter;
+      this.updateSellSteemDataSource();
+    });
   }
+
+  /**
+  *
+  * @name updateSellSteemDataSource 
+  *
+  * @description
+  * This method update filter advertisement table
+  * @requires sellSteem open advertisement list
+  * @requires currencyFilter filter currency value 
+  * @requires adCoinFilter  filter coin value
+ */
+  updateSellSteemDataSource() {
+    let filterSellSteem: Array<AdvertisementResponse> = this.sellSteem;
+    this.currencyFilter ? filterSellSteem = filterSellSteem.filter((ad) => (ad.currency === this.currencyFilter)) : '';
+    this.adCoinFilter ? filterSellSteem = filterSellSteem.filter((ad) => (ad.ad_coin === this.adCoinFilter)) : '';
+    this.sellSteemDataSource = new MatTableDataSource(filterSellSteem);
+    this.sellSteemDataSource.paginator = this.sellSteemPaginator;
+  }
+
+  /**
+    *
+    * @name calculatePrice 
+    *
+    * @description
+    * This method used to calculate price using advertisement margin
+    * @param from advertisement coin value
+    * @param to advertisement currency value
+    * @param margin advertisement margin value
+    * @requires steemPrice steem price value for different currency
+    * @requires sbdPrice sbd price value for different currency
+   */
   calculatePrice(from: string, to: string, margin: number) {
     if (from == "STEEM") {
       switch (to) {
@@ -78,7 +92,7 @@ export class SellComponent implements OnInit {
         case "INR":
           return Math.round(this.steemPrice[1] * (1 + margin / 100) * 100) / 100;
         case "KRW":
-          return Math.round(this.sbdPrice[2] * (1 + margin / 100) * 100) / 100;
+          return Math.round(this.steemPrice[2] * (1 + margin / 100) * 100) / 100;
       }
 
     }
@@ -93,10 +107,5 @@ export class SellComponent implements OnInit {
       }
 
     }
-  }
-
-  sellTrade(trade: AdvertisementResponse) {
-    this.purchaseSer.selectTradeEvent(trade);
-    this.router.navigate(['purchase/' + trade._id]);
   }
 }
