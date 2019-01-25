@@ -1,23 +1,28 @@
 <div>
   <div class="banner">
-    <div class="profile row">
-      <div class="col-sm-3">
-        <img src="{{profile_url}}" alt="ProfileImg" height="50px" width="50px" class="rounded float-left">
-      </div>
-      <div class="sol-sm-9">
-        <h6 style="color: white;">{{userData.name}}</h6>
-        <p *ngIf="userData && userData.account">Registered: {{userData.account.created | date}}</p>
-      </div>
-    </div>
-    <div class="balance">
-      <div class="row">
-        <div class="col text-center">{{balance_steem}}<p class="text-muted small-text">STEEM</p>
-        </div>
-        <div class="col text-center">{{balance_sbd}}<p class="text-muted small-text">SBD</p>
+    <div class="container flex-center height-200">
+      <div class="row flex-center">
+        <img src="{{profile_url}}" alt="ProfileImg" height="50px" width="50px" class="rounded float-left profile-image">
+        <div class="profile-name">
+          <h4 style="color: white;">{{userData.name}}</h4>
+          <p *ngIf="userData && userData.account" class="medium">Registered: {{userData.account.created | date}}</p>
+          <button class="edit-profile">Edit Profile</button>
         </div>
       </div>
+      <div class="balance">
+        <div class="row">
+          <div class="col text-center">
+            <h2>{{balance_steem}}</h2>
+            <p class="text-muted small-text">STEEM</p>
+          </div>
+          <div class="col text-center">
+            <h2>{{balance_sbd}}</h2>
+            <p class="text-muted small-text">SBD</p>
+          </div>
+        </div>
 
-      <div class="text-center small-heading">Balances</div>
+        <div class="balance-title-css text-center">Balances</div>
+      </div>
     </div>
   </div>
   <div class="container ">
@@ -45,7 +50,7 @@
         <p>No Data! Go play Around to see something here</p>
         <a style="padding-right: 18px;" routerLink="/post-trade">Post a trade</a>
       </div>
-      <div >
+      <div>
         <table *ngIf="advertisementsDataSource.data.length" mat-table [dataSource]="advertisementsDataSource" class="mat-elevation-z8 w-100">
           <!--- Note that these columns can be defined in any order.
                         The actual rendered columns are set as a property on the row definition" -->
@@ -95,7 +100,8 @@
                 <mat-menu #menu="matMenu">
                   <button mat-menu-item routerLink="/post-trade/{{element._id}}">View/ Edit</button>
                   <button mat-menu-item (click)="pauseAd(element._id, element.ad_status)">
-                    <span [innerText]="element.ad_status==='pause' ? 'Open': 'Pause'"></span></button>
+                    <span [innerText]="element.ad_status==='pause' ? 'Open': 'Pause'"></span>
+                  </button>
                   <button mat-menu-item data-toggle="modal" data-target="#exampleModal" (click)="selectedAdId = element._id;">Delete</button>
                 </mat-menu>
               </div>
@@ -104,8 +110,7 @@
           <tr mat-header-row *matHeaderRowDef="advertisementDisplayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: advertisementDisplayedColumns;"></tr>
         </table>
-        <mat-paginator  [ngStyle]="{'display': advertisementsDataSource.data.length ? 'block' : 'none'}" 
-        #advertisements [pageSizeOptions]="[10, 20, 50, 100]"></mat-paginator>
+        <mat-paginator [ngStyle]="{'display': advertisementsDataSource.data.length ? 'block' : 'none'}" #advertisements [pageSizeOptions]="[10, 20, 50, 100]"></mat-paginator>
       </div>
 
     </div>
@@ -114,7 +119,7 @@
       <div *ngIf="!reviewsDataSource.data.length" class="no-data">
         <p>No Data! Go play Around to see something here</p>
       </div>
-      <div >
+      <div>
         <table *ngIf="reviewsDataSource.data.length" mat-table [dataSource]="reviewsDataSource" class="mat-elevation-z8 w-100">
 
           <!--- Note that these columns can be defined in any order.
@@ -143,8 +148,7 @@
           <tr mat-header-row *matHeaderRowDef="reviewsDisplayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: reviewsDisplayedColumns;"></tr>
         </table>
-        <mat-paginator  [ngStyle]="{'display': reviewsDataSource.data.length ? 'block' : 'none'}" 
-        #reviews [pageSizeOptions]="[10, 20, 50, 100]"></mat-paginator>
+        <mat-paginator [ngStyle]="{'display': reviewsDataSource.data.length ? 'block' : 'none'}" #reviews [pageSizeOptions]="[10, 20, 50, 100]"></mat-paginator>
       </div>
     </div>
   </div>
