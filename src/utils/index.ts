@@ -1,5 +1,12 @@
 /**
  *
+ * @name utils 
+ * @author Shubham Vijay Vargiy (Shubh1692)
+ * @description
+ * This ts file  used for common method
+ */
+/**
+ *
  * @name calculateReputation 
  *
  * @description
