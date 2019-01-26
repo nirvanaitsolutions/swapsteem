@@ -24,6 +24,14 @@ export interface AdvertisementRequest {
     real_name_required: Boolean,
     sms_verification_required: Boolean,
     trusted_people_only: Boolean
+  },
+  payment_details?: {
+    account_holder_name: string;
+    account_number: number;
+    bank_name: string;
+    bank_address?: string;
+    swift_bic_code?: string;
+    bank_code: string;
   }
 }
 
@@ -55,5 +63,13 @@ export interface AdvertisementResponse {
     real_name_required: Boolean,
     sms_verification_required: Boolean,
     trusted_people_only: Boolean
+  },
+  payment_details?: {
+    account_holder_name: string;
+    account_number: number;
+    bank_name: string;
+    bank_address?: string;
+    swift_bic_code?: string;
+    bank_code: string;
   }
 }

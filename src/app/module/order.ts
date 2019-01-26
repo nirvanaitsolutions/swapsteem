@@ -15,6 +15,14 @@ export interface OrderRequest {
     currency: string,
     escrow_rat_deadline: Date;
     escrow_exp_deadline: Date;
+    payment_details?: {
+        account_holder_name: string;
+        account_number: number;
+        bank_name: string;
+        bank_address?: string;
+        swift_bic_code?: string;
+        bank_code: string;
+      }
 }
 
 export interface OrderResponse {
@@ -34,4 +42,12 @@ export interface OrderResponse {
     currency: string
     escrow_rat_deadline?: Date;
     escrow_exp_deadline?: Date;
+    payment_details?: {
+        account_holder_name: string;
+        account_number: number;
+        bank_name: string;
+        bank_address?: string;
+        swift_bic_code?: string;
+        bank_code: string;
+      }
 }

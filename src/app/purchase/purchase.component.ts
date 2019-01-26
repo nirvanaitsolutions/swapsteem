@@ -36,26 +36,19 @@ export class PurchaseComponent implements OnInit {
     country: '',
     currency: '',
     escrow_rat_deadline: new Date(moment().add(2, 'hours').format('YYYY-MM-DDTHH:MM:SS')),
-    escrow_exp_deadline: new Date(moment().add(3, 'days').format('YYYY-MM-DDTHH:MM:SS'))
-  };
-
-  userData: any = [];
-  price: any;
-  account_details: {
-    account_holder_name: string;
-    account_number: string;
-    bank_name: string;
-    bank_address?: string;
-    swift_bic_code?: string;
-    bank_code?: string;
-  } = {
+    escrow_exp_deadline: new Date(moment().add(3, 'days').format('YYYY-MM-DDTHH:MM:SS')),
+    payment_details: {
       account_holder_name: '',
-      account_number: '',
+      account_number: 0,
       bank_name: '',
       bank_address: '',
       swift_bic_code: '',
       bank_code: '',
     }
+  };
+
+  userData: any = [];
+  price: any;
   ngOnInit() {
     let id = this.route.snapshot.paramMap.get('id');
     this.selectedTrade = this.purchaseServ.getSelectedTradeFromAPI(id).subscribe(data => {
@@ -64,7 +57,7 @@ export class PurchaseComponent implements OnInit {
       this.order.ad_id = this.selectedTrade._id;
       this.order.createdfor = this.selectedTrade.createdby;
       //todo - reverse ad type
-      this.order.order_type = this.selectedTrade.ad_type == "buy" ? "sell" : "buy";
+      this.order.order_type = this.selectedTrade.ad_type == "BUY" ? "sell" : "buy";
       this.order.order_coin = this.selectedTrade.ad_coin;
       this.order.order_payment_method = this.selectedTrade.payment_methods;
       this.order.country = this.selectedTrade.country;
