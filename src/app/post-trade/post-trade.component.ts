@@ -41,29 +41,22 @@ export class PostTradeComponent implements OnInit {
       real_name_required: true,
       sms_verification_required: true,
       trusted_people_only: true
+    },
+    payment_details: {
+      account_holder_name: '',
+      account_number: 0,
+      bank_name: '',
+      bank_address: '',
+      swift_bic_code: '',
+      bank_code: '',
     }
-
   };
   objectKeys = Object.keys;
   userData: any = [];
   cryptos: any;
   effectivePrice: any;
   adId: string = '';
-  account_details: { /* account_details object */
-    account_holder_name: string;
-    account_number: string;
-    bank_name: string;
-    bank_address?: string;
-    swift_bic_code?: string;
-    bank_code?: string;
-  } = {
-      account_holder_name: '',
-      account_number: '',
-      bank_name: '',
-      bank_address: '',
-      swift_bic_code: '',
-      bank_code: '',
-    }
+
   ngOnInit() {
     this.adId = this.route.snapshot.paramMap.get('id');
     this.getSelectedTradeFromAPI(this.adId);
@@ -110,6 +103,14 @@ export class PostTradeComponent implements OnInit {
               real_name_required: res.security_details.real_name_required,
               sms_verification_required: res.security_details.sms_verification_required,
               trusted_people_only: res.security_details.trusted_people_only
+            },
+            payment_details: {
+              account_holder_name: res.payment_details.account_holder_name,
+              account_number: res.payment_details.account_number,
+              bank_name: res.payment_details.bank_name,
+              bank_address: res.payment_details.bank_address,
+              swift_bic_code: res.payment_details.swift_bic_code,
+              bank_code: res.payment_details.bank_code,
             }
           }
         };
