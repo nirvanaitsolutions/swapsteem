@@ -5,6 +5,7 @@ import { SteemconnectBroadcastService } from '../steemconnect/services/steemconn
 import { APIService } from '../../service/api.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SteemconnectAuthService } from '../steemconnect/services/steemconnect-auth.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-purchase',
@@ -33,7 +34,9 @@ export class PurchaseComponent implements OnInit {
     order_payment_method: [],
     agree_terms: true,
     country: '',
-    currency: ''
+    currency: '',
+    escrow_rat_deadline: new Date(moment().add(2, 'hours').format('YYYY-MM-DDTHH:MM:SS')),
+    escrow_exp_deadline: new Date(moment().add(3, 'days').format('YYYY-MM-DDTHH:MM:SS'))
   };
 
   userData: any = [];
@@ -107,29 +110,22 @@ export class PurchaseComponent implements OnInit {
     console.log(form);
   }
 
-  onSubmit(form) {
-    // this.order.ad_id=this.selectedTrade._id;
-    // this.order.createdfor=this.selectedTrade.createdby;
-    // //todo - reverse ad type
-    // this.order.order_type=this.selectedTrade.ad_type;
-    // this.order.order_coin=this.selectedTrade.ad_coin;
-    // //todo - calculate rate from margin
-    // this.order.order_rate=this.selectedTrade.margin;
-    // this.order.order_payment_method=this.selectedTrade.payment_methods;
-    // this.order.country=this.selectedTrade.country;
-    // this.order.currency=this.selectedTrade.currency;
-    //this.order.createdby=this.userData.name;
+  /**
+   *
+   * @name onSubmit 
+   *
+   * @description
+   * This method used to create a new order
+   * @requires order order derails
+  */
+  onSubmit() {
     let now = new Date();
-    this.order.escrowID = Math.floor(now.getTime() / 1000)
-
-    console.log("escrow : " + this.order.escrowID)
-    // this.broadcast.broadcastCustomJson('swapsteem','order',this.order)
-    // .subscribe(res => this.router.navigate(['profile']));
+    this.order.escrowID = Math.floor(now.getTime() / 1000);
+    this.order.escrow_rat_deadline = new Date(moment().add(2, 'hours').format());
+    this.order.escrow_exp_deadline = new Date(moment().add(3, 'days').format());;
     this.purchaseServ.createOrder(this.order).subscribe((res: any) => this.zone.run(() => {
       this.router.navigate([`order/${res._id}`])
     }));
-    // .subscribe(res => this.router.navigate(['profile']));
-
   }
 
   changeToFiat() {
@@ -139,7 +135,7 @@ export class PurchaseComponent implements OnInit {
     if (this.order.order_coin == "SBD") {
       this.order.order_fiat_amount = this.order.order_coin_amount * this.price;
     }
-    console.log('this.order.order_fiat_amount', this.order.order_coin_amount , this.price)
+    console.log('this.order.order_fiat_amount', this.order.order_coin_amount, this.price)
   }
 
   changeToCoin() {

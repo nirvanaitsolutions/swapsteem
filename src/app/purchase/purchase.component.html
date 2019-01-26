@@ -57,7 +57,7 @@
                 <div>
                     {{selectedTrade.terms}}
                 </div>
-                <div *ngIf="selectedTrade.ad_type == 'SELL'">
+                <div *ngIf="selectedTrade.ad_type == 'BUY'">
                     <mat-form-field class="full-width">
                         <input matInput placeholder="Account holder name" type="text" name="account_holder_name" id="account_holder_name"
                             [(ngModel)]="account_details.account_holder_name" required>

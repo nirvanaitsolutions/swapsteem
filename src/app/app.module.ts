@@ -52,6 +52,7 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ReviewComponent } from './components/review/review.component';
 import { BarRatingModule } from "ngx-bar-rating";
+import { CountdownModule } from 'ngx-countdown';
 const config: SocketIoConfig = { url: 'http://swapsteem-api.herokuapp.com', options: {} };
 
 @NgModule({
@@ -107,7 +108,8 @@ const config: SocketIoConfig = { url: 'http://swapsteem-api.herokuapp.com', opti
     MatPaginatorModule,
     MatMenuModule,
     MatChipsModule,
-    MatSelectModule
+    MatSelectModule,
+    CountdownModule 
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },],
   bootstrap: [AppComponent]
