@@ -96,11 +96,9 @@ export class PurchaseComponent implements OnInit {
     });
 
     console.log("selected trade" + this.selectedTrade);
-    this.auth.getUserData().subscribe(data => {
-      this.userData = data;
-      this.order.createdby = this.userData.name;
-      console.log(this.userData);
-    });
+    this.userData = this.auth.userData;
+    this.order.createdby = this.userData.name;
+    console.log(this.userData);
 
 
 
