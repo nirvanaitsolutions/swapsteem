@@ -18,12 +18,12 @@ export class AuthGuard implements CanActivate {
           console.log('authenticated');
           return true;
         }
-        this._router.navigateByUrl('/home');
+        this.auth.login();
         console.log('not authenticated');
         return false;
       }); // this might not be necessary - ensure `first` is imported if you use it
     } else {
-      this._router.navigateByUrl('/home');
+      this.auth.login();
       return false
     }
 
