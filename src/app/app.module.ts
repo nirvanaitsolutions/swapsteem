@@ -55,7 +55,7 @@ import { ReviewComponent } from './components/review/review.component';
 import { BarRatingModule } from "ngx-bar-rating";
 import { CountdownModule } from 'ngx-countdown';
 import { AuthGuard } from '../guards/auth-guard.service';
-const config: SocketIoConfig = { url: 'http://swapsteem-api.herokuapp.com', options: {} };
+const config: SocketIoConfig = { url: 'https://swapsteem-api.herokuapp.com', options: {} };
 
 @NgModule({
   declarations: [
