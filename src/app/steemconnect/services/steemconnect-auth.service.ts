@@ -117,7 +117,7 @@ export class SteemconnectAuthService {
   );
 
   private readonly baseURL = 'https://steemconnect.com/';
-
+  public userData:UserData;
   constructor(
     @Inject('config') private config: SteemConnectConfig,
     @Inject(DOCUMENT) private document: Document,

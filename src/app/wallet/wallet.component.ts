@@ -47,28 +47,26 @@ export class WalletComponent implements OnInit {
   */
   getOrders() {
     this.ngxService.start();
-    this.userData = this._auth.getUserData().subscribe(data => {
-      this.userData = data;
-      forkJoin(this.apiSer.getOpenOrdersForUser(this.userData.name), this.apiSer.getOpenOrdersByUser(this.userData.name))
-        .subscribe((data) => {
-          const openOrdersForYou = data && data[0] && data[0].length ? data[0] : [];
-          this.openOrdersForYouDataSource = new MatTableDataSource(openOrdersForYou.filter((order: OrderResponse) => (order.order_status !== 'canceled' && order.order_status !== 'order_complete')));
-          this.openOrdersForYouDataSource.paginator = this.openOrdersForYouPaginator;
-          const openOrdersByYou = data && data[1] && data[1].length ? data[1] : [];
-          this.openOrdersByYouDataSource = new MatTableDataSource(openOrdersByYou.filter((order: OrderResponse) => (order.order_status !== 'canceled' && order.order_status !== 'order_complete')));
-          this.openOrdersByYouDataSource.paginator = this.closeOrdersPaginator;
-          let completeOrders = openOrdersForYou.filter((order: OrderResponse) => (order.order_status === 'order_complete'));
-          console.log(openOrdersByYou.filter((order: OrderResponse) => (order.order_status === 'order_complete')));
-          Array.prototype.push.apply(completeOrders, openOrdersByYou.filter((order: OrderResponse) => (order.order_status === 'order_complete')));
-          console.log(completeOrders)
-          let canceledOrders = openOrdersForYou.filter((order: OrderResponse) => (order.order_status === 'canceled'));
-          Array.prototype.push.apply(canceledOrders, openOrdersByYou.filter((order: OrderResponse) => (order.order_status === 'canceled')));
-          this.completeOrdersDataSource = new MatTableDataSource(completeOrders);
-          this.completeOrdersDataSource.paginator = this.completedOrdersPaginator;
-          this.canceledOrdersDataSource = new MatTableDataSource(canceledOrders);
-          this.canceledOrdersDataSource.paginator = this.canceledOrdersPaginator;
-          this.ngxService.stop();
-        });
-    });
+    this.userData = this._auth.userData;
+    forkJoin(this.apiSer.getOpenOrdersForUser(this.userData.name), this.apiSer.getOpenOrdersByUser(this.userData.name))
+      .subscribe((data) => {
+        const openOrdersForYou = data && data[0] && data[0].length ? data[0] : [];
+        this.openOrdersForYouDataSource = new MatTableDataSource(openOrdersForYou.filter((order: OrderResponse) => (order.order_status !== 'canceled' && order.order_status !== 'order_complete')));
+        this.openOrdersForYouDataSource.paginator = this.openOrdersForYouPaginator;
+        const openOrdersByYou = data && data[1] && data[1].length ? data[1] : [];
+        this.openOrdersByYouDataSource = new MatTableDataSource(openOrdersByYou.filter((order: OrderResponse) => (order.order_status !== 'canceled' && order.order_status !== 'order_complete')));
+        this.openOrdersByYouDataSource.paginator = this.closeOrdersPaginator;
+        let completeOrders = openOrdersForYou.filter((order: OrderResponse) => (order.order_status === 'order_complete'));
+        console.log(openOrdersByYou.filter((order: OrderResponse) => (order.order_status === 'order_complete')));
+        Array.prototype.push.apply(completeOrders, openOrdersByYou.filter((order: OrderResponse) => (order.order_status === 'order_complete')));
+        console.log(completeOrders)
+        let canceledOrders = openOrdersForYou.filter((order: OrderResponse) => (order.order_status === 'canceled'));
+        Array.prototype.push.apply(canceledOrders, openOrdersByYou.filter((order: OrderResponse) => (order.order_status === 'canceled')));
+        this.completeOrdersDataSource = new MatTableDataSource(completeOrders);
+        this.completeOrdersDataSource.paginator = this.completedOrdersPaginator;
+        this.canceledOrdersDataSource = new MatTableDataSource(canceledOrders);
+        this.canceledOrdersDataSource.paginator = this.canceledOrdersPaginator;
+        this.ngxService.stop();
+      });
   }
 }

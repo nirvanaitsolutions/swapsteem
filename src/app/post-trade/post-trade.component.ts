@@ -12,7 +12,7 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 })
 export class PostTradeComponent implements OnInit {
 
-  constructor(private ngxService: NgxUiLoaderService,public api: APIService, private router: Router, private zone: NgZone, private auth: SteemconnectAuthService, private route: ActivatedRoute) {
+  constructor(private ngxService: NgxUiLoaderService, public api: APIService, private router: Router, private zone: NgZone, private auth: SteemconnectAuthService, private route: ActivatedRoute) {
   }
 
   advertisement: AdvertisementRequest = {
@@ -68,12 +68,9 @@ export class PostTradeComponent implements OnInit {
     this.adId = this.route.snapshot.paramMap.get('id');
     this.getSelectedTradeFromAPI(this.adId);
     this.ngxService.start();
-    this.auth.getUserData().subscribe(data => {
-      this.userData = data;
-      this.advertisement.createdby = this.userData.name;
-      console.log(this.userData);
-      
-    });
+    this.userData = this.auth.userData;
+    this.advertisement.createdby = this.userData.name;
+    console.log(this.userData);
     this.api.getPriceByPair(this.advertisement.ad_coin, this.advertisement.currency).subscribe(data => {
       this.cryptos = data;
       console.log(data)

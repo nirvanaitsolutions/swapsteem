@@ -56,8 +56,7 @@ export class OrderComponent implements OnInit {
 
   ngOnInit() {
     this.ngxService.start();
-    this.auth.getUserData().subscribe(data => {
-      this.userData = data;
+      this.userData = this.auth.userData;
       const id: string = this.route.snapshot.paramMap.get('id');
       const status = this.route.snapshot.queryParams["status"];
       this.selectedOrder = {
@@ -95,9 +94,7 @@ export class OrderComponent implements OnInit {
             }
             this.ngxService.stop();
           });
-
       }));
-    });
 
   }
   /**
