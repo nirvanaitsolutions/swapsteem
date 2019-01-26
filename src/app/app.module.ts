@@ -18,7 +18,8 @@ import {
   MatPaginatorModule,
   MatMenuModule,
   MatChipsModule,
-  MatSelectModule
+  MatSelectModule,
+  MatProgressBarModule
 } from '@angular/material';
 import { AppNavComponent } from './app-nav/app-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -109,7 +110,8 @@ const config: SocketIoConfig = { url: 'http://swapsteem-api.herokuapp.com', opti
     MatMenuModule,
     MatChipsModule,
     MatSelectModule,
-    CountdownModule 
+    CountdownModule,
+    MatProgressBarModule 
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },],
   bootstrap: [AppComponent]

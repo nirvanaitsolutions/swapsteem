@@ -45,6 +45,7 @@ export class OrderComponent implements OnInit {
   public reviews: Array<ReviewResponse> = [];
   public rDeadline = moment().add(2, "hours");
   public eDeadline = moment().add(3, 'days');
+  public progressBarStatus: number = 0;
   @ViewChild('transfercountdown') transferCountdown: CountdownComponent;
   @ViewChild('relesecountdown') releseCountdown: CountdownComponent;
   constructor(public ngxService: NgxUiLoaderService, public _chatService: ChatService, public auth: SteemconnectAuthService,
@@ -70,6 +71,7 @@ export class OrderComponent implements OnInit {
         this.selectedOrder = data;
         this.selectedOrder.escrow_rat_deadline ? this.rDeadline = moment(this.selectedOrder.escrow_rat_deadline) : '';
         this.selectedOrder.escrow_exp_deadline ? this.eDeadline = moment(this.selectedOrder.escrow_exp_deadline) : '';
+        this.updateProgressBarStatus(this.selectedOrder.order_status);
         if (data.order_type === 'buy') {
           this.sender = data.createdfor;
           this.reciever = data.createdby;
@@ -197,6 +199,7 @@ export class OrderComponent implements OnInit {
       this.selectedOrder.order_status = order_status;
       this.selectedOrder.escrow_rat_deadline ? this.rDeadline = moment(this.selectedOrder.escrow_rat_deadline) : '';
       this.selectedOrder.escrow_exp_deadline ? this.eDeadline = moment(this.selectedOrder.escrow_exp_deadline) : '';
+      this.updateProgressBarStatus(this.selectedOrder.order_status);
       if (data.order_type === 'buy') {
         this.sender = data.createdfor;
         this.reciever = data.createdby;
@@ -256,18 +259,65 @@ export class OrderComponent implements OnInit {
     });
   }
   /**
-     *
-     * @name openReviewDialog 
-     *
-     * @description
-     * This method used to open review component in modal
-     * @param countdownInstance countdown timer instance
-    */
+   *
+   * @name openReviewDialog 
+   *
+   * @description
+   * This method used to open review component in modal
+   * @param countdownInstance countdown timer instance
+  */
   onFinished(countdownInstance) {
     console.log('countdownInstance', countdownInstance);
     if (this.selectedOrder._id && this.selectedOrder.order_status !== 'canceled') {
       this.updateOrderStatus('canceled');
     }
-
+  }
+  /**
+   *
+   * @name updateProgressBarStatus 
+   *
+   * @description
+   * This method used update progress bar status according to order status
+   * @param order_status order status
+  */
+  updateProgressBarStatus(order_status) {
+    switch (order_status) {
+      case 'created':
+        this.progressBarStatus = 0;
+        break;
+      case 'escrow_transfer':
+        this.progressBarStatus = 20;
+        break;
+      case 'escrow_approve':
+        this.progressBarStatus = 40;
+        break;
+      case 'agent_escrow_approved':
+        this.progressBarStatus = 50;
+        break;
+      case 'buyer_escrow_dispute':
+        this.progressBarStatus = 60;
+        break;
+      case 'seller_escrow_dispute':
+        this.progressBarStatus = 60;
+        break;
+      case 'buyer_payment_done':
+        this.progressBarStatus = 60;
+        break;
+      case 'escrow_release':
+        this.progressBarStatus = 80;
+        break;
+      case 'escrow_reject':
+        this.progressBarStatus = 100;
+        break;
+      case 'order_complete':
+        this.progressBarStatus = 100;
+        break;
+      case 'canceled':
+        this.progressBarStatus = 100;
+        break;
+      default:
+        this.progressBarStatus = 0;
+        break;
+    }
   }
 }

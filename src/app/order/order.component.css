@@ -20,6 +20,9 @@ body{
 	color: #eee;
 	background: #353535;
 }
+.progress {
+    height: 5px;
+}
 
 .countdown {
     display: flex;
