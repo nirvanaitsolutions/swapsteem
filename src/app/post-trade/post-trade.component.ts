@@ -19,7 +19,7 @@ export class PostTradeComponent implements OnInit {
     createdby: '',
     ad_type: '',
     country: '',
-    payment_methods: [''],
+    payment_methods: '',
     currency: 'USD',
     margin: 0,
     limit_from: 0,
@@ -91,7 +91,7 @@ export class PostTradeComponent implements OnInit {
             createdby: res.createdby,
             ad_type: res.ad_type,
             country: res.country,
-            payment_methods: res.payment_methods,
+            payment_methods: res.payment_methods[0],
             currency: res.currency,
             margin: res.margin,
             limit_from: res.limit_from,
@@ -116,14 +116,12 @@ export class PostTradeComponent implements OnInit {
             }
           }
         };
-        console.log(this.advertisement);
         this.ngxService.stop();
       }));
     }
   }
 
-  onSubmit(form) {
-    console.log(form);
+  onSubmit() {
     this.ngxService.start();
     this.api.createAd(this.advertisement, this.adId).subscribe(res => this.zone.run(() => {
       this.router.navigate(['profile'])

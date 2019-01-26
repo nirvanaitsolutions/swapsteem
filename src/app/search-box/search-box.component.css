@@ -7,3 +7,11 @@
 .searchBtn{
     margin-top: 30px;
 }
+
+.table td, .table th {
+    vertical-align: middle !important;
+}
+
+.mat-chip {
+    background-color: #28a745 !important;
+}
