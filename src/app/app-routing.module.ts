@@ -21,6 +21,7 @@ const appRoutes: Routes = [
   { path: 'sell-online', component: SellPageComponent },
   {
     path: 'post-trade',
+    canActivate: [AuthGuard],
     children: [
       {
         path: ':id', 
