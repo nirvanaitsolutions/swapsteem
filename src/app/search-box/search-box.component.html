@@ -10,22 +10,43 @@
         </tr>
         <tr>
           <td>
-            <select class="form-control" id="ad_type" [(ngModel)]="ad_type" name="ad_type" required>
-              <option *ngFor="let count of ad_type_options">{{count}}</option>
-            </select>
+            <mat-form-field>
+              <mat-select [(ngModel)]="ad_type" name="ad_type">
+                <mat-option *ngFor="let count of ad_type_options" [value]="count">
+                  {{count}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
           </td>
           <td>
-            <select class="form-control" id="ad_coin" name="ad_coin" required [(ngModel)]="ad_coin">
-              <option *ngFor="let count of ad_coin_options">{{count}}</option>
-            </select>
+            <mat-form-field>
+              <mat-select [(ngModel)]="ad_coin" name="ad_coin">
+                <mat-option [value]="''">
+                  Select
+                </mat-option>
+                <mat-option *ngFor="let count of ad_coin_options" [value]="count">
+                  {{count}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
           </td>
           <td>
-            <select class="form-control" id="Currency" [(ngModel)]="currency" name="currency" required>
-              <option *ngFor="let count of currency_options">{{count}}</option>
-            </select>
+            <mat-form-field>
+              <mat-select [(ngModel)]="currency" name="currency">
+                <mat-option [value]="''">
+                  Select
+                </mat-option>
+                <mat-option *ngFor="let count of currency_options" [value]="count">
+                  {{count}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
           </td>
           <td>
-            <button type="submit" class="btn badge-pill badge-success" (click)="searchResult(ad_type,ad_coin,currency,payment_methods)">Search For Trades</button>
+            <mat-chip-list>
+              <mat-chip color="primary" (click)="searchResult(ad_type,ad_coin,currency,payment_methods)" selected>Search
+                For Trades</mat-chip>
+            </mat-chip-list>
           </td>
         </tr>
       </table>

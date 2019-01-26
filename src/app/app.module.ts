@@ -16,7 +16,10 @@ import {
   MatProgressSpinnerModule,
   MatTableModule,
   MatPaginatorModule,
-  MatMenuModule
+  MatMenuModule,
+  MatChipsModule,
+  MatSelectModule,
+  MatProgressBarModule
 } from '@angular/material';
 import { AppNavComponent } from './app-nav/app-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -50,6 +53,7 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ReviewComponent } from './components/review/review.component';
 import { BarRatingModule } from "ngx-bar-rating";
+import { CountdownModule } from 'ngx-countdown';
 const config: SocketIoConfig = { url: 'http://swapsteem-api.herokuapp.com', options: {} };
 
 @NgModule({
@@ -103,7 +107,11 @@ const config: SocketIoConfig = { url: 'http://swapsteem-api.herokuapp.com', opti
     MatProgressSpinnerModule,
     MatTableModule,
     MatPaginatorModule,
-    MatMenuModule
+    MatMenuModule,
+    MatChipsModule,
+    MatSelectModule,
+    CountdownModule,
+    MatProgressBarModule 
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },],
   bootstrap: [AppComponent]

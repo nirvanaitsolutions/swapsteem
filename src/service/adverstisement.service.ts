@@ -10,18 +10,19 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 })
 export class AdverstisementService {
   // Declare All variable for Handling Oservable Filters
-  private filterCurrency = new BehaviorSubject<any>(false);
-  currenyFilter = this.filterCurrency.asObservable();
-  private filterAdCoin = new BehaviorSubject<any>(false);
+  private filterCurrency = new BehaviorSubject<any>('');
+  currencyFilter = this.filterCurrency.asObservable();
+  private filterAdCoin = new BehaviorSubject<any>('');
   adCoinFilter = this.filterAdCoin.asObservable();
-  private filterPaymentMethod = new BehaviorSubject<any>(false);
+  private filterPaymentMethod = new BehaviorSubject<any>('');
   paymentMethodFilter = this.filterPaymentMethod.asObservable();
-  private filterAdType = new BehaviorSubject<any>(false);
+  private filterAdType = new BehaviorSubject<any>('');
   adTypeFilter = this.filterAdType.asObservable();
   private _advertisement: Observable<AdvertisementResponse>;
   constructor(private _http: HttpClient) {
 
   }
+
   changefilter(ad_type, currency, ad_coin, payment_methods) {
     // Change Value for all Observable
     this.filterCurrency.next(currency);

@@ -1,34 +1,57 @@
-<div>
-  <h6 class="buyHeading">Buy Steem Online In USA</h6>
-  <div *ngIf="emptyBuy" class="no-data">
+<div class="box">
+  <h6 class="buyHeading">Buy Steem Online In USA </h6>
+  <div *ngIf="!buySteemDataSource.data.length" class="no-data">
     <p>No Data! Go play Around to see something here</p>
-    <!-- <a style="padding-right: 18px;" routerLink="/post-trade">Post a trade</a> -->
   </div>
-  <div class="table-padding">
-    <table class="table table-striped" *ngIf="emptyBuy === false">
-      <tr>
-        <th class="">Seller</th>
-        <th class="">Payment</th>
-        <th class="">Coin</th>
-        <th class="">Fiat</th>
-        <th class="">Limits</th>
-        <th class="">Price/Coin</th>
-        <th></th>
-      </tr>
-      <tr *ngFor="let buySteem of buyDetails | async | tradePipe: 'ad_status' : 'pause'  | paginate: { itemsPerPage: 5, currentPage: p }">
-        <td *ngIf="showElement(buySteem)">{{buySteem.createdby}}</td>
-        <td *ngIf="showElement(buySteem)">{{buySteem.payment_methods}}</td>
-        <td *ngIf="showElement(buySteem)">{{buySteem.ad_coin}}</td>
-        <td *ngIf="showElement(buySteem)">{{buySteem.currency}}</td>
-        <td *ngIf="showElement(buySteem)">{{buySteem.limit_from}} - {{buySteem.limit_to}}</td>
-        <td *ngIf="showElement(buySteem)">
-          <span>{{calculatePrice(buySteem.ad_coin,buySteem.currency, buySteem.margin)}}</span>
+  <div *ngIf="buySteemDataSource.data.length">
+    <table mat-table [dataSource]="buySteemDataSource" class="mat-elevation-z8 w-100">
+      <!-- Seller Column -->
+      <ng-container matColumnDef="createdby">
+        <th mat-header-cell *matHeaderCellDef> Seller </th>
+        <td mat-cell *matCellDef="let element">
+          {{element.createdby}}
         </td>
-        <td *ngIf="showElement(buySteem)">
-          <button type="button" class="btn btn-success btn-sm badge badge-pill" (click)="buyTrade(buySteem)">Buy</button>
+      </ng-container>
+      <!--  PAYMENT METHODS  Column -->
+      <ng-container matColumnDef="payment_methods">
+        <th mat-header-cell *matHeaderCellDef> PAYMENT METHODS </th>
+        <td mat-cell *matCellDef="let element"> {{element.payment_methods}} </td>
+      </ng-container>
+      <!-- Coin Column -->
+      <ng-container matColumnDef="ad_coin">
+        <th mat-header-cell *matHeaderCellDef> To </th>
+        <td mat-cell *matCellDef="let element"> {{element.ad_coin}} </td>
+      </ng-container>
+
+      <!-- Fiat Column -->
+      <ng-container matColumnDef="currency">
+        <th mat-header-cell *matHeaderCellDef> Fiat </th>
+        <td mat-cell *matCellDef="let element"> {{element.currency}} </td>
+      </ng-container>
+      <!-- Limits Column -->
+      <ng-container matColumnDef="limits">
+        <th mat-header-cell *matHeaderCellDef> Limits </th>
+        <td mat-cell *matCellDef="let element"> {{element.limit_from}} - {{element.limit_to}} </td>
+      </ng-container>
+      <!-- Price/Coin Column -->
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef> Price/Coin </th>
+        <td mat-cell *matCellDef="let element"> {{calculatePrice(element.ad_coin,element.currency, element.margin)}}
         </td>
-      </tr>
+      </ng-container>
+
+      <!-- Action  Column -->
+      <ng-container matColumnDef="buttons">
+        <th mat-header-cell *matHeaderCellDef> Action </th>
+        <td mat-cell *matCellDef="let element">
+          <mat-chip-list>
+            <mat-chip color="primary"  routerLink="/purchase/{{element._id}}" routerLinkActive="active" selected>Buy</mat-chip>
+          </mat-chip-list>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="buySteemDisplayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: buySteemDisplayedColumns;"></tr>
     </table>
-    <pagination-controls *ngIf="emptyBuy === false" (pageChange)="p = $event" class="page-controls"></pagination-controls>
   </div>
+  <mat-paginator [ngStyle]="{'display': buySteemDataSource.data.length ? 'block' : 'none'}" #buysteem [pageSizeOptions]="[10, 20, 50, 100]"></mat-paginator>
 </div>
