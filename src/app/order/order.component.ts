@@ -46,6 +46,21 @@ export class OrderComponent implements OnInit {
   public rDeadline = moment().add(2, "hours");
   public eDeadline = moment().add(3, 'days');
   public progressBarStatus: number = 0;
+  public payment_details: {
+    account_holder_name: string;
+    account_number: number;
+    bank_name: string;
+    bank_address?: string;
+    swift_bic_code?: string;
+    bank_code: string;
+  } = {
+      account_holder_name: '',
+      account_number: 0,
+      bank_name: '',
+      bank_address: '',
+      swift_bic_code: '',
+      bank_code: '',
+    }
   @ViewChild('transfercountdown') transferCountdown: CountdownComponent;
   @ViewChild('relesecountdown') releseCountdown: CountdownComponent;
   constructor(public ngxService: NgxUiLoaderService, public _chatService: ChatService, public auth: SteemconnectAuthService,
@@ -56,45 +71,53 @@ export class OrderComponent implements OnInit {
 
   ngOnInit() {
     this.ngxService.start();
-      this.userData = this.auth.userData;
-      const id: string = this.route.snapshot.paramMap.get('id');
-      const status = this.route.snapshot.queryParams["status"];
-      this.selectedOrder = {
-        _id: id
+    this.userData = this.auth.userData;
+    const id: string = this.route.snapshot.paramMap.get('id');
+    const status = this.route.snapshot.queryParams["status"];
+    this.selectedOrder = {
+      _id: id
+    }
+    if (['escrow_transfer', 'escrow_approve', 'escrow_reject', 'escrow_release', 'agent_escrow_approved', 'buyer_escrow_dispute', 'seller_escrow_dispute'].indexOf(status) > -1) {
+      this.updateOrderStatus(status, true);
+      return;
+    }
+    this._apiSer.getSelectedOrderFromAPI(id).subscribe(data => this.zone.run(() => {
+      this.selectedOrder = data;
+      this.selectedOrder.escrow_rat_deadline ? this.rDeadline = moment(this.selectedOrder.escrow_rat_deadline) : '';
+      this.selectedOrder.escrow_exp_deadline ? this.eDeadline = moment(this.selectedOrder.escrow_exp_deadline) : '';
+      if(this.selectedOrder.order_type === 'sell' && this.selectedOrder.payment_details) {
+        this.payment_details = this.selectedOrder.payment_details;
       }
-      if (['escrow_transfer', 'escrow_approve', 'escrow_reject', 'escrow_release', 'agent_escrow_approved', 'buyer_escrow_dispute', 'seller_escrow_dispute'].indexOf(status) > -1) {
-        this.updateOrderStatus(status, true);
-        return;
+      this.updateProgressBarStatus(this.selectedOrder.order_status);
+      if (data.order_type === 'buy') {
+        this.sender = data.createdfor;
+        this.reciever = data.createdby;
+      } else if (data.order_type === 'sell') {
+        this.sender = data.createdby;
+        this.reciever = data.createdfor
       }
-      this._apiSer.getSelectedOrderFromAPI(id).subscribe(data => this.zone.run(() => {
-        this.selectedOrder = data;
-        this.selectedOrder.escrow_rat_deadline ? this.rDeadline = moment(this.selectedOrder.escrow_rat_deadline) : '';
-        this.selectedOrder.escrow_exp_deadline ? this.eDeadline = moment(this.selectedOrder.escrow_exp_deadline) : '';
-        this.updateProgressBarStatus(this.selectedOrder.order_status);
-        if (data.order_type === 'buy') {
-          this.sender = data.createdfor;
-          this.reciever = data.createdby;
-        } else if (data.order_type === 'sell') {
-          this.sender = data.createdby;
-          this.reciever = data.createdfor
-        }
-        console.log(this.selectedOrder, this.userData);
-        forkJoin(this._apiSer.getSelectedTradeFromAPI(this.selectedOrder.ad_id), this._apiSer.getReviews(this.selectedOrder._id, 'by_order'))
-          .subscribe(res => {
-            this.selectedAd = res[0] || {
-              terms: '',
-              payment_methods: [''],
-            };
-            console.log('  this.selectedAd', this.selectedAd)
-            if (res && res[1]) {
-              this.reviews = res[1];
-              if (this.selectedOrder.order_status === 'escrow_release' && res && res[1] && res[1].findIndex((review) => review.createdby === this.userData._id) === -1) {
-                this.openReviewDialog();
-              }
+      console.log(this.selectedOrder, this.userData);
+      forkJoin(this._apiSer.getSelectedTradeFromAPI(this.selectedOrder.ad_id), this._apiSer.getReviews(this.selectedOrder._id, 'by_order'))
+        .subscribe(res => {
+          this.selectedAd = res[0] || {
+            terms: '',
+            payment_methods: [''],
+          };
+          console.log(this.selectedAd)
+          if(this.selectedAd.ad_type === 'SELL' && this.selectedAd.payment_details) {
+            this.payment_details = this.selectedAd.payment_details;
+            console.log(this.payment_details)
+          }
+          console.log('  this.selectedAd', this.selectedAd)
+          if (res && res[1]) {
+            this.reviews = res[1];
+            if (this.selectedOrder.order_status === 'escrow_release' && res && res[1] && res[1].findIndex((review) => review.createdby === this.userData._id) === -1) {
+              this.openReviewDialog();
             }
-            this.ngxService.stop();
-          });
-      }));
+          }
+          this.ngxService.stop();
+        });
+    }));
 
   }
   /**
@@ -196,6 +219,9 @@ export class OrderComponent implements OnInit {
       this.selectedOrder.order_status = order_status;
       this.selectedOrder.escrow_rat_deadline ? this.rDeadline = moment(this.selectedOrder.escrow_rat_deadline) : '';
       this.selectedOrder.escrow_exp_deadline ? this.eDeadline = moment(this.selectedOrder.escrow_exp_deadline) : '';
+      if(this.selectedOrder.order_type === 'sell' && this.selectedOrder.payment_details) {
+        this.payment_details = this.selectedOrder.payment_details;
+      }
       this.updateProgressBarStatus(this.selectedOrder.order_status);
       if (data.order_type === 'buy') {
         this.sender = data.createdfor;
@@ -211,6 +237,9 @@ export class OrderComponent implements OnInit {
               terms: '',
               payment_methods: [''],
             };
+            if(this.selectedAd.ad_type === 'SELL' && this.selectedAd.payment_details) {
+              this.payment_details = this.selectedAd.payment_details;
+            }
             if (res && res[1]) {
               this.reviews = res[1];
               if (this.selectedOrder.order_status === 'escrow_release' && res && res[1] && res[1].findIndex((review) => review.createdby === this.userData._id) === -1) {

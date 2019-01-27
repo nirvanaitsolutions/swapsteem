@@ -1,7 +1,7 @@
 <div class="container">
   <div class="box">
     <div class="progress">
-     
+
       <mat-progress-bar mode="determinate" [value]="progressBarStatus"></mat-progress-bar>
     </div>
   </div>
@@ -12,7 +12,7 @@
       <div>
         <div class="row">
           <div class="col">
-            <h6>AMOUNT {{selectedOrder.order_status}}</h6>
+            <h6>AMOUNT</h6>
             <p>{{selectedOrder.order_coin_amount}}</p>
           </div>
           <div class="col">
@@ -36,7 +36,41 @@
             <p>{{selectedAd.terms}}</p>
           </div>
         </div>
-
+      </div>
+      <h6>PAYMENT DETAILS</h6>
+      <hr>
+      <div>
+        <div class="row">
+          <div class="col">
+            <h6>ACCOUNT HOLDER NAME</h6>
+            <p>{{payment_details.account_holder_name}}</p>
+          </div>
+          <div class="col">
+            <h6>ACCOUNT NUMBER</h6>
+            <p>{{payment_details.account_number}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h6>BANK NAME</h6>
+            <p>{{payment_details.bank_name}}</p>
+          </div>
+          <div class="col">
+            <h6>SWIFT/BIC code</h6>
+            <p>{{payment_details.swift_bic_code}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h6>BANK ADDRESS</h6>
+            <p>{{payment_details.bank_code}}</p>
+          </div>
+          <div class="col">
+            <h6 for="bank_code" *ngIf="selectedAd.currency === 'USD'">ABA Number</h6>
+            <h6 for="bank_code" *ngIf="selectedAd.currency === 'INR'">IFSC Code</h6>
+            <p>{{payment_details.swift_bic_code}}</p>
+          </div>
+        </div>
       </div>
     </div>
     <div class="inner-box col">

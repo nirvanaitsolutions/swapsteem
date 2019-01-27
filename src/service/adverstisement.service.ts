@@ -31,7 +31,7 @@ export class AdverstisementService {
     this.filterAdType.next(ad_type);
   }
   getAdvertisementApi() {
-    this._advertisement = this._http.get<AdvertisementResponse>('http://swapsteem-api.herokuapp.com/listings')
+    this._advertisement = this._http.get<AdvertisementResponse>('https://swapsteem-api.herokuapp.com/listings')
   }
 
   getAdvertisement(): Observable<AdvertisementResponse> {
