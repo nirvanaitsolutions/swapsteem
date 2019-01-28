@@ -43,7 +43,6 @@ import { BuySteemComponent } from './buy-steem/buy-steem.component';
 import { BuySbdComponent } from './buy-sbd/buy-sbd.component';
 import { SellSbdComponent } from './sell-sbd/sell-sbd.component';
 import { SellSteemComponent } from './sell-steem/sell-steem.component';
-import { ChatPageComponent } from './chat-page/chat-page.component';
 import { AuthInterceptor } from './../service/auth.intercepter';
 import { MomentModule } from 'angular2-moment';
 import { NgxAutoScrollModule } from 'ngx-auto-scroll';
@@ -80,7 +79,6 @@ const config: SocketIoConfig = { url: 'https://swapsteem-api.herokuapp.com', opt
     BuySbdComponent,
     SellSbdComponent,
     SellSteemComponent,
-    ChatPageComponent,
     TradePipePipe,
     OrderComponent,
     ReviewComponent
