@@ -1,5 +1,5 @@
 <div class="box container">
-  <form #tradeForm="ngForm" novalidate (ngSubmit)="tradeForm.valid ? onSubmit() : ''" ngNativeValidate>
+  <form #tradeForm="ngForm" novalidate (ngSubmit)="tradeForm.valid ? onSubmit(tradeForm) : ''" ngNativeValidate>
     <div class="row">
       <div class="col-md-4">
         <mat-form-field class="full-width">
@@ -66,6 +66,21 @@
         <mat-form-field class="full-width">
           <input matInput placeholder="SWIFT/BIC code" type="text" name="swift_bic_code" id="swift_bic_code"
             [(ngModel)]="advertisement.payment_details.swift_bic_code">
+        </mat-form-field>
+      </div>
+      <div class="col-md-4" *ngIf="advertisement.ad_type == 'SELL' && advertisement.payment_methods === 'In Cash'">
+        <mat-form-field class="full-width">
+          <textarea matInput placeholder="Place Of Exchange" type="text" name="place_of_exchange" id="place_of_exchange"
+            [(ngModel)]="advertisement.payment_details.place_of_exchange" required> </textarea>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4" *ngIf="advertisement.ad_type == 'SELL' && advertisement.payment_methods === 'PayPal'">
+        <mat-form-field class="full-width">
+          <input matInput #paypalEmail="ngModel" placeholder="Email" type="email" name="paypal_email" id="paypal_email" [(ngModel)]="advertisement.payment_details.paypal_email"
+            pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required />
+          <mat-error  *ngIf="paypalEmail.errors && paypalEmail.errors.required">
+            Please enter a valid email address
+          </mat-error>
         </mat-form-field>
       </div>
     </div>
