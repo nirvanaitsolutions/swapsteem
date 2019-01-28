@@ -13,17 +13,20 @@ import { SellPageComponent } from './sell-page/sell-page.component';
 import { PurchaseComponent } from './purchase/purchase.component';
 import { RedirectComponent } from './redirect/redirect.component';
 import { OrderComponent } from './order/order.component';
-import { AuthGuard} from '../guards/auth-guard.service';
+import { AuthGuard } from '../guards/auth-guard.service';
+import { HelppageComponent } from './helppage/helppage.component'
+
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'buy-online', component: BuyPageComponent },
+  { path: 'help', component: HelppageComponent },
   { path: 'sell-online', component: SellPageComponent },
   {
     path: 'post-trade',
     canActivate: [AuthGuard],
     children: [
       {
-        path: ':id', 
+        path: ':id',
         component: PostTradeComponent
       },
       {
@@ -34,7 +37,7 @@ const appRoutes: Routes = [
   },
   { path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard] },
   { path: 'wallet', component: WalletComponent, canActivate: [AuthGuard] },
-  
+
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'purchase/:id', component: PurchaseComponent, canActivate: [AuthGuard] },
@@ -44,7 +47,7 @@ const appRoutes: Routes = [
     component: RedirectComponent
   },
   { path: 'order/:id', component: OrderComponent, canActivate: [AuthGuard] },
-  
+
   {
     path: '',
     redirectTo: '/home',
