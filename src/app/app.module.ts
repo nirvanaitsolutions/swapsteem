@@ -15,7 +15,11 @@ import {
   MatFormFieldModule,
   MatProgressSpinnerModule,
   MatTableModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatMenuModule,
+  MatChipsModule,
+  MatSelectModule,
+  MatProgressBarModule
 } from '@angular/material';
 import { AppNavComponent } from './app-nav/app-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -49,7 +53,9 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ReviewComponent } from './components/review/review.component';
 import { BarRatingModule } from "ngx-bar-rating";
-const config: SocketIoConfig = { url: 'http://swapsteem-api.herokuapp.com', options: {} };
+import { CountdownModule } from 'ngx-countdown';
+import { AuthGuard } from '../guards/auth-guard.service';
+const config: SocketIoConfig = { url: 'https://swapsteem-api.herokuapp.com', options: {} };
 
 @NgModule({
   declarations: [
@@ -101,9 +107,14 @@ const config: SocketIoConfig = { url: 'http://swapsteem-api.herokuapp.com', opti
     MatFormFieldModule,
     MatProgressSpinnerModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatMenuModule,
+    MatChipsModule,
+    MatSelectModule,
+    CountdownModule,
+    MatProgressBarModule
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

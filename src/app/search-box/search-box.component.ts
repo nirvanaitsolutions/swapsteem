@@ -17,17 +17,13 @@ export class SearchBoxComponent implements OnInit {
   payment_methods: any = '';
   ad_type: any = '';
   constructor(public adverstisementService: AdverstisementService, private router: Router) {
-    this.adverstisementService.currenyFilter.subscribe(filter => this.currency = filter)
+    this.adverstisementService.currencyFilter.subscribe(filter => this.currency = filter)
     this.adverstisementService.adCoinFilter.subscribe(filter => this.ad_coin = filter)
     this.adverstisementService.paymentMethodFilter.subscribe(filter => this.payment_methods = filter)
     this.adverstisementService.adTypeFilter.subscribe(filter => this.ad_type = filter)
   }
 
   ngOnInit() {
-  }
-
-  onSubmit(form) {
-    this.router.navigate(['/home'])
   }
 
   searchResult(ad_type, ad_coin, currency, payment_methods) {
