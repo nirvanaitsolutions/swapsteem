@@ -39,7 +39,7 @@
       </div>
       <h6>PAYMENT DETAILS</h6>
       <hr>
-      <div>
+      <div *ngIf="selectedAd.payment_methods[0] === 'Bank Transfer'">
         <div class="row">
           <div class="col">
             <h6>ACCOUNT HOLDER NAME</h6>
@@ -72,6 +72,22 @@
           </div>
         </div>
       </div>
+      <div *ngIf="selectedAd.payment_methods[0] === 'In Cash'">
+        <div class="row">
+          <div class="col">
+            <h6>Place of exchange</h6>
+            <p>{{payment_details.place_of_exchange}}</p>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="selectedAd.payment_methods[0] === 'PayPal'">
+          <div class="row">
+            <div class="col">
+              <h6>PayPal's Email</h6>
+              <p>{{payment_details.paypal_email}}</p>
+            </div>
+          </div>
+        </div>
     </div>
     <div class="inner-box col">
       <h6>Order Status</h6>
