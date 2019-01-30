@@ -49,6 +49,8 @@ export class PostTradeComponent implements OnInit {
       bank_address: '',
       swift_bic_code: '',
       bank_code: '',
+      paypal_email: '',
+      place_of_exchange: ''
     }
   };
   objectKeys = Object.keys;
@@ -111,6 +113,8 @@ export class PostTradeComponent implements OnInit {
               bank_address: res.payment_details.bank_address,
               swift_bic_code: res.payment_details.swift_bic_code,
               bank_code: res.payment_details.bank_code,
+              paypal_email: res.payment_details.paypal_email,
+              place_of_exchange: res.payment_details.place_of_exchange,
             }
           }
         };
@@ -119,7 +123,8 @@ export class PostTradeComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  onSubmit(tradeForm) {
+    console.log('tradeForm', tradeForm)
     this.ngxService.start();
     this.api.createAd(this.advertisement, this.adId).subscribe(res => this.zone.run(() => {
       this.router.navigate(['profile'])

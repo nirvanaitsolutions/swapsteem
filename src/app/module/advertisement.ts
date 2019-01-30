@@ -26,12 +26,14 @@ export interface AdvertisementRequest {
     trusted_people_only: Boolean
   },
   payment_details?: {
-    account_holder_name: string;
-    account_number: number;
-    bank_name: string;
+    account_holder_name?: string;
+    account_number?: number;
+    bank_name?: string;
     bank_address?: string;
     swift_bic_code?: string;
-    bank_code: string;
+    bank_code?: string;
+    paypal_email?: string;
+    place_of_exchange?: string;
   }
 }
 
@@ -65,11 +67,13 @@ export interface AdvertisementResponse {
     trusted_people_only: Boolean
   },
   payment_details?: {
-    account_holder_name: string;
-    account_number: number;
-    bank_name: string;
+    account_holder_name?: string;
+    account_number?: number;
+    bank_name?: string;
     bank_address?: string;
     swift_bic_code?: string;
-    bank_code: string;
+    bank_code?: string;
+    paypal_email?: string;
+    place_of_exchange?: string;
   }
 }
