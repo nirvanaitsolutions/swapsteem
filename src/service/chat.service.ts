@@ -3,7 +3,6 @@ import {HttpClient,HttpHeaders,} from '@angular/common/http';
 import {SteemconnectAuthService} from '../app/steemconnect/services/steemconnect-auth.service'
 import { AdvertisementResponse } from '../app/module/advertisement';
 import { MessageResponse } from '../app/module/message';
-import { WebsocketsService } from './websockets.service';
 
 export interface OAuth2Token {
   access_token: string;
@@ -17,7 +16,7 @@ export interface OAuth2Token {
 export class ChatService {
  
 
-  constructor(private _http: HttpClient,private auth :SteemconnectAuthService,private ws :WebsocketsService) {
+  constructor(private _http: HttpClient,private auth :SteemconnectAuthService) {
     
    }
   

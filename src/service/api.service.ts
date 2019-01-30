@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { AdvertisementResponse, AdvertisementRequest } from '../app/module/advertisement';
 import { SteemconnectAuthService } from '../app/steemconnect/services/steemconnect-auth.service'
-import { WebsocketsService } from './websockets.service'
 import { OrderResponse, OrderRequest } from '../app/module/order';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
@@ -21,7 +20,7 @@ export interface OAuth2Token {
 })
 export class APIService {
 
-  constructor(private _http: HttpClient, private auth: SteemconnectAuthService, private ws: WebsocketsService) {
+  constructor(private _http: HttpClient, private auth: SteemconnectAuthService) {
 
   }
 

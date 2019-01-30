@@ -12,7 +12,6 @@ import { BuyPageComponent } from './buy-page/buy-page.component'
 import { SellPageComponent } from './sell-page/sell-page.component';
 import { PurchaseComponent } from './purchase/purchase.component';
 import { RedirectComponent } from './redirect/redirect.component';
-import { ChatPageComponent } from './chat-page/chat-page.component';
 import { OrderComponent } from './order/order.component';
 import { AuthGuard} from '../guards/auth-guard.service';
 const appRoutes: Routes = [
@@ -39,7 +38,6 @@ const appRoutes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'purchase/:id', component: PurchaseComponent, canActivate: [AuthGuard] },
-  { path: 'chat/:id', component: ChatPageComponent },
   {
     path: 'steemconnect/redirect',
     canActivate: [SteemconnectRedirectGuard],
