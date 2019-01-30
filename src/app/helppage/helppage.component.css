@@ -1,0 +1,10 @@
+ .help-paragraph{
+        font-family: 'Muli', sans-serif !important;
+        font-size: 16px;
+        line-height: 22px;
+        margin: 0px 0px 20px;
+ }   
+ .margin-auto{
+    margin: auto;
+    display: block;
+ }
