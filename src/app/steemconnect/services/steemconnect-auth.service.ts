@@ -4,7 +4,7 @@ import { Inject, Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie';
 import { BehaviorSubject } from 'rxjs';
 import { Observable } from 'rxjs';
-import { throwError  } from 'rxjs';
+import { throwError } from 'rxjs';
 import { of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { SteemConnectConfig } from '../steemconnect.module';
@@ -99,6 +99,16 @@ export interface UserData {
   user_metadata: Object;
 }
 
+export interface MongoUserData {
+  createdAt?: string;
+  updatedAt?: string;
+  username: string;
+  tos_accepted?: boolean;
+  whitelisted?: boolean;
+  __v?: number;
+  _id?: number;
+}
+
 @Injectable()
 export class SteemconnectAuthService {
   /**
@@ -117,13 +127,14 @@ export class SteemconnectAuthService {
   );
 
   private readonly baseURL = 'https://steemconnect.com/';
-  public userData:UserData;
+  public userData: UserData;
+  public mongoUserData: MongoUserData;
   constructor(
     @Inject('config') private config: SteemConnectConfig,
     @Inject(DOCUMENT) private document: Document,
     private cookieService: CookieService,
     private http: HttpClient
-  ) {}
+  ) { }
 
   /**
    * Fetches current user data from SteemConnect.
@@ -222,7 +233,7 @@ export class SteemconnectAuthService {
     const scope = this.config.scope.join(',');
     return `${
       this.baseURL
-    }oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUrl}&scope=${scope}`;
+      }oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUrl}&scope=${scope}`;
   }
 
   /**

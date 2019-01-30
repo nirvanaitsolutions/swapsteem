@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { AdvertisementResponse, AdvertisementRequest } from '../app/module/advertisement';
-import { SteemconnectAuthService } from '../app/steemconnect/services/steemconnect-auth.service'
+import { SteemconnectAuthService, MongoUserData } from '../app/steemconnect/services/steemconnect-auth.service'
 import { OrderResponse, OrderRequest } from '../app/module/order';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
@@ -80,11 +80,11 @@ export class APIService {
   }
   getUser(user: string) {
     //httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
-    return this._http.get<AdvertisementResponse[]>("https://swapsteem-api.herokuapp.com/users/" + user);
+    return this._http.get("https://swapsteem-api.herokuapp.com/users/" + user);
   }
-  setUserData(user: UserData): Observable<UserData> {
+  setUserData(user: MongoUserData): Observable<MongoUserData> {
     console.log(user);
-    return this._http.post<UserData>('https://swapsteem-api.herokuapp.com/users/', JSON.stringify(user));
+    return this._http.post<MongoUserData>('https://swapsteem-api.herokuapp.com/users/', JSON.stringify(user));
   }
   getOpenOrdersForUser(user: string) {
     //httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
