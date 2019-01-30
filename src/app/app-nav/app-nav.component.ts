@@ -3,6 +3,7 @@ import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/l
 import { SteemconnectAuthService } from '../steemconnect/services/steemconnect-auth.service';
 import { APIService } from '../../service/api.service';
 import { MatDialog } from '@angular/material';
+import { TermsAndConditionsComponent } from '../terms-and-conditions/terms-and-conditions.component'
 @Component({
   selector: 'app-nav',
   templateUrl: './app-nav.component.html',
@@ -22,8 +23,8 @@ export class AppNavComponent implements OnInit {
   constructor(private breakpointObserver: BreakpointObserver,
     public auth: SteemconnectAuthService,
     private _apiService: APIService, public dialog: MatDialog) {
-    const dialogRef = this.dialog.open(ReviewComponent, {
-      width: '300px',
+    const dialogRef = this.dialog.open(TermsAndConditionsComponent, {
+      width: '2000px',
       disableClose: true,
     });
 

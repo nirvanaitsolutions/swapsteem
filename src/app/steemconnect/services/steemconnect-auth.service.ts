@@ -130,15 +130,28 @@ export class SteemconnectAuthService {
    */
   public getUserData(): Observable<UserData> {
     let accessToken: string;
+    console.log('Fn called')
     if (this.token) {
       accessToken = this.token.access_token;
     } else {
       return throwError('User has to be logged in!');
     }
+    console.log(accessToken)
 
     return this.http.get<UserData>(`${this.baseURL}api/me`, {
       headers: new HttpHeaders({
         Authorization: accessToken,
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      })
+    });
+  }
+  public getUserDataToken(token): Observable<UserData> {
+
+
+    return this.http.get<UserData>(`${this.baseURL}api/me`, {
+      headers: new HttpHeaders({
+        Authorization: token,
         'Content-Type': 'application/json',
         Accept: 'application/json'
       })

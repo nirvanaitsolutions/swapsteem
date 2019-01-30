@@ -14,6 +14,14 @@ export interface OAuth2Token {
   expires_in: number;
   username: string;
 }
+export interface UserData {
+  user: string;
+  _id: string;
+  name: string;
+  account: Account;
+  scope: string[];
+  user_metadata: Object;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -70,7 +78,14 @@ export class APIService {
     //httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
     return this._http.get<AdvertisementResponse[]>("https://swapsteem-api.herokuapp.com/listings/by_user/" + user);
   }
-
+  getUser(user: string) {
+    //httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
+    return this._http.get<AdvertisementResponse[]>("https://swapsteem-api.herokuapp.com/users/" + user);
+  }
+  setUserData(user: UserData): Observable<UserData> {
+    console.log(user);
+    return this._http.post<UserData>('https://swapsteem-api.herokuapp.com/users/', JSON.stringify(user));
+  }
   getOpenOrdersForUser(user: string) {
     //httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
     return this._http.get<OrderResponse[]>("https://swapsteem-api.herokuapp.com/orders/by_reciever/" + user);
@@ -179,7 +194,7 @@ export class APIService {
    * @param body review details
    * @returns {Api response}
   */
-  getReviews(id:string, by_type:string) {
+  getReviews(id: string, by_type: string) {
     return this._http.get<[ReviewResponse]>(`https://swapsteem-api.herokuapp.com/reviews/${by_type}/${id || ''}`);
   }
 
