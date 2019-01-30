@@ -55,6 +55,7 @@ import { BarRatingModule } from "ngx-bar-rating";
 import { CountdownModule } from 'ngx-countdown';
 import { AuthGuard } from '../guards/auth-guard.service';
 import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
+import { WhitelistComponent } from './components/whitelist/whitelist.component';
 
 const config: SocketIoConfig = { url: 'https://swapsteem-api.herokuapp.com', options: {} };
 
@@ -84,9 +85,10 @@ const config: SocketIoConfig = { url: 'https://swapsteem-api.herokuapp.com', opt
     TradePipePipe,
     OrderComponent,
     ReviewComponent,
-    TermsAndConditionsComponent
+    TermsAndConditionsComponent,
+    WhitelistComponent
   ],
-  entryComponents: [ReviewComponent,TermsAndConditionsComponent],
+  entryComponents: [ReviewComponent,TermsAndConditionsComponent, WhitelistComponent],
   imports: [
     NgxAutoScrollModule,
     MomentModule,
