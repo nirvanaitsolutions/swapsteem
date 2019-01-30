@@ -1,15 +1,17 @@
-
 <div class="container-fluid">
   <nav class="navbar navbar-expand-lg navbar-light">
     <a class="navbar-brand" routerLink="/">SwapSteem</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+      aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" routerLink="buy-online">Buy<span class="sr-only">(current)</span></a>
+          <a class="nav-link" routerLink="buy-online">Buy
+            <span class="sr-only">(current)</span>
+          </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="sell-online">Sell</a>
@@ -21,27 +23,29 @@
       <div class="mx-auto btn btn-success">STEEM : {{price.STEEM.USD}} USD</div>
       <div class="mx-auto btn btn-success">SBD : {{price["SBD*"].USD}} USD</div>
       <div>
-        <span *ngIf="(auth.authState | async); else guest ">
-          <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="wallet">My Trades</a>
-                </li>
-                <!-- <li class="nav-item">
-                    <a class="nav-link" routerLink="notifications">Notification</a>
-                </li> -->
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="profile">Profile</a>
-                </li>
-                <li class="nav-item">
-                    <button class="btn btn-primary signInLink " (click)="auth.logout() "> <i class="fa fa-user" aria-hidden="true"></i> Logout</button>
-                </li>
-          </ul>
-              
-        </span>
-          <ng-template #guest>
-            <button class="btn btn-primary signInLink " (click)="auth.login() "><i class="fa fa-user" aria-hidden="true"></i> Login</button>
-          </ng-template>
-      </div>   
+        <div *ngIf="(auth.authState | async); else guest " class="profile-wrapper">
+          <div>
+            <img src={{profile_url}} class="profile-image" *ngIf="profile_url != ''">
+            <span class="user-name">{{userData.name}}</span>
+          </div>
+          <div class="profile-option">
+            <div class="profile-menu-wrapper">
+              <a class="menu-nav" routerLink="wallet">Wallet</a>
+            </div>
+            <div class="profile-menu-wrapper">
+              <a class="menu-nav" routerLink="profile">Profile</a>
+            </div>
+            <div (click)="auth.logout() " class="profile-menu-wrapper">
+              <a class="menu-nav" routerLink="profile">Logout</a>
+            </div>
+          </div>
+        </div>
+        <ng-template #guest>
+          <button class="btn btn-primary signInLink " (click)="auth.login() ">
+            <i class="fa fa-user" aria-hidden="true"></i> Login</button>
+        </ng-template>
+      </div>
     </div>
   </nav>
+  <!-- <p>{{auth.userData.name}} bunny</p> -->
 </div>
