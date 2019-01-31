@@ -24,4 +24,9 @@ export class TermsAndConditionsComponent implements OnInit {
     });
   }
 
+  logout() {
+    this.auth.logout();
+    this.dialogRef.close();
+  }
+
 }

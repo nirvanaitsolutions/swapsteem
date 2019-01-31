@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { SteemconnectAuthService } from '../../steemconnect/services/steemconnect-auth.service';
+import { MatDialogRef } from '@angular/material';
 @Component({
   selector: 'app-whitelist',
   templateUrl: './whitelist.component.html',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WhitelistComponent implements OnInit {
 
-  constructor() { }
+  constructor(public dialogRef: MatDialogRef<WhitelistComponent>, public auth: SteemconnectAuthService, ) { }
 
   ngOnInit() {
+  }
+
+  logout() {
+    this.auth.logout();
+    this.dialogRef.close();
   }
 
 }

@@ -1,9 +1,8 @@
-<h2 mat-dialog-title>Review</h2>
-<form (ngSubmit)="submitReview(form)" novalidate #form="ngForm">
+<h2 mat-dialog-title>Welcome to SwapSteem</h2>
 <mat-dialog-content class="mat-typography">
-  Google form link
+  This is invite only alpha. If you are you interested is useing it please fill this <a href="">Form</a> and we will get back to you.
+  
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button (click)="logout()">Ok</button>
 </mat-dialog-actions>
-</form>

@@ -204,6 +204,6 @@
   or rights of any third party.
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button (click)="logout()">Cancel</button>
   <button mat-button (click)="onAccept()">Submit</button>
 </mat-dialog-actions>

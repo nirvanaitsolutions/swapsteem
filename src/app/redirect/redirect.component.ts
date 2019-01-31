@@ -24,7 +24,13 @@ export class RedirectComponent implements OnInit {
     console.log('constructor called');
     this.showTermsAndConditionsModal();
   }
-
+   /**
+   *
+   * @name showTermsAndConditionsModal 
+   *
+   * @description
+   * This method used to open terms and condition modal
+  */
   showTermsAndConditionsModal() {
     this.api.setUserData({
       username: this.scAuthService.userData._id
@@ -41,10 +47,16 @@ export class RedirectComponent implements OnInit {
       this.router.navigate(['/home']);
     });
   }
-
+   /**
+   *
+   * @name showWhitelistModal 
+   *
+   * @description
+   * This method used to open whitelist modal
+  */
   showWhitelistModal() {
     const dialogRef = this.dialog.open(WhitelistComponent, {
-      width: '2000px',
+      width: '450px',
       disableClose: true,
     });
   }
