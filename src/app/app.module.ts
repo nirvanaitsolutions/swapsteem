@@ -8,19 +8,7 @@ import { CookieModule } from 'ngx-cookie';
 import { AppComponent } from './app.component';
 import { FooterComponent } from './footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  MatDialogModule,
-  MatInputModule,
-  MatButtonModule,
-  MatFormFieldModule,
-  MatProgressSpinnerModule,
-  MatTableModule,
-  MatPaginatorModule,
-  MatMenuModule,
-  MatChipsModule,
-  MatSelectModule,
-  MatProgressBarModule
-} from '@angular/material';
+
 import { AppNavComponent } from './app-nav/app-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { HomeComponent } from './home/home.component';
@@ -54,7 +42,9 @@ import { ReviewComponent } from './components/review/review.component';
 import { BarRatingModule } from "ngx-bar-rating";
 import { CountdownModule } from 'ngx-countdown';
 import { AuthGuard } from '../guards/auth-guard.service';
+import { HelppageComponent } from './helppage/helppage.component';
 const config: SocketIoConfig = { url: 'https://swapsteem-api.herokuapp.com', options: {} };
+import { DemoMaterialModule } from './material-module'
 
 @NgModule({
   declarations: [
@@ -81,7 +71,8 @@ const config: SocketIoConfig = { url: 'https://swapsteem-api.herokuapp.com', opt
     SellSteemComponent,
     TradePipePipe,
     OrderComponent,
-    ReviewComponent
+    ReviewComponent,
+    HelppageComponent
   ],
   entryComponents: [ReviewComponent],
   imports: [
@@ -98,19 +89,9 @@ const config: SocketIoConfig = { url: 'https://swapsteem-api.herokuapp.com', opt
     FormsModule,
     NgxUiLoaderModule,
     SocketIoModule.forRoot(config),
-    MatInputModule,
-    MatDialogModule,
-    MatButtonModule,
     BarRatingModule,
-    MatFormFieldModule,
-    MatProgressSpinnerModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatMenuModule,
-    MatChipsModule,
-    MatSelectModule,
     CountdownModule,
-    MatProgressBarModule
+    DemoMaterialModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, AuthGuard],
   bootstrap: [AppComponent]

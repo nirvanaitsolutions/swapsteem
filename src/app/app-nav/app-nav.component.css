@@ -33,3 +33,42 @@
 .active{
   color: blue;
 }
+
+.profile-image{
+  width: 46px;
+  height: 46px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 6px 0px;
+  border-radius: 25px; 
+}
+.user-name{
+  margin-left: 20px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.profile-option{
+  position: absolute;
+  z-index: 999;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px;
+  background-color: white;
+  left: auto;
+  right: 0px;
+  width: 300px;
+  top: 50px;
+  text-align: left;
+  outline: none;
+  border-radius: 2px;
+  padding: 10px 15px 20px;
+  display: none;
+}
+.profile-wrapper:hover .profile-option{
+  display: block;
+}
+.menu-nav{
+  color: black;
+  font-weight: bold;
+}
+.profile-menu-wrapper{
+  padding: 10px;
+  border-bottom: 1px solid #dee2e6;
+}
