@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
+import { MatDialog } from '@angular/material';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { SteemconnectAuthService } from '../steemconnect/services/steemconnect-auth.service';
 import { APIService } from '../../service/api.service';
-
+import { SignupComponent } from '../components/signup/signup.component';
 @Component({
   selector: 'app-nav',
   templateUrl: './app-nav.component.html',
@@ -23,14 +24,14 @@ export class AppNavComponent implements OnInit {
   profile_url: string = '';
   constructor(private breakpointObserver: BreakpointObserver,
     public auth: SteemconnectAuthService,
-    private _apiService: APIService) {
-/**
- *
- * @name getUserData 
- *
- * @description
- * Use fro getting user info like name and profile Image URL
-*/
+    private _apiService: APIService, public dialog: MatDialog) {
+    /**
+     *
+     * @name getUserData 
+     *
+     * @description
+     * Use fro getting user info like name and profile Image URL
+    */
     this.auth.getUserData().subscribe((auth) => {
       if (auth) {
         this.userData = auth;
@@ -46,5 +47,20 @@ export class AppNavComponent implements OnInit {
       console.log(data);
       this.price = data;
     })
+  }
+
+  /**
+    *
+    * @name openSignupDialog 
+    *
+    * @description
+    * This method used to open signup component in modal
+   */
+
+  openSignupDialog(): void {
+    this.dialog.open(SignupComponent, {
+      width: '700px',
+      disableClose: true
+    });
   }
 }

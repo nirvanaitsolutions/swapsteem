@@ -286,14 +286,13 @@ export class OrderComponent implements OnInit {
   }
   /**
    *
-   * @name openReviewDialog 
+   * @name onFinished 
    *
    * @description
-   * This method used to open review component in modal
+   * This method used to cancel status after countdown finished
    * @param countdownInstance countdown timer instance
   */
   onFinished(countdownInstance) {
-    console.log('countdownInstance', countdownInstance);
     if (this.selectedOrder._id && this.selectedOrder.order_status !== 'canceled') {
       this.updateOrderStatus('canceled');
     }

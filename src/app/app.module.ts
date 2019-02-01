@@ -44,7 +44,11 @@ import { CountdownModule } from 'ngx-countdown';
 import { AuthGuard } from '../guards/auth-guard.service';
 import { HelppageComponent } from './helppage/helppage.component';
 const config: SocketIoConfig = { url: 'https://swapsteem-api.herokuapp.com', options: {} };
-import { DemoMaterialModule } from './material-module'
+import { DemoMaterialModule } from './material-module';
+import { SignupComponent } from './components/signup/signup.component';
+import { SignupstatusComponent } from './components/signupstatus/signupstatus.component';
+import { SignupstatusmodalComponent } from './components/signupstatusmodal/signupstatusmodal.component';
+
 
 @NgModule({
   declarations: [
@@ -72,9 +76,12 @@ import { DemoMaterialModule } from './material-module'
     TradePipePipe,
     OrderComponent,
     ReviewComponent,
-    HelppageComponent
+    HelppageComponent,
+    SignupComponent,
+    SignupstatusComponent,
+    SignupstatusmodalComponent,
   ],
-  entryComponents: [ReviewComponent],
+  entryComponents: [ReviewComponent, SignupComponent, SignupstatusmodalComponent],
   imports: [
     NgxAutoScrollModule,
     MomentModule,

@@ -1,8 +1,8 @@
 <div class="container-fluid">
   <nav class="navbar navbar-expand-lg navbar-light">
     <a class="navbar-brand" routerLink="/">SwapSteem</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-      aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -43,6 +43,9 @@
         <ng-template #guest>
           <button class="btn btn-primary signInLink " (click)="auth.login() ">
             <i class="fa fa-user" aria-hidden="true"></i> Login</button>
+          &nbsp;
+          <button class="btn btn-primary signInLink " (click)="openSignupDialog()">
+            <i class="fa fa-user" aria-hidden="true"></i> Signup</button>
         </ng-template>
       </div>
     </div>
