@@ -7,6 +7,7 @@
  */
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { SteemconnectAuthService } from '../../steemconnect/services/steemconnect-auth.service';
 
 @Component({
   selector: 'app-signupstatusmodal',
@@ -15,7 +16,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 })
 export class SignupstatusmodalComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<SignupstatusmodalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data) { }
+    @Inject(MAT_DIALOG_DATA) public data, public auth:SteemconnectAuthService) { }
 
   ngOnInit() { 
   }
