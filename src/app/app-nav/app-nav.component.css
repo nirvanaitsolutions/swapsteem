@@ -72,3 +72,14 @@
   padding: 10px;
   border-bottom: 1px solid #dee2e6;
 }
+.showDropDown{
+  display: block;
+}
+.nav-icon-css{
+  position: absolute;
+  top: 28px;
+  right: 0px;
+}
+.image-css{
+  height: 50px;
+}
