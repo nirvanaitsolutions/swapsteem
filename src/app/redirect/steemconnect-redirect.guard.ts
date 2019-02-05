@@ -37,10 +37,8 @@ export class SteemconnectRedirectGuard implements CanActivate {
         this.ngxService.stop();
         if (scAuthService) {
           this.scAuthService.userData = scAuthService;
-          this.router.navigate(['']);
           return true;
         }
-        this.router.navigate(['']);
         return false;
       }); // this might not be necessary - ensure `first` is imported if you use it
     }
