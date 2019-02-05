@@ -17,19 +17,39 @@ export class AppNavComponent implements OnInit {
       USD: ''
     }
   };
-
+  userData: any = {};
+  profile: any = {};
+  profile_url: string = '';
+  showProfileDropDown: boolean = false
   constructor(private breakpointObserver: BreakpointObserver,
     public auth: SteemconnectAuthService,
     private _apiService: APIService) {
-    
+    /**
+     *
+     * @name getUserData 
+     *
+     * @description
+     * Use fro getting user info like name and profile Image URL
+    */
+    setTimeout(() => {
+      this.auth.getUserData().subscribe((auth) => {
+        if (auth) {
+          this.userData = auth;
+          this.profile = this.userData.account.json_metadata ? JSON.parse(this.userData.account.json_metadata) : {};
+          this.profile_url = this.profile && this.profile.profile ? this.profile.profile.profile_image : '';
+        }
+      });
+    }, 1000)
 
 
   }
-
   ngOnInit() {
     this._apiService.getPrice().subscribe(data => {
       console.log(data);
       this.price = data;
     });
+  }
+  showDropDown() {
+    this.showProfileDropDown = !this.showProfileDropDown;
   }
 }
