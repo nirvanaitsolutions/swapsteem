@@ -8,6 +8,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { SteemconnectAuthService } from '../../steemconnect/services/steemconnect-auth.service';
+declare var SteemNinja;
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -24,14 +25,14 @@ export class SignupComponent implements OnInit {
   }
 
   onSignup() {
-    let ninja = new window['SteemNinja']("api_key", "referrer");
+    let ninja = new SteemNinja(process.env.signupkey, "referrer");
     ninja.setRedirectFailureUrl(encodeURIComponent(
       `${this.document.location.origin}/signup/failure`
     ));
     ninja.setRedirectSuccessUrl(encodeURIComponent(
       `${this.document.location.origin}/signup/success`
     ));
-    ninja.requestToken("account_15", "new_cool.account", 250).then(data => {
+    ninja.requestToken("account_15", this.userData.username, 250).then(data => {
       window.location.href = ninja.host + "/checkout?token=" + data.token;
     }).catch(error => {
       alert(error.error);
