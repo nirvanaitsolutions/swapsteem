@@ -75,7 +75,7 @@ import { DemoMaterialModule } from './material-module'
     OrderComponent,
     ReviewComponent,
     TermsAndConditionsComponent,
-    WhitelistComponent
+    WhitelistComponent,
     HelppageComponent
   ],
   entryComponents: [ReviewComponent,TermsAndConditionsComponent, WhitelistComponent],
