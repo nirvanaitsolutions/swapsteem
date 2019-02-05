@@ -42,6 +42,8 @@ import { ReviewComponent } from './components/review/review.component';
 import { BarRatingModule } from "ngx-bar-rating";
 import { CountdownModule } from 'ngx-countdown';
 import { AuthGuard } from '../guards/auth-guard.service';
+import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
+import { WhitelistComponent } from './components/whitelist/whitelist.component';
 import { HelppageComponent } from './helppage/helppage.component';
 const config: SocketIoConfig = { url: 'https://swapsteem-api.herokuapp.com', options: {} };
 import { DemoMaterialModule } from './material-module'
@@ -72,9 +74,11 @@ import { DemoMaterialModule } from './material-module'
     TradePipePipe,
     OrderComponent,
     ReviewComponent,
+    TermsAndConditionsComponent,
+    WhitelistComponent
     HelppageComponent
   ],
-  entryComponents: [ReviewComponent],
+  entryComponents: [ReviewComponent,TermsAndConditionsComponent, WhitelistComponent],
   imports: [
     NgxAutoScrollModule,
     MomentModule,

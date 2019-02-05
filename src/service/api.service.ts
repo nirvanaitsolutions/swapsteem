@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { AdvertisementResponse, AdvertisementRequest } from '../app/module/advertisement';
-import { SteemconnectAuthService } from '../app/steemconnect/services/steemconnect-auth.service'
+import { SteemconnectAuthService, MongoUserData } from '../app/steemconnect/services/steemconnect-auth.service'
 import { OrderResponse, OrderRequest } from '../app/module/order';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
@@ -13,6 +13,14 @@ export interface OAuth2Token {
   access_token: string;
   expires_in: number;
   username: string;
+}
+export interface UserData {
+  user: string;
+  _id: string;
+  name: string;
+  account: Account;
+  scope: string[];
+  user_metadata: Object;
 }
 
 @Injectable({
@@ -70,7 +78,14 @@ export class APIService {
     //httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
     return this._http.get<AdvertisementResponse[]>("https://swapsteem-api.herokuapp.com/listings/by_user/" + user);
   }
-
+  getUser(user: string) {
+    //httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
+    return this._http.get("https://swapsteem-api.herokuapp.com/users/" + user);
+  }
+  setUserData(user: MongoUserData): Observable<MongoUserData> {
+    console.log(user);
+    return this._http.post<MongoUserData>('https://swapsteem-api.herokuapp.com/users/', JSON.stringify(user));
+  }
   getOpenOrdersForUser(user: string) {
     //httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
     return this._http.get<OrderResponse[]>("https://swapsteem-api.herokuapp.com/orders/by_reciever/" + user);
@@ -179,7 +194,7 @@ export class APIService {
    * @param body review details
    * @returns {Api response}
   */
-  getReviews(id:string, by_type:string) {
+  getReviews(id: string, by_type: string) {
     return this._http.get<[ReviewResponse]>(`https://swapsteem-api.herokuapp.com/reviews/${by_type}/${id || ''}`);
   }
 
