@@ -6,19 +6,13 @@ import {
   Router
 } from '@angular/router';
 import {
-  OAuth2Token,
-  SteemconnectAuthService
+  OAuth2Token
 } from '../steemconnect/services/steemconnect-auth.service';
-import { APIService } from '../../service/api.service';
 import { Observable } from 'rxjs';
-import { NgxUiLoaderService } from 'ngx-ui-loader';
 @Injectable()
 export class SteemconnectRedirectGuard implements CanActivate {
   constructor(
-    private scAuthService: SteemconnectAuthService,
     private router: Router,
-    private apiSer: APIService,
-    private ngxService: NgxUiLoaderService,
   ) { }
 
   canActivate(
@@ -31,16 +25,7 @@ export class SteemconnectRedirectGuard implements CanActivate {
       expires_in: next.queryParams.expires_in
     };
     if (token.access_token) {
-      this.scAuthService.setAuthState(token);
-      this.ngxService.start();
-      return this.scAuthService.getUserData().map((scAuthService) => {
-        this.ngxService.stop();
-        if (scAuthService) {
-          this.scAuthService.userData = scAuthService;
-          return true;
-        }
-        return false;
-      }); // this might not be necessary - ensure `first` is imported if you use it
+      return true;
     }
     this.router.navigate(['']);
     return false
