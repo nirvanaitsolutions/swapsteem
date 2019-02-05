@@ -25,7 +25,7 @@ export class SignupComponent implements OnInit {
   }
 
   onSignup() {
-    let ninja = new SteemNinja(process.env.signupkey, "referrer");
+    let ninja = new SteemNinja(process.env.signupkey, "swapsteem");
     ninja.setRedirectFailureUrl(encodeURIComponent(
       `${this.document.location.origin}/signup/failure`
     ));
