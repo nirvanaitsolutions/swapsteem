@@ -34,6 +34,7 @@ export interface AdvertisementRequest {
     bank_code?: string;
     paypal_email?: string;
     place_of_exchange?: string;
+    upi_id?:string;
   }
 }
 
@@ -75,5 +76,6 @@ export interface AdvertisementResponse {
     bank_code?: string;
     paypal_email?: string;
     place_of_exchange?: string;
+    upi_id?:string;
   }
 }

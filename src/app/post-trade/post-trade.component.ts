@@ -50,7 +50,8 @@ export class PostTradeComponent implements OnInit {
       swift_bic_code: '',
       bank_code: '',
       paypal_email: '',
-      place_of_exchange: ''
+      place_of_exchange: '',
+      upi_id: ''
     }
   };
   objectKeys = Object.keys;
@@ -115,6 +116,7 @@ export class PostTradeComponent implements OnInit {
               bank_code: res.payment_details.bank_code,
               paypal_email: res.payment_details.paypal_email,
               place_of_exchange: res.payment_details.place_of_exchange,
+              upi_id: res.payment_details.upi_id
             }
           }
         };
@@ -134,5 +136,5 @@ export class PostTradeComponent implements OnInit {
   currency = ['INR']; // 'USD', 'KRW'
   ad_type = ['BUY', 'SELL'];
   ad_coin = ['STEEM', 'SBD'];
-  payment_methods = ['Bank Transfer', 'In Cash', 'PayPal'];
+  payment_methods = ['Bank Transfer', 'In Cash', 'PayPal', 'UPI'];
 }
