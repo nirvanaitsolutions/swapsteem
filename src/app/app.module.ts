@@ -43,12 +43,11 @@ import { BarRatingModule } from "ngx-bar-rating";
 import { CountdownModule } from 'ngx-countdown';
 import { AuthGuard } from '../guards/auth-guard.service';
 import { HelppageComponent } from './helppage/helppage.component';
-const config: SocketIoConfig = { url: 'https://swapsteem-api.herokuapp.com', options: {} };
 import { DemoMaterialModule } from './material-module';
 import { SignupComponent } from './components/signup/signup.component';
 import { SignupstatusComponent } from './components/signupstatus/signupstatus.component';
 import { SignupstatusmodalComponent } from './components/signupstatusmodal/signupstatusmodal.component';
-
+const config: SocketIoConfig = { url: environment.API_URL, options: {} };
 
 @NgModule({
   declarations: [

@@ -8,6 +8,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { SteemconnectAuthService } from '../../steemconnect/services/steemconnect-auth.service';
+import {environment} from '../../../environments/environment';
+
 declare var SteemNinja;
 @Component({
   selector: 'app-signup',
@@ -25,7 +27,7 @@ export class SignupComponent implements OnInit {
   }
 
   onSignup() {
-    let ninja = new SteemNinja(process.env.signupkey, "swapsteem");
+    let ninja = new SteemNinja(environment.SIGNUP_KEY, environment.REFERRER);
     ninja.setRedirectFailureUrl(encodeURIComponent(
       `${this.document.location.origin}/signup/failure`
     ));
