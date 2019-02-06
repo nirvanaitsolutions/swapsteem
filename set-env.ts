@@ -15,7 +15,7 @@ export const environment = {
   production: ${isProd},
   SIGNUP_KEY: "${process.env.SIGNUP_KEY}",
   steemconnectConfig: {
-    clientId: 'steemlinked.app',
+    clientId: "${process.env.STEEM_CONNECT_CLIENT_ID || 'https://swapsteem-api.herokuapp.com'}",
     scope: ['custom_json']
   },
   API_URL: "${process.env.API_URL || 'https://swapsteem-api.herokuapp.com'}",
