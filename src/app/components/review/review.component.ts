@@ -1,11 +1,13 @@
 /**
  *
- * @name order.component
+ * @name review.component
  * @author Shubham Vijay Vargiy (Shubh1692)
  * @description
- * This component used for view selected order status and perform escrow action by seller/buyer 
- * @requires id order id from url params
- * @requires status status for update after redirect from steemconnect
+ * This component used for take review after escrow relese 
+ * @requires ad_id listing id from modal params
+ * @requires order_id order id from modal params
+ * @requires createdby review created by
+ * @requires createdFor review created for 
  */
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';

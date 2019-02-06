@@ -1,0 +1,29 @@
+
+
+.heading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.submit-icon {
+    font-size: 31px;
+    font-weight: bolder;
+    margin-bottom: 10px;
+}
+
+.submit-button {
+    margin-bottom: 10px;
+}
+
+.close:focus {
+    border: none;
+    box-shadow: none;
+    outline:none !important;
+}
