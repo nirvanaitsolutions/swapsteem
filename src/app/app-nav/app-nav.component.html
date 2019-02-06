@@ -1,8 +1,8 @@
 <div class="container-fluid">
   <nav class="navbar navbar-expand-lg navbar-light">
-    <a class="navbar-brand" routerLink="/">SwapSteem</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand" routerLink="/"><img src="assets/logo.png" class="image-css"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+      aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -16,8 +16,12 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="sell-online">Sell</a>
         </li>
+
         <li class="nav-item">
           <a class="nav-link" routerLink="post-trade">Post a Trade</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="help">Help</a>
         </li>
       </ul>
       <div class="mx-auto btn btn-success">STEEM : {{price.STEEM.USD}} USD</div>
@@ -28,15 +32,16 @@
             <img src={{profile_url}} class="profile-image" *ngIf="profile_url != ''">
             <span class="user-name">{{userData.name}}</span>
           </div>
-          <div class="profile-option">
+          <i class="fa fa-arrow-up nav-icon-css" aria-hidden="true" (click)="showDropDown()"></i>
+          <div class="profile-option" [ngClass]="{'showDropDown': showProfileDropDown}">
             <div class="profile-menu-wrapper">
-              <a class="menu-nav" routerLink="wallet">Wallet</a>
+              <a class="menu-nav" routerLink="wallet">My traders</a>
             </div>
             <div class="profile-menu-wrapper">
               <a class="menu-nav" routerLink="profile">Profile</a>
             </div>
             <div (click)="auth.logout() " class="profile-menu-wrapper">
-              <a class="menu-nav" routerLink="profile">Logout</a>
+              <a class="menu-nav" routerLink="home">Logout</a>
             </div>
           </div>
         </div>

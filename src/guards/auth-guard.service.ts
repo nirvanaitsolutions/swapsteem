@@ -2,12 +2,13 @@ import { SteemconnectAuthService } from '../app/steemconnect/services/steemconne
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router, Route } from '@angular/router';
 import { Observable } from 'rxjs';
+import { APIService } from '../service/api.service'
 
 @Injectable()
 export class AuthGuard implements CanActivate {
 
 
-  constructor(public auth: SteemconnectAuthService, private _router: Router) {
+  constructor(public api: APIService, public auth: SteemconnectAuthService, private _router: Router) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
@@ -18,6 +19,8 @@ export class AuthGuard implements CanActivate {
       return this.auth.getUserData().map((auth) => {
         if (auth) {
           this.auth.userData = auth;
+          console.log(this.auth.userData, 'this.auth.userData')
+          // this.api.setUserData
           return true;
         }
         this.auth.login();

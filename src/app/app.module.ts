@@ -42,6 +42,8 @@ import { ReviewComponent } from './components/review/review.component';
 import { BarRatingModule } from "ngx-bar-rating";
 import { CountdownModule } from 'ngx-countdown';
 import { AuthGuard } from '../guards/auth-guard.service';
+import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
+import { WhitelistComponent } from './components/whitelist/whitelist.component';
 import { HelppageComponent } from './helppage/helppage.component';
 import { DemoMaterialModule } from './material-module';
 import { SignupComponent } from './components/signup/signup.component';
@@ -79,8 +81,10 @@ const config: SocketIoConfig = { url: environment.API_URL, options: {} };
     SignupComponent,
     SignupstatusComponent,
     SignupstatusmodalComponent,
+    TermsAndConditionsComponent,
+    WhitelistComponent,
   ],
-  entryComponents: [ReviewComponent, SignupComponent, SignupstatusmodalComponent],
+  entryComponents: [ReviewComponent,TermsAndConditionsComponent, WhitelistComponent, SignupComponent, SignupstatusmodalComponent],
   imports: [
     NgxAutoScrollModule,
     MomentModule,
