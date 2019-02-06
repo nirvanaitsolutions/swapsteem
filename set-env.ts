@@ -19,6 +19,7 @@ export const environment = {
     scope: ['custom_json']
   },
   API_URL: "${process.env.API_URL || 'https://swapsteem-api.herokuapp.com'}",
+  REFERRER: "${process.env.REFERRER}",
 };
 `
 writeFile(targetPath, envConfigFile, function (err) {
