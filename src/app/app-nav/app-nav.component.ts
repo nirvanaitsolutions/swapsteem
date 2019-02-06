@@ -26,6 +26,7 @@ export class AppNavComponent implements OnInit {
   constructor(private breakpointObserver: BreakpointObserver,
     public auth: SteemconnectAuthService,
     private _apiService: APIService, public dialog: MatDialog) {
+
     /**
      *
      * @name getUserData 
@@ -42,9 +43,7 @@ export class AppNavComponent implements OnInit {
         }
       });
     }, 1000)
-
-
-  }
+ }
   ngOnInit() {
     this._apiService.getPrice().subscribe(data => {
       console.log(data);
