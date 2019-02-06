@@ -3,8 +3,8 @@ import { Observable } from '../../node_modules/rxjs';
 import { AdvertisementResponse } from '../app/module/advertisement';
 import { HttpClient } from '@angular/common/http';
 import { filter } from '../../node_modules/rxjs/operators';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject'
-
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { environment } from '../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
@@ -31,7 +31,7 @@ export class AdverstisementService {
     this.filterAdType.next(ad_type);
   }
   getAdvertisementApi() {
-    this._advertisement = this._http.get<AdvertisementResponse>('https://swapsteem-api.herokuapp.com/listings')
+    this._advertisement = this._http.get<AdvertisementResponse>(`${environment.API_URL}/listings/`)
   }
 
   getAdvertisement(): Observable<AdvertisementResponse> {

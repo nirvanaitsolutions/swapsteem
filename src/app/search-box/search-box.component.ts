@@ -8,7 +8,7 @@ import { AdverstisementService } from '../../service/adverstisement.service'
   styleUrls: ['./search-box.component.css']
 })
 export class SearchBoxComponent implements OnInit {
-  currency_options = ['INR', 'USD', 'KRW'];
+  currency_options = ['INR'];//, 'USD', 'KRW'
   ad_coin_options = ['STEEM', 'SBD'];
   payment_methods_options = ['Bank Transfer', 'In Cash', 'PayPal'];
   ad_type_options = ['BUY', 'SELL'];

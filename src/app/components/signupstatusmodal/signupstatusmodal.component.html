@@ -1,0 +1,31 @@
+<div class="d-flex justify-content-between">
+  <h2 mat-dialog-title>&nbsp;</h2>
+  <button mat-icon-button mat-dialog-close class="close">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<mat-dialog-content>
+  <div [ngSwitch]="this.data.url.indexOf('success')">
+    <div *ngSwitchCase="'-1'">
+      <div class="heading">
+        <h2 mat-dialog-title>Signup Fail</h2>
+        <p>
+          Please try agian
+        </p>
+      </div>
+    </div>
+    <div *ngSwitchDefault>
+      <div class="heading">
+        <h2 mat-dialog-title>Signup Successfully</h2>
+        <p>
+          Please login
+        </p>
+        <div class="submit">
+          <button class="submit-button" color="primary" mat-raised-button (click)="auth.login()">Login</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</mat-dialog-content>
