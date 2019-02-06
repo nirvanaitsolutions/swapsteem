@@ -82,9 +82,10 @@ export class APIService {
     //httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
     return this._http.get("https://swapsteem-api.herokuapp.com/users/" + user);
   }
-  setUserData(user: MongoUserData): Observable<MongoUserData> {
+  setUserData(user: MongoUserData, access_token: string): Observable<MongoUserData> {
     console.log(user);
-    return this._http.post<MongoUserData>('https://swapsteem-api.herokuapp.com/users/', JSON.stringify(user));
+    const headers = new HttpHeaders({ 'No-Auth': 'True', 'Authorization': access_token, 'Content-Type':  'application/json' });
+    return this._http.post<MongoUserData>('https://swapsteem-api.herokuapp.com/users/', JSON.stringify(user), {headers});
   }
   getOpenOrdersForUser(user: string) {
     //httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
