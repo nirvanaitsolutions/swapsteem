@@ -12,8 +12,8 @@
     "config": "ts-node -r dotenv/config ./set-env.ts"
   },
   "engines": {
-    "node": "",
-    "npm": ""
+    "node": "8.11.4",
+    "npm": "5.6.0"
   },
   "private": true,
   "dependencies": {
