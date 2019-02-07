@@ -11,6 +11,7 @@ import {
   ActivatedRoute
 } from '@angular/router';
 import { WhitelistComponent } from '../components/whitelist/whitelist.component';
+import { environment } from '../../environments/environment';
 @Component({
   selector: 'app-redirect',
   templateUrl: './redirect.component.html',
@@ -45,7 +46,7 @@ export class RedirectComponent implements OnInit {
       username: userInfo.username
     }, userInfo.access_token).subscribe((user: MongoUserData) => {
       this.scAuthService.mongoUserData = user;
-      if (!this.scAuthService.mongoUserData.whitelisted) {
+      if (!this.scAuthService.mongoUserData.whitelisted && !environment.SKIP_WHITE_LIST) {
         this.showWhitelistModal();
         this.router.navigate(['/home']);
       } else if (!this.scAuthService.mongoUserData.tos_accepted) {
@@ -70,7 +71,7 @@ export class RedirectComponent implements OnInit {
           this.router.navigate(['/home']);
         })
       }
-      
+
     });
   }
   /**

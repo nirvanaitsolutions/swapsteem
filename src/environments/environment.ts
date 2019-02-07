@@ -11,5 +11,6 @@ export const environment = {
     scope: ['custom_json']
   },
   API_URL: 'https://swapsteem-api.herokuapp.com',
-  REFERRER: 'swapsteem'
+  REFERRER: 'swapsteem',
+  SKIP_WHITE_LIST: false
 };
