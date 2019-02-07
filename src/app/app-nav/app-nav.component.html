@@ -41,13 +41,16 @@
               <a class="menu-nav" routerLink="profile">Profile</a>
             </div>
             <div (click)="auth.logout() " class="profile-menu-wrapper">
-              <a class="menu-nav" routerLink="profile">Logout</a>
+              <a class="menu-nav" routerLink="home">Logout</a>
             </div>
           </div>
         </div>
         <ng-template #guest>
           <button class="btn btn-primary signInLink " (click)="auth.login() ">
             <i class="fa fa-user" aria-hidden="true"></i> Login</button>
+          &nbsp;
+          <button class="btn btn-primary signInLink " (click)="openSignupDialog()">
+            <i class="fa fa-user" aria-hidden="true"></i> Signup</button>
         </ng-template>
       </div>
     </div>

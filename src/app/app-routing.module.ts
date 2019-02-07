@@ -15,7 +15,7 @@ import { RedirectComponent } from './redirect/redirect.component';
 import { OrderComponent } from './order/order.component';
 import { AuthGuard } from '../guards/auth-guard.service';
 import { HelppageComponent } from './helppage/helppage.component'
-
+import {SignupstatusComponent} from './components/signupstatus/signupstatus.component';
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'buy-online', component: BuyPageComponent },
@@ -47,7 +47,12 @@ const appRoutes: Routes = [
     component: RedirectComponent
   },
   { path: 'order/:id', component: OrderComponent, canActivate: [AuthGuard] },
-
+  {
+    path: 'steemconnect/signup/success', component: SignupstatusComponent
+  },
+  {
+    path: 'steemconnect/signup/failure', component: SignupstatusComponent
+  },
   {
     path: '',
     redirectTo: '/home',
