@@ -83,6 +83,13 @@
           </mat-error>
         </mat-form-field>
       </div>
+      <div class="col-md-4" *ngIf="advertisement.ad_type == 'SELL' && advertisement.payment_methods === 'UPI'">
+        <mat-form-field class="full-width">
+          <input matInput #upiId="ngModel" placeholder="UPI ID" type="text" name="upi_id" id="upi_id" [(ngModel)]="advertisement.payment_details.upi_id"
+         required />
+         
+        </mat-form-field>
+      </div>
     </div>
     <div class="row">
       <button type="submit" class="col-sm-5 col-md-3 btn btn-success buttonLocation form-control ml-3 mt-3">
