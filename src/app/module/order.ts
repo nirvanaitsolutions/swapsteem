@@ -24,6 +24,7 @@ export interface OrderRequest {
         bank_code?: string;
         paypal_email?: string;
         place_of_exchange?: string;
+        upi_id?:string;
     }
 }
 
@@ -53,5 +54,6 @@ export interface OrderResponse {
         bank_code?: string;
         paypal_email?: string;
         place_of_exchange?: string;
+        upi_id?:string;
     }
 }
