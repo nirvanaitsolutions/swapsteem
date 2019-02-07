@@ -45,7 +45,8 @@ export class PurchaseComponent implements OnInit {
       swift_bic_code: '',
       bank_code: '',
       paypal_email: '',
-      place_of_exchange: ''
+      place_of_exchange: '',
+      upi_id:''
     }
   };
 

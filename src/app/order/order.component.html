@@ -81,13 +81,21 @@
         </div>
       </div>
       <div *ngIf="selectedAd.payment_methods[0] === 'PayPal'">
-          <div class="row">
-            <div class="col">
-              <h6>PayPal's Email</h6>
-              <p>{{payment_details.paypal_email}}</p>
-            </div>
+        <div class="row">
+          <div class="col">
+            <h6>PayPal's Email</h6>
+            <p>{{payment_details.paypal_email}}</p>
           </div>
         </div>
+      </div>
+      <div *ngIf="selectedAd.payment_methods[0] === 'UPI'">
+        <div class="row">
+          <div class="col">
+            <h6>UPI Id</h6>
+            <p>{{payment_details.upi_id}}</p>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="inner-box col">
       <h6>Order Status</h6>
