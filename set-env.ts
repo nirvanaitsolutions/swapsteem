@@ -23,6 +23,7 @@ export const environment = {
   SKIP_WHITE_LIST: "${process.env.SKIP_WHITE_LIST ? JSON.parse(process.env.SKIP_WHITE_LIST) : false}"
 };
 `
+console.log('envConfigFile', envConfigFile)
 writeFile(targetPath, envConfigFile, function (err) {
   if (err) {
     console.log(err);
