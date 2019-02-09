@@ -133,7 +133,17 @@ export class PostTradeComponent implements OnInit {
       this.ngxService.stop();
     }));
   }
-  currency = ['INR']; // 'USD', 'KRW'
+  changeCurrency(value) {
+    if (value === 'KRW') {
+      this.payment_methods = ['Bank Transfer', 'In Cash', 'PayPal'];
+      if(this.advertisement.payment_methods === 'UPI'){
+        this.advertisement.payment_methods = 'Bank Transfer'
+      }
+    } else {
+      this.payment_methods = ['Bank Transfer', 'In Cash', 'PayPal', 'UPI'];
+    }
+  }
+  currency = ['INR', 'KRW']; // 'USD', 'KRW'
   ad_type = ['BUY', 'SELL'];
   ad_coin = ['STEEM', 'SBD'];
   payment_methods = ['Bank Transfer', 'In Cash', 'PayPal', 'UPI'];
