@@ -10,29 +10,55 @@
           </mat-select>
         </mat-form-field>
         <mat-form-field class="full-width">
-          <mat-select [(ngModel)]="advertisement.ad_coin" placeholder="Ad Coin" name="ad_coin" required>
+          <mat-select [(ngModel)]="advertisement.from" placeholder="From" name="from" required>
             <mat-option *ngFor="let count of ad_coin" [value]="count">
               {{count}}
             </mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field class="full-width">
-          <mat-select (selectionChange)="changeCurrency($event.value)"  [(ngModel)]="advertisement.currency"
-            placeholder="Currency" name="currency" required>
+          <mat-select [(ngModel)]="advertisement.trade_type" placeholder="Trade Type" name="trade_type" required>
+            <mat-option *ngFor="let count of trade_type" [value]="count">
+              {{count}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <!-- <mat-form-field class="full-width">
+          <mat-select [(ngModel)]="advertisement.ad_coin" placeholder="To" name="ad_coin" required>
+            <mat-option *ngFor="let count of ad_coin" [value]="count">
+              {{count}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field> -->
+        <mat-form-field class="full-width" *ngIf="advertisement.trade_type === 'Fiat Market'">
+          <mat-select (selectionChange)="changeCurrency($event.value)" [(ngModel)]="advertisement.currency" placeholder="to" name="currency"
+            required>
             <mat-option *ngFor="let count of currency" [value]="count">
               {{count}}
             </mat-option>
           </mat-select>
         </mat-form-field>
+        <mat-form-field class="full-width" *ngIf="advertisement.trade_type === 'Crypto Market'">
+          <mat-select (selectionChange)="changeCurrency($event.value)" [(ngModel)]="advertisement.to" placeholder="to" name="currency"
+            required>
+            <mat-option *ngFor="let count of crypto_optios" [value]="count">
+              {{count}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
         <mat-form-field class="full-width">
           <input matInput placeholder="Margin" type="number" name="margin" id="margin" [(ngModel)]="advertisement.margin">
         </mat-form-field>
-        <mat-form-field class="full-width">
+        <mat-form-field class="full-width" *ngIf="advertisement.trade_type === 'Fiat Market'">
           <mat-select [(ngModel)]="advertisement.payment_methods" placeholder="Payment Methods" name="payment_methods" required>
             <mat-option *ngFor="let count of payment_methods" [value]="count">
               {{count}}
             </mat-option>
           </mat-select>
+        </mat-form-field>
+        <mat-form-field class="full-width" *ngIf="advertisement.trade_type === 'Crypto Market'">
+          <input matInput placeholder="Address" type="test" name="Address" id="Address" [(ngModel)]="advertisement.address">
         </mat-form-field>
         <mat-form-field class="full-width">
           <input matInput placeholder="Ad Coin Amount" type="number" name="ad_coin_amount" id="ad_coin_amount" [(ngModel)]="advertisement.ad_coin_amount"
