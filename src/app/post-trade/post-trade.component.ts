@@ -136,15 +136,18 @@ export class PostTradeComponent implements OnInit {
   changeCurrency(value) {
     if (value === 'KRW') {
       this.payment_methods = ['Bank Transfer', 'In Cash', 'PayPal'];
-      if(this.advertisement.payment_methods === 'UPI'){
+      if (this.advertisement.payment_methods === 'UPI') {
         this.advertisement.payment_methods = 'Bank Transfer'
       }
     } else {
       this.payment_methods = ['Bank Transfer', 'In Cash', 'PayPal', 'UPI'];
     }
   }
+  trade_type = ['Fiat Market','Crypto Market']
   currency = ['INR', 'KRW']; // 'USD', 'KRW'
   ad_type = ['BUY', 'SELL'];
   ad_coin = ['STEEM', 'SBD'];
-  payment_methods = ['Bank Transfer', 'In Cash', 'PayPal', 'UPI'];
+  payment_methods = ['Bank Transfer',  'PayPal', 'UPI']; // In cash
+  to_options = ['zxz', 'zxzxzx']
+  crypto_optios = ['BTC','EOS' ]
 }
