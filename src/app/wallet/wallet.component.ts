@@ -22,7 +22,7 @@ export class WalletComponent implements OnInit {
   @ViewChild('canceledorders') canceledOrdersPaginator: MatPaginator;
   @ViewChild('completeorders') completedOrdersPaginator: MatPaginator;
 
-  ordersDisplayedColumns: string[] = ['createdby', 'createdfor', 'order_coin_amount', 'order_coin', 'order_rate', 'order_fiat_amount', 'currency', 'order_payment_method', 'buttons'];
+  ordersDisplayedColumns: string[] = ['createdby', 'createdfor', 'order_coin_amount', 'order_coin', 'order_rate', 'order_fiat_amount', 'from', 'order_payment_method', 'buttons'];
   constructor(private ngxService: NgxUiLoaderService, private _auth: SteemconnectAuthService,
     private apiSer: APIService) { }
   openOrdersForYou: Observable<OrderResponse[]>;

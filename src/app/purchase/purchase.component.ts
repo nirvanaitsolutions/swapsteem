@@ -34,7 +34,7 @@ export class PurchaseComponent implements OnInit {
     order_payment_method: [],
     agree_terms: true,
     country: '',
-    currency: '',
+    from: '',
     escrow_rat_deadline: new Date(moment().add(2, 'hours').format('YYYY-MM-DDTHH:MM:SS')),
     escrow_exp_deadline: new Date(moment().add(3, 'days').format('YYYY-MM-DDTHH:MM:SS')),
     payment_details: {
@@ -61,14 +61,14 @@ export class PurchaseComponent implements OnInit {
       this.order.createdfor = this.selectedTrade.createdby;
       //todo - reverse ad type
       this.order.order_type = this.selectedTrade.ad_type == "BUY" ? "sell" : "buy";
-      this.order.order_coin = this.selectedTrade.ad_coin;
+      this.order.order_coin = this.selectedTrade.from;
       this.order.order_payment_method = this.selectedTrade.payment_methods;
       this.order.country = this.selectedTrade.country;
-      this.order.currency = this.selectedTrade.currency;
+      this.order.from = this.selectedTrade.from;
       //todo - calculate rate from margin
       //this.order.order_rate=this.selectedTrade.margin;
       if (this.order.order_coin == "STEEM") {
-        this.purchaseServ.getPriceByPair(this.order.order_coin, this.order.currency).subscribe(data => {
+        this.purchaseServ.getPriceByPair(this.order.order_coin, this.order.from).subscribe(data => {
           let priceResponse = Object.values(data);
           this.price = Math.round(priceResponse[0] * (1 + this.selectedTrade.margin / 100) * 100) / 100;
           console.log("price " + this.price)
@@ -77,7 +77,7 @@ export class PurchaseComponent implements OnInit {
 
       }
       else if (this.order.order_coin == "SBD") {
-        this.purchaseServ.getPriceByPair(this.order.order_coin, this.order.currency).subscribe(data => {
+        this.purchaseServ.getPriceByPair(this.order.order_coin, this.order.from).subscribe(data => {
           let priceResponse = Object.values(data);
           this.price = Math.round(priceResponse[0] * (1 + this.selectedTrade.margin / 100) * 100) / 100;
           this.order.order_rate = this.price;

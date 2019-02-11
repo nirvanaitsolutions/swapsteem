@@ -12,13 +12,13 @@ export class SearchBoxComponent implements OnInit {
   ad_coin_options = ['STEEM', 'SBD'];
   payment_methods_options = ['Bank Transfer', 'In Cash', 'PayPal'];
   ad_type_options = ['BUY', 'SELL'];
-  currency: any = ''
-  ad_coin: any = ''
+  from: any = ''
+  to: any = ''
   payment_methods: any = '';
   ad_type: any = '';
   constructor(public adverstisementService: AdverstisementService, private router: Router) {
-    this.adverstisementService.currencyFilter.subscribe(filter => this.currency = filter)
-    this.adverstisementService.adCoinFilter.subscribe(filter => this.ad_coin = filter)
+    this.adverstisementService.currencyFilter.subscribe(filter => this.from = filter)
+    this.adverstisementService.adCoinFilter.subscribe(filter => this.from = filter)
     this.adverstisementService.paymentMethodFilter.subscribe(filter => this.payment_methods = filter)
     this.adverstisementService.adTypeFilter.subscribe(filter => this.ad_type = filter)
   }
@@ -26,13 +26,13 @@ export class SearchBoxComponent implements OnInit {
   ngOnInit() {
   }
 
-  searchResult(ad_type, ad_coin, currency, payment_methods) {
+  searchResult(ad_type, from, to, payment_methods) {
     if (ad_type === 'SELL') {
       this.router.navigate(['/sell-online'])
     }
     else if (ad_type === 'BUY') {
       this.router.navigate(['/buy-online'])
     }
-    this.adverstisementService.changefilter(ad_type, currency, ad_coin, payment_methods)
+    this.adverstisementService.changefilter(ad_type, from, from, payment_methods)
   }
 }
