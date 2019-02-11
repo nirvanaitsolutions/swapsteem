@@ -18,14 +18,14 @@ export class PostTradeComponent implements OnInit {
   advertisement: AdvertisementRequest = {
     createdby: '',
     ad_type: '',
-    country: '',
+    market: '',
     payment_methods: '',
-    currency: 'USD',
+    to: 'USD',
     margin: 0,
     limit_from: 0,
     limit_to: 0,
     restricted_amounts: [],
-    ad_coin: 'STEEM',
+    from: 'STEEM',
     ad_status: 'open',
     ad_coin_amount: 0,
     terms: '',
@@ -67,7 +67,7 @@ export class PostTradeComponent implements OnInit {
     this.userData = this.auth.userData;
     this.advertisement.createdby = this.userData.name;
     console.log(this.userData);
-    this.api.getPriceByPair(this.advertisement.ad_coin, this.advertisement.currency).subscribe(data => {
+    this.api.getPriceByPair(this.advertisement.from, this.advertisement.to).subscribe(data => {
       this.cryptos = data;
       console.log(data)
       this.ngxService.stop();
@@ -83,14 +83,14 @@ export class PostTradeComponent implements OnInit {
           ...this.advertisement, ...{
             createdby: res.createdby,
             ad_type: res.ad_type,
-            country: res.country,
+            market: res.market,
             payment_methods: res.payment_methods[0],
-            currency: res.currency,
+            to: res.to,
             margin: res.margin,
             limit_from: res.limit_from,
             limit_to: res.limit_to,
             restricted_amounts: res.restricted_amounts,
-            ad_coin: res.ad_coin,
+            from: res.from,
             ad_status: res.ad_status,
             ad_coin_amount: res.ad_coin_amount,
             terms: res.terms,
@@ -135,19 +135,20 @@ export class PostTradeComponent implements OnInit {
   }
   changeCurrency(value) {
     if (value === 'KRW') {
-      this.payment_methods = ['Bank Transfer', 'In Cash', 'PayPal'];
+      this.fiat_payment_methods = ['Bank Transfer', 'In Cash', 'PayPal'];
       if (this.advertisement.payment_methods === 'UPI') {
         this.advertisement.payment_methods = 'Bank Transfer'
       }
     } else {
-      this.payment_methods = ['Bank Transfer', 'In Cash', 'PayPal', 'UPI'];
+      this.fiat_payment_methods = ['Bank Transfer', 'In Cash', 'PayPal', 'UPI'];
     }
   }
-  trade_type = ['Fiat Market','Crypto Market']
-  currency = ['INR', 'KRW']; // 'USD', 'KRW'
+  market = ['Fiat Market','Crypto Market']
+  to = ['INR', 'KRW']; // 'USD', 'KRW'
   ad_type = ['BUY', 'SELL'];
-  ad_coin = ['STEEM', 'SBD'];
-  payment_methods = ['Bank Transfer',  'PayPal', 'UPI']; // In cash
+  from = ['STEEM', 'SBD'];
+  fiat_payment_methods = ['Bank Transfer',  'PayPal', 'UPI']; 
+  crypto_payment_methods = ['Crypto Transfer']; // In cash
   to_options = ['zxz', 'zxzxzx']
-  crypto_optios = ['BTC','EOS' ]
+  crypto_options = ['BTC','EOS' ]
 }

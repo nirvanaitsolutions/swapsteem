@@ -1,15 +1,15 @@
 export interface AdvertisementRequest {
   createdby: string,
   ad_type: string,
-  country: string,
+  market: string,
   payment_methods: string,
-  currency: string,
   margin: number,
   limit_from: number,
   limit_to: number,
   restricted_amounts: string[],
-  ad_coin: string,
-  ad_coin_amount: number,
+  from: string,
+  to: string,
+  ad_coin_amount:number,
   ad_status: string,
   terms: string,
   ad_details: {
@@ -35,6 +35,7 @@ export interface AdvertisementRequest {
     paypal_email?: string;
     place_of_exchange?: string;
     upi_id?:string;
+    crypto_account?:string;
   }
 }
 
@@ -42,15 +43,15 @@ export interface AdvertisementResponse {
   _id: string
   createdby: string,
   ad_type: string,
-  country: string,
+  market: string,
   payment_methods: string[],
-  currency: string,
+  to: string,
   margin: number,
   limit_from: number,
   ad_status: string,
   limit_to: number,
   restricted_amounts: string[],
-  ad_coin: string,
+  from: string,
   ad_coin_amount: number,
   terms: string,
   __v: Number,
@@ -77,5 +78,6 @@ export interface AdvertisementResponse {
     paypal_email?: string;
     place_of_exchange?: string;
     upi_id?:string;
+    crypto_account?:string
   }
 }
