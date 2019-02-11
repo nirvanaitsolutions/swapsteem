@@ -18,15 +18,15 @@
         <td mat-cell *matCellDef="let element"> {{element.payment_methods}} </td>
       </ng-container>
       <!-- Coin Column -->
-      <ng-container matColumnDef="ad_coin">
+      <ng-container matColumnDef="from">
         <th mat-header-cell *matHeaderCellDef> To </th>
-        <td mat-cell *matCellDef="let element"> {{element.ad_coin}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.from}} </td>
       </ng-container>
 
       <!-- Fiat Column -->
-      <ng-container matColumnDef="currency">
+      <ng-container matColumnDef="to">
         <th mat-header-cell *matHeaderCellDef> Fiat </th>
-        <td mat-cell *matCellDef="let element"> {{element.currency}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.to}} </td>
       </ng-container>
       <!-- Limits Column -->
       <ng-container matColumnDef="limits">
@@ -36,7 +36,7 @@
       <!-- Price/Coin Column -->
       <ng-container matColumnDef="price">
         <th mat-header-cell *matHeaderCellDef> Price/Coin </th>
-        <td mat-cell *matCellDef="let element"> {{calculatePrice(element.ad_coin,element.currency, element.margin)}}
+        <td mat-cell *matCellDef="let element"> {{calculatePrice(element.from,element.to, element.margin)}}
         </td>
       </ng-container>
 

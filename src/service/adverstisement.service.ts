@@ -23,10 +23,10 @@ export class AdverstisementService {
 
   }
 
-  changefilter(ad_type, currency, ad_coin, payment_methods) {
+  changefilter(ad_type, to, from, payment_methods) {
     // Change Value for all Observable
-    this.filterCurrency.next(currency);
-    this.filterAdCoin.next(ad_coin);
+    this.filterCurrency.next(to);
+    this.filterAdCoin.next(from);
     this.filterPaymentMethod.next(payment_methods);
     this.filterAdType.next(ad_type);
   }
@@ -41,7 +41,7 @@ export class AdverstisementService {
 
   filter(amount: string,
     paymentCurrency: string,
-    location: string,
+    market: string,
     paymentMethod: string) {
 
     if (amount != '') {
@@ -51,12 +51,12 @@ export class AdverstisementService {
     }
     if (paymentCurrency != '') {
       this._advertisement.pipe(
-        filter(data => data.ad_coin == paymentCurrency)
+        filter(data => data.from == paymentCurrency)
       )
     }
-    if (location != '') {
+    if (market != '') {
       this._advertisement.pipe(
-        filter(data => data.country == location)
+        filter(data => data.market == market)
       )
     }
     console.log()
