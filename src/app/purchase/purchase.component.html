@@ -1,6 +1,6 @@
 <div class="container box">
     <div>
-        <h3>Trade {{selectedTrade.ad_coin}} for {{selectedTrade.currency}} using {{selectedTrade.payment_methods}}</h3>
+        <h3>Trade {{selectedTrade.from}} for {{selectedTrade.to}} using {{selectedTrade.payment_methods}}</h3>
         <p> with SwapSteem.com user {{selectedTrade.createdby}} </p>
     </div>
     <hr>
@@ -41,10 +41,10 @@
                     </table>
                 </div>
                 <div class="inner-box">
-                    <div class="btn btn-info form-row mr-2">{{selectedTrade.ad_coin}} <span><input min="0" type="number"
+                    <div class="btn btn-info form-row mr-2">{{selectedTrade.from}} <span><input min="0" type="number"
                                 step="any" name="order_coin_amount" [(ngModel)]="order.order_coin_amount"
                                 (ngModelChange)="changeToFiat()" /></span></div><br><br>
-                    <div class="btn btn-info form-row mr-2">{{selectedTrade.currency}} <span><input min="0" type="number"
+                    <div class="btn btn-info form-row mr-2">{{selectedTrade.to}} <span><input min="0" type="number"
                                 step="any" name="order_fiat_amount" [(ngModel)]="order.order_fiat_amount"
                                 (ngModelChange)="changeToCoin()" /></span></div>
                     <div class="form-group mt-3"><button type="submit" class="btn btn-success">Create Order</button></div>
@@ -66,8 +66,8 @@
                         <input matInput placeholder="Account number" type="text" name="account_number" id="account_number"
                             [(ngModel)]="order.payment_details.account_number" required>
                     </mat-form-field>
-                    <mat-form-field class="full-width" *ngIf="selectedTrade.currency === 'USD' || selectedTrade.currency === 'INR'">
-                        <input matInput [placeholder]="selectedTrade.currency === 'USD' ? 'ABA Number' : 'IFSC code' "
+                    <mat-form-field class="full-width" *ngIf="selectedTrade.to === 'USD' || selectedTrade.to === 'INR'">
+                        <input matInput [placeholder]="selectedTrade.to === 'USD' ? 'ABA Number' : 'IFSC code' "
                             type="text" name="bank_code" id="bank_code" [(ngModel)]="order.payment_details.bank_code"
                             required>
                     </mat-form-field>
