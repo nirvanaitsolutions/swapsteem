@@ -8,9 +8,9 @@ import { AdverstisementService } from '../../service/adverstisement.service'
   styleUrls: ['./search-box.component.css']
 })
 export class SearchBoxComponent implements OnInit {
-  currency_options = ['INR'];//, 'USD', 'KRW'
-  ad_coin_options = ['STEEM', 'SBD'];
-  payment_methods_options = ['Bank Transfer', 'In Cash', 'PayPal'];
+  to_options = ['INR','KRW','BTC','EOS'];//, 'USD', 'KRW'
+  from_options = ['STEEM', 'SBD'];
+  payment_methods_options = ['Bank Transfer', 'PayPal', 'Crypto Transfer'];
   ad_type_options = ['BUY', 'SELL'];
   from: any = ''
   to: any = ''
@@ -33,6 +33,6 @@ export class SearchBoxComponent implements OnInit {
     else if (ad_type === 'BUY') {
       this.router.navigate(['/buy-online'])
     }
-    this.adverstisementService.changefilter(ad_type, from, from, payment_methods)
+    this.adverstisementService.changefilter(ad_type, from, to, payment_methods)
   }
 }

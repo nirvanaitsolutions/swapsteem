@@ -24,8 +24,8 @@
           <a class="nav-link" routerLink="help">Help</a>
         </li>
       </ul>
-      <div class="mx-auto btn btn-success">STEEM : {{price.STEEM.USD}} USD</div>
-      <div class="mx-auto btn btn-success">SBD : {{price["SBD*"].USD}} USD</div>
+      <div class="mx-auto btn btn-success">STEEM : {{price.steem.usd}} USD</div>
+      <div class="mx-auto btn btn-success">SBD : {{price["steem-dollars"].usd}} USD</div>
       <div>
         <div *ngIf="(auth.authState | async); else guest " class="profile-wrapper">
           <div>
@@ -35,7 +35,7 @@
           <i class="fa fa-arrow-up nav-icon-css" aria-hidden="true" (click)="showDropDown()"></i>
           <div class="profile-option" [ngClass]="{'showDropDown': showProfileDropDown}">
             <div class="profile-menu-wrapper">
-              <a class="menu-nav" routerLink="wallet">My traders</a>
+              <a class="menu-nav" routerLink="wallet">My trades</a>
             </div>
             <div class="profile-menu-wrapper">
               <a class="menu-nav" routerLink="profile">Profile</a>

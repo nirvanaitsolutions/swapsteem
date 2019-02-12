@@ -12,11 +12,11 @@ import { SignupComponent } from '../components/signup/signup.component';
 export class AppNavComponent implements OnInit {
 
   price: any = {
-    STEEM: {
-      USD: ''
+    steem: {
+      usd: ''
     },
-    'SBD*': {
-      USD: ''
+    'steem-dollars': {
+      usd: ''
     }
   };
   userData: any = {};

@@ -28,7 +28,7 @@ export class ProfileComponent implements OnInit {
     private apiSer: APIService) {
   }
   reviewsDisplayedColumns: string[] = ['order_id', 'review_text', 'review_score'];
-  advertisementDisplayedColumns: string[] = ['payment_methods', 'ad_type', 'from', 'from', 'ad_coin_amount', 'limits', 'buttons'];
+  advertisementDisplayedColumns: string[] = ['payment_methods', 'ad_type', 'from', 'to', 'ad_coin_amount','buttons'];
   advertisementsDataSource: MatTableDataSource<AdvertisementResponse> = new MatTableDataSource([]);
   reviewsDataSource: MatTableDataSource<ReviewResponse> = new MatTableDataSource([]);
   @ViewChild('reviews') reviewsPaginator: MatPaginator;

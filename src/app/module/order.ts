@@ -6,13 +6,13 @@ export interface OrderRequest {
     escrowID: number,
     order_coin_amount: number,
     order_fiat_amount: number,
-    order_coin: string,
+    from: string,
+    to: string,
+    market: string,
     order_rate: number,
     order_payment_method: string[],
     agree_terms: true,
     order_status: string,
-    country: string,
-    from: string,
     escrow_rat_deadline: Date;
     escrow_exp_deadline: Date;
     payment_details?: {
@@ -25,6 +25,7 @@ export interface OrderRequest {
         paypal_email?: string;
         place_of_exchange?: string;
         upi_id?:string;
+        crypto_address?:string;
     }
 }
 
@@ -36,13 +37,14 @@ export interface OrderResponse {
     escrowID: number,
     order_type: string,
     order_coin_amount: number,
-    order_coin: string,
+    from: string,
+    to: string,
+    market: string,
     order_rate: number,
     order_payment_method: string[],
     agree_terms: true,
     order_status: string,
     country: string,
-    from: string
     escrow_rat_deadline?: Date;
     escrow_exp_deadline?: Date;
     payment_details?: {
@@ -55,5 +57,6 @@ export interface OrderResponse {
         paypal_email?: string;
         place_of_exchange?: string;
         upi_id?:string;
+        crypto_address?:string;
     }
 }

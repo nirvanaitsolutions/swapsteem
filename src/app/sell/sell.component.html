@@ -1,5 +1,5 @@
 <div class="box">
-  <h6 class="sellHeading">Sell Steem for Fiat</h6>
+  <h6 class="sellHeading">Sell Steem or SBD</h6>
   <div *ngIf="!sellSteemDataSource.data.length" class="no-data">
     <p>No Data! Go play Around to see something here</p>
   </div>
@@ -27,11 +27,6 @@
       <ng-container matColumnDef="to">
         <th mat-header-cell *matHeaderCellDef> To </th>
         <td mat-cell *matCellDef="let element"> {{element.to}} </td>
-      </ng-container>
-      <!-- Limits Column -->
-      <ng-container matColumnDef="limits">
-        <th mat-header-cell *matHeaderCellDef> Limits </th>
-        <td mat-cell *matCellDef="let element"> {{element.limit_from}} - {{element.limit_to}} </td>
       </ng-container>
       <!-- Price/Coin Column -->
       <ng-container matColumnDef="price">

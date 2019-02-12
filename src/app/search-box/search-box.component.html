@@ -24,7 +24,7 @@
                 <mat-option [value]="''">
                   Select
                 </mat-option>
-                <mat-option *ngFor="let count of ad_coin_options" [value]="count">
+                <mat-option *ngFor="let count of from_options" [value]="count">
                   {{count}}
                 </mat-option>
               </mat-select>
@@ -36,7 +36,7 @@
                 <mat-option [value]="''">
                   Select
                 </mat-option>
-                <mat-option *ngFor="let count of currency_options" [value]="count">
+                <mat-option *ngFor="let count of to_options" [value]="count">
                   {{count}}
                 </mat-option>
               </mat-select>

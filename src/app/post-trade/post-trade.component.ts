@@ -19,7 +19,7 @@ export class PostTradeComponent implements OnInit {
     createdby: '',
     ad_type: '',
     market: '',
-    payment_methods: '',
+    payment_method: '',
     to: 'USD',
     margin: 0,
     limit_from: 0,
@@ -84,7 +84,7 @@ export class PostTradeComponent implements OnInit {
             createdby: res.createdby,
             ad_type: res.ad_type,
             market: res.market,
-            payment_methods: res.payment_methods[0],
+            payment_method: res.payment_method,
             to: res.to,
             margin: res.margin,
             limit_from: res.limit_from,
@@ -115,8 +115,8 @@ export class PostTradeComponent implements OnInit {
               swift_bic_code: res.payment_details.swift_bic_code,
               bank_code: res.payment_details.bank_code,
               paypal_email: res.payment_details.paypal_email,
-              place_of_exchange: res.payment_details.place_of_exchange,
-              upi_id: res.payment_details.upi_id
+              upi_id: res.payment_details.upi_id,
+              crypto_address: res.payment_details.crypto_address
             }
           }
         };
@@ -136,19 +136,20 @@ export class PostTradeComponent implements OnInit {
   changeCurrency(value) {
     if (value === 'KRW') {
       this.fiat_payment_methods = ['Bank Transfer', 'In Cash', 'PayPal'];
-      if (this.advertisement.payment_methods === 'UPI') {
-        this.advertisement.payment_methods = 'Bank Transfer'
+      if (this.advertisement.payment_method === 'UPI') {
+        this.advertisement.payment_method = 'Bank Transfer'
       }
     } else {
       this.fiat_payment_methods = ['Bank Transfer', 'In Cash', 'PayPal', 'UPI'];
     }
   }
-  market = ['Fiat Market','Crypto Market']
-  to = ['INR', 'KRW']; // 'USD', 'KRW'
+  market = ['FIAT','CRYPTO','TOKEN']
+  fiat_options = ['INR', 'KRW']; // 'USD', 'KRW'
   ad_type = ['BUY', 'SELL'];
   from = ['STEEM', 'SBD'];
   fiat_payment_methods = ['Bank Transfer',  'PayPal', 'UPI']; 
   crypto_payment_methods = ['Crypto Transfer']; // In cash
-  to_options = ['zxz', 'zxzxzx']
+  token_options = ['SWEET', 'ENG']
   crypto_options = ['BTC','EOS' ]
+  
 }
