@@ -131,7 +131,7 @@ export class PurchaseComponent implements OnInit {
    * This method used to create a new order
    * @requires order order derails
   */
-  createOrder() {
+  onSubmit() {
     console.log("onsubmit called")
     let now = new Date();
     this.order.escrowID = Math.floor(now.getTime() / 1000);
