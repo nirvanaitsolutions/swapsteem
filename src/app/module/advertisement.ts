@@ -35,7 +35,7 @@ export interface AdvertisementRequest {
     paypal_email?: string;
     place_of_exchange?: string;
     upi_id?:string;
-    crypto_account?:string;
+    crypto_address?:string;
   }
 }
 
@@ -78,6 +78,6 @@ export interface AdvertisementResponse {
     paypal_email?: string;
     place_of_exchange?: string;
     upi_id?:string;
-    crypto_account?:string
+    crypto_address?:string
   }
 }
