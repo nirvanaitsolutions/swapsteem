@@ -46,8 +46,8 @@ export class PurchaseComponent implements OnInit {
       bank_code: '',
       paypal_email: '',
       place_of_exchange: '',
-      upi_id:'',
-      crypto_address:''
+      upi_id: '',
+      crypto_address: ''
     }
   };
 
@@ -70,18 +70,20 @@ export class PurchaseComponent implements OnInit {
       //this.order.order_rate=this.selectedTrade.margin;
       if (this.order.from == "STEEM") {
         this.purchaseServ.getPriceByPair(this.order.from, this.order.to).subscribe(data => {
-          let priceResponse = data;
-          console.log("price " + data[0])
-          this.price = priceResponse[0] * (1 + this.selectedTrade.margin / 100) * 100;
-          console.log("price " + this.price)
+          let priceResponse = data['steem'];
+          console.log(data, 'data')
+          console.log("price ", data['steem'], 'steem');
+          this.price = priceResponse['btc'] ? priceResponse['btc'] * (1 + this.selectedTrade.margin / 100) * 100 : priceResponse['eos'] * (1 + this.selectedTrade.margin / 100) * 100
           this.order.order_rate = this.price;
         });
 
       }
       else if (this.order.from == "SBD") {
         this.purchaseServ.getPriceByPair(this.order.from, this.order.to).subscribe(data => {
-          let priceResponse = Object.values(data);
-          this.price = priceResponse[0] * (1 + this.selectedTrade.margin / 100) * 100;
+          let priceResponse = data['sbd'];
+          console.log(data, 'data')
+          console.log("price ", data['sbd'], 'sbd');
+          this.price = priceResponse['btc'] ? priceResponse['btc'] * (1 + this.selectedTrade.margin / 100) * 100 : priceResponse['eos'] * (1 + this.selectedTrade.margin / 100) * 100
           this.order.order_rate = this.price;
         });
 
