@@ -36,14 +36,14 @@
                     <div class="btn btn-info form-row mr-2 relative">{{selectedTrade.from}} <span><input min="20" type="number"
                                 step="any" name="order_coin_amount" [(ngModel)]="order.order_coin_amount"
                                 (ngModelChange)="changeToFiat()" /></span>
-                                <div *ngIf="orderForm.submitted &&  order.order_coin_amount < 20" class="steem-error-text">
-                                    {{selectedTrade.from}} must be greter or equal to 20
+                                <div *ngIf=" order.order_coin_amount > 20" class="steem-error-text">
+                                    {{selectedTrade.from}} must be less than or equal to 20
                                 </div>
                             </div><br><br>
                     <div class="btn btn-info form-row mr-2">{{selectedTrade.to}} <span><input min="0" type="number"
                                 step="any" name="order_fiat_amount" [(ngModel)]="order.order_fiat_amount"
                                 (ngModelChange)="changeToCoin()" /></span></div>
-                    <div class="form-group mt-3"><button type="submit" class="btn btn-success">Create Order</button></div>
+                    <div class="form-group mt-3"><button (click)="createOrder()" class="btn btn-success">Create Order</button></div>
                 </div>
             </div>
             <div class="col inner-box-right">

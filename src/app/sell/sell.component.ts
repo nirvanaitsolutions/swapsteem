@@ -88,34 +88,34 @@ export class SellComponent implements OnInit {
     if (from == "STEEM") {
       switch (to) {
         case "USD":
-          return this.steemPrice[0] * (1 + margin / 100) * 100;
+          return this.steemPrice[0] * (1 + margin / 100) ;
         case "INR":
-          return this.steemPrice[1] * (1 + margin / 100) * 100;
+          return this.steemPrice[1] * (1 + margin / 100) ;
         case "KRW":
-          return this.steemPrice[2] * (1 + margin / 100) * 100;
+          return this.steemPrice[2] * (1 + margin / 100) ;
           case "BTC":
-          return this.steemPrice[3] * (1 + margin / 100) * 100;
+          return this.steemPrice[3] * (1 + margin / 100) ;
         case "EOS":
-          return this.steemPrice[4] * (1 + margin / 100) * 100;
+          return this.steemPrice[4] * (1 + margin / 100) ;
         case "ETH":
-          return this.steemPrice[5] * (1 + margin / 100) * 100;
+          return this.steemPrice[5] * (1 + margin / 100) ;
       }
 
     }
     else if (from == "SBD") {
       switch (to) {
         case "USD":
-          return this.sbdPrice[0] * (1 + margin / 100) * 100;
+          return this.sbdPrice[0] * (1 + margin / 100) ;
         case "INR":
-          return this.sbdPrice[1] * (1 + margin / 100) * 100;
+          return this.sbdPrice[1] * (1 + margin / 100) ;
         case "KRW":
-          return this.sbdPrice[2] * (1 + margin / 100) * 100;
+          return this.sbdPrice[2] * (1 + margin / 100) ;
         case "BTC":
-          return this.sbdPrice[3] * (1 + margin / 100) * 100;
+          return this.sbdPrice[3] * (1 + margin / 100) ;
         case "EOS":
-          return this.sbdPrice[4] * (1 + margin / 100) * 100;
+          return this.sbdPrice[4] * (1 + margin / 100) ;
         case "ETH":
-          return this.sbdPrice[5] * (1 + margin / 100) * 100;
+          return this.sbdPrice[5] * (1 + margin / 100) ;
       }
 
     }

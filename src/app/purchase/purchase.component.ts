@@ -73,7 +73,15 @@ export class PurchaseComponent implements OnInit {
           let priceResponse = data['steem'];
           console.log(data, 'data')
           console.log("price ", data['steem'], 'steem');
-          this.price = priceResponse['btc'] ? priceResponse['btc'] * (1 + this.selectedTrade.margin / 100) * 100 : priceResponse['eos'] * (1 + this.selectedTrade.margin / 100) * 100
+          if (this.order.to == "ENG" || this.order.to == "SWEET"){
+            this.price =  (1 + this.selectedTrade.margin / 100) 
+          } else
+          if (this.order.to == "INR" || this.order.to == "KRW"){
+            this.price = priceResponse['inr'] ? priceResponse['inr'] * (1 + this.selectedTrade.margin / 100) : priceResponse['krw'] * (1 + this.selectedTrade.margin / 100) 
+          }
+          else{
+            this.price = priceResponse['btc'] ? priceResponse['btc'] * (1 + this.selectedTrade.margin / 100)  : priceResponse['eos'] * (1 + this.selectedTrade.margin / 100) ;
+          }
           this.order.order_rate = this.price;
         });
 
@@ -83,7 +91,14 @@ export class PurchaseComponent implements OnInit {
           let priceResponse = data['sbd'];
           console.log(data, 'data')
           console.log("price ", data['sbd'], 'sbd');
-          this.price = priceResponse['btc'] ? priceResponse['btc'] * (1 + this.selectedTrade.margin / 100) * 100 : priceResponse['eos'] * (1 + this.selectedTrade.margin / 100) * 100
+          if (this.order.to == "ENG" || this.order.to == "SWEET"){
+            this.price =  (1 + this.selectedTrade.margin / 100) 
+          } else
+          if (this.order.to == "INR" || this.order.to == "KRW"){
+            this.price = priceResponse['inr'] ? priceResponse['inr'] * (1 + this.selectedTrade.margin / 100) : priceResponse['krw'] * (1 + this.selectedTrade.margin / 100) 
+          } else{
+            this.price = priceResponse['btc'] ? priceResponse['btc'] * (1 + this.selectedTrade.margin / 100) : priceResponse['eos'] * (1 + this.selectedTrade.margin / 100) 
+          }
           this.order.order_rate = this.price;
         });
 
@@ -116,7 +131,8 @@ export class PurchaseComponent implements OnInit {
    * This method used to create a new order
    * @requires order order derails
   */
-  onSubmit() {
+  createOrder() {
+    console.log("onsubmit called")
     let now = new Date();
     this.order.escrowID = Math.floor(now.getTime() / 1000);
     this.order.escrow_rat_deadline = new Date(moment().add(2, 'hours').format());

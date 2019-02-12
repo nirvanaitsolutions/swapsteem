@@ -251,7 +251,7 @@
           <!-- COIN Column -->
           <ng-container matColumnDef="order_coin">
             <th mat-header-cell *matHeaderCellDef> COIN </th>
-            <td mat-cell *matCellDef="let element"> {{element.order_coin}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.from}} </td>
           </ng-container>
           <!-- RATE Column -->
           <ng-container matColumnDef="order_rate">
@@ -262,13 +262,13 @@
 
           <!--  FAIT AMOUNT Column -->
           <ng-container matColumnDef="order_fiat_amount">
-            <th mat-header-cell *matHeaderCellDef> FAIT AMOUNT </th>
+            <th mat-header-cell *matHeaderCellDef> TO AMOUNT </th>
             <td mat-cell *matCellDef="let element"> {{element.order_fiat_amount}} </td>
           </ng-container>
           <!-- FAIT Column -->
           <ng-container matColumnDef="from">
-            <th mat-header-cell *matHeaderCellDef> FAIT </th>
-            <td mat-cell *matCellDef="let element"> {{element.from}} </td>
+            <th mat-header-cell *matHeaderCellDef> TO </th>
+            <td mat-cell *matCellDef="let element"> {{element.to}} </td>
           </ng-container>
           <!--  PAYMENT METHODS  Column -->
           <ng-container matColumnDef="order_payment_method">
