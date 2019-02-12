@@ -19,9 +19,9 @@ export class BuyComponent implements OnInit {
 
   steemPrice: any;
   sbdPrice: any;
-  currencyFilter: any = false;
+  toFilter: any = false;
   adCoinFilter: any = false;
-  buySteemDisplayedColumns: string[] = ['createdby', 'payment_methods', 'ad_coin', 'currency', 'limits', 'price', 'buttons'];
+  buySteemDisplayedColumns: string[] = ['createdby', 'payment_methods', 'from', 'to', 'limits', 'price', 'buttons'];
   buySteemDataSource: MatTableDataSource<AdvertisementResponse> = new MatTableDataSource([]);
   buySteem: Array<AdvertisementResponse> = [];
   @ViewChild('buysteem') buySteemPaginator: MatPaginator;
@@ -45,7 +45,7 @@ export class BuyComponent implements OnInit {
 
     // Added suscribe for all filter(Observable) for real time data change 
     this.adverstisementService.currencyFilter.subscribe(filter => {
-      this.currencyFilter = filter;
+      this.toFilter = filter;
       this.updateBuySteemDataSource();
     })
     this.adverstisementService.adCoinFilter.subscribe(filter => {
@@ -61,13 +61,13 @@ export class BuyComponent implements OnInit {
   * @description
   * This method update filter advertisement table
   * @requires buySteem open advertisement list
-  * @requires currencyFilter filter currency value 
+  * @requires toFilter filter to value 
   * @requires adCoinFilter  filter coin value
  */
   updateBuySteemDataSource() {
     let filterBuySteem: Array<AdvertisementResponse> = this.buySteem;
-    this.currencyFilter ? filterBuySteem = filterBuySteem.filter((ad) => (ad.currency === this.currencyFilter)) : '';
-    this.adCoinFilter ? filterBuySteem = filterBuySteem.filter((ad) => (ad.ad_coin === this.adCoinFilter)) : '';
+    this.toFilter ? filterBuySteem = filterBuySteem.filter((ad) => (ad.to === this.toFilter)) : '';
+    this.adCoinFilter ? filterBuySteem = filterBuySteem.filter((ad) => (ad.from === this.adCoinFilter)) : '';
     this.buySteemDataSource = new MatTableDataSource(filterBuySteem);
     this.buySteemDataSource.paginator = this.buySteemPaginator;
   }
@@ -79,10 +79,10 @@ export class BuyComponent implements OnInit {
     * @description
     * This method used to calculate price using advertisement margin
     * @param from advertisement coin value
-    * @param to advertisement currency value
+    * @param to advertisement to value
     * @param margin advertisement margin value
-    * @requires steemPrice steem price value for different currency
-    * @requires sbdPrice sbd price value for different currency
+    * @requires steemPrice steem price value for different to
+    * @requires sbdPrice sbd price value for different to
    */
   calculatePrice(from: string, to: string, margin: number) {
     if (from == "STEEM") {

@@ -66,8 +66,8 @@
             <p>{{payment_details.bank_code}}</p>
           </div>
           <div class="col">
-            <h6 for="bank_code" *ngIf="selectedAd.currency === 'USD'">ABA Number</h6>
-            <h6 for="bank_code" *ngIf="selectedAd.currency === 'INR'">IFSC Code</h6>
+            <h6 for="bank_code" *ngIf="selectedAd.to === 'USD'">ABA Number</h6>
+            <h6 for="bank_code" *ngIf="selectedAd.to === 'INR'">IFSC Code</h6>
             <p>{{payment_details.swift_bic_code}}</p>
           </div>
         </div>

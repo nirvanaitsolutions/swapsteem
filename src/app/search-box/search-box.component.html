@@ -20,7 +20,7 @@
           </td>
           <td>
             <mat-form-field>
-              <mat-select [(ngModel)]="ad_coin" name="ad_coin">
+              <mat-select [(ngModel)]="from" name="from">
                 <mat-option [value]="''">
                   Select
                 </mat-option>
@@ -32,7 +32,7 @@
           </td>
           <td>
             <mat-form-field>
-              <mat-select [(ngModel)]="currency" name="currency">
+              <mat-select [(ngModel)]="to" name="to">
                 <mat-option [value]="''">
                   Select
                 </mat-option>
@@ -44,7 +44,7 @@
           </td>
           <td>
             <mat-chip-list>
-              <mat-chip color="primary" (click)="searchResult(ad_type,ad_coin,currency,payment_methods)" selected>Search
+              <mat-chip color="primary" (click)="searchResult(ad_type,from,to,payment_methods)" selected>Search
                 For Trades</mat-chip>
             </mat-chip-list>
           </td>

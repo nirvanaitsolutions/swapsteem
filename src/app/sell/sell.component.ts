@@ -21,7 +21,7 @@ export class SellComponent implements OnInit {
   sbdPrice: any;
   currencyFilter: any = false;
   adCoinFilter: any = false;
-  sellSteemDisplayedColumns: string[] = ['createdby', 'payment_methods', 'ad_coin', 'currency', 'limits', 'price', 'buttons'];
+  sellSteemDisplayedColumns: string[] = ['createdby', 'payment_methods', 'from', 'to', 'limits', 'price', 'buttons'];
   sellSteemDataSource: MatTableDataSource<AdvertisementResponse> = new MatTableDataSource([]);
   sellSteem: Array<AdvertisementResponse> = [];
   @ViewChild('sellsteem') sellSteemPaginator: MatPaginator;
@@ -61,13 +61,13 @@ export class SellComponent implements OnInit {
   * @description
   * This method update filter advertisement table
   * @requires sellSteem open advertisement list
-  * @requires currencyFilter filter currency value 
+  * @requires currencyFilter filter to value 
   * @requires adCoinFilter  filter coin value
  */
   updateSellSteemDataSource() {
     let filterSellSteem: Array<AdvertisementResponse> = this.sellSteem;
-    this.currencyFilter ? filterSellSteem = filterSellSteem.filter((ad) => (ad.currency === this.currencyFilter)) : '';
-    this.adCoinFilter ? filterSellSteem = filterSellSteem.filter((ad) => (ad.ad_coin === this.adCoinFilter)) : '';
+    this.currencyFilter ? filterSellSteem = filterSellSteem.filter((ad) => (ad.to === this.currencyFilter)) : '';
+    this.adCoinFilter ? filterSellSteem = filterSellSteem.filter((ad) => (ad.from === this.adCoinFilter)) : '';
     this.sellSteemDataSource = new MatTableDataSource(filterSellSteem);
     this.sellSteemDataSource.paginator = this.sellSteemPaginator;
   }
@@ -79,10 +79,10 @@ export class SellComponent implements OnInit {
     * @description
     * This method used to calculate price using advertisement margin
     * @param from advertisement coin value
-    * @param to advertisement currency value
+    * @param to advertisement to value
     * @param margin advertisement margin value
-    * @requires steemPrice steem price value for different currency
-    * @requires sbdPrice sbd price value for different currency
+    * @requires steemPrice steem price value for different to
+    * @requires sbdPrice sbd price value for different to
    */
   calculatePrice(from: string, to: string, margin: number) {
     if (from == "STEEM") {

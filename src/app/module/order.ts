@@ -12,7 +12,7 @@ export interface OrderRequest {
     agree_terms: true,
     order_status: string,
     country: string,
-    currency: string,
+    from: string,
     escrow_rat_deadline: Date;
     escrow_exp_deadline: Date;
     payment_details?: {
@@ -42,7 +42,7 @@ export interface OrderResponse {
     agree_terms: true,
     order_status: string,
     country: string,
-    currency: string
+    from: string
     escrow_rat_deadline?: Date;
     escrow_exp_deadline?: Date;
     payment_details?: {

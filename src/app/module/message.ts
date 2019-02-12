@@ -21,5 +21,5 @@ export interface MessageResponse {
     agree_terms: true,
     order_status:string,
     country:string,
-    currency:string
+    from:string
 }
