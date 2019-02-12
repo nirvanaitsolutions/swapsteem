@@ -26,3 +26,17 @@
 .full-width {
     width: 100% !important;
 }
+
+.relative {
+    position: relative;
+}
+
+.steem-error-text {
+    color: red;
+    font-size: 12px;
+    position: absolute;
+    text-align: right;
+    width: 100%;
+    bottom: -17px;
+    right: 0;
+}
