@@ -4,7 +4,7 @@
         <p> with SwapSteem.com user {{selectedTrade.createdby}} </p>
     </div>
     <hr>
-    <form #orderForm="ngForm" novalidate (ngSubmit)="orderForm.valid ? onSubmit() : ''">
+    <form #orderForm="ngForm" novalidate (ngSubmit)="orderForm.valid && order.order_coin_amount >= 20 ? onSubmit() : ''">
         <div class="row">
 
             <div class="col">
@@ -41,9 +41,13 @@
                     </table>
                 </div>
                 <div class="inner-box">
-                    <div class="btn btn-info form-row mr-2">{{selectedTrade.from}} <span><input min="0" type="number"
+                    <div class="btn btn-info form-row mr-2 relative">{{selectedTrade.from}} <span><input min="20" type="number"
                                 step="any" name="order_coin_amount" [(ngModel)]="order.order_coin_amount"
-                                (ngModelChange)="changeToFiat()" /></span></div><br><br>
+                                (ngModelChange)="changeToFiat()" /></span>
+                                <div *ngIf="orderForm.submitted &&  order.order_coin_amount < 20" class="steem-error-text">
+                                    {{selectedTrade.from}} must be greter or equal to 20
+                                </div>
+                            </div><br><br>
                     <div class="btn btn-info form-row mr-2">{{selectedTrade.to}} <span><input min="0" type="number"
                                 step="any" name="order_fiat_amount" [(ngModel)]="order.order_fiat_amount"
                                 (ngModelChange)="changeToCoin()" /></span></div>
