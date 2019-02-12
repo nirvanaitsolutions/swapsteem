@@ -99,6 +99,10 @@ export class SellComponent implements OnInit {
           return this.steemPrice[4] * (1 + margin / 100) ;
         case "ETH":
           return this.steemPrice[5] * (1 + margin / 100) ;
+        case "ENG":
+          return  (1 + margin / 100) ;
+        case "SWEET":
+          return (1 + margin / 100) ;
       }
 
     }
@@ -116,6 +120,10 @@ export class SellComponent implements OnInit {
           return this.sbdPrice[4] * (1 + margin / 100) ;
         case "ETH":
           return this.sbdPrice[5] * (1 + margin / 100) ;
+        case "ENG":
+          return  (1 + margin / 100) ;
+        case "SWEET":
+          return (1 + margin / 100) ;
       }
 
     }
