@@ -19,7 +19,7 @@ export class PostTradeComponent implements OnInit {
     createdby: '',
     ad_type: '',
     market: '',
-    payment_methods: '',
+    payment_method: '',
     to: 'USD',
     margin: 0,
     limit_from: 0,
@@ -84,7 +84,7 @@ export class PostTradeComponent implements OnInit {
             createdby: res.createdby,
             ad_type: res.ad_type,
             market: res.market,
-            payment_methods: res.payment_methods[0],
+            payment_method: res.payment_method,
             to: res.to,
             margin: res.margin,
             limit_from: res.limit_from,
@@ -136,8 +136,8 @@ export class PostTradeComponent implements OnInit {
   changeCurrency(value) {
     if (value === 'KRW') {
       this.fiat_payment_methods = ['Bank Transfer', 'In Cash', 'PayPal'];
-      if (this.advertisement.payment_methods === 'UPI') {
-        this.advertisement.payment_methods = 'Bank Transfer'
+      if (this.advertisement.payment_method === 'UPI') {
+        this.advertisement.payment_method = 'Bank Transfer'
       }
     } else {
       this.fiat_payment_methods = ['Bank Transfer', 'In Cash', 'PayPal', 'UPI'];
