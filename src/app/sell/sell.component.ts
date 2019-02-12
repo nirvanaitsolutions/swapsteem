@@ -21,7 +21,7 @@ export class SellComponent implements OnInit {
   sbdPrice: any;
   currencyFilter: any = false;
   adCoinFilter: any = false;
-  sellSteemDisplayedColumns: string[] = ['createdby', 'payment_methods', 'from', 'to', 'limits', 'price', 'buttons'];
+  sellSteemDisplayedColumns: string[] = ['createdby', 'payment_methods', 'from', 'to', 'price', 'buttons'];
   sellSteemDataSource: MatTableDataSource<AdvertisementResponse> = new MatTableDataSource([]);
   sellSteem: Array<AdvertisementResponse> = [];
   @ViewChild('sellsteem') sellSteemPaginator: MatPaginator;
@@ -88,22 +88,34 @@ export class SellComponent implements OnInit {
     if (from == "STEEM") {
       switch (to) {
         case "USD":
-          return Math.round(this.steemPrice[0] * (1 + margin / 100) * 100) / 100;
+          return this.steemPrice[0] * (1 + margin / 100) * 100;
         case "INR":
-          return Math.round(this.steemPrice[1] * (1 + margin / 100) * 100) / 100;
+          return this.steemPrice[1] * (1 + margin / 100) * 100;
         case "KRW":
-          return Math.round(this.steemPrice[2] * (1 + margin / 100) * 100) / 100;
+          return this.steemPrice[2] * (1 + margin / 100) * 100;
+          case "BTC":
+          return this.steemPrice[3] * (1 + margin / 100) * 100;
+        case "EOS":
+          return this.steemPrice[4] * (1 + margin / 100) * 100;
+        case "ETH":
+          return this.steemPrice[5] * (1 + margin / 100) * 100;
       }
 
     }
     else if (from == "SBD") {
       switch (to) {
         case "USD":
-          return Math.round(this.sbdPrice[0] * (1 + margin / 100) * 100) / 100;
+          return this.sbdPrice[0] * (1 + margin / 100) * 100;
         case "INR":
-          return Math.round(this.sbdPrice[1] * (1 + margin / 100) * 100) / 100;
+          return this.sbdPrice[1] * (1 + margin / 100) * 100;
         case "KRW":
-          return Math.round(this.sbdPrice[2] * (1 + margin / 100) * 100) / 100;
+          return this.sbdPrice[2] * (1 + margin / 100) * 100;
+        case "BTC":
+          return this.sbdPrice[3] * (1 + margin / 100) * 100;
+        case "EOS":
+          return this.sbdPrice[4] * (1 + margin / 100) * 100;
+        case "ETH":
+          return this.sbdPrice[5] * (1 + margin / 100) * 100;
       }
 
     }

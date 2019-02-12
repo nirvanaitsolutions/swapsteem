@@ -23,20 +23,12 @@
                             <td>{{selectedTrade.createdby}}</td>
                         </tr>
                         <tr>
-                            <th>Trade limits :</th>
-                            <td>{{selectedTrade.limit_from}} - {{selectedTrade.limit_to}}</td>
-                        </tr>
-                        <tr>
-                            <th>Locations :</th>
-                            <td>{{selectedTrade.country}}</td>
-                        </tr>
-                        <tr>
                             <th>Escrow Ratification Deadline :</th>
-                            <td>1 hour 30 minutes</td>
+                            <td>2 Hours</td>
                         </tr>
                         <tr>
                             <th>Escrow Expiration Deadline:</th>
-                            <td>7 Days </td>
+                            <td>3 Days </td>
                         </tr>
                     </table>
                 </div>
@@ -107,6 +99,14 @@
 
                     </mat-form-field>
                 </div>
+                <div *ngIf="selectedTrade.ad_type == 'BUY' && selectedTrade.payment_methods && selectedTrade.payment_methods.indexOf('Crypto Transfer') > -1">
+                    <mat-form-field class="full-width">
+                        <input matInput #upiId="ngModel" placeholder="Your Crypto Address" type="text" name="crypto_address" id="crypto_address"
+                            [(ngModel)]="order.payment_details.crypto_address" required />
+
+                    </mat-form-field>
+                </div>
+
             </div>
 
         </div>

@@ -28,13 +28,13 @@ export class PurchaseComponent implements OnInit {
     escrowID: 0,
     order_coin_amount: 0,
     order_fiat_amount: 0,
-    order_coin: '',
+    from: '',
     order_rate: 0,
     order_status: 'created',
     order_payment_method: [],
     agree_terms: true,
-    country: '',
-    from: '',
+    market: '',
+    to: '',
     escrow_rat_deadline: new Date(moment().add(2, 'hours').format('YYYY-MM-DDTHH:MM:SS')),
     escrow_exp_deadline: new Date(moment().add(3, 'days').format('YYYY-MM-DDTHH:MM:SS')),
     payment_details: {
@@ -46,7 +46,8 @@ export class PurchaseComponent implements OnInit {
       bank_code: '',
       paypal_email: '',
       place_of_exchange: '',
-      upi_id:''
+      upi_id:'',
+      crypto_address:''
     }
   };
 
@@ -61,25 +62,26 @@ export class PurchaseComponent implements OnInit {
       this.order.createdfor = this.selectedTrade.createdby;
       //todo - reverse ad type
       this.order.order_type = this.selectedTrade.ad_type == "BUY" ? "sell" : "buy";
-      this.order.order_coin = this.selectedTrade.from;
-      this.order.order_payment_method = this.selectedTrade.payment_methods;
-      this.order.country = this.selectedTrade.country;
       this.order.from = this.selectedTrade.from;
+      this.order.order_payment_method = this.selectedTrade.payment_methods;
+      this.order.market = this.selectedTrade.market;
+      this.order.to = this.selectedTrade.to;
       //todo - calculate rate from margin
       //this.order.order_rate=this.selectedTrade.margin;
-      if (this.order.order_coin == "STEEM") {
-        this.purchaseServ.getPriceByPair(this.order.order_coin, this.order.from).subscribe(data => {
-          let priceResponse = Object.values(data);
-          this.price = Math.round(priceResponse[0] * (1 + this.selectedTrade.margin / 100) * 100) / 100;
+      if (this.order.from == "STEEM") {
+        this.purchaseServ.getPriceByPair(this.order.from, this.order.to).subscribe(data => {
+          let priceResponse = data;
+          console.log("price " + data[0])
+          this.price = priceResponse[0] * (1 + this.selectedTrade.margin / 100) * 100;
           console.log("price " + this.price)
           this.order.order_rate = this.price;
         });
 
       }
-      else if (this.order.order_coin == "SBD") {
-        this.purchaseServ.getPriceByPair(this.order.order_coin, this.order.from).subscribe(data => {
+      else if (this.order.from == "SBD") {
+        this.purchaseServ.getPriceByPair(this.order.from, this.order.to).subscribe(data => {
           let priceResponse = Object.values(data);
-          this.price = Math.round(priceResponse[0] * (1 + this.selectedTrade.margin / 100) * 100) / 100;
+          this.price = priceResponse[0] * (1 + this.selectedTrade.margin / 100) * 100;
           this.order.order_rate = this.price;
         });
 
@@ -123,20 +125,20 @@ export class PurchaseComponent implements OnInit {
   }
 
   changeToFiat() {
-    if (this.order.order_coin == "STEEM") {
+    if (this.order.from == "STEEM") {
       this.order.order_fiat_amount = this.order.order_coin_amount * this.price;
     }
-    if (this.order.order_coin == "SBD") {
+    if (this.order.from == "SBD") {
       this.order.order_fiat_amount = this.order.order_coin_amount * this.price;
     }
     console.log('this.order.order_fiat_amount', this.order.order_coin_amount, this.price)
   }
 
   changeToCoin() {
-    if (this.order.order_coin == "STEEM") {
+    if (this.order.from == "STEEM") {
       this.order.order_coin_amount = this.order.order_fiat_amount * (1 / this.price);
     }
-    if (this.order.order_coin == "SBD") {
+    if (this.order.from == "SBD") {
       this.order.order_coin_amount = this.order.order_fiat_amount * (1 / this.price);
     }
   }
