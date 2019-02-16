@@ -6,6 +6,7 @@ import { APIService } from '../../service/api.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SteemconnectAuthService } from '../steemconnect/services/steemconnect-auth.service';
 import * as moment from 'moment';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-purchase',
@@ -131,7 +132,7 @@ export class PurchaseComponent implements OnInit {
    * This method used to create a new order
    * @requires order order derails
   */
-  createOrder() {
+  onSubmit(f:NgForm) {
     console.log("onsubmit called")
     let now = new Date();
     this.order.escrowID = Math.floor(now.getTime() / 1000);
