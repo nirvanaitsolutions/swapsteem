@@ -139,8 +139,8 @@ export class OrderComponent implements OnInit {
     const now = moment();
     const rDeadline: string = moment(this.selectedOrder.escrow_rat_deadline).format('YYYY-MM-DDTHH:MM:SS');
     const eDeadline: string = moment(this.selectedOrder.escrow_exp_deadline).format('YYYY-MM-DDTHH:MM:SS');
-    const steemAmount: number = this.selectedOrder.order_coin == "STEEM" ? this.selectedOrder.order_coin_amount : 0;
-    const sbdAmount: number = this.selectedOrder.order_coin == "SBD" ? this.selectedOrder.order_coin_amount : 0;
+    const steemAmount: number = this.selectedOrder.from == "STEEM" ? this.selectedOrder.order_coin_amount : 0;
+    const sbdAmount: number = this.selectedOrder.from == "SBD" ? this.selectedOrder.order_coin_amount : 0;
     const fee = (this.selectedOrder.order_coin_amount || 0) * (0.01);
     window.location.href = `https://steemconnect.com/sign/escrow-transfer?from=${this.sender}&to=${this.reciever}&agent=${this.agent}&escrow_id=${this.selectedOrder.escrowID}&sbd_amount=${sbdAmount}%20SBD&steem_amount=${steemAmount}%20STEEM&fee=${fee}%20STEEM&ratification_deadline=${rDeadline}&escrow_expiration=${eDeadline}&json_meta={"terms":"${this.selectedAd.terms}", "order_id": "${this.selectedOrder._id}"}&redirect_uri=${window.location.origin}/order/${this.selectedOrder._id}?status=escrow_transfer&auto_return=1`;
   }
@@ -180,8 +180,8 @@ export class OrderComponent implements OnInit {
   */
 
   releaseEscrow() {
-    const steemAmount: number = this.selectedOrder.order_coin == "STEEM" ? this.selectedOrder.order_coin_amount : 0;
-    const sbdAmount: number = this.selectedOrder.order_coin == "SBD" ? this.selectedOrder.order_coin_amount : 0;
+    const steemAmount: number = this.selectedOrder.from == "STEEM" ? this.selectedOrder.order_coin_amount : 0;
+    const sbdAmount: number = this.selectedOrder.from == "SBD" ? this.selectedOrder.order_coin_amount : 0;
     window.location.href = `https://steemconnect.com/sign/escrow-release?from=${this.sender}&to=${this.reciever}&agent=${this.agent}&who=${this.userData._id}&receiver=${this.reciever}&escrow_id=${this.selectedOrder.escrowID}&sbd_amount=${sbdAmount}%20SBD&steem_amount=${steemAmount}%20STEEM&json_meta={"terms":"${this.selectedAd.terms}", "order_id": "${this.selectedOrder._id}"}&redirect_uri=${window.location.origin}/order/${this.selectedOrder._id}?status=escrow_release&auto_return=1`;
   }
 
