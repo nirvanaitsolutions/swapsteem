@@ -14,9 +14,17 @@
 .button {
     background-color: #28a745 !important;
 }
+.margin-auto{
+    margin: auto!important;
+}
 
 /* .buttonLocation{
     margin-top: 10px;
     margin-bottom: 20px;
     margin-left: 21px;
 } */
+.postTradeWrapper{
+display: flex;
+align-items: center;
+height: calc(100% - 210px);
+}
