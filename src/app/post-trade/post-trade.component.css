@@ -1,7 +1,7 @@
 .box{
     border: 1px;
     padding: 10px;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 6px 0px;;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 6px 0px;;;
     margin-top: 20px;
     background-color: white;
     height: calc(100vh - 50px);
