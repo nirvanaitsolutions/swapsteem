@@ -8,22 +8,22 @@ import { WalletComponent } from './wallet/wallet.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { SteemconnectRedirectGuard } from './redirect/steemconnect-redirect.guard';
-import { BuyPageComponent } from './buy-page/buy-page.component'
-import { SellPageComponent } from './sell-page/sell-page.component';
 import { PurchaseComponent } from './purchase/purchase.component';
 import { RedirectComponent } from './redirect/redirect.component';
-import { ChatPageComponent } from './chat-page/chat-page.component';
 import { OrderComponent } from './order/order.component';
-
+import { AuthGuard } from '../guards/auth-guard.service';
+import { HelppageComponent } from './helppage/helppage.component'
+import {SignupstatusComponent} from './components/signupstatus/signupstatus.component';
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'buy-online', component: BuyPageComponent },
-  { path: 'sell-online', component: SellPageComponent },
+  { path: 'market/:market', component: HomeComponent },
+  { path: 'help', component: HelppageComponent },
   {
     path: 'post-trade',
+    canActivate: [AuthGuard],
     children: [
       {
-        path: ':id', 
+        path: ':id',
         component: PostTradeComponent
       },
       {
@@ -32,18 +32,24 @@ const appRoutes: Routes = [
       },
     ]
   },
-  { path: 'notifications', component: NotificationsComponent },
-  { path: 'wallet', component: WalletComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'purchase/:id', component: PurchaseComponent },
-  { path: 'chat/:id', component: ChatPageComponent },
+  { path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard] },
+  { path: 'wallet', component: WalletComponent, canActivate: [AuthGuard] },
+
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'purchase/:id', component: PurchaseComponent, canActivate: [AuthGuard] },
   {
     path: 'steemconnect/redirect',
     canActivate: [SteemconnectRedirectGuard],
     component: RedirectComponent
   },
-  { path: 'order/:id', component: OrderComponent },
+  { path: 'order/:id', component: OrderComponent, canActivate: [AuthGuard] },
+  {
+    path: 'steemconnect/signup/success', component: SignupstatusComponent
+  },
+  {
+    path: 'steemconnect/signup/failure', component: SignupstatusComponent
+  },
   {
     path: '',
     redirectTo: '/home',

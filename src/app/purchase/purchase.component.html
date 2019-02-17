@@ -1,10 +1,10 @@
 <div class="container box">
     <div>
-        <h3>Trade {{selectedTrade.ad_coin}} for {{selectedTrade.currency}} using {{selectedTrade.payment_methods}}</h3>
+        <h3>Trade {{selectedTrade.from}} for {{selectedTrade.to}} using {{selectedTrade.payment_methods}}</h3>
         <p> with SwapSteem.com user {{selectedTrade.createdby}} </p>
     </div>
     <hr>
-    <form #orderForm="ngForm" (ngSubmit)="onSubmit(orderForm.value)" ngNativeValidate>
+    <form #orderForm="ngForm" novalidate (ngSubmit)="(orderForm.form.valid && (order.order_coin_amount <= 20))  ? onSubmit(orderForm) : ''">
         <div class="row">
 
             <div class="col">
@@ -23,29 +23,27 @@
                             <td>{{selectedTrade.createdby}}</td>
                         </tr>
                         <tr>
-                            <th>Trade limits :</th>
-                            <td>{{selectedTrade.limit_from}} - {{selectedTrade.limit_to}}</td>
-                        </tr>
-                        <tr>
-                            <th>Locations :</th>
-                            <td>{{selectedTrade.country}}</td>
-                        </tr>
-                        <tr>
                             <th>Escrow Ratification Deadline :</th>
-                            <td>1 hour 30 minutes</td>
+                            <td>2 Hours</td>
                         </tr>
                         <tr>
                             <th>Escrow Expiration Deadline:</th>
-                            <td>7 Days </td>
+                            <td>3 Days </td>
                         </tr>
                     </table>
                 </div>
                 <div class="inner-box">
-                    <div class="btn btn-info form-row mr-2">{{selectedTrade.ad_coin}} <span><input min="0" type="number" step="any" name="order_coin_amount"
-                                [(ngModel)]="order.order_coin_amount" (ngModelChange)="changeToFiat()" /></span></div><br><br>
-                    <div class="btn btn-info form-row mr-2">{{selectedTrade.currency}} <span><input min="0" type="number" step="any" name="order_fiat_amount"
-                                [(ngModel)]="order.order_fiat_amount" (ngModelChange)="changeToCoin()" /></span></div>
-                    <div class="form-group mt-3"><button type="submit" class="btn btn-success">Create Order</button></div>
+                    <div class="btn btn-info form-row mr-2 relative">{{selectedTrade.from}} <span><input min="20" type="number"
+                                step="any" name="order_coin_amount" [(ngModel)]="order.order_coin_amount"
+                                (ngModelChange)="changeToFiat()" /></span>
+                                <div *ngIf=" order.order_coin_amount > 20" class="steem-error-text">
+                                    {{selectedTrade.from}} must be less than or equal to 20
+                                </div>
+                            </div><br><br>
+                    <div class="btn btn-info form-row mr-2">{{selectedTrade.to}} <span><input min="0" type="number"
+                                step="any" name="order_fiat_amount" [(ngModel)]="order.order_fiat_amount"
+                                (ngModelChange)="changeToCoin()" /></span></div>
+                    <div class="form-group mt-3"><button  class="btn btn-success">Create Order</button></div>
                 </div>
             </div>
             <div class="col inner-box-right">
@@ -55,53 +53,64 @@
                 <div>
                     {{selectedTrade.terms}}
                 </div>
-                <div *ngIf="order.order_type == 'sell'">
-                    <!-- <div class=" form-row mb-3">
-                      <h3 for="account_holder_name">Account Details</h3>
-                    </div> -->
-                    <div class=" form-row mb-3">
-                        <div class="col">
-                            <label for="account_holder_name">Account holder name</label>
-                            <input type="text" name="account_holder_name" id="account_holder_name" class="form-control"
-                                [(ngModel)]="account_details.account_holder_name" required>
-                        </div>
-                    </div>
-                    <div class=" form-row mb-3">
-                        <div class="col">
-                            <label for="account_number">Account number</label>
-                            <input type="text" name="account_number" id="account_number" class="form-control"
-                                [(ngModel)]="account_details.account_number" required />
-                        </div>
-                    </div>
-                    <div *ngIf="selectedTrade.currency === 'USD' || selectedTrade.currency === 'INR'" class=" form-row mb-3">
-                        <div class="col">
-                            <label for="bank_code" *ngIf="selectedTrade.currency === 'USD'">ABA Number</label>
-                            <label for="bank_code" *ngIf="selectedTrade.currency === 'INR'">IFSC Code</label>
-                            <input type="text" name="bank_code" id="bank_code" class="form-control" [(ngModel)]="account_details.bank_code"
-                                required />
-                        </div>
-                    </div>
-                    <div class=" form-row mb-3">
-                        <div class="col">
-                            <label for="bank_name">Bank name</label>
-                            <input type="text" name="bank_name" id="bank_name" class="form-control" [(ngModel)]="account_details.bank_name"
-                                required />
-                        </div>
-                    </div>
-                    <div class=" form-row mb-3">
-                        <div class="col">
-                            <label for="bank_address">Bank address</label>
-                            <input type="text" name="bank_address" id="bank_address" class="form-control" [(ngModel)]="account_details.bank_address" />
-                        </div>
-                    </div>
-                    <div class=" form-row mb-3">
-                        <div class="col">
-                            <label for="account_holder_name">SWIFT/BIC code</label>
-                            <input type="text" name="account_holder_name" id="account_holder_name" class="form-control"
-                                [(ngModel)]="account_details.account_holder_name" />
-                        </div>
-                    </div>
+                <div *ngIf="selectedTrade.ad_type == 'BUY' && selectedTrade.payment_methods && selectedTrade.payment_methods.indexOf('Bank Transfer') > -1">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Account holder name" type="text" name="account_holder_name" id="account_holder_name"
+                            [(ngModel)]="order.payment_details.account_holder_name" required>
+                    </mat-form-field>
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Account number" type="text" name="account_number" id="account_number"
+                            [(ngModel)]="order.payment_details.account_number" required>
+                    </mat-form-field>
+                    <mat-form-field class="full-width" *ngIf="selectedTrade.to === 'USD' || selectedTrade.to === 'INR'">
+                        <input matInput [placeholder]="selectedTrade.to === 'USD' ? 'ABA Number' : 'IFSC code' "
+                            type="text" name="bank_code" id="bank_code" [(ngModel)]="order.payment_details.bank_code"
+                            required>
+                    </mat-form-field>
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Bank name" type="text" name="bank_name" id="bank_name" [(ngModel)]="order.payment_details.bank_name"
+                            required>
+                    </mat-form-field>
+                    <mat-form-field class="full-width">
+                        <textarea matInput placeholder="Bank address" type="text" name="bank_address" id="bank_address"
+                            [(ngModel)]="order.payment_details.bank_address"> </textarea>
+                    </mat-form-field>
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="SWIFT/BIC code" type="text" name="swift_bic_code" id="swift_bic_code"
+                            [(ngModel)]="order.payment_details.swift_bic_code">
+                    </mat-form-field>
                 </div>
+                <div *ngIf="selectedTrade.ad_type == 'BUY' && selectedTrade.payment_methods && selectedTrade.payment_methods.indexOf('In Cash') > -1">
+                    <mat-form-field class="full-width">
+                        <textarea matInput placeholder="Place Of Exchange" type="text" name="place_of_exchange" id="place_of_exchange"
+                            [(ngModel)]="order.payment_details.place_of_exchange" required> </textarea>
+                    </mat-form-field>
+                </div>
+                <div *ngIf="selectedTrade.ad_type == 'BUY' && selectedTrade.payment_methods && selectedTrade.payment_methods.indexOf('PayPal') > -1">
+                    <mat-form-field class="full-width">
+                        <input matInput #paypalEmail="ngModel" placeholder="Email" type="email" name="paypal_email" id="paypal_email"
+                            [(ngModel)]="order.payment_details.paypal_email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                            required />
+                        <mat-error *ngIf="paypalEmail.errors && paypalEmail.errors.required">
+                            Please enter a valid email address
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div *ngIf="selectedTrade.ad_type == 'BUY' && selectedTrade.payment_methods && selectedTrade.payment_methods.indexOf('UPI') > -1">
+                    <mat-form-field class="full-width">
+                        <input matInput #upiId="ngModel" placeholder="UPI ID" type="text" name="upi_id" id="upi_id"
+                            [(ngModel)]="order.payment_details.upi_id" required />
+
+                    </mat-form-field>
+                </div>
+                <div *ngIf="selectedTrade.ad_type == 'BUY' && selectedTrade.payment_methods && selectedTrade.payment_methods.indexOf('Crypto Transfer') > -1">
+                    <mat-form-field class="full-width">
+                        <input matInput #upiId="ngModel" placeholder="Your Crypto Address" type="text" name="crypto_address" id="crypto_address"
+                            [(ngModel)]="order.payment_details.crypto_address" required />
+
+                    </mat-form-field>
+                </div>
+
             </div>
 
         </div>

@@ -1,8 +1,8 @@
 <div class="container">
   <div class="box">
     <div class="progress">
-      <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0"
-        aria-valuemax="100">25%</div>
+
+      <mat-progress-bar mode="determinate" [value]="progressBarStatus"></mat-progress-bar>
     </div>
   </div>
   <div class="row">
@@ -12,7 +12,7 @@
       <div>
         <div class="row">
           <div class="col">
-            <h6>AMOUNT {{selectedOrder.order_status}}</h6>
+            <h6>AMOUNT</h6>
             <p>{{selectedOrder.order_coin_amount}}</p>
           </div>
           <div class="col">
@@ -23,7 +23,7 @@
         <div class="row">
           <div class="col">
             <h6>PAYMENT METHODS</h6>
-            <p>{{selectedAd.payment_methods[0]}}</p>
+            <p>{{selectedAd.payment_method}}</p>
           </div>
           <div class="col">
             <h6>ESCROW ID</h6>
@@ -36,7 +36,65 @@
             <p>{{selectedAd.terms}}</p>
           </div>
         </div>
-
+      </div>
+      <h6>PAYMENT DETAILS</h6>
+      <hr>
+      <div *ngIf="selectedAd.payment_method === 'Bank Transfer'">
+        <div class="row">
+          <div class="col">
+            <h6>ACCOUNT HOLDER NAME</h6>
+            <p>{{payment_details.account_holder_name}}</p>
+          </div>
+          <div class="col">
+            <h6>ACCOUNT NUMBER</h6>
+            <p>{{payment_details.account_number}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h6>BANK NAME</h6>
+            <p>{{payment_details.bank_name}}</p>
+          </div>
+          <div class="col">
+            <h6>SWIFT/BIC code</h6>
+            <p>{{payment_details.swift_bic_code}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h6>BANK ADDRESS</h6>
+            <p>{{payment_details.bank_code}}</p>
+          </div>
+          <div class="col">
+            <h6 for="bank_code" *ngIf="selectedAd.to === 'USD'">ABA Number</h6>
+            <h6 for="bank_code" *ngIf="selectedAd.to === 'INR'">IFSC Code</h6>
+            <p>{{payment_details.swift_bic_code}}</p>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="selectedAd.payment_method === 'Crypto Transfer'">
+        <div class="row">
+          <div class="col">
+            <h6>Crypto Address</h6>
+            <p>{{payment_details.crypto_address}}</p>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="selectedAd.payment_method === 'PayPal'">
+        <div class="row">
+          <div class="col">
+            <h6>PayPal's Email</h6>
+            <p>{{payment_details.paypal_email}}</p>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="selectedAd.payment_method === 'UPI'">
+        <div class="row">
+          <div class="col">
+            <h6>UPI Id</h6>
+            <p>{{payment_details.upi_id}}</p>
+          </div>
+        </div>
       </div>
     </div>
     <div class="inner-box col">
@@ -53,6 +111,49 @@
                       <p>
                         Do you want to transfer escrow?
                       </p>
+                      <countdown #transfercountdown [config]="{ stopTime: rDeadline }" (finished)="onFinished(transfercountdown)">
+                        <div class="countdown">
+                          <!-- <div id="tiles"><span>$!d!</span><span>$!h!</span><span>$!m!</span><span>$!s!</span></div> -->
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!d!
+                            </div>
+                            <div class="countdown-label">
+                              Days
+                            </div>
+                          </div>
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!h!
+                            </div>
+                            <div class="countdown-label">
+                              Hours
+                            </div>
+                          </div>
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!m!
+                            </div>
+                            <div class="countdown-label">
+                              Mins
+                            </div>
+                          </div>
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!s!
+                            </div>
+                            <div class="countdown-label">
+                              Secs
+                            </div>
+                          </div>
+                          <!-- <div class="labels">
+                            <li>Days</li>
+                            <li>Hours</li>
+                            <li>Mins</li>
+                            <li>Secs</li>
+                          </div> -->
+                        </div>
+                      </countdown>
                       <div class="d-flex flex-row align-items-center w-100 justify-content-between">
                         <button type="button" class="btn btn-success" (click)="transferEscrow();">
                           Transfer escrow
@@ -69,6 +170,49 @@
                       <p>
                         Please wait for buyer to approve your escrow ...
                       </p>
+                      <countdown #transfercountdown [config]="{ stopTime: rDeadline }" (finished)="onFinished(transfercountdown)">
+                        <div class="countdown">
+                          <!-- <div id="tiles"><span>$!d!</span><span>$!h!</span><span>$!m!</span><span>$!s!</span></div> -->
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!d!
+                            </div>
+                            <div class="countdown-label">
+                              Days
+                            </div>
+                          </div>
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!h!
+                            </div>
+                            <div class="countdown-label">
+                              Hours
+                            </div>
+                          </div>
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!m!
+                            </div>
+                            <div class="countdown-label">
+                              Mins
+                            </div>
+                          </div>
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!s!
+                            </div>
+                            <div class="countdown-label">
+                              Secs
+                            </div>
+                          </div>
+                          <!-- <div class="labels">
+                            <li>Days</li>
+                            <li>Hours</li>
+                            <li>Mins</li>
+                            <li>Secs</li>
+                          </div> -->
+                        </div>
+                      </countdown>
                     </div>
                     <div>
                       <button type="button" class="btn btn-danger" (click)="updateOrderStatus('canceled');">
@@ -81,6 +225,49 @@
                       <p>
                         Please wait for agent to approve escrow...
                       </p>
+                      <countdown #transfercountdown [config]="{ stopTime: rDeadline }" (finished)="onFinished(transfercountdown)">
+                        <div class="countdown">
+                          <!-- <div id="tiles"><span>$!d!</span><span>$!h!</span><span>$!m!</span><span>$!s!</span></div> -->
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!d!
+                            </div>
+                            <div class="countdown-label">
+                              Days
+                            </div>
+                          </div>
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!h!
+                            </div>
+                            <div class="countdown-label">
+                              Hours
+                            </div>
+                          </div>
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!m!
+                            </div>
+                            <div class="countdown-label">
+                              Mins
+                            </div>
+                          </div>
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!s!
+                            </div>
+                            <div class="countdown-label">
+                              Secs
+                            </div>
+                          </div>
+                          <!-- <div class="labels">
+                            <li>Days</li>
+                            <li>Hours</li>
+                            <li>Mins</li>
+                            <li>Secs</li>
+                          </div> -->
+                        </div>
+                      </countdown>
                     </div>
 
                   </div>
@@ -89,6 +276,49 @@
                       <p>
                         Please wait for buyer to done payment of your escrow ...
                       </p>
+                      <countdown #relesecountdown [config]="{ stopTime: eDeadline }" (finished)="onFinished(relesecountdown)">
+                        <div class="countdown">
+                          <!-- <div id="tiles"><span>$!d!</span><span>$!h!</span><span>$!m!</span><span>$!s!</span></div> -->
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!d!
+                            </div>
+                            <div class="countdown-label">
+                              Days
+                            </div>
+                          </div>
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!h!
+                            </div>
+                            <div class="countdown-label">
+                              Hours
+                            </div>
+                          </div>
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!m!
+                            </div>
+                            <div class="countdown-label">
+                              Mins
+                            </div>
+                          </div>
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!s!
+                            </div>
+                            <div class="countdown-label">
+                              Secs
+                            </div>
+                          </div>
+                          <!-- <div class="labels">
+                            <li>Days</li>
+                            <li>Hours</li>
+                            <li>Mins</li>
+                            <li>Secs</li>
+                          </div> -->
+                        </div>
+                      </countdown>
                     </div>
                     <div>
                       <button type="button" class="btn btn-danger" (click)="raiseDispute('seller');">
@@ -115,6 +345,49 @@
                       <p>
                         Do you want to release escrow?
                       </p>
+                      <countdown #relesecountdown [config]="{ stopTime: eDeadline }" (finished)="onFinished(relesecountdown)">
+                        <div class="countdown">
+                          <!-- <div id="tiles"><span>$!d!</span><span>$!h!</span><span>$!m!</span><span>$!s!</span></div> -->
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!d!
+                            </div>
+                            <div class="countdown-label">
+                              Days
+                            </div>
+                          </div>
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!h!
+                            </div>
+                            <div class="countdown-label">
+                              Hours
+                            </div>
+                          </div>
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!m!
+                            </div>
+                            <div class="countdown-label">
+                              Mins
+                            </div>
+                          </div>
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!s!
+                            </div>
+                            <div class="countdown-label">
+                              Secs
+                            </div>
+                          </div>
+                          <!-- <div class="labels">
+                            <li>Days</li>
+                            <li>Hours</li>
+                            <li>Mins</li>
+                            <li>Secs</li>
+                          </div> -->
+                        </div>
+                      </countdown>
                       <div class="d-flex flex-row align-items-center w-100 justify-content-between">
                         <button type="button" class="btn btn-success" (click)="releaseEscrow();">
                           Release escrow
@@ -160,6 +433,49 @@
                       <p>
                         Please wait for seller to transfer your escrow...
                       </p>
+                      <countdown #transfercountdown [config]="{ stopTime: rDeadline }" (finished)="onFinished(transfercountdown)">
+                        <div class="countdown">
+                          <!-- <div id="tiles"><span>$!d!</span><span>$!h!</span><span>$!m!</span><span>$!s!</span></div> -->
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!d!
+                            </div>
+                            <div class="countdown-label">
+                              Days
+                            </div>
+                          </div>
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!h!
+                            </div>
+                            <div class="countdown-label">
+                              Hours
+                            </div>
+                          </div>
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!m!
+                            </div>
+                            <div class="countdown-label">
+                              Mins
+                            </div>
+                          </div>
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!s!
+                            </div>
+                            <div class="countdown-label">
+                              Secs
+                            </div>
+                          </div>
+                          <!-- <div class="labels">
+                              <li>Days</li>
+                              <li>Hours</li>
+                              <li>Mins</li>
+                              <li>Secs</li>
+                            </div> -->
+                        </div>
+                      </countdown>
                     </div>
                     <div>
                       <button type="button" class="btn btn-danger" (click)="updateOrderStatus('canceled');">
@@ -172,6 +488,49 @@
                       <p>
                         Do you want to approve transfer escrow?
                       </p>
+                      <countdown #transfercountdown [config]="{ stopTime: rDeadline }" (finished)="onFinished(transfercountdown)">
+                        <div class="countdown">
+                          <!-- <div id="tiles"><span>$!d!</span><span>$!h!</span><span>$!m!</span><span>$!s!</span></div> -->
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!d!
+                            </div>
+                            <div class="countdown-label">
+                              Days
+                            </div>
+                          </div>
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!h!
+                            </div>
+                            <div class="countdown-label">
+                              Hours
+                            </div>
+                          </div>
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!m!
+                            </div>
+                            <div class="countdown-label">
+                              Mins
+                            </div>
+                          </div>
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!s!
+                            </div>
+                            <div class="countdown-label">
+                              Secs
+                            </div>
+                          </div>
+                          <!-- <div class="labels">
+                            <li>Days</li>
+                            <li>Hours</li>
+                            <li>Mins</li>
+                            <li>Secs</li>
+                          </div> -->
+                        </div>
+                      </countdown>
                       <div class="d-flex flex-row align-items-center w-100 justify-content-between">
                         <button type="button" class="btn btn-success" (click)="approveRejectEscrow(1);">
                           Approve escrow
@@ -188,6 +547,49 @@
                       <p>
                         Please wait for agent to approve escrow...
                       </p>
+                      <countdown #transfercountdown [config]="{ stopTime: rDeadline }" (finished)="onFinished(transfercountdown)">
+                        <div class="countdown">
+                          <!-- <div id="tiles"><span>$!d!</span><span>$!h!</span><span>$!m!</span><span>$!s!</span></div> -->
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!d!
+                            </div>
+                            <div class="countdown-label">
+                              Days
+                            </div>
+                          </div>
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!h!
+                            </div>
+                            <div class="countdown-label">
+                              Hours
+                            </div>
+                          </div>
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!m!
+                            </div>
+                            <div class="countdown-label">
+                              Mins
+                            </div>
+                          </div>
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!s!
+                            </div>
+                            <div class="countdown-label">
+                              Secs
+                            </div>
+                          </div>
+                          <!-- <div class="labels">
+                            <li>Days</li>
+                            <li>Hours</li>
+                            <li>Mins</li>
+                            <li>Secs</li>
+                          </div> -->
+                        </div>
+                      </countdown>
                     </div>
 
                   </div>
@@ -196,6 +598,50 @@
                       <p>
                         Do you want to confirm your payment of escrow?
                       </p>
+                      <countdown #relesecountdown [config]="{ stopTime: eDeadline }" (finished)="onFinished(relesecountdown)">
+                        <div class="countdown">
+                          <!-- <div id="tiles"><span>$!d!</span><span>$!h!</span><span>$!m!</span><span>$!s!</span></div> -->
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!d!
+                            </div>
+                            <div class="countdown-label">
+                              Days
+                            </div>
+                          </div>
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!h!
+                            </div>
+                            <div class="countdown-label">
+                              Hours
+                            </div>
+                          </div>
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!m!
+                            </div>
+                            <div class="countdown-label">
+                              Mins
+                            </div>
+                          </div>
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!s!
+                            </div>
+                            <div class="countdown-label">
+                              Secs
+                            </div>
+                          </div>
+                          <!-- <div class="labels">
+                            <li>Days</li>
+                            <li>Hours</li>
+                            <li>Mins</li>
+                            <li>Secs</li>
+                          </div> -->
+                        </div>
+                      </countdown>
+
                       <div class="d-flex flex-row align-items-center w-100 justify-content-between">
                         <button type="button" class="btn btn-success" (click)="updateOrderStatus('buyer_payment_done');">
                           Confirm Payment
@@ -217,6 +663,49 @@
                       <p>
                         Please wait for seller to release escrow...
                       </p>
+                      <countdown #relesecountdown [config]="{ stopTime: eDeadline }" (finished)="onFinished(relesecountdown)">
+                        <div class="countdown">
+                          <!-- <div id="tiles"><span>$!d!</span><span>$!h!</span><span>$!m!</span><span>$!s!</span></div> -->
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!d!
+                            </div>
+                            <div class="countdown-label">
+                              Days
+                            </div>
+                          </div>
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!h!
+                            </div>
+                            <div class="countdown-label">
+                              Hours
+                            </div>
+                          </div>
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!m!
+                            </div>
+                            <div class="countdown-label">
+                              Mins
+                            </div>
+                          </div>
+                          <div class="countdown-section">
+                            <div class="tiles">
+                              $!s!
+                            </div>
+                            <div class="countdown-label">
+                              Secs
+                            </div>
+                          </div>
+                          <!-- <div class="labels">
+                            <li>Days</li>
+                            <li>Hours</li>
+                            <li>Mins</li>
+                            <li>Secs</li>
+                          </div> -->
+                        </div>
+                      </countdown>
                     </div>
                     <div>
                       <button type="button" class="btn btn-danger" (click)="raiseDispute('buyer');">

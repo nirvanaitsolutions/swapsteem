@@ -8,16 +8,7 @@ import { CookieModule } from 'ngx-cookie';
 import { AppComponent } from './app.component';
 import { FooterComponent } from './footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  MatDialogModule,
-  MatInputModule,
-  MatButtonModule,
-  MatFormFieldModule,
-  MatProgressSpinnerModule,
-  MatTableModule,
-  MatPaginatorModule,
-  MatMenuModule
-} from '@angular/material';
+
 import { AppNavComponent } from './app-nav/app-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { HomeComponent } from './home/home.component';
@@ -40,7 +31,6 @@ import { BuySteemComponent } from './buy-steem/buy-steem.component';
 import { BuySbdComponent } from './buy-sbd/buy-sbd.component';
 import { SellSbdComponent } from './sell-sbd/sell-sbd.component';
 import { SellSteemComponent } from './sell-steem/sell-steem.component';
-import { ChatPageComponent } from './chat-page/chat-page.component';
 import { AuthInterceptor } from './../service/auth.intercepter';
 import { MomentModule } from 'angular2-moment';
 import { NgxAutoScrollModule } from 'ngx-auto-scroll';
@@ -50,7 +40,16 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ReviewComponent } from './components/review/review.component';
 import { BarRatingModule } from "ngx-bar-rating";
-const config: SocketIoConfig = { url: 'http://swapsteem-api.herokuapp.com', options: {} };
+import { CountdownModule } from 'ngx-countdown';
+import { AuthGuard } from '../guards/auth-guard.service';
+import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
+import { WhitelistComponent } from './components/whitelist/whitelist.component';
+import { HelppageComponent } from './helppage/helppage.component';
+import { DemoMaterialModule } from './material-module';
+import { SignupComponent } from './components/signup/signup.component';
+import { SignupstatusComponent } from './components/signupstatus/signupstatus.component';
+import { SignupstatusmodalComponent } from './components/signupstatusmodal/signupstatusmodal.component';
+const config: SocketIoConfig = { url: environment.API_URL, options: {} };
 
 @NgModule({
   declarations: [
@@ -75,12 +74,17 @@ const config: SocketIoConfig = { url: 'http://swapsteem-api.herokuapp.com', opti
     BuySbdComponent,
     SellSbdComponent,
     SellSteemComponent,
-    ChatPageComponent,
     TradePipePipe,
     OrderComponent,
-    ReviewComponent
+    ReviewComponent,
+    HelppageComponent,
+    SignupComponent,
+    SignupstatusComponent,
+    SignupstatusmodalComponent,
+    TermsAndConditionsComponent,
+    WhitelistComponent,
   ],
-  entryComponents: [ReviewComponent],
+  entryComponents: [ReviewComponent,TermsAndConditionsComponent, WhitelistComponent, SignupComponent, SignupstatusmodalComponent],
   imports: [
     NgxAutoScrollModule,
     MomentModule,
@@ -95,17 +99,11 @@ const config: SocketIoConfig = { url: 'http://swapsteem-api.herokuapp.com', opti
     FormsModule,
     NgxUiLoaderModule,
     SocketIoModule.forRoot(config),
-    MatInputModule,
-    MatDialogModule,
-    MatButtonModule,
     BarRatingModule,
-    MatFormFieldModule,
-    MatProgressSpinnerModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatMenuModule
+    CountdownModule,
+    DemoMaterialModule
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

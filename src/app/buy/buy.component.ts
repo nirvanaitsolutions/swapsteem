@@ -1,12 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-//import {take, tap} from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import {ActivatedRoute} from '@angular/router';
 import { APIService } from '../../service/api.service';
-import { Router } from '@angular/router';
 import { AdvertisementResponse } from '../module/advertisement';
 import { AdverstisementService } from '../../service/adverstisement.service'
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { forkJoin } from 'rxjs';
+import { MatPaginator, MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-buy',
@@ -16,91 +15,131 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 export class BuyComponent implements OnInit {
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
 
-  constructor(private ngxService: NgxUiLoaderService,private http: HttpClient,
-    private purchaseSer: APIService,
-    private router: Router, private adverstisementService: AdverstisementService) { }
+  constructor(private ngxService: NgxUiLoaderService, 
+    private purchaseSer: APIService, private adverstisementService: AdverstisementService, private route: ActivatedRoute) {
+      route.params.subscribe(val => {
+        const market = val.market ? ['FIAT', 'CRYPTO', 'TOKEN'].includes(val.market.toUpperCase()) ? val.market.toUpperCase() : 'CRYPTO' : 'CRYPTO';
+        this.fetchBuySteem(market);
+      });
+    }
 
-  buyDetails: Observable<AdvertisementResponse[]>;
   steemPrice: any;
   sbdPrice: any;
-  currenyFilter: any = ''
-  adCoinFilter: any = ''
-  paymentMethodFilter: any = '';
-  adTypeFilter: any = '';
-  totalBuy: any = [];
-  emptyBuy: boolean;
-  showElement(buySteem) {
-    // Hack for show hide data In Table according to filter
-    if (this.adTypeFilter && this.adTypeFilter !== 'BUY') {
-      return true;
-    }
-    if (this.currenyFilter && buySteem.currency !== this.currenyFilter) {
-      return false;
-    }
-    if (this.adCoinFilter && buySteem.ad_coin !== this.adCoinFilter) {
-      return false;
-    }
-    if (this.paymentMethodFilter && buySteem.payment_methods.indexOf(this.paymentMethodFilter) === -1) {
-      return false;
-    }
-    return true;
-  }
-  ngOnInit() {
+  toFilter: any = false;
+  adCoinFilter: any = false;
+  buySteemDisplayedColumns: string[] = ['createdby', 'payment_methods', 'from', 'to', 'price', 'buttons'];
+  buySteemDataSource: MatTableDataSource<AdvertisementResponse> = new MatTableDataSource([]);
+  buySteem: Array<AdvertisementResponse> = [];
+  @ViewChild('buysteem') buySteemPaginator: MatPaginator;
+
+  ngOnInit(){}
+  /**
+  *
+  * @name fetchBuySteem 
+  *
+  * @description
+  * This method update filter advertisement table
+  * @param market market filter value
+ */
+  fetchBuySteem(market = 'CRYPTO') {
     this.ngxService.start();
-    this.buyDetails = this.purchaseSer.getBuyAds();
-    this.buyDetails.subscribe((data) => {
-     
-      // Hack for check data existance
-      if(data.length){
-        this.emptyBuy = false
-      }else{
-        this.emptyBuy = true
-      }
-      this.ngxService.stop();
-    })
-    //this.buyDetails =  this.http.get<AdvertisementResponse>('http://swapsteem-api.herokuapp.com/advertisements');
-    //this.buyDetails =  this.http.get<Advertisement>('../../assets/sample-buy-online.json');
-    this.purchaseSer.getPrice().subscribe(data => {
-      let resPrice = Object.values(data);
-      let calSteemPrice = Object.values(resPrice[0]);
-      let calSBDPrice = Object.values(resPrice[1])
-      this.steemPrice = calSteemPrice;
-      this.sbdPrice = calSBDPrice;
-    })
+    forkJoin(this.purchaseSer.getBuyAds(), this.purchaseSer.getPrice())
+      .subscribe((data) => {
+        this.buySteem = data && data[0] && data[0].length ? data[0] : [];
+        this.buySteem = this.buySteem.filter((ad) => (ad.ad_status === 'open' && ad.market === market))
+        this.buySteemDataSource = new MatTableDataSource(this.buySteem);
+        this.buySteemDataSource.paginator = this.buySteemPaginator;
+        const resPrice = Object.values(data[1]);
+        const calSteemPrice = Object.values(resPrice[0]);
+        const calSBDPrice = Object.values(resPrice[1])
+        this.steemPrice = calSteemPrice;
+        this.sbdPrice = calSBDPrice;
+        this.ngxService.stop();
+      });
+
     // Added suscribe for all filter(Observable) for real time data change 
-    this.adverstisementService.currenyFilter.subscribe(filter => this.currenyFilter = filter)
-    this.adverstisementService.adCoinFilter.subscribe(filter => this.adCoinFilter = filter)
-    this.adverstisementService.paymentMethodFilter.subscribe(filter => this.paymentMethodFilter = filter)
-    this.adverstisementService.adTypeFilter.subscribe(filter => this.adTypeFilter = filter)
+    this.adverstisementService.currencyFilter.subscribe(filter => {
+      this.toFilter = filter;
+      this.updateBuySteemDataSource();
+    })
+    this.adverstisementService.adCoinFilter.subscribe(filter => {
+      this.adCoinFilter = filter;
+      this.updateBuySteemDataSource();
+    });
   }
+
+  /**
+  *
+  * @name updateBuySteemDataSource 
+  *
+  * @description
+  * This method update filter advertisement table
+  * @requires buySteem open advertisement list
+  * @requires toFilter filter to value 
+  * @requires adCoinFilter  filter coin value
+ */
+  updateBuySteemDataSource() {
+    let filterBuySteem: Array<AdvertisementResponse> = this.buySteem;
+    this.toFilter ? filterBuySteem = filterBuySteem.filter((ad) => (ad.to === this.toFilter)) : '';
+    this.adCoinFilter ? filterBuySteem = filterBuySteem.filter((ad) => (ad.from === this.adCoinFilter)) : '';
+    this.buySteemDataSource = new MatTableDataSource(filterBuySteem);
+    this.buySteemDataSource.paginator = this.buySteemPaginator;
+  }
+
+  /**
+    *
+    * @name calculatePrice 
+    *
+    * @description
+    * This method used to calculate price using advertisement margin
+    * @param from advertisement coin value
+    * @param to advertisement to value
+    * @param margin advertisement margin value
+    * @requires steemPrice steem price value for different to
+    * @requires sbdPrice sbd price value for different to
+   */
   calculatePrice(from: string, to: string, margin: number) {
     if (from == "STEEM") {
       switch (to) {
         case "USD":
-          return Math.round(this.steemPrice[0] * (1 + margin / 100) * 100) / 100;
+          return this.steemPrice[0] * (1 + margin / 100) ;
         case "INR":
-          return Math.round(this.steemPrice[1] * (1 + margin / 100) * 100) / 100;
+          return this.steemPrice[1] * (1 + margin / 100)  ;
         case "KRW":
-          return Math.round(this.steemPrice[2] * (1 + margin / 100) * 100) / 100;
+          return this.steemPrice[2] * (1 + margin / 100) ;
+          case "BTC":
+          return this.steemPrice[3] * (1 + margin / 100) ;
+        case "EOS":
+          return this.steemPrice[4] * (1 + margin / 100) ;
+        case "ETH":
+          return this.steemPrice[5] * (1 + margin / 100) ;
+        case "SWEET":
+          return  (1 + margin / 100) ;
+        case "ENG":
+          return (1 + margin / 100) ;
       }
 
     }
     else if (from == "SBD") {
       switch (to) {
         case "USD":
-          return Math.round(this.sbdPrice[0] * (1 + margin / 100) * 100) / 100;
+          return this.sbdPrice[0] * (1 + margin / 100) ;
         case "INR":
-          return Math.round(this.sbdPrice[1] * (1 + margin / 100) * 100) / 100;
+          return this.sbdPrice[1] * (1 + margin / 100) ;
         case "KRW":
-          return Math.round(this.steemPrice[2] * (1 + margin / 100) * 100) / 100;
+          return this.sbdPrice[2] * (1 + margin / 100) ;
+          case "BTC":
+          return  this.sbdPrice[3] * (1 + margin / 100) ;
+        case "EOS":
+          return this.sbdPrice[4] * (1 + margin / 100) ;
+        case "ETH":
+          return this.sbdPrice[5] * (1 + margin / 100) ;
+        case "ENG":
+          return  (1 + margin / 100) ;
+        case "SWEET":
+          return (1 + margin / 100) ;
       }
 
     }
-  }
-
-  buyTrade(trade: AdvertisementResponse) {
-    //this.purchaseSer.selectTradeEvent(trade);
-    //console.log(trade);
-    this.router.navigate(['purchase/' + trade._id]);
   }
 }

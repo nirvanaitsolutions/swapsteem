@@ -4,7 +4,7 @@ import { Inject, Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie';
 import { BehaviorSubject } from 'rxjs';
 import { Observable } from 'rxjs';
-import { throwError  } from 'rxjs';
+import { throwError } from 'rxjs';
 import { of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { SteemConnectConfig } from '../steemconnect.module';
@@ -99,6 +99,16 @@ export interface UserData {
   user_metadata: Object;
 }
 
+export interface MongoUserData {
+  createdAt?: string;
+  updatedAt?: string;
+  username: string;
+  tos_accepted?: boolean;
+  whitelisted?: boolean;
+  __v?: number;
+  _id?: number;
+}
+
 @Injectable()
 export class SteemconnectAuthService {
   /**
@@ -117,28 +127,42 @@ export class SteemconnectAuthService {
   );
 
   private readonly baseURL = 'https://steemconnect.com/';
-
+  public userData: UserData;
+  public mongoUserData: MongoUserData;
   constructor(
     @Inject('config') private config: SteemConnectConfig,
     @Inject(DOCUMENT) private document: Document,
     private cookieService: CookieService,
     private http: HttpClient
-  ) {}
+  ) { }
 
   /**
    * Fetches current user data from SteemConnect.
    */
   public getUserData(): Observable<UserData> {
     let accessToken: string;
+    console.log('Fn called')
     if (this.token) {
       accessToken = this.token.access_token;
     } else {
       return throwError('User has to be logged in!');
     }
+    console.log(accessToken)
 
     return this.http.get<UserData>(`${this.baseURL}api/me`, {
       headers: new HttpHeaders({
         Authorization: accessToken,
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      })
+    });
+  }
+  public getUserDataToken(token): Observable<UserData> {
+
+
+    return this.http.get<UserData>(`${this.baseURL}api/me`, {
+      headers: new HttpHeaders({
+        Authorization: token,
         'Content-Type': 'application/json',
         Accept: 'application/json'
       })
@@ -209,7 +233,7 @@ export class SteemconnectAuthService {
     const scope = this.config.scope.join(',');
     return `${
       this.baseURL
-    }oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUrl}&scope=${scope}`;
+      }oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUrl}&scope=${scope}`;
   }
 
   /**

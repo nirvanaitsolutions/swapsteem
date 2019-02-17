@@ -3,34 +3,35 @@ import { Observable } from '../../node_modules/rxjs';
 import { AdvertisementResponse } from '../app/module/advertisement';
 import { HttpClient } from '@angular/common/http';
 import { filter } from '../../node_modules/rxjs/operators';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject'
-
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { environment } from '../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class AdverstisementService {
   // Declare All variable for Handling Oservable Filters
-  private filterCurrency = new BehaviorSubject<any>(false);
-  currenyFilter = this.filterCurrency.asObservable();
-  private filterAdCoin = new BehaviorSubject<any>(false);
+  private filterCurrency = new BehaviorSubject<any>('');
+  currencyFilter = this.filterCurrency.asObservable();
+  private filterAdCoin = new BehaviorSubject<any>('');
   adCoinFilter = this.filterAdCoin.asObservable();
-  private filterPaymentMethod = new BehaviorSubject<any>(false);
+  private filterPaymentMethod = new BehaviorSubject<any>('');
   paymentMethodFilter = this.filterPaymentMethod.asObservable();
-  private filterAdType = new BehaviorSubject<any>(false);
+  private filterAdType = new BehaviorSubject<any>('');
   adTypeFilter = this.filterAdType.asObservable();
   private _advertisement: Observable<AdvertisementResponse>;
   constructor(private _http: HttpClient) {
 
   }
-  changefilter(ad_type, currency, ad_coin, payment_methods) {
+
+  changefilter(ad_type, to, from, payment_methods) {
     // Change Value for all Observable
-    this.filterCurrency.next(currency);
-    this.filterAdCoin.next(ad_coin);
+    this.filterCurrency.next(to);
+    this.filterAdCoin.next(from);
     this.filterPaymentMethod.next(payment_methods);
     this.filterAdType.next(ad_type);
   }
   getAdvertisementApi() {
-    this._advertisement = this._http.get<AdvertisementResponse>('http://swapsteem-api.herokuapp.com/listings')
+    this._advertisement = this._http.get<AdvertisementResponse>(`${environment.API_URL}/listings/`)
   }
 
   getAdvertisement(): Observable<AdvertisementResponse> {
@@ -40,7 +41,7 @@ export class AdverstisementService {
 
   filter(amount: string,
     paymentCurrency: string,
-    location: string,
+    market: string,
     paymentMethod: string) {
 
     if (amount != '') {
@@ -50,12 +51,12 @@ export class AdverstisementService {
     }
     if (paymentCurrency != '') {
       this._advertisement.pipe(
-        filter(data => data.ad_coin == paymentCurrency)
+        filter(data => data.from == paymentCurrency)
       )
     }
-    if (location != '') {
+    if (market != '') {
       this._advertisement.pipe(
-        filter(data => data.country == location)
+        filter(data => data.market == market)
       )
     }
     console.log()

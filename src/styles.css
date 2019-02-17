@@ -2,7 +2,6 @@
 @import '~ngx-bar-rating/themes/br-default-theme';
 
 html, body { height: 100%; }
-body { margin: 0; font-family: 'Roboto', sans-serif; }
-
-html, body { height: 100%; }
-body { margin: 0; font-family: 'Roboto', sans-serif; }
+body{
+    font-family: 'Muli', sans-serif !important;
+}

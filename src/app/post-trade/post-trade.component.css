@@ -4,6 +4,15 @@
     box-shadow: 2px 2px 2px 2px #888888;
     margin-top: 20px;
     background-color: white;
+    height: calc(100vh - 50px);
+}
+
+.full-width {
+    width: 100% !important;
+}
+
+.button {
+    background-color: #28a745 !important;
 }
 
 /* .buttonLocation{

@@ -3,16 +3,17 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "node server.js",
+    "start": " node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "ng build --aot --prod"
+    "postinstall": "npm run config -- --environment=prod && ng build --aot --prod",
+    "config": "ts-node -r dotenv/config ./set-env.ts"
   },
   "engines": {
-    "node": "",
-    "npm": ""
+    "node": "8.11.4",
+    "npm": "5.6.0"
   },
   "private": true,
   "dependencies": {
@@ -32,16 +33,20 @@
     "angular2-moment": "^1.9.0",
     "busyjs": "^1.0.2",
     "core-js": "^2.5.4",
+    "dotenv": "^6.2.0",
     "express": "^4.16.4",
+    "fs": "0.0.1-security",
     "moment": "^2.23.0",
     "ngx-auto-scroll": "^1.1.0",
     "ngx-bar-rating": "^1.1.0",
     "ngx-cookie": "^4.0.2",
+    "ngx-countdown": "^3.1.0",
     "ngx-pagination": "^3.2.1",
     "ngx-socket-io": "^1.1.1",
     "ngx-ui-loader": "^1.2.5",
     "rxjs": "^6.0.0",
     "rxjs-compat": "^6.2.2",
+    "yargs": "^12.0.5",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {

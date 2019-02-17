@@ -12,20 +12,20 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 })
 export class PostTradeComponent implements OnInit {
 
-  constructor(private ngxService: NgxUiLoaderService,public api: APIService, private router: Router, private zone: NgZone, private auth: SteemconnectAuthService, private route: ActivatedRoute) {
+  constructor(private ngxService: NgxUiLoaderService, public api: APIService, private router: Router, private zone: NgZone, private auth: SteemconnectAuthService, private route: ActivatedRoute) {
   }
 
   advertisement: AdvertisementRequest = {
     createdby: '',
     ad_type: '',
-    country: '',
-    payment_methods: [''],
-    currency: 'USD',
+    market: '',
+    payment_method: '',
+    to: 'USD',
     margin: 0,
     limit_from: 0,
     limit_to: 0,
     restricted_amounts: [],
-    ad_coin: 'STEEM',
+    from: 'STEEM',
     ad_status: 'open',
     ad_coin_amount: 0,
     terms: '',
@@ -41,40 +41,33 @@ export class PostTradeComponent implements OnInit {
       real_name_required: true,
       sms_verification_required: true,
       trusted_people_only: true
+    },
+    payment_details: {
+      account_holder_name: '',
+      account_number: 0,
+      bank_name: '',
+      bank_address: '',
+      swift_bic_code: '',
+      bank_code: '',
+      paypal_email: '',
+      place_of_exchange: '',
+      upi_id: ''
     }
-
   };
   objectKeys = Object.keys;
   userData: any = [];
   cryptos: any;
   effectivePrice: any;
   adId: string = '';
-  account_details: { /* account_details object */
-    account_holder_name: string;
-    account_number: string;
-    bank_name: string;
-    bank_address?: string;
-    swift_bic_code?: string;
-    bank_code?: string;
-  } = {
-      account_holder_name: '',
-      account_number: '',
-      bank_name: '',
-      bank_address: '',
-      swift_bic_code: '',
-      bank_code: '',
-    }
+
   ngOnInit() {
     this.adId = this.route.snapshot.paramMap.get('id');
     this.getSelectedTradeFromAPI(this.adId);
     this.ngxService.start();
-    this.auth.getUserData().subscribe(data => {
-      this.userData = data;
-      this.advertisement.createdby = this.userData.name;
-      console.log(this.userData);
-      
-    });
-    this.api.getPriceByPair(this.advertisement.ad_coin, this.advertisement.currency).subscribe(data => {
+    this.userData = this.auth.userData;
+    this.advertisement.createdby = this.userData.name;
+    console.log(this.userData);
+    this.api.getPriceByPair(this.advertisement.from, this.advertisement.to).subscribe(data => {
       this.cryptos = data;
       console.log(data)
       this.ngxService.stop();
@@ -90,14 +83,14 @@ export class PostTradeComponent implements OnInit {
           ...this.advertisement, ...{
             createdby: res.createdby,
             ad_type: res.ad_type,
-            country: res.country,
-            payment_methods: res.payment_methods,
-            currency: res.currency,
+            market: res.market,
+            payment_method: res.payment_method,
+            to: res.to,
             margin: res.margin,
             limit_from: res.limit_from,
             limit_to: res.limit_to,
             restricted_amounts: res.restricted_amounts,
-            ad_coin: res.ad_coin,
+            from: res.from,
             ad_status: res.ad_status,
             ad_coin_amount: res.ad_coin_amount,
             terms: res.terms,
@@ -113,25 +106,50 @@ export class PostTradeComponent implements OnInit {
               real_name_required: res.security_details.real_name_required,
               sms_verification_required: res.security_details.sms_verification_required,
               trusted_people_only: res.security_details.trusted_people_only
+            },
+            payment_details: {
+              account_holder_name: res.payment_details.account_holder_name,
+              account_number: res.payment_details.account_number,
+              bank_name: res.payment_details.bank_name,
+              bank_address: res.payment_details.bank_address,
+              swift_bic_code: res.payment_details.swift_bic_code,
+              bank_code: res.payment_details.bank_code,
+              paypal_email: res.payment_details.paypal_email,
+              upi_id: res.payment_details.upi_id,
+              crypto_address: res.payment_details.crypto_address
             }
           }
         };
-        console.log(this.advertisement);
         this.ngxService.stop();
       }));
     }
   }
 
-  onSubmit(form) {
-    console.log(form);
+  onSubmit(tradeForm) {
+    console.log('tradeForm', tradeForm)
     this.ngxService.start();
     this.api.createAd(this.advertisement, this.adId).subscribe(res => this.zone.run(() => {
       this.router.navigate(['profile'])
       this.ngxService.stop();
     }));
   }
-  currency = ['INR', 'USD', 'KRW'];
+  changeCurrency(value) {
+    if (value === 'KRW') {
+      this.fiat_payment_methods = ['Bank Transfer', 'In Cash', 'PayPal'];
+      if (this.advertisement.payment_method === 'UPI') {
+        this.advertisement.payment_method = 'Bank Transfer'
+      }
+    } else {
+      this.fiat_payment_methods = ['Bank Transfer', 'In Cash', 'PayPal', 'UPI'];
+    }
+  }
+  market = ['FIAT','CRYPTO','TOKEN']
+  fiat_options = ['INR', 'KRW']; // 'USD', 'KRW'
   ad_type = ['BUY', 'SELL'];
-  ad_coin = ['STEEM', 'SBD'];
-  payment_methods = ['Bank Transfer', 'In Cash', 'PayPal'];
+  from = ['STEEM', 'SBD'];
+  fiat_payment_methods = ['Bank Transfer',  'PayPal', 'UPI']; 
+  crypto_payment_methods = ['Crypto Transfer']; // In cash
+  token_options = ['SWEET', 'ENG']
+  crypto_options = ['BTC','EOS' ]
+  
 }
