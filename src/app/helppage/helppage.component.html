@@ -1,623 +1,630 @@
-<mat-accordion>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <h2> How to post Trade </h2>
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <h4>Tutorial on How to Post a Trade</h4>
-    <br>
-    <p class="help-paragraph"> Welcome to SwapSteem and thank you for entrusting our service to facilitate your trades.</p>
-    <br>
-    <br>
-    <p class="help-paragraph">Here’s a friendly reminder before proceeding to the tutorial. By using our service, you explicitly agree to our ToS.
-      Please consider visiting the page if you are unsure with any terms or limitations.</p>
-    <hr>
-    <p class="help-paragraph">1. To get started, you would have to first login to our platform via steemconnect. The login button is conveniently placed
-      at the uppermost right corner of the user preface at our
-      <a [routerLink]="['/home']">
-        Home page
-      </a>. You will be able to see our landing home page as below screenshot.</p>
-    <br>
-    <img class="margin-auto" src="https://i.imgur.com/SO8vAgx.png">
-    <br>
-    <hr>
-    <p class="help-paragraph">2. If you are familiar with the whole login process with steemconnect, you could directly skip to Step 4. But don't worry
-      if you aren't, we are here to help. After you have clicked on the button, you would be redirected to another web page,
-      which looks similar when compared to the following.</p>
-    <br>
-    <img class="margin-auto" src="https://i.imgur.com/3Z4aFRo.png">
-    <br>
-    <hr>
-    <p class="help-paragraph">The circled box should be displaying the logo of SwapSteem. (Oh yes, you would need to have a Steemit account beforehand!
-      <a href="https://signup.steemit.com/" target="_blank">Register here! </a>
-      The authorization permissions requested by SwapSteem would also be listed there as well, please make sure you have read all
-      the terms and only proceed if you agree with the said authorization. </p>
-    <p class="help-paragraph">Also, do note that your browser address bar should be utilizing steemconnect.com
-      <a target="_blank" href="https://steemit.com/steemit/@steemitblog/steemconnect-2-0-easy-fast-efficient-access-to-the-steem-blockchain">learn more about v2.steemconnect here!</a>
-      and the protocol of https
-      <a target="_blank" href="https://en.wikipedia.org/wiki/HTTPS">learn more about https protocol here!</a>
-      . It is crucial to double check because at SwapSteem, we truly value your account security since we are dealing with funds
-      here. </p>
-    <hr>
+<div class="container">
+  <mat-accordion class="container">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <h2> How to post Trade </h2>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <h4>Tutorial on How to Post a Trade</h4>
+      <br>
+      <p class="help-paragraph"> Welcome to SwapSteem and thank you for entrusting our service to facilitate your trades.</p>
+      <br>
+      <br>
+      <p class="help-paragraph">Here’s a friendly reminder before proceeding to the tutorial. By using our service, you explicitly agree to our ToS.
+        Please consider visiting the page if you are unsure with any terms or limitations.</p>
+      <hr>
+      <p class="help-paragraph">1. To get started, you would have to first login to our platform via steemconnect. The login button is conveniently
+        placed at the uppermost right corner of the user preface at our
+        <a [routerLink]="['/home']">
+          Home page
+        </a>. You will be able to see our landing home page as below screenshot.</p>
+      <br>
+      <img class="margin-auto" src="https://i.imgur.com/SO8vAgx.png">
+      <br>
+      <hr>
+      <p class="help-paragraph">2. If you are familiar with the whole login process with steemconnect, you could directly skip to Step 4. But don't
+        worry if you aren't, we are here to help. After you have clicked on the button, you would be redirected to another
+        web page, which looks similar when compared to the following.</p>
+      <br>
+      <img class="margin-auto" src="https://i.imgur.com/3Z4aFRo.png">
+      <br>
+      <hr>
+      <p class="help-paragraph">The circled box should be displaying the logo of SwapSteem. (Oh yes, you would need to have a Steemit account beforehand!
+        <a href="https://signup.steemit.com/" target="_blank">Register here! </a>
+        The authorization permissions requested by SwapSteem would also be listed there as well, please make sure you have read all
+        the terms and only proceed if you agree with the said authorization. </p>
+      <p class="help-paragraph">Also, do note that your browser address bar should be utilizing steemconnect.com
+        <a target="_blank" href="https://steemit.com/steemit/@steemitblog/steemconnect-2-0-easy-fast-efficient-access-to-the-steem-blockchain">learn more about v2.steemconnect here!</a>
+        and the protocol of https
+        <a target="_blank" href="https://en.wikipedia.org/wiki/HTTPS">learn more about https protocol here!</a>
+        . It is crucial to double check because at SwapSteem, we truly value your account security since we are dealing with funds
+        here. </p>
+      <hr>
 
-    <p class="help-paragraph">3. Once you have press 'continue', you would be redirected to one of the following web pages, depending on whether you've
-      logged in your Steemit account on your browser. Once you have arrived at these pages, just either click on your account
-      or enter your account details. Poof, and you are now logged in to our SwapSteem platform!</p>
-    <br>
-    <img class="margin-auto" src="https://i.imgur.com/7GYz0Dh.png">
-    <br>
-    <img class="margin-auto" src="https://i.imgur.com/BULPFf2.png">
-    <br>
-    <hr>
-    <p class="help-paragraph"> 4. Welcome to the SwapSteem!
-      <br> You could first notice that your uppermost right corner has a
-      <strong>'logout'</strong> which indicates that you have successfully logged in. In order to proceed to initiate a trade, select
-      the
-      <strong>'Post a Trade'</strong> tab which is located at the top of the page.
-    </p>
-    <br>
-    <img class="margin-auto" src="https://i.imgur.com/j75I2WP.png">
-    <br>
-    <hr>
-    <br>
-    <p class="help-paragraph">5. You will then greeted by the following page.</p>
-    <br>
-    <img class="margin-auto" src="https://i.imgur.com/Saz7Geo.png">
-    <br>
-    <p class="help-paragraph">Start by slowly filling all the required empty field. The details which you would be providing should be accurate and
-      sufficient to initiate a trade.
-      <br> There are a total of 7 fields which you have to fill if you want to create Buy lising and 13 fields while selling
-      via a bank tansfer accordingly.
+      <p class="help-paragraph">3. Once you have press 'continue', you would be redirected to one of the following web pages, depending on whether
+        you've logged in your Steemit account on your browser. Once you have arrived at these pages, just either click on
+        your account or enter your account details. Poof, and you are now logged in to our SwapSteem platform!</p>
       <br>
-      <br> For the
-      <strong>'Ad Type'</strong> field,
-      <br> - You should choose whether you would like to Buy or Sell STEEM or SBD. If you are selling STEEM/SBD you will be called
-      the Seller henceforth, similarly if you want to buy STEEM/SBD for fiat, you will be called a Buyer henceforth.
+      <img class="margin-auto" src="https://i.imgur.com/7GYz0Dh.png">
       <br>
-      <br> For the
-      <strong>'Currency'</strong> field,
+      <img class="margin-auto" src="https://i.imgur.com/BULPFf2.png">
       <br>
-      <p class="help-paragraph">- You could specify the fiat from you are offering or accepting. Please be noted that the from chosen should
-        follow the standard from acronym
-        <a fref="https://en.wikipedia.org/wiki/ISO_4217#Active_codes" target="_blank">(Refer here for the list)</a>
+      <hr>
+      <p class="help-paragraph"> 4. Welcome to the SwapSteem!
+        <br> You could first notice that your uppermost right corner has a
+        <strong>'logout'</strong> which indicates that you have successfully logged in. In order to proceed to initiate a trade,
+        select the
+        <strong>'Post a Trade'</strong> tab which is located at the top of the page.
       </p>
-      <p class="help-paragraph">For the
-        <strong>'Margin'</strong> field,</p>
-      <strong>- **Currently, this selection is being disabled and is set as 0 by default. All trades would be done based on real
-        time price API from
-        <a href="https://www.cryptocompare.com/api/" target="_blank">cryptocompare</a>. However, in the future, margin option would be activated.**</strong>
       <br>
-      <p class="help-paragraph">- You could select the margin you prefer. </p>
-      <p class="help-paragraph">- For instance, 1% means that you would like to price your advertisement as 1% above the current STEEM or SBD price.
-        Negative margin could be selected as well.
-      </p>
-      <p class="help-paragraph">- That is, if the price is 100 USD for either STEEM or SBD, margin of 1% means 101 USD as price.</p>
-      <p class="help-paragraph">For the
-        <strong>'Ad Coin Amount'</strong> field,
-        <br> - You should exactly how much you are purchasing or selling in terms of STEEM or SBD.</p>
-      <p class="help-paragraph">
-        For the
-        <strong>'Terms'</strong> field,
-        <br> - You could describe or list down all your specific instructions for potential buyer who might initiate the trade
-        with you. This section can be used to allow more clarifications which you required in order to proceed with the trade.
+      <img class="margin-auto" src="https://i.imgur.com/j75I2WP.png">
+      <br>
+      <hr>
+      <br>
+      <p class="help-paragraph">5. You will then greeted by the following page.</p>
+      <br>
+      <img class="margin-auto" src="https://i.imgur.com/Saz7Geo.png">
+      <br>
+      <p class="help-paragraph">Start by slowly filling all the required empty field. The details which you would be providing should be accurate and
+        sufficient to initiate a trade.
+        <br> There are a total of 7 fields which you have to fill if you want to create Buy lising and 13 fields while selling
+        via a bank tansfer accordingly.
         <br>
-        <br> - For instance, you could request the prospective buyer to submit proof of payment or verification documents. It
-        is recommended and advised to check out other advertisements on the platform as well to get an idea what are some
-        good terms of trade.
-      </p>
-      <br>
-      <p class="help-paragraph">If your are selling STEEM/SBD via bank transfer, you will have to fill these additional fields as explained below :</p>
-      <br>
-      <p class="help-paragraph">For the
-        <strong>'Account Holder Name'</strong> field,
-        <br> - You will need to provide your NAME as registered with your bank account where the Buyer will deposit the fiat
-        funds.
-      </p>
-      <br>
-      <p class="help-paragraph">For the
-        <strong>'Account Number'</strong> field,
-        <br> - You will need to provide your BANK ACCOUNT NUMBER registered on your name where the Buyer will deposit the fiat
-        funds.
-      </p>
-      <br>
-      <p class="help-paragraph">For the
-        <strong>'IFSC/ABA Code'</strong> field,
-        <br> - You will need to provide your Bank's IFSC/ABA Code depending on the choosen from.</p>
-      <br>
-      <p class="help-paragraph">For the
-        <strong>'Bank Address'</strong> field,
-        <br> - You will need to provide your Bank Address where the Buyer will deposit the fiat funds. This field is optional.</p>
-      <br>
-      <p class="help-paragraph">For the
-        <strong>'SWIFT/BIC Code'</strong> field,
-        <br> - You will need to provide your SWIFT/BIC Code if you have international transfers enabled with the bank where the
-        Buyer will deposit the fiat funds. This field is optinal.</p>
-      <br>
+        <br> For the
+        <strong>'Ad Type'</strong> field,
+        <br> - You should choose whether you would like to Buy or Sell STEEM or SBD. If you are selling STEEM/SBD you will be
+        called the Seller henceforth, similarly if you want to buy STEEM/SBD for fiat, you will be called a Buyer henceforth.
+        <br>
+        <br> For the
+        <strong>'Currency'</strong> field,
+        <br>
+        <p class="help-paragraph">- You could specify the fiat from you are offering or accepting. Please be noted that the from chosen should follow
+          the standard from acronym
+          <a fref="https://en.wikipedia.org/wiki/ISO_4217#Active_codes" target="_blank">(Refer here for the list)</a>
+        </p>
+        <p class="help-paragraph">For the
+          <strong>'Margin'</strong> field,</p>
+        <strong>- **Currently, this selection is being disabled and is set as 0 by default. All trades would be done based on real
+          time price API from
+          <a href="https://www.cryptocompare.com/api/" target="_blank">cryptocompare</a>. However, in the future, margin option would be activated.**</strong>
+        <br>
+        <p class="help-paragraph">- You could select the margin you prefer. </p>
+        <p class="help-paragraph">- For instance, 1% means that you would like to price your advertisement as 1% above the current STEEM or SBD price.
+          Negative margin could be selected as well.
+        </p>
+        <p class="help-paragraph">- That is, if the price is 100 USD for either STEEM or SBD, margin of 1% means 101 USD as price.</p>
+        <p class="help-paragraph">For the
+          <strong>'Ad Coin Amount'</strong> field,
+          <br> - You should exactly how much you are purchasing or selling in terms of STEEM or SBD.</p>
+        <p class="help-paragraph">
+          For the
+          <strong>'Terms'</strong> field,
+          <br> - You could describe or list down all your specific instructions for potential buyer who might initiate the trade
+          with you. This section can be used to allow more clarifications which you required in order to proceed with the
+          trade.
+          <br>
+          <br> - For instance, you could request the prospective buyer to submit proof of payment or verification documents.
+          It is recommended and advised to check out other advertisements on the platform as well to get an idea what are
+          some good terms of trade.
+        </p>
+        <br>
+        <p class="help-paragraph">If your are selling STEEM/SBD via bank transfer, you will have to fill these additional fields as explained below
+          :</p>
+        <br>
+        <p class="help-paragraph">For the
+          <strong>'Account Holder Name'</strong> field,
+          <br> - You will need to provide your NAME as registered with your bank account where the Buyer will deposit the fiat
+          funds.
+        </p>
+        <br>
+        <p class="help-paragraph">For the
+          <strong>'Account Number'</strong> field,
+          <br> - You will need to provide your BANK ACCOUNT NUMBER registered on your name where the Buyer will deposit the fiat
+          funds.
+        </p>
+        <br>
+        <p class="help-paragraph">For the
+          <strong>'IFSC/ABA Code'</strong> field,
+          <br> - You will need to provide your Bank's IFSC/ABA Code depending on the choosen from.</p>
+        <br>
+        <p class="help-paragraph">For the
+          <strong>'Bank Address'</strong> field,
+          <br> - You will need to provide your Bank Address where the Buyer will deposit the fiat funds. This field is optional.</p>
+        <br>
+        <p class="help-paragraph">For the
+          <strong>'SWIFT/BIC Code'</strong> field,
+          <br> - You will need to provide your SWIFT/BIC Code if you have international transfers enabled with the bank where
+          the Buyer will deposit the fiat funds. This field is optinal.</p>
+        <br>
+        <hr>
+        <br>
+        <p class="help-paragraph">6. After you have completed filling all the necessary details, you would then see a
+          <strong>'Publish Advertisement'</strong> button located at the end of the page.</p>
+        <br>
+        <img class="margin-auto" src="https://i.imgur.com/7dfRA6e.png">
+        <br>
+        <p class="help-paragraph">Simply click the button, and Taaa daa! You have successfully posted a trade! Congratulations!</p>
+        <br>
+        <hr>
+        <br>
+        <p class="help-paragraph">7. To check or edit your posted advertisement trade, you could hover your mouse to the 'Profile' tab on the uppermost
+          right corner of the page. You could then clearly see that all the listed advertisement made by you.</p>
+        <!-- <br> -->
+        <br>
+        <img class="margin-auto" src="https://i.imgur.com/phVyoRx.png">
+        <br>
+        <p class="help-paragraph">Cogratulations! Your trade has already been posted. You will soon be getting orders from fellow users if they agree
+          with your price and terms of trade. You can view your orders in the "Wallet" section in the top nav bar as shown
+          in below screenshot.</p>
+        <br>
+        <img class="margin-auto" src="https://i.imgur.com/NLRIKvI.png">
+        <br>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <h2> How to Sell </h2>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <h4>
+        <a id="Tutorial_on_How_to_Sell_STEEM_or_SBD_0"></a>Tutorial on How to Sell STEEM or SBD</h4>
       <hr>
-      <br>
-      <p class="help-paragraph">6. After you have completed filling all the necessary details, you would then see a
-        <strong>'Publish Advertisement'</strong> button located at the end of the page.</p>
-      <br>
-      <img class="margin-auto" src="https://i.imgur.com/7dfRA6e.png">
-      <br>
-      <p class="help-paragraph">Simply click the button, and Taaa daa! You have successfully posted a trade! Congratulations!</p>
-      <br>
+      <p class="help-paragraph">Selling STEEM or SBD might be troublesome and requiring a lots of procedural steps. Well, not anymore. With SwapSteem,
+        we allow you to sell your STEEM or SBD in just a few clicks and with your own desirable fiat from in 12 easy steps
+        as follows :</p>
       <hr>
-      <br>
-      <p class="help-paragraph">7. To check or edit your posted advertisement trade, you could hover your mouse to the 'Profile' tab on the uppermost
-        right corner of the page. You could then clearly see that all the listed advertisement made by you.</p>
-      <!-- <br> -->
-      <br>
-      <img class="margin-auto" src="https://i.imgur.com/phVyoRx.png">
-      <br>
-      <p class="help-paragraph">Cogratulations! Your trade has already been posted. You will soon be getting orders from fellow users if they agree
-        with your price and terms of trade. You can view your orders in the "Wallet" section in the top nav bar as shown
-        in below screenshot.</p>
-      <br>
-      <img class="margin-auto" src="https://i.imgur.com/NLRIKvI.png">
-      <br>
-  </mat-expansion-panel>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <h2> How to Sell </h2>
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <h4>
-      <a id="Tutorial_on_How_to_Sell_STEEM_or_SBD_0"></a>Tutorial on How to Sell STEEM or SBD</h4>
-    <hr>
-    <p class="help-paragraph">Selling STEEM or SBD might be troublesome and requiring a lots of procedural steps. Well, not anymore. With SwapSteem,
-      we allow you to sell your STEEM or SBD in just a few clicks and with your own desirable fiat from in 12 easy steps
-      as follows :</p>
-    <hr>
-    <p class="help-paragraph">
-      <strong>Step 1 :</strong> First and foremost, you would have to first login to our platform at
-      <a href="https://www.swapsteem.online">https://www.swapsteem.online</a>. The login button is conveniently placed at the uppermost right corner of the user
-      preface.
-      <br>
-      <img class="margin-auto" src="https://i.imgur.com/SO8vAgx.png" alt="">
-      <br>
-    </p>
-    <p class="help-paragraph">
-      <strong>Step 2 :</strong>. If you are familiar with the whole login process, you could directly skip to Step 4. But don’t worry
-      if you aren’t, we are here to help. After you have clicked on the button, you would be redirected to another web page,
-      which looks similar when compared to the following.
-      <br>
-      <img class="margin-auto" src="https://i.imgur.com/3Z4aFRo.png" alt="">
-    </p>
-    <p class="help-paragraph">The circled box should be displaying the logo of SwapSteem. (Oh yes, you would need to have a Steemit account beforehand!
-      <a href="https://signup.steemit.com/">Register here!</a>) The authorization permissions requested by SwapSteem would also be listed there as well, please
-      make sure you have read all the terms and only proceed if you agree with the said authorization.</p>
-    <p class="help-paragraph">Also, do note that your browser address bar should be utilizing v2.steemconnect (
-      <a href="https://steemit.com/steemit/@steemitblog/steemconnect-2-0-easy-fast-efficient-access-to-the-steem-blockchain">learn more about v2.steemconnect here!</a>) and the protocol of https (
-      <a href="https://en.wikipedia.org/wiki/HTTPS">learn more about https protocol here!</a>). It is crucial to double check because at SwapSteem, we truly value your
-      account security.
-      <br>
-    </p>
-    <p class="help-paragraph">
-      <strong>Step 3 :</strong> Once you have press ‘continue’, you would be redirected to one of the following web pages, depending
-      on whether you’ve logged in your Steemit account on your browser. Once you have arrived at these pages, just either
-      click on your account or enter your account details. Poof, and you are now logged in to our SwapSteem platform!</p>
-    <p class="help-paragraph">
-      <img class="margin-auto" src="https://i.imgur.com/7GYz0Dh.png" alt="">
-    </p>
-    <p class="help-paragraph">
-      <img class="margin-auto" src="https://i.imgur.com/BULPFf2.png" alt="">
-    </p>
-    <hr>
-    <p class="help-paragraph">
-      <strong>Step 4 :</strong> Welcome to the SwapSteem!</p>
-    <p class="help-paragraph">You could first notice that your uppermost right corner has a ‘logout’ which indicates that you have successfully logged
-      in. In order to proceed to sell some STEEM or SBD, you can simply click on “Sell” button on the listings given at the
-      home page, or find all listings to Sell by clicking at ‘Sell’ link in the top nav bar.</p>
-    <p class="help-paragraph">
-      <img class="margin-auto" src="https://i.imgur.com/j75I2WP.png" alt="">
-    </p>
-    <hr>
-    <p class="help-paragraph">
-      <strong>Step 5 :</strong> You will greeted by the following page if you click the Sell Menu.</p>
-    <p class="help-paragraph">
-      <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmT1Nm8wueEHY59QC3iDhTUtRqiwaGCYUhHmK4v3F8Nm5r" alt="sellpg.PNG">
-    </p>
-    <p class="help-paragraph">The page will list all the available advertisements which were published by the prospective buyers. The list will clearly
-      show the name of the buyer, accepted payment methods, specified type of coins, prices and the limits. If you’re unsure
-      how you would like to pay, you could simply surf through the list and look for any potential trade.</p>
-    <p class="help-paragraph">However, you could also specify some of your requirements to better narrow down the searches. Notice that there are four
-      blank spaces on the page, ‘Type’, ‘From’ and ‘To’. You could utilize this search space to filter the trade listings
-      as per your requirements.</p>
-    <hr>
-    <p class="help-paragraph">
-      <strong>Step 6 :</strong> It could be daunting to be overwhelmed by a huge lists of advertisements. However, generally, it
-      is always advisable and recommended to choose a buyer with a good reputation score and active blog on steemit.</p>
-    <p class="help-paragraph">Simply click on the ‘Sell’ button at the same row with the buyer’s name if you agreed with the basic information listed.</p>
-    <p class="help-paragraph">
-      <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmT1Nm8wueEHY59QC3iDhTUtRqiwaGCYUhHmK4v3F8Nm5r" alt="sellpg.PNG">
-    </p>
-    <hr>
-    <p class="help-paragraph">
-      <strong>Step 7 :</strong> After you have clicked on the ‘Sell’ button on a trade you wish to make after you agree with the
-      price, you would be redirected to another page which has a lot more other information regarding the listing. Always
-      remember to read through the terms of the trade listed by the seller and make sure that you agreed wholly with all
-      the conditions. You could decide whether you would like to proceed to the trade or otherwise.</p>
-    <p class="help-paragraph">An example is shown below, supposingly we have chosen listing by ‘aneilpatel’ and we would like to sell some 0.001 STEEM
-      to him.</p>
-    <p class="help-paragraph">To start the trade, fill in the ‘coin’ empty bar with the desired amount of cryptocurrencies you preferred and ‘fiat’
-      empty bar with amount of fiat currencies you would like to pay.Also you need to provide your payment details as per
-      the the payment method. In this case, we need to provide Bank account details because the payment method for the Buy
-      listing was Bank Transfer.</p>
-    <p class="help-paragraph">
-      <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmXVfMJpwTz87qp9C9PYGj9Uo2LhCjMge7WzisKPb5WUdA" alt="sell_pur.PNG">
-    </p>
-    <p class="help-paragraph">You could of course, use any value which you deemed as appropriate for you but please DO NOT trade more than 1 STEEM/SBD
-      if you are just testing. Click on the ‘create order’ after you have done inputting the trade amount.
-      <br>
-    </p>
-    <p class="help-paragraph">
-      <strong>Step 8 :</strong> After you have successfully created a Sell order, you would be redirected to the ‘Order’ page for
-      that order.
-      <br> You will need to transfer the STEEM/SBD into an Escrow via the Tansfer Escrow button. There is a deadline of 2 hours
-      from order creation for you to initiate the escrow txn. If The Ecsrow transfer is not initiated within the deadline,
-      the order will be automatically canceled.</p>
-    <p class="help-paragraph">
-      <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmXuV7evrxkRGzHFyA3Jg4jEuh7ataecoA7mK3JeYpa5dV" alt="trsfr_escr.PNG">
-    </p>
-    <p class="help-paragraph">
-      <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmV6oXTu79UkxCnKpx92m3zwbQnXYvyikvKNXXTp4w8x1w" alt="escr_trsfr.PNG">
-    </p>
-    <p class="help-paragraph">
-      <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmZRggtHv7hAUGNoZjiUYeFsrLXa4uiQL1ecLrGd4RSWxX" alt="sign.png">
-    </p>
-    <p class="help-paragraph">Please be well noticed that the escrow transfer fees would be bore by You. Currently, all trades would have a flat 0.001
-      STEEM fee for testing purpose.
-      <br>
-    </p>
-    <p class="help-paragraph">
-      <strong>Step 9 :</strong> Once the You have transferred funds to escrow, You need approve to wait for the Buyer to approve
-      the escrow.</p>
-    <p class="help-paragraph">There is a deadline of 2 hours from order creation for you to initiate the escrow txn. If The Ecsrow transfer is not
-      initiated within the deadline, the order will be automatically canceled.</p>
-    <p class="help-paragraph">
-      <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmbsWu7UssxArTgwu4kgunVqh1hPhJR5PjeaKGeRptSxUx" alt="wait_apprv.PNG">
-    </p>
-    <p class="help-paragraph">After Succesfully approval from the Buyer, you’ll be redirected to the order page where you’ll see a message to wait
-      for agent approval as shown below. The agent, in this case @swapsteem needs to confirm the escrow within the specified
-      timeline in order to proceed with the trade. Please wait for the agent to approve the transaction.</p>
-    <p class="help-paragraph">
-      <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmXJKuAxbYKRWixXRwfFNbXUD8aEVqot5uf8UuyJ4rEnMi" alt="agent wait.PNG">
-    </p>
-    <hr>
-    <p class="help-paragraph">
-      <strong>Step 10 :</strong> The agent (@swapsteem) would have to approve the escrow as well after comfirming the transactions
-      from both you and the buyer. Once the Agent has confirmed the escrow, you will see a page as shown below:</p>
-    <p class="help-paragraph">
-      <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmPYjih8wLctRdvrwUsTq4a9KGYnp8mGoEEiZXXaw2VEcv" alt="wait_pmt.PNG">
-    </p>
-    <p class="help-paragraph">Now, it’s time for the Buyer to complete the payment in fiat. It should be done using the method specified. Once notified
-      by the buyer after he has completed the payment and marked the payment as done.</p>
-    <hr>
-    <p class="help-paragraph">
-      <strong>Step 11 :</strong> The whole process will be completed once the fiat payment is verified by you and then You will need
-      to release the STEEM or SBD to the Buyer via an escrow release transaction. If you dont get the fiat funds even after
-      confirmation of payment from buyer within the timeline, you can raise a dispute after 6 hours of payment confirmation
-      to have the case handled by the agent.</p>
-    <p class="help-paragraph">If you have recieved the fiat, please click on Release Escrow to relase the STEEM/SBD to the buyer as Shown below :</p>
-    <p class="help-paragraph">
-      <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmbxiSiQ4A6bgSNGpKDLyf2FgwL6dbvhjTiUbvgsuWz3Mx" alt="rls_escr.PNG">
-    </p>
-    <p class="help-paragraph">
-      <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmViXX99ezPGDEivaSk8ahhztNq2MHToMMTCm7hDUFbjtW" alt="escr_rls.PNG">
-    </p>
-    <p class="help-paragraph">
-      <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmZRggtHv7hAUGNoZjiUYeFsrLXa4uiQL1ecLrGd4RSWxX" alt="sign.png">
-    </p>
-    <p class="help-paragraph">The Procedure to raise and solve a dispute will be explained in a separte tutorial in detail.</p>
-    <hr>
-    <p class="help-paragraph">
-      <strong>Step 12 :</strong> If you have Released the Escrow and the Seller has recieved the STEEM/SBD, You will need to review
-      the Buyer for the trade with a rating and an optional text review that will be visible in your profile.</p>
-    <p class="help-paragraph">
-      <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmWczpD3rphkQC7jGMnDmimjUjbWy3TMBsGjH55Uq97f2B" alt="seller_review.PNG">
-    </p>
-    <p class="help-paragraph">Please review the Seller and Click on Submit. You will see a message saying your trade has been completed. You can now
-      check your wallet on steemit or any website for reciept of funds.</p>
-    <p class="help-paragraph">
-      <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmdkVeHCLueodvrzMdTCSzX8Vac8DFicmJPXhHR9yQUqUN" alt="ord_cmplt.PNG">
-    </p>
-    <p class="help-paragraph">
-      <strong>Congratulations! You have successfully sold STEEM/SBD for fiat on Swapsteem! Aint that cool?</strong>
-    </p>
-    <hr>
-  </mat-expansion-panel>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <h2> How to Buy </h2>
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <h4>
-      <a id="Tutorial_on_How_to_Buy_STEEM_or_SBD_0"></a>Tutorial on How to Buy STEEM or SBD</h4>
-    <hr>
-    <p class="help-paragraph">Buying STEEM or SBD might be troublesome and requiring a lots of procedural steps. Well, not anymore. With SwapSteem,
-      we allow you to purchase STEEM or SBD in just a few clicks and with your own desirable fiat from</p>
-    <hr>
-    <ol>
-      <li>First and foremost, you would have to first login to our platform at
+      <p class="help-paragraph">
+        <strong>Step 1 :</strong> First and foremost, you would have to first login to our platform at
         <a href="https://www.swapsteem.online">https://www.swapsteem.online</a>. The login button is conveniently placed at the uppermost right corner of the user
         preface.
         <br>
         <img class="margin-auto" src="https://i.imgur.com/SO8vAgx.png" alt="">
-      </li>
-    </ol>
-    <br>
-    <hr>
-    <br>
-    <ol start="2">
-      <li>If you are familiar with the whole login process, you could directly skip to Step 4. But don’t worry if you aren’t,
-        we are here to help. After you have clicked on the button, you would be redirected to another web page, which looks
-        similar when compared to the following.
+        <br>
+      </p>
+      <p class="help-paragraph">
+        <strong>Step 2 :</strong>. If you are familiar with the whole login process, you could directly skip to Step 4. But don’t
+        worry if you aren’t, we are here to help. After you have clicked on the button, you would be redirected to another
+        web page, which looks similar when compared to the following.
         <br>
         <img class="margin-auto" src="https://i.imgur.com/3Z4aFRo.png" alt="">
-      </li>
-    </ol>
-    <p class="help-paragraph">The circled box should be displaying the logo of SwapSteem. (Oh yes, you would need to have a Steemit account beforehand!
-      <a href="https://signup.steemit.com/">Register here!</a>) The authorization permissions requested by SwapSteem would also be listed there as well, please
-      make sure you have read all the terms and only proceed if you agree with the said authorization.</p>
-    <br>
-    <p class="help-paragraph">Also, do note that your browser address bar should be utilizing v2.steemconnect (
-      <a href="https://steemit.com/steemit/@steemitblog/steemconnect-2-0-easy-fast-efficient-access-to-the-steem-blockchain">learn more about v2.steemconnect here!</a>) and the protocol of https (
-      <a href="https://en.wikipedia.org/wiki/HTTPS">learn more about https protocol here!</a>). It is crucial to double check because at SwapSteem, we truly value your
-      account security.</p>
-    <br>
-    <hr>
-    <br>
-    <ol start="3">
-      <li>Once you have press ‘continue’, you would be redirected to one of the following web pages, depending on whether you’ve
-        logged in your Steemit account on your browser. Once you have arrived at these pages, just either click on your account
-        or enter your account details. Poof, and you are now logged in to our SwapSteem platform!</li>
-    </ol>
-    <p class="help-paragraph">
-      <img class="margin-auto" src="https://i.imgur.com/7GYz0Dh.png" alt="">
-    </p>
-    <p class="help-paragraph">
-      <img class="margin-auto" src="https://i.imgur.com/BULPFf2.png" alt="">
-    </p>
-    <br>
-    <hr>
-    <br>
-    <ol start="4">
-      <li>Welcome to the SwapSteem!</li>
-    </ol>
-    <p class="help-paragraph">You could first notice that your uppermost right corner has a ‘logout’ which indicates that you have successfully logged
-      in. In order to proceed to buy some STEEM or SBD, you can simply click on “Buy” button on the listings given at the
-      home page, or find all listings to Buy by clicking at ‘Buy’ link in the top nav bar.</p>
-    <p class="help-paragraph">
-      <img class="margin-auto" src="https://i.imgur.com/j75I2WP.png" alt="">
-    </p>
-    <hr>
-    <ol start="5">
-      <li>You will greeted by the following page if you click the Buy Menu.</li>
-    </ol>
-    <p class="help-paragraph">
-      <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmSD62XszdZ8qcXHDjmy8yAwHsS5vB5xPnrx7RX4bCrCQa" alt="buypage.PNG">
-    </p>
-    <p class="help-paragraph">The page will list all the available advertisements which were published by the prospective sellers. The list will clearly
-      show the name of the seller, accepted payment methods, specified type of coins, prices and the limits. If you’re unsure
-      how you would like to pay, you could simply surf through the list and look for any potential trade.</p>
-    <p class="help-paragraph">However, you could also specify some of your requirements to better narrow down the searches. Notice that there are four
-      blank spaces on the page, ‘Type’, ‘From’ and ‘To’. You could utilize this search space to filter the trade listings
-      as per your requirements.</p>
-    <hr>
-    <ol start="6">
-      <li>It could be daunting to be overwhelmed by a huge lists of advertisements. However, generally, it is always advisable
-        and recommended to choose a seller with a good reputation score and a significantly great amount of sales.</li>
-    </ol>
-    <p class="help-paragraph">Simply click on the ‘Buy’ button at the same row with the seller’s name if you agreed with the basic information listed.</p>
-    <hr>
-    <ol start="7">
-      <li>After you have clicked on the ‘Buy’ button on a trade you wish to make after you agree with the price, you would be
-        redirected to another page which has a lot more other information regarding the listing. Always remember to read
-        through the terms of the trade listed by the seller and make sure that you agreed wholly with all the conditions.
-        You could decide whether you would like to proceed to the trade or otherwise.</li>
-    </ol>
-    <p class="help-paragraph">An example is shown below, supposingly we have chosen listing by ‘svijay1692’ and we would like to buy some 0.001 STEEM
-      from him.</p>
-    <p class="help-paragraph">To start the trade, fill in the ‘coin’ empty bar with the desired amount of cryptocurrencies you preferred and ‘fiat’
-      empty bar with amount of fiat currencies you would like to pay.
-      <br>
-      <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmQB1P5mWTjsQLwmvfWE8JJvTubKNugZNjAwM1jRMHuYmh" alt="purchase.PNG">
-    </p>
-    <p class="help-paragraph">You could of course, use any value which you deemed as appropriate for you but please DO NOT trade more than 1 STEEM/SBD
-      if you are just testing. Click on the ‘create order’ after you have done inputting the trade amount.
-      <br> &lt;hr&gt;
-    </p>
-    <ol start="8">
-      <li>After you have successfully created a buy order, you would be redirected to the ‘Order’ page for that order.
-        <br> Please wait for the seller to approve the order and initiate the trade by create the escrow transfer, the Seller
-        may also reject the order. There is a deadline of 2 hours from order creation for the seller to initiate the escrow
-        txn. If The Ecsrow transfer is not initiated within the deadline, the order will be automatically canceled.</li>
-    </ol>
-    <p class="help-paragraph">Please be well noticed that the escrow transfer fees would be bore by the Seller. Currently, all trades would have a
-      flat 0.001 STEEM fee for testing purpose.</p>
-    <ol start="8">
-      <li>Once the Seller has transferred funds to escrow, You need approve the escrow using the steemconnect through the hot
-        sign functionality.
-        <br> Click on the confirm escrow button to confirm the trade and sign the transaction using you steem credentials shown
-        in below screenshots.
+      </p>
+      <p class="help-paragraph">The circled box should be displaying the logo of SwapSteem. (Oh yes, you would need to have a Steemit account beforehand!
+        <a href="https://signup.steemit.com/">Register here!</a>) The authorization permissions requested by SwapSteem would also be listed there as well, please
+        make sure you have read all the terms and only proceed if you agree with the said authorization.</p>
+      <p class="help-paragraph">Also, do note that your browser address bar should be utilizing v2.steemconnect (
+        <a href="https://steemit.com/steemit/@steemitblog/steemconnect-2-0-easy-fast-efficient-access-to-the-steem-blockchain">learn more about v2.steemconnect here!</a>) and the protocol of https (
+        <a href="https://en.wikipedia.org/wiki/HTTPS">learn more about https protocol here!</a>). It is crucial to double check because at SwapSteem, we truly value your
+        account security.
         <br>
-        <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmZN7oBCDarXxEUb4e3xThFNvp12kXzGruzp5tjdToCHmv" alt="approve_esc.PNG">
-      </li>
-    </ol>
-    <p class="help-paragraph">
-      <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmVFJXFqJ76TqTtemd9dFSAQLRjRbxNLLbbuaLXzuMhPaH" alt="sc_esc_app.PNG">
-    </p>
-    <p class="help-paragraph">
-      <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmaziZaE1LGQpWTmgzY1NzCpVSXhFPMPFwxdKiVkfqrrr8" alt="sc_sign_anlptl.PNG">
-    </p>
-    <p class="help-paragraph">After Succesfully signing the escrow approve txn, you’ll be redirected to the order page where you’ll a message to wait
-      for agent approval as shown below. The agent, in this case @swapsteem needs to confirm the escrow within the specified
-      timeline in order to proceed with the trade. Please wait for the agent to approve the transaction.
+      </p>
+      <p class="help-paragraph">
+        <strong>Step 3 :</strong> Once you have press ‘continue’, you would be redirected to one of the following web pages, depending
+        on whether you’ve logged in your Steemit account on your browser. Once you have arrived at these pages, just either
+        click on your account or enter your account details. Poof, and you are now logged in to our SwapSteem platform!</p>
+      <p class="help-paragraph">
+        <img class="margin-auto" src="https://i.imgur.com/7GYz0Dh.png" alt="">
+      </p>
+      <p class="help-paragraph">
+        <img class="margin-auto" src="https://i.imgur.com/BULPFf2.png" alt="">
+      </p>
+      <hr>
+      <p class="help-paragraph">
+        <strong>Step 4 :</strong> Welcome to the SwapSteem!</p>
+      <p class="help-paragraph">You could first notice that your uppermost right corner has a ‘logout’ which indicates that you have successfully logged
+        in. In order to proceed to sell some STEEM or SBD, you can simply click on “Sell” button on the listings given at
+        the home page, or find all listings to Sell by clicking at ‘Sell’ link in the top nav bar.</p>
+      <p class="help-paragraph">
+        <img class="margin-auto" src="https://i.imgur.com/j75I2WP.png" alt="">
+      </p>
+      <hr>
+      <p class="help-paragraph">
+        <strong>Step 5 :</strong> You will greeted by the following page if you click the Sell Menu.</p>
+      <p class="help-paragraph">
+        <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmT1Nm8wueEHY59QC3iDhTUtRqiwaGCYUhHmK4v3F8Nm5r" alt="sellpg.PNG">
+      </p>
+      <p class="help-paragraph">The page will list all the available advertisements which were published by the prospective buyers. The list will clearly
+        show the name of the buyer, accepted payment methods, specified type of coins, prices and the limits. If you’re unsure
+        how you would like to pay, you could simply surf through the list and look for any potential trade.</p>
+      <p class="help-paragraph">However, you could also specify some of your requirements to better narrow down the searches. Notice that there are
+        four blank spaces on the page, ‘Type’, ‘From’ and ‘To’. You could utilize this search space to filter the trade listings
+        as per your requirements.</p>
+      <hr>
+      <p class="help-paragraph">
+        <strong>Step 6 :</strong> It could be daunting to be overwhelmed by a huge lists of advertisements. However, generally, it
+        is always advisable and recommended to choose a buyer with a good reputation score and active blog on steemit.</p>
+      <p class="help-paragraph">Simply click on the ‘Sell’ button at the same row with the buyer’s name if you agreed with the basic information listed.</p>
+      <p class="help-paragraph">
+        <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmT1Nm8wueEHY59QC3iDhTUtRqiwaGCYUhHmK4v3F8Nm5r" alt="sellpg.PNG">
+      </p>
+      <hr>
+      <p class="help-paragraph">
+        <strong>Step 7 :</strong> After you have clicked on the ‘Sell’ button on a trade you wish to make after you agree with the
+        price, you would be redirected to another page which has a lot more other information regarding the listing. Always
+        remember to read through the terms of the trade listed by the seller and make sure that you agreed wholly with all
+        the conditions. You could decide whether you would like to proceed to the trade or otherwise.</p>
+      <p class="help-paragraph">An example is shown below, supposingly we have chosen listing by ‘aneilpatel’ and we would like to sell some 0.001
+        STEEM to him.</p>
+      <p class="help-paragraph">To start the trade, fill in the ‘coin’ empty bar with the desired amount of cryptocurrencies you preferred and ‘fiat’
+        empty bar with amount of fiat currencies you would like to pay.Also you need to provide your payment details as per
+        the the payment method. In this case, we need to provide Bank account details because the payment method for the
+        Buy listing was Bank Transfer.</p>
+      <p class="help-paragraph">
+        <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmXVfMJpwTz87qp9C9PYGj9Uo2LhCjMge7WzisKPb5WUdA" alt="sell_pur.PNG">
+      </p>
+      <p class="help-paragraph">You could of course, use any value which you deemed as appropriate for you but please DO NOT trade more than 1 STEEM/SBD
+        if you are just testing. Click on the ‘create order’ after you have done inputting the trade amount.
+        <br>
+      </p>
+      <p class="help-paragraph">
+        <strong>Step 8 :</strong> After you have successfully created a Sell order, you would be redirected to the ‘Order’ page for
+        that order.
+        <br> You will need to transfer the STEEM/SBD into an Escrow via the Tansfer Escrow button. There is a deadline of 2 hours
+        from order creation for you to initiate the escrow txn. If The Ecsrow transfer is not initiated within the deadline,
+        the order will be automatically canceled.</p>
+      <p class="help-paragraph">
+        <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmXuV7evrxkRGzHFyA3Jg4jEuh7ataecoA7mK3JeYpa5dV" alt="trsfr_escr.PNG">
+      </p>
+      <p class="help-paragraph">
+        <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmV6oXTu79UkxCnKpx92m3zwbQnXYvyikvKNXXTp4w8x1w" alt="escr_trsfr.PNG">
+      </p>
+      <p class="help-paragraph">
+        <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmZRggtHv7hAUGNoZjiUYeFsrLXa4uiQL1ecLrGd4RSWxX" alt="sign.png">
+      </p>
+      <p class="help-paragraph">Please be well noticed that the escrow transfer fees would be bore by You. Currently, all trades would have a flat
+        0.001 STEEM fee for testing purpose.
+        <br>
+      </p>
+      <p class="help-paragraph">
+        <strong>Step 9 :</strong> Once the You have transferred funds to escrow, You need approve to wait for the Buyer to approve
+        the escrow.</p>
+      <p class="help-paragraph">There is a deadline of 2 hours from order creation for you to initiate the escrow txn. If The Ecsrow transfer is not
+        initiated within the deadline, the order will be automatically canceled.</p>
+      <p class="help-paragraph">
+        <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmbsWu7UssxArTgwu4kgunVqh1hPhJR5PjeaKGeRptSxUx" alt="wait_apprv.PNG">
+      </p>
+      <p class="help-paragraph">After Succesfully approval from the Buyer, you’ll be redirected to the order page where you’ll see a message to wait
+        for agent approval as shown below. The agent, in this case @swapsteem needs to confirm the escrow within the specified
+        timeline in order to proceed with the trade. Please wait for the agent to approve the transaction.</p>
+      <p class="help-paragraph">
+        <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmXJKuAxbYKRWixXRwfFNbXUD8aEVqot5uf8UuyJ4rEnMi" alt="agent wait.PNG">
+      </p>
+      <hr>
+      <p class="help-paragraph">
+        <strong>Step 10 :</strong> The agent (@swapsteem) would have to approve the escrow as well after comfirming the transactions
+        from both you and the buyer. Once the Agent has confirmed the escrow, you will see a page as shown below:</p>
+      <p class="help-paragraph">
+        <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmPYjih8wLctRdvrwUsTq4a9KGYnp8mGoEEiZXXaw2VEcv" alt="wait_pmt.PNG">
+      </p>
+      <p class="help-paragraph">Now, it’s time for the Buyer to complete the payment in fiat. It should be done using the method specified. Once notified
+        by the buyer after he has completed the payment and marked the payment as done.</p>
+      <hr>
+      <p class="help-paragraph">
+        <strong>Step 11 :</strong> The whole process will be completed once the fiat payment is verified by you and then You will
+        need to release the STEEM or SBD to the Buyer via an escrow release transaction. If you dont get the fiat funds even
+        after confirmation of payment from buyer within the timeline, you can raise a dispute after 6 hours of payment confirmation
+        to have the case handled by the agent.</p>
+      <p class="help-paragraph">If you have recieved the fiat, please click on Release Escrow to relase the STEEM/SBD to the buyer as Shown below :</p>
+      <p class="help-paragraph">
+        <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmbxiSiQ4A6bgSNGpKDLyf2FgwL6dbvhjTiUbvgsuWz3Mx" alt="rls_escr.PNG">
+      </p>
+      <p class="help-paragraph">
+        <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmViXX99ezPGDEivaSk8ahhztNq2MHToMMTCm7hDUFbjtW" alt="escr_rls.PNG">
+      </p>
+      <p class="help-paragraph">
+        <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmZRggtHv7hAUGNoZjiUYeFsrLXa4uiQL1ecLrGd4RSWxX" alt="sign.png">
+      </p>
+      <p class="help-paragraph">The Procedure to raise and solve a dispute will be explained in a separte tutorial in detail.</p>
+      <hr>
+      <p class="help-paragraph">
+        <strong>Step 12 :</strong> If you have Released the Escrow and the Seller has recieved the STEEM/SBD, You will need to review
+        the Buyer for the trade with a rating and an optional text review that will be visible in your profile.</p>
+      <p class="help-paragraph">
+        <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmWczpD3rphkQC7jGMnDmimjUjbWy3TMBsGjH55Uq97f2B" alt="seller_review.PNG">
+      </p>
+      <p class="help-paragraph">Please review the Seller and Click on Submit. You will see a message saying your trade has been completed. You can
+        now check your wallet on steemit or any website for reciept of funds.</p>
+      <p class="help-paragraph">
+        <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmdkVeHCLueodvrzMdTCSzX8Vac8DFicmJPXhHR9yQUqUN" alt="ord_cmplt.PNG">
+      </p>
+      <p class="help-paragraph">
+        <strong>Congratulations! You have successfully sold STEEM/SBD for fiat on Swapsteem! Aint that cool?</strong>
+      </p>
+      <hr>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <h2> How to Buy </h2>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <h4>
+        <a id="Tutorial_on_How_to_Buy_STEEM_or_SBD_0"></a>Tutorial on How to Buy STEEM or SBD</h4>
+      <hr>
+      <p class="help-paragraph">Buying STEEM or SBD might be troublesome and requiring a lots of procedural steps. Well, not anymore. With SwapSteem,
+        we allow you to purchase STEEM or SBD in just a few clicks and with your own desirable fiat from</p>
+      <hr>
+      <ol>
+        <li>First and foremost, you would have to first login to our platform at
+          <a href="https://www.swapsteem.online">https://www.swapsteem.online</a>. The login button is conveniently placed at the uppermost right corner of the
+          user preface.
+          <br>
+          <img class="margin-auto" src="https://i.imgur.com/SO8vAgx.png" alt="">
+        </li>
+      </ol>
       <br>
-      <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmXJKuAxbYKRWixXRwfFNbXUD8aEVqot5uf8UuyJ4rEnMi" alt="agent wait.PNG">
-      <br> &lt;hr&gt;
-    </p>
-    <ol start="9">
-      <li>The agent (@swapsteem) would have to approve the escrow as well after comfirming the transactions from both you and
-        the seller. Once the Agent has confirmed the escrow, you will see a page as shown below:</li>
-    </ol>
-    <p class="help-paragraph">Now, it’s time for you to complete the payment. It should be done using the method specified. Pay the amount before the
-      payment window is over to the specified acount/paypal/in cash.</p>
-    <p class="help-paragraph">Do notify the seller after you have completed your transaction by marking the payment as done by clicking “Confirm Payment”
-      button and Patiently wait for the seller to verify your payment and ultimately mark it done as well.</p>
-    <p class="help-paragraph">
-      <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmZ86sDbNLEuWQtVSvDTLifJHBYyLZbsLDsP5PqaB98ywY" alt="conf_pay.PNG">
+      <hr>
       <br>
-      <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmT9ecYxdrnpzZgawvS8xGQRNFGKgWZ4ym5m4j169shAep" alt="wait_reles.PNG">
-    </p>
-    <hr>
-    <ol start="10">
-      <li>The whole process will be completed once the payment is verified by the seller, and the escrow will then release the
-        STEEM or SBD instantly to your wallet through an escrow release transaction. If you dont get the STEEM/SBD released
-        within the timeline, It will be automatically deposited to you once the tomeline of 3 days from order creation is
-        over, if there is no dispute raised by Seller Alternatively, you can raise a dispute after 6 hours of payment confirmation
-        to have the case handled by the agent.</li>
-    </ol>
-    <p class="help-paragraph">The Procedure to raise and solve a dispute will be explained in a separte tutorial in detail.
-      <br> &lt;hr&gt;
-    </p>
-    <ol start="11">
-      <li>If you have done the payment and the Seller has recieved it and Released the Escrow, You will need to Seller for the
-        trade with a rating and an optional text review that will be visible in your profile.</li>
-    </ol>
-    <p class="help-paragraph">
-      <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmP7vFmdpQ3nrwZepGyFot8Ug1aBv4EsxB1hBRWVqTzQXY" alt="byer_revd.PNG">
-    </p>
-    <p class="help-paragraph">Please review the Seller and Click on Submit. You will see a message saying your trade has been completed. You can now
-      check your wallet on steemit or any website for reciept of funds.</p>
-    <hr>
-  </mat-expansion-panel>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <h2> FAQ </h2>
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <h3>SWAPSTEEM – FREQUENTLY ASKED QUESTIONS</h3>
+      <ol start="2">
+        <li>If you are familiar with the whole login process, you could directly skip to Step 4. But don’t worry if you aren’t,
+          we are here to help. After you have clicked on the button, you would be redirected to another web page, which looks
+          similar when compared to the following.
+          <br>
+          <img class="margin-auto" src="https://i.imgur.com/3Z4aFRo.png" alt="">
+        </li>
+      </ol>
+      <p class="help-paragraph">The circled box should be displaying the logo of SwapSteem. (Oh yes, you would need to have a Steemit account beforehand!
+        <a href="https://signup.steemit.com/">Register here!</a>) The authorization permissions requested by SwapSteem would also be listed there as well, please
+        make sure you have read all the terms and only proceed if you agree with the said authorization.</p>
+      <br>
+      <p class="help-paragraph">Also, do note that your browser address bar should be utilizing v2.steemconnect (
+        <a href="https://steemit.com/steemit/@steemitblog/steemconnect-2-0-easy-fast-efficient-access-to-the-steem-blockchain">learn more about v2.steemconnect here!</a>) and the protocol of https (
+        <a href="https://en.wikipedia.org/wiki/HTTPS">learn more about https protocol here!</a>). It is crucial to double check because at SwapSteem, we truly value your
+        account security.</p>
+      <br>
+      <hr>
+      <br>
+      <ol start="3">
+        <li>Once you have press ‘continue’, you would be redirected to one of the following web pages, depending on whether you’ve
+          logged in your Steemit account on your browser. Once you have arrived at these pages, just either click on your
+          account or enter your account details. Poof, and you are now logged in to our SwapSteem platform!</li>
+      </ol>
+      <p class="help-paragraph">
+        <img class="margin-auto" src="https://i.imgur.com/7GYz0Dh.png" alt="">
+      </p>
+      <p class="help-paragraph">
+        <img class="margin-auto" src="https://i.imgur.com/BULPFf2.png" alt="">
+      </p>
+      <br>
+      <hr>
+      <br>
+      <ol start="4">
+        <li>Welcome to the SwapSteem!</li>
+      </ol>
+      <p class="help-paragraph">You could first notice that your uppermost right corner has a ‘logout’ which indicates that you have successfully logged
+        in. In order to proceed to buy some STEEM or SBD, you can simply click on “Buy” button on the listings given at the
+        home page, or find all listings to Buy by clicking at ‘Buy’ link in the top nav bar.</p>
+      <p class="help-paragraph">
+        <img class="margin-auto" src="https://i.imgur.com/j75I2WP.png" alt="">
+      </p>
+      <hr>
+      <ol start="5">
+        <li>You will greeted by the following page if you click the Buy Menu.</li>
+      </ol>
+      <p class="help-paragraph">
+        <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmSD62XszdZ8qcXHDjmy8yAwHsS5vB5xPnrx7RX4bCrCQa" alt="buypage.PNG">
+      </p>
+      <p class="help-paragraph">The page will list all the available advertisements which were published by the prospective sellers. The list will
+        clearly show the name of the seller, accepted payment methods, specified type of coins, prices and the limits. If
+        you’re unsure how you would like to pay, you could simply surf through the list and look for any potential trade.</p>
+      <p class="help-paragraph">However, you could also specify some of your requirements to better narrow down the searches. Notice that there are
+        four blank spaces on the page, ‘Type’, ‘From’ and ‘To’. You could utilize this search space to filter the trade listings
+        as per your requirements.</p>
+      <hr>
+      <ol start="6">
+        <li>It could be daunting to be overwhelmed by a huge lists of advertisements. However, generally, it is always advisable
+          and recommended to choose a seller with a good reputation score and a significantly great amount of sales.</li>
+      </ol>
+      <p class="help-paragraph">Simply click on the ‘Buy’ button at the same row with the seller’s name if you agreed with the basic information listed.</p>
+      <hr>
+      <ol start="7">
+        <li>After you have clicked on the ‘Buy’ button on a trade you wish to make after you agree with the price, you would
+          be redirected to another page which has a lot more other information regarding the listing. Always remember to
+          read through the terms of the trade listed by the seller and make sure that you agreed wholly with all the conditions.
+          You could decide whether you would like to proceed to the trade or otherwise.</li>
+      </ol>
+      <p class="help-paragraph">An example is shown below, supposingly we have chosen listing by ‘svijay1692’ and we would like to buy some 0.001 STEEM
+        from him.</p>
+      <p class="help-paragraph">To start the trade, fill in the ‘coin’ empty bar with the desired amount of cryptocurrencies you preferred and ‘fiat’
+        empty bar with amount of fiat currencies you would like to pay.
+        <br>
+        <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmQB1P5mWTjsQLwmvfWE8JJvTubKNugZNjAwM1jRMHuYmh" alt="purchase.PNG">
+      </p>
+      <p class="help-paragraph">You could of course, use any value which you deemed as appropriate for you but please DO NOT trade more than 1 STEEM/SBD
+        if you are just testing. Click on the ‘create order’ after you have done inputting the trade amount.
+        <br> 
+      </p>
+      <hr>
+      <ol start="8">
+        <li>After you have successfully created a buy order, you would be redirected to the ‘Order’ page for that order.
+          <br> Please wait for the seller to approve the order and initiate the trade by create the escrow transfer, the Seller
+          may also reject the order. There is a deadline of 2 hours from order creation for the seller to initiate the escrow
+          txn. If The Ecsrow transfer is not initiated within the deadline, the order will be automatically canceled.</li>
+      </ol>
+      <p class="help-paragraph">Please be well noticed that the escrow transfer fees would be bore by the Seller. Currently, all trades would have
+        a flat 0.001 STEEM fee for testing purpose.</p>
+      <ol start="8">
+        <li>Once the Seller has transferred funds to escrow, You need approve the escrow using the steemconnect through the hot
+          sign functionality.
+          <br> Click on the confirm escrow button to confirm the trade and sign the transaction using you steem credentials shown
+          in below screenshots.
+          <br>
+          <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmZN7oBCDarXxEUb4e3xThFNvp12kXzGruzp5tjdToCHmv" alt="approve_esc.PNG">
+        </li>
+      </ol>
+      <p class="help-paragraph">
+        <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmVFJXFqJ76TqTtemd9dFSAQLRjRbxNLLbbuaLXzuMhPaH" alt="sc_esc_app.PNG">
+      </p>
+      <p class="help-paragraph">
+        <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmaziZaE1LGQpWTmgzY1NzCpVSXhFPMPFwxdKiVkfqrrr8" alt="sc_sign_anlptl.PNG">
+      </p>
+      <p class="help-paragraph">After Succesfully signing the escrow approve txn, you’ll be redirected to the order page where you’ll a message to
+        wait for agent approval as shown below. The agent, in this case @swapsteem needs to confirm the escrow within the
+        specified timeline in order to proceed with the trade. Please wait for the agent to approve the transaction.
+        <br>
+        <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmXJKuAxbYKRWixXRwfFNbXUD8aEVqot5uf8UuyJ4rEnMi" alt="agent wait.PNG">
+        <br>
+      </p>
+      <hr>
+      <ol start="9">
+        <li>The agent (@swapsteem) would have to approve the escrow as well after comfirming the transactions from both you and
+          the seller. Once the Agent has confirmed the escrow, you will see a page as shown below:</li>
+      </ol>
+      <p class="help-paragraph">Now, it’s time for you to complete the payment. It should be done using the method specified. Pay the amount before
+        the payment window is over to the specified acount/paypal/in cash.</p>
+      <p class="help-paragraph">Do notify the seller after you have completed your transaction by marking the payment as done by clicking “Confirm
+        Payment” button and Patiently wait for the seller to verify your payment and ultimately mark it done as well.</p>
+      <p class="help-paragraph">
+        <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmZ86sDbNLEuWQtVSvDTLifJHBYyLZbsLDsP5PqaB98ywY" alt="conf_pay.PNG">
+        <br>
+        <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmT9ecYxdrnpzZgawvS8xGQRNFGKgWZ4ym5m4j169shAep" alt="wait_reles.PNG">
+      </p>
+      <hr>
+      <ol start="10">
+        <li>The whole process will be completed once the payment is verified by the seller, and the escrow will then release
+          the STEEM or SBD instantly to your wallet through an escrow release transaction. If you dont get the STEEM/SBD
+          released within the timeline, It will be automatically deposited to you once the tomeline of 3 days from order
+          creation is over, if there is no dispute raised by Seller Alternatively, you can raise a dispute after 6 hours
+          of payment confirmation to have the case handled by the agent.</li>
+      </ol>
+      <p class="help-paragraph">The Procedure to raise and solve a dispute will be explained in a separte tutorial in detail.
+        <br> 
+      </p>
+      <hr>
+      <ol start="11">
+        <li>If you have done the payment and the Seller has recieved it and Released the Escrow, You will need to Seller for
+          the trade with a rating and an optional text review that will be visible in your profile.</li>
+      </ol>
+      <p class="help-paragraph">
+        <img class="margin-auto" src="https://ipfs.busy.org/ipfs/QmP7vFmdpQ3nrwZepGyFot8Ug1aBv4EsxB1hBRWVqTzQXY" alt="byer_revd.PNG">
+      </p>
+      <p class="help-paragraph">Please review the Seller and Click on Submit. You will see a message saying your trade has been completed. You can
+        now check your wallet on steemit or any website for reciept of funds.</p>
+      <hr>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <h2> FAQ </h2>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <h3>SWAPSTEEM – FREQUENTLY ASKED QUESTIONS</h3>
 
-    <hr>
-    <h4>What is Swapsteem?</h4>
-    <br>
-    <p class="help-paragraph">Swapsteem is a peer-to-peer exchange of STEEM/SBD between users (called traders) in the steem blockchain. We’re a fast,
-      secure and convenient marketplace where traders create advertisements with the price and the payment method they want
-      to offer. You can choose the user you want to trade (buy and/or sell) your STEEM/SBD with. You can also search for
-      the amount, from, country, and payment method of your preference.</p>
-    <br>
-    <h4>How am I protected from being scammed?</h4>
-    <br>
-    <p class="help-paragraph">Once you choose to make a trade, an escrow is initiated. Escrow places the seller’s money under our (@swapsteem) care
-      in order to protect both buyer and seller in a transaction. When both parties verify the transaction has been completed
-      per terms set, the money is released. If at any point a dispute arises between the parties in the transaction, we will
-      reimburse the affected person. The outcome of the dispute resolution process will decide what happens to the money
-      in escrow. **Please be sure you have received your money before you release them.</p>
-    <br>
-    <h4>Who manages my transactions?</h4>
-    <br>
-    <p class="help-paragraph">
-      All transactions are managed by our escrow agents. Also, the escrow agents pay a certain deposit to us in order to become
-      our trusted agent. We ‘Power up’ with these deposits and also refund the affected party, in any fraud cases. Also,
-      should in case our agent turns out to favor any of the party, we immediately ban him from the role.</p>
-    <br>
-    <h4>How long will my transaction take?</h4>
-    <br>
-    <p class="help-paragraph">Typically, a Steem transaction validates within its three (3) seconds of initiation, you can view the status at http://steemd.com/@username.
-      It may take up to a minute before your transaction will appear on our website. Kindly report to us if your transaction
-      does not reflect in more than three (3) minutes later.</p>
-    <br>
-    <h4>Is there a need to deposit STEEM/SBD before making a trade?</h4>
-    <br>
-    <p class="help-paragraph">There is no need to deposit STEEM/SBD before making a trade, instead you create escrow transactions.</p>
-    <br>
-    <h4>Who manages my dispute?</h4>
-    <br>
-    <p class="help-paragraph">Disputes are managed by our qualified moderators in escrow, they have the power to return the amount to the buyer or
-      seller, or split the amount as the case may be. Moderators also check for proof of payments in chat windows and take
-      necessary decisions accordingly.</p>
-    <br>
-    <h4>Can the rate change during the transaction?</h4>
-    <br>
-    <p class="help-paragraph">Once an order is created, rate change is irreversible. For creating an ad, we take a margin from Creator (a percentage
-      of the current market rate). If a user selects the ‘+0%’ margin, this means he wants to buy or sell at the current
-      market rate. If he chooses the ‘-1%’ margin, his rate is 1% less than the market rate. Similarly, if the margin is
-      +1%, his rate is 1% more than the market rate. Note that at the time of creating an order, it is created at market
-      rate +/- margin. For instance, you created an ad at $1 per STEEM with 0% margin. If the market price rises, it will
-      become the market price +0 % margin. The margin is the deciding factor. Rate always depends on the current price (+/-
-      margin) set by Creator.</p>
-    <h4>What is the transaction fee?</h4>
-    <br>
-    <p class="help-paragraph">@swapsteem charges a minimum fee of 1SBD. Fees may vary from different agents as they may choose their own fee.</p>
-    <br>
-    <h4>How do I cancel my transaction?</h4>
-    <br>
-    <p class="help-paragraph">Orders can be cancelled any time before an escrow is initiated. Users will be provided with Cancel Order button until
-      the transaction status is escrow transferred. If an escrow has been initiated, the order can be automatically cancelled
-      once it is not yet approved by the receiver and our agent.</p>
-    <br>
-    <h4>Why is my transaction still waiting for payment if I’ve already paid?</h4>
-    <br>
-    <p class="help-paragraph">You need to notify the seller after making the payment by uploading a proof of your payment and clicking the Mark Payment
-      Done button.</p>
-    <br>
-    <h4>What will happen if I close the browser tab?</h4>
-    <br>
-    <p class="help-paragraph">Your session will be stored, but any unsubmitted data from your last session will be lost.</p>
-    <br>
-    <h4>Sent funds to the wrong address. Can I recover my funds?</h4>
-    <br>
-    <p class="help-paragraph">Trades on Swapsteem happen with other verified Steem users, each trade has a single registered owner that is irreversible.
-      It is impossible to send funds to an unwanted address other than the advertisement owner, until and unless a user modifies
-      the transaction URL. Kindly note that any modified transaction will not be approved and we will not, for no reason
-      whatsoever; claim any responsibility for funds lost due to this.</p>
-    <br>
-    <h4>I have lost my username, password and the email I used to register with swapsteem. How can I retrieve my account?</h4>
-    <br>
-    <p class="help-paragraph">Swapsteem does not require any additional account other than your Steem account. Kindly use the account recovery option
-      provided at steemit.com if you want to recover your account.</p>
-    <br>
-    <h4>Does swapsteem have some sort of feedback system?</h4>
-    <br>
-    <p class="help-paragraph">Yes, there will be a feedback system. After each trade, both parties will give a feedback of each other’s experience.</p>
-    <br>
-    <h4>What is the minimum of STEEM/SBD I can transact in swapsteem?</h4>
-    <br>
-    <p class="help-paragraph">Every advertisement has to declare the minimum and maximum limit of order they take. Limits section is for that purpose
-      only.
-    </p>
-    <br>
-    <h4>What would be the format of the feedback?</h4>
-    <br>
-    <p class="help-paragraph">Trustworthy This increases the receiver’s feedback score and also marks the receiver as a trusted person.
+      <hr>
+      <h4>What is Swapsteem?</h4>
       <br>
-      <strong>Positive</strong> This also increases the receiver’s feedback score.
+      <p class="help-paragraph">Swapsteem is a peer-to-peer exchange of STEEM/SBD between users (called traders) in the steem blockchain. We’re a fast,
+        secure and convenient marketplace where traders create advertisements with the price and the payment method they
+        want to offer. You can choose the user you want to trade (buy and/or sell) your STEEM/SBD with. You can also search
+        for the amount, from, country, and payment method of your preference.</p>
       <br>
-      <strong>Neutral</strong> This doesn’t affect the receiver’s feedback score.
+      <h4>How am I protected from being scammed?</h4>
       <br>
-      <strong>Negative</strong> This affects the receiver’s feedback score.
+      <p class="help-paragraph">Once you choose to make a trade, an escrow is initiated. Escrow places the seller’s money under our (@swapsteem) care
+        in order to protect both buyer and seller in a transaction. When both parties verify the transaction has been completed
+        per terms set, the money is released. If at any point a dispute arises between the parties in the transaction, we
+        will reimburse the affected person. The outcome of the dispute resolution process will decide what happens to the
+        money in escrow. **Please be sure you have received your money before you release them.</p>
       <br>
-      <strong>Fraud</strong> This will affect the receiver’s feedback score drastically and also marks the person as a fraud.</p>
-    <br>
-    <h4>I’ve paid the seller but I haven’t received my STEEM/SBD/money yet. Is this normal?</h4>
-    <br>
-    <p class="help-paragraph">After making payments, you need to mark your payment as done so as to notify the seller. The seller checks his account
-      for payment receipt and releases the money. If the seller is taking longer than the specified time to release payment,
-      you can raise a dispute with proof of payment.</p>
-    <br>
-    <h4>I’ve made my payment, but I forgot to press the I have paid button or I did not press it in time</h4>
-    <br>
-    <p class="help-paragraph">You need to make payments and mark them within the specified time. After time expiration, the order cancels automatically.
-      You may lose your funds if you pay for a closed order.</p>
-    <br>
-    <h4>Can I perform more than one transaction in swapsteem?</h4>
-    <br>
-    <p class="help-paragraph">Yes, users can make unlimited transactions, but the limit for free open trades is two (2) for a single trader.</p>
-  </mat-expansion-panel>
-</mat-accordion>
+      <h4>Who manages my transactions?</h4>
+      <br>
+      <p class="help-paragraph">
+        All transactions are managed by our escrow agents. Also, the escrow agents pay a certain deposit to us in order to become
+        our trusted agent. We ‘Power up’ with these deposits and also refund the affected party, in any fraud cases. Also,
+        should in case our agent turns out to favor any of the party, we immediately ban him from the role.</p>
+      <br>
+      <h4>How long will my transaction take?</h4>
+      <br>
+      <p class="help-paragraph">Typically, a Steem transaction validates within its three (3) seconds of initiation, you can view the status at http://steemd.com/@username.
+        It may take up to a minute before your transaction will appear on our website. Kindly report to us if your transaction
+        does not reflect in more than three (3) minutes later.</p>
+      <br>
+      <h4>Is there a need to deposit STEEM/SBD before making a trade?</h4>
+      <br>
+      <p class="help-paragraph">There is no need to deposit STEEM/SBD before making a trade, instead you create escrow transactions.</p>
+      <br>
+      <h4>Who manages my dispute?</h4>
+      <br>
+      <p class="help-paragraph">Disputes are managed by our qualified moderators in escrow, they have the power to return the amount to the buyer or
+        seller, or split the amount as the case may be. Moderators also check for proof of payments in chat windows and take
+        necessary decisions accordingly.</p>
+      <br>
+      <h4>Can the rate change during the transaction?</h4>
+      <br>
+      <p class="help-paragraph">Once an order is created, rate change is irreversible. For creating an ad, we take a margin from Creator (a percentage
+        of the current market rate). If a user selects the ‘+0%’ margin, this means he wants to buy or sell at the current
+        market rate. If he chooses the ‘-1%’ margin, his rate is 1% less than the market rate. Similarly, if the margin is
+        +1%, his rate is 1% more than the market rate. Note that at the time of creating an order, it is created at market
+        rate +/- margin. For instance, you created an ad at $1 per STEEM with 0% margin. If the market price rises, it will
+        become the market price +0 % margin. The margin is the deciding factor. Rate always depends on the current price
+        (+/- margin) set by Creator.</p>
+      <h4>What is the transaction fee?</h4>
+      <br>
+      <p class="help-paragraph">@swapsteem charges a minimum fee of 1SBD. Fees may vary from different agents as they may choose their own fee.</p>
+      <br>
+      <h4>How do I cancel my transaction?</h4>
+      <br>
+      <p class="help-paragraph">Orders can be cancelled any time before an escrow is initiated. Users will be provided with Cancel Order button until
+        the transaction status is escrow transferred. If an escrow has been initiated, the order can be automatically cancelled
+        once it is not yet approved by the receiver and our agent.</p>
+      <br>
+      <h4>Why is my transaction still waiting for payment if I’ve already paid?</h4>
+      <br>
+      <p class="help-paragraph">You need to notify the seller after making the payment by uploading a proof of your payment and clicking the Mark Payment
+        Done button.</p>
+      <br>
+      <h4>What will happen if I close the browser tab?</h4>
+      <br>
+      <p class="help-paragraph">Your session will be stored, but any unsubmitted data from your last session will be lost.</p>
+      <br>
+      <h4>Sent funds to the wrong address. Can I recover my funds?</h4>
+      <br>
+      <p class="help-paragraph">Trades on Swapsteem happen with other verified Steem users, each trade has a single registered owner that is irreversible.
+        It is impossible to send funds to an unwanted address other than the advertisement owner, until and unless a user
+        modifies the transaction URL. Kindly note that any modified transaction will not be approved and we will not, for
+        no reason whatsoever; claim any responsibility for funds lost due to this.</p>
+      <br>
+      <h4>I have lost my username, password and the email I used to register with swapsteem. How can I retrieve my account?</h4>
+      <br>
+      <p class="help-paragraph">Swapsteem does not require any additional account other than your Steem account. Kindly use the account recovery option
+        provided at steemit.com if you want to recover your account.</p>
+      <br>
+      <h4>Does swapsteem have some sort of feedback system?</h4>
+      <br>
+      <p class="help-paragraph">Yes, there will be a feedback system. After each trade, both parties will give a feedback of each other’s experience.</p>
+      <br>
+      <h4>What is the minimum of STEEM/SBD I can transact in swapsteem?</h4>
+      <br>
+      <p class="help-paragraph">Every advertisement has to declare the minimum and maximum limit of order they take. Limits section is for that purpose
+        only.
+      </p>
+      <br>
+      <h4>What would be the format of the feedback?</h4>
+      <br>
+      <p class="help-paragraph">Trustworthy This increases the receiver’s feedback score and also marks the receiver as a trusted person.
+        <br>
+        <strong>Positive</strong> This also increases the receiver’s feedback score.
+        <br>
+        <strong>Neutral</strong> This doesn’t affect the receiver’s feedback score.
+        <br>
+        <strong>Negative</strong> This affects the receiver’s feedback score.
+        <br>
+        <strong>Fraud</strong> This will affect the receiver’s feedback score drastically and also marks the person as a fraud.</p>
+      <br>
+      <h4>I’ve paid the seller but I haven’t received my STEEM/SBD/money yet. Is this normal?</h4>
+      <br>
+      <p class="help-paragraph">After making payments, you need to mark your payment as done so as to notify the seller. The seller checks his account
+        for payment receipt and releases the money. If the seller is taking longer than the specified time to release payment,
+        you can raise a dispute with proof of payment.</p>
+      <br>
+      <h4>I’ve made my payment, but I forgot to press the I have paid button or I did not press it in time</h4>
+      <br>
+      <p class="help-paragraph">You need to make payments and mark them within the specified time. After time expiration, the order cancels automatically.
+        You may lose your funds if you pay for a closed order.</p>
+      <br>
+      <h4>Can I perform more than one transaction in swapsteem?</h4>
+      <br>
+      <p class="help-paragraph">Yes, users can make unlimited transactions, but the limit for free open trades is two (2) for a single trader.</p>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

@@ -1,5 +1,5 @@
 <div class="box">
-  <h6 class="sellHeading">Sell Steem or SBD</h6>
+  <!-- <h6 class="sellHeading">Sell Steem or SBD</h6> -->
   <div *ngIf="!sellSteemDataSource.data.length" class="no-data">
     <p>No Data! Go play Around to see something here</p>
   </div>
@@ -9,24 +9,24 @@
       <ng-container matColumnDef="createdby">
         <th mat-header-cell *matHeaderCellDef> Seller </th>
         <td mat-cell *matCellDef="let element">
-          {{element.createdby}}
+          {{element.createdby ? element.createdby : '-'}}
         </td>
       </ng-container>
       <!--  PAYMENT METHODS  Column -->
       <ng-container matColumnDef="payment_methods">
         <th mat-header-cell *matHeaderCellDef> PAYMENT METHODS </th>
-        <td mat-cell *matCellDef="let element"> {{element.payment_methods}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.payment_methods ? element.payment_methods : '-'}} </td>
       </ng-container>
       <!-- Coin Column -->
       <ng-container matColumnDef="from">
         <th mat-header-cell *matHeaderCellDef> From </th>
-        <td mat-cell *matCellDef="let element"> {{element.from}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.from ? element.from : '-'}} </td>
       </ng-container>
 
       <!-- Fiat Column -->
       <ng-container matColumnDef="to">
         <th mat-header-cell *matHeaderCellDef> To </th>
-        <td mat-cell *matCellDef="let element"> {{element.to}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.to ? element.to : '-'}} </td>
       </ng-container>
       <!-- Price/Coin Column -->
       <ng-container matColumnDef="price">
@@ -40,7 +40,7 @@
         <th mat-header-cell *matHeaderCellDef> Action </th>
         <td mat-cell *matCellDef="let element">
           <mat-chip-list>
-            <mat-chip color="warn"  routerLink="/purchase/{{element._id}}" routerLinkActive="active" selected>Sell</mat-chip>
+            <mat-chip color="warn" routerLink="/purchase/{{element._id}}" routerLinkActive="active" selected>Sell</mat-chip>
           </mat-chip-list>
         </td>
       </ng-container>
@@ -48,6 +48,5 @@
       <tr mat-row *matRowDef="let row; columns: sellSteemDisplayedColumns;"></tr>
     </table>
   </div>
-  <mat-paginator [ngStyle]="{'display': sellSteemDataSource.data.length ? 'block' : 'none'}" #sellsteem
-    [pageSizeOptions]="[10, 20, 50, 100]"></mat-paginator>
+  <mat-paginator [ngStyle]="{'display': sellSteemDataSource.data.length ? 'block' : 'none'}" #sellsteem [pageSizeOptions]="[10, 20, 50, 100]"></mat-paginator>
 </div>
