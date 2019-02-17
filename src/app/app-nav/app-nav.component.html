@@ -26,8 +26,8 @@
             <a class="nav-link" routerLink="help">Help</a>
           </li>
         </ul>
-        <div class="mx-auto btn btn-success">STEEM : {{price.steem.usd}} USD</div>
-        <div class="mx-auto btn btn-success">SBD : {{price["steem-dollars"].usd}} USD</div>
+        <!-- <div class="mx-auto btn btn-success">STEEM : {{price.steem.usd}} USD</div>
+        <div class="mx-auto btn btn-success">SBD : {{price["steem-dollars"].usd}} USD</div> -->
         <div>
           <div *ngIf="(auth.authState | async); else guest " class="profile-wrapper">
             <div>
@@ -48,15 +48,23 @@
             </div>
           </div>
           <ng-template #guest>
-            <button class="btn btn-primary signInLink " (click)="auth.login() ">
+            <button class="btn btn-primary signInLink login-button" (click)="auth.login() ">
               <i class="fa fa-user" aria-hidden="true"></i> Login</button>
             &nbsp;
-            <button class="btn btn-primary signInLink " (click)="openSignupDialog()">
-              <i class="fa fa-user" aria-hidden="true"></i> Signup</button>
+            <button class="btn btn-primary signInLink sign-up-button" (click)="openSignupDialog()">
+              <i class="fa fa-user-plus" aria-hidden="true"></i> Signup</button>
           </ng-template>
         </div>
       </div>
     </nav>
   </div>
   <!-- <p>{{auth.userData.name}} bunny</p> -->
+</div>
+<div class="container banner-css">
+
+  <h1>Buy and sell STEEM and SBD near you</h1>
+  <h4 style="color : orange">Instant. Secure. Private.</h4>
+  <div class="mx-auto btn btn-success steem-sbd-price">STEEM : {{price.steem.usd}} USD</div>
+  <br>
+  <div class="mx-auto btn btn-success steem-sbd-price">SBD : {{price["steem-dollars"].usd}} USD</div>
 </div>

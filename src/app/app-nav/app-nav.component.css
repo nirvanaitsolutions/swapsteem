@@ -88,3 +88,34 @@
   background-color: #f8f8f8;
   border-color: #e7e7e7;
 }
+.banner-css{
+  text-align: center;
+  background: #f8f8f8;
+  margin-top: 15px;
+  min-height: 20px;
+  padding: 19px;
+  margin-bottom: 20px;
+  background-color: #f5f5f5;
+  border: 1px solid #e3e3e3;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
+}
+.steem-sbd-price{
+  min-width: 300px;
+  margin-top: 10px;
+}
+.login-button{
+  background: transparent;
+  border: none;
+  color: darkgray;
+  border-right: 1px solid;
+  border-radius: 0;
+}
+.sign-up-button{
+  background: transparent;
+  border: none;
+  color: darkgray;
+  /* border-right: 1px solid; */
+  border-radius: 0;
+}
