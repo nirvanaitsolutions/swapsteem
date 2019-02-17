@@ -49,6 +49,7 @@ import { DemoMaterialModule } from './material-module';
 import { SignupComponent } from './components/signup/signup.component';
 import { SignupstatusComponent } from './components/signupstatus/signupstatus.component';
 import { SignupstatusmodalComponent } from './components/signupstatusmodal/signupstatusmodal.component';
+import { BannerComponentComponent } from './banner-component/banner-component.component';
 const config: SocketIoConfig = { url: environment.API_URL, options: {} };
 
 @NgModule({
@@ -83,6 +84,7 @@ const config: SocketIoConfig = { url: environment.API_URL, options: {} };
     SignupstatusmodalComponent,
     TermsAndConditionsComponent,
     WhitelistComponent,
+    BannerComponentComponent,
   ],
   entryComponents: [ReviewComponent,TermsAndConditionsComponent, WhitelistComponent, SignupComponent, SignupstatusmodalComponent],
   imports: [

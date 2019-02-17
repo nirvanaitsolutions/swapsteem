@@ -23,7 +23,7 @@
 .box{
     border: 1px;
     padding: 10px;
-    box-shadow: 2px 2px 2px 2px #888888;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 6px 0px;;
     margin-top: 20px;
     background-color: white;
 }
@@ -93,4 +93,13 @@ td, th {
 .balance-title-css{
     border-top: 1px solid #dee2e6;
     padding-top: 10px;
+}
+.home-page-wrapper{
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 6px 0px;
+    margin: 80px;
+    /* width: calc(100% - 160px); */
+    border-radius: 10px;
+    /* max-width: 1800PX; */
+    margin: auto;
+    margin-top: 50px;
 }
