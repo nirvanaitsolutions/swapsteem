@@ -74,7 +74,7 @@ export class PurchaseComponent implements OnInit {
           let priceResponse = data['steem'];
           console.log(data, 'data')
           console.log("price ", data['steem'], 'steem');
-          if (this.order.to == "ENG" || this.order.to == "SWEET"){
+          if (this.order.to == "ENG" || this.order.to == "SWEET" || this.order.to == "SUFB"){
             this.price =  (1 + this.selectedTrade.margin / 100) 
           } else
           if (this.order.to == "INR" || this.order.to == "KRW"){
@@ -92,7 +92,7 @@ export class PurchaseComponent implements OnInit {
           let priceResponse = data['sbd'];
           console.log(data, 'data')
           console.log("price ", data['sbd'], 'sbd');
-          if (this.order.to == "ENG" || this.order.to == "SWEET"){
+          if (this.order.to == "ENG" || this.order.to == "SWEET" || this.order.to == "SUFB"){
             this.price =  (1 + this.selectedTrade.margin / 100) 
           } else
           if (this.order.to == "INR" || this.order.to == "KRW"){
