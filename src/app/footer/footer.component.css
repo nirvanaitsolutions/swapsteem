@@ -1,24 +1,19 @@
 .footer{
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    text-align:center;
-    border: 1px;
-    padding-top: 15px;
-    padding-left: 25px;
-    margin-bottom: 5px;
-    margin-top: 20px;
-    height: 50px;
-    box-shadow: 1px 1px 1px 8px grey;
-    background-color:white;
+    margin-top: 50px;
+    padding: 20px;
+    background: rgba(0,0,0,.14);
 }
-.madewithlove{
-    position: center;
-    padding-top: 15px;
-    padding-left: 25px;
-    margin-bottom: 5px;
-    margin-top: 20px;
-    height: 50px;
-    background-color:white;
+.flex-center{   
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.margin-0{
+    margin: 0!important;
+}
+.theme-color{
+    color : #1968bb
+}
+.bold{
+    font-size: bold;
 }

@@ -4,7 +4,7 @@
         <p> with SwapSteem.com user {{selectedTrade.createdby}} </p>
     </div>
     <hr>
-    <form #orderForm="ngForm" novalidate (ngSubmit)="orderForm.valid && order.order_coin_amount >= 20 ? onSubmit() : ''">
+    <form #orderForm="ngForm" novalidate (ngSubmit)="(orderForm.form.valid && (order.order_coin_amount <= 20))  ? onSubmit(orderForm) : ''">
         <div class="row">
 
             <div class="col">
@@ -23,20 +23,12 @@
                             <td>{{selectedTrade.createdby}}</td>
                         </tr>
                         <tr>
-                            <th>Trade limits :</th>
-                            <td>{{selectedTrade.limit_from}} - {{selectedTrade.limit_to}}</td>
-                        </tr>
-                        <tr>
-                            <th>Locations :</th>
-                            <td>{{selectedTrade.country}}</td>
-                        </tr>
-                        <tr>
                             <th>Escrow Ratification Deadline :</th>
-                            <td>1 hour 30 minutes</td>
+                            <td>2 Hours</td>
                         </tr>
                         <tr>
                             <th>Escrow Expiration Deadline:</th>
-                            <td>7 Days </td>
+                            <td>3 Days </td>
                         </tr>
                     </table>
                 </div>
@@ -44,14 +36,14 @@
                     <div class="btn btn-info form-row mr-2 relative">{{selectedTrade.from}} <span><input min="20" type="number"
                                 step="any" name="order_coin_amount" [(ngModel)]="order.order_coin_amount"
                                 (ngModelChange)="changeToFiat()" /></span>
-                                <div *ngIf="orderForm.submitted &&  order.order_coin_amount < 20" class="steem-error-text">
-                                    {{selectedTrade.from}} must be greter or equal to 20
+                                <div *ngIf=" order.order_coin_amount > 20" class="steem-error-text">
+                                    {{selectedTrade.from}} must be less than or equal to 20
                                 </div>
                             </div><br><br>
                     <div class="btn btn-info form-row mr-2">{{selectedTrade.to}} <span><input min="0" type="number"
                                 step="any" name="order_fiat_amount" [(ngModel)]="order.order_fiat_amount"
                                 (ngModelChange)="changeToCoin()" /></span></div>
-                    <div class="form-group mt-3"><button type="submit" class="btn btn-success">Create Order</button></div>
+                    <div class="form-group mt-3"><button  class="btn btn-success">Create Order</button></div>
                 </div>
             </div>
             <div class="col inner-box-right">
@@ -111,6 +103,14 @@
 
                     </mat-form-field>
                 </div>
+                <div *ngIf="selectedTrade.ad_type == 'BUY' && selectedTrade.payment_methods && selectedTrade.payment_methods.indexOf('Crypto Transfer') > -1">
+                    <mat-form-field class="full-width">
+                        <input matInput #upiId="ngModel" placeholder="Your Crypto Address" type="text" name="crypto_address" id="crypto_address"
+                            [(ngModel)]="order.payment_details.crypto_address" required />
+
+                    </mat-form-field>
+                </div>
+
             </div>
 
         </div>

@@ -2,7 +2,7 @@ export interface AdvertisementRequest {
   createdby: string,
   ad_type: string,
   market: string,
-  payment_methods: string,
+  payment_method: string,
   margin: number,
   limit_from: number,
   limit_to: number,
@@ -35,7 +35,7 @@ export interface AdvertisementRequest {
     paypal_email?: string;
     place_of_exchange?: string;
     upi_id?:string;
-    crypto_account?:string;
+    crypto_address?:string;
   }
 }
 
@@ -44,7 +44,7 @@ export interface AdvertisementResponse {
   createdby: string,
   ad_type: string,
   market: string,
-  payment_methods: string[],
+  payment_method: string,
   to: string,
   margin: number,
   limit_from: number,
@@ -78,6 +78,6 @@ export interface AdvertisementResponse {
     paypal_email?: string;
     place_of_exchange?: string;
     upi_id?:string;
-    crypto_account?:string
+    crypto_address?:string
   }
 }

@@ -8,8 +8,6 @@ import { WalletComponent } from './wallet/wallet.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { SteemconnectRedirectGuard } from './redirect/steemconnect-redirect.guard';
-import { BuyPageComponent } from './buy-page/buy-page.component'
-import { SellPageComponent } from './sell-page/sell-page.component';
 import { PurchaseComponent } from './purchase/purchase.component';
 import { RedirectComponent } from './redirect/redirect.component';
 import { OrderComponent } from './order/order.component';
@@ -18,9 +16,8 @@ import { HelppageComponent } from './helppage/helppage.component'
 import {SignupstatusComponent} from './components/signupstatus/signupstatus.component';
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'buy-online', component: BuyPageComponent },
+  { path: 'market/:market', component: HomeComponent },
   { path: 'help', component: HelppageComponent },
-  { path: 'sell-online', component: SellPageComponent },
   {
     path: 'post-trade',
     canActivate: [AuthGuard],

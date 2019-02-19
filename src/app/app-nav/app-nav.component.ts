@@ -12,11 +12,11 @@ import { SignupComponent } from '../components/signup/signup.component';
 export class AppNavComponent implements OnInit {
 
   price: any = {
-    STEEM: {
-      USD: ''
+    steem: {
+      usd: ''
     },
-    'SBD*': {
-      USD: ''
+    'steem-dollars': {
+      usd: ''
     }
   };
   userData: any = {};
@@ -34,15 +34,19 @@ export class AppNavComponent implements OnInit {
      * @description
      * Use fro getting user info like name and profile Image URL
     */
-    setTimeout(() => {
+   
+    this.auth.authState.subscribe((authState)=> {
+      console.log('authState', authState)
+      if(!authState) return;
       this.auth.getUserData().subscribe((auth) => {
         if (auth) {
+          this.auth.userData = auth;
           this.userData = auth;
           this.profile = this.userData.account.json_metadata ? JSON.parse(this.userData.account.json_metadata) : {};
           this.profile_url = this.profile && this.profile.profile ? this.profile.profile.profile_image : '';
         }
       });
-    }, 1000)
+    })
  }
   ngOnInit() {
     this._apiService.getPrice().subscribe(data => {

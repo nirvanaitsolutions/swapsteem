@@ -1,59 +1,66 @@
-<div class="container-fluid">
-  <nav class="navbar navbar-expand-lg navbar-light">
-    <a class="navbar-brand" routerLink="/"><img src="assets/logo.png" class="image-css"></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-      aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+<div class="container-fluid header-css ">
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light ">
+      <a class="navbar-brand" routerLink="/">
+        <img src="assets/logo.png" class="image-css">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="buy-online">Buy
-            <span class="sr-only">(current)</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="sell-online">Sell</a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" routerLink="post-trade">Post a Trade</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="help">Help</a>
-        </li>
-      </ul>
-      <div class="mx-auto btn btn-success">STEEM : {{price.STEEM.USD}} USD</div>
-      <div class="mx-auto btn btn-success">SBD : {{price["SBD*"].USD}} USD</div>
-      <div>
-        <div *ngIf="(auth.authState | async); else guest " class="profile-wrapper">
-          <div>
-            <img src={{profile_url}} class="profile-image" *ngIf="profile_url != ''">
-            <span class="user-name">{{userData.name}}</span>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="market/crypto">Crpto Market</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" routerLink="market/fiat">Fiat Market</a>
+            </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="market/token">Token Market</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="post-trade">Create New Listing</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="help">Help</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://swapsteem.tokenbb.io" target="_blank">Forum</a>
+          </li>
+        </ul>
+        <!-- <div class="mx-auto btn btn-success">STEEM : {{price.steem.usd}} USD</div>
+        <div class="mx-auto btn btn-success">SBD : {{price["steem-dollars"].usd}} USD</div> -->
+        <div>
+          <div *ngIf="(auth.authState | async); else guest " class="profile-wrapper">
+            <div>
+              <img src={{profile_url}} class="profile-image" *ngIf="profile_url != ''">
+              <span class="user-name">{{userData.name}}</span>
+            </div>
+            <i class="fa fa-arrow-up nav-icon-css" aria-hidden="true" (click)="showDropDown()"></i>
+            <div class="profile-option" [ngClass]="{'showDropDown': showProfileDropDown}">
+              <div class="profile-menu-wrapper">
+                <a class="menu-nav" routerLink="wallet">My trades</a>
+              </div>
+              <div class="profile-menu-wrapper">
+                <a class="menu-nav" routerLink="profile">Profile</a>
+              </div>
+              <div (click)="auth.logout() " class="profile-menu-wrapper">
+                <a class="menu-nav" routerLink="home">Logout</a>
+              </div>
+            </div>
           </div>
-          <i class="fa fa-arrow-up nav-icon-css" aria-hidden="true" (click)="showDropDown()"></i>
-          <div class="profile-option" [ngClass]="{'showDropDown': showProfileDropDown}">
-            <div class="profile-menu-wrapper">
-              <a class="menu-nav" routerLink="wallet">My traders</a>
-            </div>
-            <div class="profile-menu-wrapper">
-              <a class="menu-nav" routerLink="profile">Profile</a>
-            </div>
-            <div (click)="auth.logout() " class="profile-menu-wrapper">
-              <a class="menu-nav" routerLink="home">Logout</a>
-            </div>
-          </div>
+          <ng-template #guest>
+            <button class="btn btn-primary signInLink login-button" (click)="auth.login() ">
+              <i class="fa fa-user" aria-hidden="true"></i> Login</button>
+            &nbsp;
+            <button class="btn btn-primary signInLink sign-up-button" (click)="openSignupDialog()">
+              <i class="fa fa-user-plus" aria-hidden="true"></i> Signup</button>
+          </ng-template>
         </div>
-        <ng-template #guest>
-          <button class="btn btn-primary signInLink " (click)="auth.login() ">
-            <i class="fa fa-user" aria-hidden="true"></i> Login</button>
-          &nbsp;
-          <button class="btn btn-primary signInLink " (click)="openSignupDialog()">
-            <i class="fa fa-user" aria-hidden="true"></i> Signup</button>
-        </ng-template>
       </div>
-    </div>
-  </nav>
+    </nav>
+  </div>
   <!-- <p>{{auth.userData.name}} bunny</p> -->
 </div>

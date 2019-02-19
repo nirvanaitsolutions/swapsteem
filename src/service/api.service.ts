@@ -95,16 +95,21 @@ export class APIService {
   }
 
   getPrice() {
-    const headers = new HttpHeaders({ 'No-Auth': 'True' });
-    return this._http.get(`https://min-api.cryptocompare.com/data/pricemulti?fsyms=,STEEM,SBD*&tsyms=USD,INR,KRW`, { headers: headers }).map(result => this.result = result);
+    const headers = new HttpHeaders({ 'No-Auth': 'True' }); 
+    return this._http.get(`https://api.coingecko.com/api/v3/simple/price?ids=steem%2Csteem-dollars&vs_currencies=usd,inr,krw,btc,eos,eth`, { headers: headers })
+    .map(result => this.result = result);
+
   }
 
-  getPriceByPair(coin: string, fiat: string) {
+  getPriceByPair(from: string, to: string) {
     const headers = new HttpHeaders({ 'No-Auth': 'True' });
-    if (coin == "SBD") {
-      coin = 'SBD*'
+    if (from == "SBD") {
+      from = 'steem-dollars'
     }
-    return this._http.get('https://min-api.cryptocompare.com/data/price?fsym=' + coin + '&tsyms=' + fiat, { headers: headers }).map(result => this.result = result);
+    if (from == "STEEM") {
+      from = 'steem'
+    }
+    return this._http.get('https://api.coingecko.com/api/v3/simple/price?ids=' + from + '&vs_currencies=' + to, { headers: headers }).map(result => this.result = result);
   }
 
   getSelectedTrade() {

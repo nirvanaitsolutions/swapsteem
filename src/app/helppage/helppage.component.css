@@ -7,4 +7,5 @@
  .margin-auto{
     margin: auto;
     display: block;
+    max-width: 600px;
  }
