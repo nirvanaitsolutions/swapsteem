@@ -149,7 +149,7 @@ export class PostTradeComponent implements OnInit {
   from = ['STEEM', 'SBD'];
   fiat_payment_methods = ['Bank Transfer',  'PayPal', 'UPI']; 
   crypto_payment_methods = ['Crypto Transfer']; // In cash
-  token_options = ['SWEET', 'ENG']
+  token_options = ['SWEET', 'ENG', 'SUFB']
   crypto_options = ['BTC','EOS' ]
   
 }
