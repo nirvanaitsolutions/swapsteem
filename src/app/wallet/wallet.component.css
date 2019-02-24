@@ -20,6 +20,7 @@
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 6px 0px;
     margin-top: 20px;
     background-color: white;
+    overflow: scroll;
 }
 
 .table-header{
@@ -37,3 +38,20 @@
     text-align: center;
     margin-top: 50px;
 }
+@media (max-width: 900px) {
+   
+    .mat-header-cell{
+      min-width: 110px;
+      width: 110px;
+      max-width: 100px;
+      padding: 5px;
+      text-align: center;
+    }
+    td{
+        text-align: center;
+        
+    }
+    .mat-chip.mat-standard-chip.mat-chip-selected {
+        margin: auto;
+    }
+  }
