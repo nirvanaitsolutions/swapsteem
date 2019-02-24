@@ -1,6 +1,6 @@
 {
-  "name": "swapsteem-ui",
-  "short_name": "swapsteem-ui",
+  "name": "swapsteem",
+  "short_name": "swapsteem",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",

@@ -26,6 +26,7 @@
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 6px 0px;;;
     margin-top: 20px;
     background-color: white;
+    overflow: scroll;
 }
 
 .table-header{
@@ -36,7 +37,7 @@
 .profile{
     position: absolute;
     height: 60px;
-    width: 450px;
+    /* width: 450px; */
     margin-top: 3.9%;
     margin-left: 8%;
 }
@@ -60,14 +61,14 @@
 }
 
 table {
-    width: 100%;
+    /* width: 100%; */
 }
 td, th {
-    width: 25%;
+    /* width: 25%; */
 }
 .mat-header-cell, .mat-cell {
-    flex: 0 0 25% !important;
-    min-width: 104px !important;
+    /* flex: 0 0 25% !important; */
+    /* min-width: 104px !important; */
     text-align: center;
 }
 .profile-image{
@@ -103,3 +104,35 @@ td, th {
     margin: auto;
     margin-top: 50px;
 }
+@media (max-width: 900px) {
+   
+    .height-200{
+        height: auto;
+        padding: 20px;
+    }
+    .profile-image{
+        height: 80px;
+        width: 80px;
+        margin-right: 27px;
+    }
+    .flex-center{
+        justify-content: center;
+    }
+  }
+  @media (max-width: 900px) {
+   
+    .mat-header-cell{
+      min-width: 110px;
+      width: 110px;
+      max-width: 100px;
+      padding: 5px;
+      text-align: center;
+    }
+    td{
+        text-align: center;
+        
+    }
+    .mat-chip.mat-standard-chip.mat-chip-selected {
+        margin: auto;
+    }
+  }
