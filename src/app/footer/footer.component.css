@@ -17,3 +17,12 @@
 .bold{
     font-size: bold;
 }
+@media (max-width: 900px) {
+    a{
+        margin-top: 10px;
+        display: block;
+    }
+    .flex-center{   
+        display: table;
+    }
+  }

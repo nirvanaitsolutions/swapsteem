@@ -123,3 +123,35 @@
   /* border-right: 1px solid; */
   border-radius: 0;
 }
+@media (max-width: 900px) {
+  .navbar{
+    padding: 0px;
+  }
+  .container {
+    padding: 0px;
+  }
+  .image-css{
+    height: 40px;
+  }
+  .mat-header-cell{
+    min-width: 110px;
+    width: 110px;
+    max-width: 100px;
+    padding: 5px;
+    word-break: break-all;
+  }
+  .image-wrapper{
+  position: absolute;
+  top: 67px;
+  right: -3px;
+  flex-direction: row-reverse;
+  align-items: center;
+  display: flex;
+  }
+  .user-name{
+    margin-right: 20px;
+  }
+  .nav-icon-css{
+    display: none;
+  }
+}

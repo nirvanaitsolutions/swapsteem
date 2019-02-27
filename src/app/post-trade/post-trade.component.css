@@ -28,3 +28,11 @@ display: flex;
 align-items: center;
 height: calc(100% - 210px);
 }
+@media (max-width: 900px) {
+    .buttonLocation{
+        max-width: 200px!important;
+    }
+    .postTradeWrapper{
+        height: auto;
+    }
+  }
