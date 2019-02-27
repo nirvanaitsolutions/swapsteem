@@ -120,6 +120,8 @@ export class SellComponent implements OnInit {
           return (1 + margin / 100);
         case "SWEET":
           return (1 + margin / 100);
+        case "SUFB":
+          return (1 + margin / 100);
       }
 
     }
@@ -140,6 +142,8 @@ export class SellComponent implements OnInit {
         case "ENG":
           return (1 + margin / 100);
         case "SWEET":
+          return (1 + margin / 100);
+        case "SUFB":
           return (1 + margin / 100);
       }
 
