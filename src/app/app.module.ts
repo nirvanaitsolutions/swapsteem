@@ -50,6 +50,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { SignupstatusComponent } from './components/signupstatus/signupstatus.component';
 import { SignupstatusmodalComponent } from './components/signupstatusmodal/signupstatusmodal.component';
 import { BannerComponentComponent } from './banner-component/banner-component.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 const config: SocketIoConfig = { url: environment.API_URL, options: {} };
 
 @NgModule({
@@ -103,7 +104,8 @@ const config: SocketIoConfig = { url: environment.API_URL, options: {} };
     SocketIoModule.forRoot(config),
     BarRatingModule,
     CountdownModule,
-    DemoMaterialModule
+    DemoMaterialModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, AuthGuard],
   bootstrap: [AppComponent]
