@@ -1,0 +1,25 @@
+<div class="d-flex justify-content-between">
+  <h2 mat-dialog-title>&nbsp;</h2>
+  <button mat-icon-button mat-dialog-close class="close">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<form (ngSubmit)="form.valid ? onLoginWithKeychain() : ''" novalidate #form="ngForm">
+  <mat-dialog-content>
+    <div class="heading">
+       <h2 mat-dialog-title>Log In With Your Favorite service </h2>
+    </div>
+    <div class="username">
+      <mat-form-field class="username-input-field">
+        <mat-icon matPrefix>person</mat-icon>
+        <input matInput #username name="username" placeholder="Username" [(ngModel)]="userData.username" required />
+      </mat-form-field>
+    </div>
+    <div class="submit">
+      <button class="submit-button" color="primary" mat-raised-button type="submit">Log In with Keychain <mat-icon class="submit-icon" color="light">arrow_forward</mat-icon></button>
+    </div>
+    <div class="submit">
+      <button class="submit-button" color="primary" mat-raised-button type="button" (click)="auth.login()">Log In with SteemConnect <mat-icon class="submit-icon" color="light">arrow_forward</mat-icon></button>
+    </div>
+  </mat-dialog-content>
+</form>

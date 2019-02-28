@@ -15,7 +15,7 @@ import { calculateReputation } from '../../utils';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  userData: any = { account: { reputationScore: 0, reputation: 0 } };
+  userData: any = { name: '', account: { reputationScore: 0, reputation: 0 } };
   noOfOpenAds: number = 0;
   balance_steem;
   balance_sbd;
@@ -37,7 +37,11 @@ export class ProfileComponent implements OnInit {
   reviews: Observable<ReviewResponse[]>;
 
   ngOnInit() {
-    this.getReviewsAndAdvt();
+    setTimeout(()=> {
+     console.log( window['steem_keychain'])
+    },1000)
+   // this._auth.keyChainAuthCheck();
+    //this.getReviewsAndAdvt();
   }
 
 

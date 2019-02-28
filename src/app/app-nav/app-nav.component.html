@@ -52,8 +52,9 @@
             </div>
           </div>
           <ng-template #guest>
-            <button class="btn btn-primary signInLink login-button" (click)="auth.login() ">
-              <i class="fa fa-user" aria-hidden="true"></i> Login</button>
+            <button class="btn btn-primary signInLink login-button" (click)="openLoginDialog() ">
+              <i class="fa fa-user" aria-hidden="true"></i> Login</button> 
+              <!-- auth.login() -->
             &nbsp;
             <button class="btn btn-primary signInLink sign-up-button" (click)="openSignupDialog()">
               <i class="fa fa-user-plus" aria-hidden="true"></i> Signup</button>

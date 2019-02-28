@@ -12,5 +12,5 @@ export const environment = {
   },
   API_URL: 'https://swapsteem-api.herokuapp.com',
   REFERRER: 'swapsteem',
-  SKIP_WHITE_LIST: false
+  SKIP_WHITE_LIST: true
 };

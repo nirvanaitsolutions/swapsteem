@@ -4,6 +4,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { SteemconnectAuthService } from '../steemconnect/services/steemconnect-auth.service';
 import { APIService } from '../../service/api.service';
 import { SignupComponent } from '../components/signup/signup.component';
+import { LoginComponent } from '../components/login/login.component';
 @Component({
   selector: 'app-nav',
   templateUrl: './app-nav.component.html',
@@ -68,6 +69,21 @@ export class AppNavComponent implements OnInit {
 
   openSignupDialog(): void {
     this.dialog.open(SignupComponent, {
+      width: '700px',
+      disableClose: true
+    });
+  }
+
+   /**
+    *
+    * @name openLoginDialog 
+    *
+    * @description
+    * This method used to open login component in modal
+   */
+
+  openLoginDialog(): void {
+    this.dialog.open(LoginComponent, {
       width: '700px',
       disableClose: true
     });

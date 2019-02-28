@@ -1,6 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
+import { SteemKeychainService } from '@steeveproject/ngx-steem-keychain';
 import { CookieService } from 'ngx-cookie';
 import { BehaviorSubject } from 'rxjs';
 import { Observable } from 'rxjs';
@@ -133,7 +134,8 @@ export class SteemconnectAuthService {
     @Inject('config') private config: SteemConnectConfig,
     @Inject(DOCUMENT) private document: Document,
     private cookieService: CookieService,
-    private http: HttpClient
+    private http: HttpClient,
+    private steemKeychain: SteemKeychainService
   ) { }
 
   /**
@@ -182,22 +184,25 @@ export class SteemconnectAuthService {
    */
   public logout(): void {
     this.authStateSubject.next(false);
-    this.http
-      .post(`${this.baseURL}api/oauth2/token/revoke`, null, {
-        headers: new HttpHeaders({
-          Authorization: this.token.access_token,
-          'Content-Type': 'application/json',
-          Accept: 'application/json'
+    if (this.token && this.token.access_token) {
+      this.http
+        .post(`${this.baseURL}api/oauth2/token/revoke`, null, {
+          headers: new HttpHeaders({
+            Authorization: this.token.access_token,
+            'Content-Type': 'application/json',
+            Accept: 'application/json'
+          })
         })
-      })
-      .pipe(
-        tap(() => this.deleteCookie()),
-        catchError(err => {
-          this.authStateSubject.next(true);
-          return of(err);
-        })
-      )
-      .subscribe();
+        .pipe(
+          tap(() => this.deleteCookie()),
+          catchError(err => {
+            console.log(err)
+            return of(err);
+          })
+        )
+        .subscribe();
+    }
+
   }
 
   /**
@@ -240,6 +245,7 @@ export class SteemconnectAuthService {
    * Sets a `access_token` cookie.
    */
   private setCookie(token: OAuth2Token): OAuth2Token {
+    console.log(token)
     this.cookieService.putObject('access_token', token, {
       expires: new Date(Date.now() + token.expires_in * 1000)
     });
@@ -258,5 +264,14 @@ export class SteemconnectAuthService {
    */
   private deleteCookie(): void {
     this.cookieService.remove('access_token');
+  }
+
+  keyChainAuthCheck() {
+    const keychainSignInToken = this.cookieService.getObject('access_token_key_chain');
+    const keychainSignInTokenString: string = keychainSignInToken ? JSON.stringify(keychainSignInToken) : '';
+    return this.steemKeychain.requestVerifyKey('svijay1692', keychainSignInTokenString, 'Active')
+      .subscribe((auth) => {
+        console.log(auth)
+      });
   }
 }

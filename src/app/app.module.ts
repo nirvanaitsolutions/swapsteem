@@ -50,6 +50,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { SignupstatusComponent } from './components/signupstatus/signupstatus.component';
 import { SignupstatusmodalComponent } from './components/signupstatusmodal/signupstatusmodal.component';
 import { BannerComponentComponent } from './banner-component/banner-component.component';
+import { LoginComponent } from './components/login/login.component';
 const config: SocketIoConfig = { url: environment.API_URL, options: {} };
 
 @NgModule({
@@ -85,8 +86,9 @@ const config: SocketIoConfig = { url: environment.API_URL, options: {} };
     TermsAndConditionsComponent,
     WhitelistComponent,
     BannerComponentComponent,
+    LoginComponent,
   ],
-  entryComponents: [ReviewComponent,TermsAndConditionsComponent, WhitelistComponent, SignupComponent, SignupstatusmodalComponent],
+  entryComponents: [ReviewComponent,TermsAndConditionsComponent, WhitelistComponent, SignupComponent, SignupstatusmodalComponent, LoginComponent],
   imports: [
     NgxAutoScrollModule,
     MomentModule,
