@@ -135,12 +135,12 @@ export class PostTradeComponent implements OnInit {
   }
   changeCurrency(value) {
     if (value === 'KRW') {
-      this.fiat_payment_methods = ['Bank Transfer', 'In Cash', 'PayPal'];
+      this.fiat_payment_methods = ['Bank Transfer', 'PayPal'];
       if (this.advertisement.payment_method === 'UPI') {
         this.advertisement.payment_method = 'Bank Transfer'
       }
     } else {
-      this.fiat_payment_methods = ['Bank Transfer', 'In Cash', 'PayPal', 'UPI'];
+      this.fiat_payment_methods = ['Bank Transfer',  'PayPal', 'UPI'];
     }
   }
   market = ['FIAT','CRYPTO','TOKEN']
