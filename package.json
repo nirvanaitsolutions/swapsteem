@@ -3,12 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": " ng serve",
+    "start": "node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "npm run config -- --environment=dev",
+    "postinstall": "npm run config -- --environment=prod && ng build --aot --prod",
     "config": "ts-node -r dotenv/config ./set-env.ts"
   },
   "engines": {
@@ -31,7 +31,6 @@
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/pwa": "^0.6.8",
     "@angular/router": "^6.0.3",
-    "@angular/service-worker": "^6.0.3",
     "angular2-moment": "^1.9.0",
     "busyjs": "^1.0.2",
     "core-js": "^2.5.4",
@@ -54,6 +53,7 @@
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.12.2",
     "@angular/language-service": "^6.0.3",
+    "@angular/service-worker": "^6.1.10",
     "@types/jasmine": "~2.8.6",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
