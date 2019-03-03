@@ -144,7 +144,7 @@ export class PostTradeComponent implements OnInit {
     }
   }
   market = ['FIAT','CRYPTO','TOKEN']
-  fiat_options = ['INR', 'KRW']; // 'USD', 'KRW'
+  fiat_options = ['INR', 'KRW', 'VEF']; // 'USD', 'KRW'
   ad_type = ['BUY', 'SELL'];
   from = ['STEEM', 'SBD'];
   fiat_payment_methods = ['Bank Transfer',  'PayPal', 'UPI']; 

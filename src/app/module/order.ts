@@ -10,7 +10,7 @@ export interface OrderRequest {
     to: string,
     market: string,
     order_rate: number,
-    order_payment_method: string[],
+    order_payment_method: string | string[],
     agree_terms: true,
     order_status: string,
     escrow_rat_deadline: Date;
@@ -41,7 +41,7 @@ export interface OrderResponse {
     to: string,
     market: string,
     order_rate: number,
-    order_payment_method: string[],
+    order_payment_method: string[] | string,
     agree_terms: true,
     order_status: string,
     country: string,

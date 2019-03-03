@@ -27,7 +27,7 @@ export class BuyComponent implements OnInit {
   sbdPrice: any;
   toFilter: any = false;
   adCoinFilter: any = false;
-  buySteemDisplayedColumns: string[] = ['createdby', 'payment_methods', 'from', 'to', 'price', 'buttons'];
+  buySteemDisplayedColumns: string[] = ['createdby', 'payment_method', 'from', 'to', 'price', 'buttons'];
   buySteemDataSource: MatTableDataSource<AdvertisementResponse> = new MatTableDataSource([]);
   buySteem: Array<AdvertisementResponse> = [];
   @ViewChild('buysteem') buySteemPaginator: MatPaginator;
@@ -46,7 +46,7 @@ export class BuyComponent implements OnInit {
     forkJoin(this.purchaseSer.getBuyAds(), this.purchaseSer.getPrice())
       .subscribe((data) => {
         this.buySteem = data && data[0] && data[0].length ? data[0] : [];
-        this.buySteem = this.buySteem.filter((ad) => (ad.ad_status === 'open' && ad.market === market))
+        this.buySteem = this.buySteem.filter((ad) => (ad.ad_status === 'open' && ad.market === market));
         this.buySteemDataSource = new MatTableDataSource(this.buySteem);
         this.buySteemDataSource.paginator = this.buySteemPaginator;
         const resPrice = Object.values(data[1]);
@@ -79,9 +79,10 @@ export class BuyComponent implements OnInit {
   * @requires adCoinFilter  filter coin value
  */
   updateBuySteemDataSource() {
+    console.log('this.adCoinFilter', this.adCoinFilter)
     let filterBuySteem: Array<AdvertisementResponse> = this.buySteem;
     this.toFilter ? filterBuySteem = filterBuySteem.filter((ad) => (ad.to === this.toFilter)) : '';
-    this.adCoinFilter ? filterBuySteem = filterBuySteem.filter((ad) => (ad.from === this.adCoinFilter)) : '';
+    //this.adCoinFilter ? filterBuySteem = filterBuySteem.filter((ad) => (ad.from === this.adCoinFilter)) : '';
     this.buySteemDataSource = new MatTableDataSource(filterBuySteem);
     this.buySteemDataSource.paginator = this.buySteemPaginator;
   }
@@ -119,6 +120,8 @@ export class BuyComponent implements OnInit {
           return (1 + margin / 100);
         case "ENG":
           return (1 + margin / 100);
+        case "VEF":
+          return this.steemPrice[6] * (1 + margin / 100);
       }
 
     }
@@ -142,6 +145,8 @@ export class BuyComponent implements OnInit {
           return (1 + margin / 100);
         case "SUFB":
           return (1 + margin / 100);
+        case "VEF":
+          return this.steemPrice[6] * (1 + margin / 100);
       }
 
     }
