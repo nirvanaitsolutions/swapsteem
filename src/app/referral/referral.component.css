@@ -1,0 +1,27 @@
+mat-card {
+    width:  fit-content;
+    display: flex;
+    position: relative;
+    margin: 10px;
+}
+
+.clippy-button {
+    position: absolute;
+    padding: 0;
+    right: 0;
+    height: 25px!important;
+    width: 25px;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+}
+.referralLink {
+    border: none !important;
+
+}
+
+.referralLink:focus {
+    border: none !important;
+}

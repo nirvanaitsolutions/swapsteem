@@ -129,6 +129,7 @@ export class SteemconnectAuthService {
   private readonly baseURL = 'https://steemconnect.com/';
   public userData: UserData;
   public mongoUserData: MongoUserData;
+  public refUserName: string = '';
   constructor(
     @Inject('config') private config: SteemConnectConfig,
     @Inject(DOCUMENT) private document: Document,
@@ -228,7 +229,7 @@ export class SteemconnectAuthService {
   private getAuthorizationUrl(): string {
     const clientId = this.config.clientId;
     const redirectUrl = encodeURIComponent(
-      `${this.document.location.origin}/steemconnect/redirect`
+      `${this.document.location.origin}/steemconnect/redirect?ref=${this.refUserName}`
     );
     const scope = this.config.scope.join(',');
     return `${
