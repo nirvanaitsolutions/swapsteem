@@ -134,7 +134,7 @@ export class PostTradeComponent implements OnInit {
     }));
   }
   changeCurrency(value) {
-    if (value === 'KRW') {
+    if (value === 'KRW'|| value === 'VEF') {
       this.fiat_payment_methods = ['Bank Transfer', 'PayPal'];
       if (this.advertisement.payment_method === 'UPI') {
         this.advertisement.payment_method = 'Bank Transfer'

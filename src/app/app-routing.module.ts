@@ -32,10 +32,22 @@ const appRoutes: Routes = [
       },
     ]
   },
+  {
+    path: 'profile',
+    children: [
+      {
+        path: ':id',
+        component: ProfileComponent,
+      },
+      {
+        path: '',
+        component: ProfileComponent,
+        canActivate: [AuthGuard]
+      }
+    ]
+  },
   { path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard] },
   { path: 'wallet', component: WalletComponent, canActivate: [AuthGuard] },
-
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'purchase/:id', component: PurchaseComponent, canActivate: [AuthGuard] },
   {

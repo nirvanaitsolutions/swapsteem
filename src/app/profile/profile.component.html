@@ -2,14 +2,14 @@
   <div class="banner">
     <div class="container flex-center height-200">
       <div class="row flex-center">
-        <img src="{{profile_url}}" alt="ProfileImg" height="50px" width="50px" class="rounded float-left profile-image">
+        <img [src]="profile_url" alt="ProfileImg" height="50px" width="50px" class="rounded float-left profile-image">
         <div class="profile-name">
           <h4 style="color: white;">{{userData.name}}</h4>
-          <p *ngIf="userData && userData.account" class="medium">Registered: {{userData.account.created | date}}</p>
+          <p *ngIf="userData && userData.account && userData.account.created" class="medium">Registered: {{userData.account.created | date}}</p>
           <!-- <button class="edit-profile">Edit Profile</button> -->
         </div>
       </div>
-      <div class="balance">
+      <div class="balance" *ngIf="!userNameFromParams">
         <div class="row">
           <div class="col text-center">
             <h2>{{balance_steem}}</h2>
@@ -92,7 +92,7 @@
           </ng-container>
 
           <!-- Actions  Column -->
-          <ng-container matColumnDef="buttons">
+          <ng-container matColumnDef="buttons" *ngIf="!userNameFromParams">
             <th mat-header-cell *matHeaderCellDef> Actions </th>
             <td mat-cell *matCellDef="let element">
               <div class="dropdown">

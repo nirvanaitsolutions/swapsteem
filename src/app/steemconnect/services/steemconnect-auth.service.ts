@@ -94,7 +94,7 @@ export interface UserData {
   user: string;
   _id: string;
   name: string;
-  account: Account;
+  account?: Account;
   scope: string[];
   user_metadata: Object;
 }
