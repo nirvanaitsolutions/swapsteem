@@ -27,7 +27,7 @@ export class SellComponent implements OnInit {
   sbdPrice: any;
   currencyFilter: any = false;
   adCoinFilter: any = false;
-  sellSteemDisplayedColumns: string[] = ['createdby', 'payment_methods', 'from', 'to', 'price', 'buttons'];
+  sellSteemDisplayedColumns: string[] = ['createdby', 'payment_method', 'from', 'to', 'price', 'buttons'];
   sellSteemDataSource: MatTableDataSource<AdvertisementResponse> = new MatTableDataSource([]);
   sellSteem: Array<AdvertisementResponse> = [];
   @ViewChild('sellsteem') sellSteemPaginator: MatPaginator;
@@ -122,6 +122,8 @@ export class SellComponent implements OnInit {
           return (1 + margin / 100);
         case "SUFB":
           return (1 + margin / 100);
+        case "VEF":
+          return this.steemPrice[6] * (1 + margin / 100);
       }
 
     }
@@ -145,6 +147,8 @@ export class SellComponent implements OnInit {
           return (1 + margin / 100);
         case "SUFB":
           return (1 + margin / 100);
+        case "VEF":
+          return this.steemPrice[6] * (1 + margin / 100);
       }
 
     }
