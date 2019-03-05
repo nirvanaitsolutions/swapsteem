@@ -10,7 +10,8 @@ import { SignupComponent } from '../components/signup/signup.component';
   styleUrls: ['./app-nav.component.css'],
 })
 export class AppNavComponent implements OnInit {
-
+  loginTooltipInfo: string = `Users need to have a Steem account to be able to trade on swapSteem. Please click sign up if you don't have a Steem account. 
+  Note : Account creation fee = $2.50`;
   price: any = {
     steem: {
       usd: ''
