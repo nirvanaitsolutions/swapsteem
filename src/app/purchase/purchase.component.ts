@@ -119,12 +119,7 @@ export class PurchaseComponent implements OnInit {
           if (this.order.to == "ENG" || this.order.to == "SWEET" || this.order.to == "SUFB") {
             this.price = (1 + this.selectedTrade.margin / 100)
           } else
-            if (this.order.to == "INR" || this.order.to == "KRW" || this.order.to == "VEF" || this.order.to === 'NGN' || this.order.to === 'CAD' || this.order.to === 'AUD' || this.order.to === 'GBP' || this.order.to === 'EUR' || this.order.to === 'CNY') {
-              this.price = priceResponse[this.order.to.toLowerCase()] * (1 + this.selectedTrade.margin / 100)
-            }
-            else {
-              this.price = priceResponse['btc'] ? priceResponse['btc'] * (1 + this.selectedTrade.margin / 100) : priceResponse['eos'] * (1 + this.selectedTrade.margin / 100);
-            }
+            this.price = priceResponse[this.order.to.toLowerCase()] * (1 + this.selectedTrade.margin / 100)
           this.order.order_rate = this.price;
         });
 
@@ -135,11 +130,7 @@ export class PurchaseComponent implements OnInit {
           if (this.order.to == "ENG" || this.order.to == "SWEET" || this.order.to == "SUFB") {
             this.price = (1 + this.selectedTrade.margin / 100)
           } else
-            if (this.order.to == "INR" || this.order.to == "KRW" || this.order.to == "VEF" || this.order.to === 'NGN' || this.order.to === 'CAD' || this.order.to === 'AUD' || this.order.to === 'GBP' || this.order.to === 'EUR' || this.order.to === 'CNY') {
-              this.price = priceResponse[this.order.to.toLowerCase()] * (1 + this.selectedTrade.margin / 100)
-            } else {
-              this.price = priceResponse['btc'] ? priceResponse['btc'] * (1 + this.selectedTrade.margin / 100) : priceResponse['eos'] * (1 + this.selectedTrade.margin / 100)
-            }
+            this.price = priceResponse[this.order.to.toLowerCase()] * (1 + this.selectedTrade.margin / 100)
           this.order.order_rate = this.price;
         });
       }

@@ -150,6 +150,6 @@ export class PostTradeComponent implements OnInit {
   fiat_payment_methods = ['Bank Transfer',  'PayPal', 'UPI']; 
   crypto_payment_methods = ['Crypto Transfer']; // In cash
   token_options = ['SWEET', 'ENG', 'SUFB']
-  crypto_options = ['BTC','EOS' ]
+  crypto_options = ['BTC','EOS', 'XRP', 'LTC', 'BCH','BNB', 'XLM']
   
 }

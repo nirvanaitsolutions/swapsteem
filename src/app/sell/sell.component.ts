@@ -53,10 +53,8 @@ export class SellComponent implements OnInit {
         this.sellSteemDataSource = new MatTableDataSource(this.sellSteem);
         this.sellSteemDataSource.paginator = this.sellSteemPaginator;
         const resPrice = Object.values(data[1]);
-        const calSteemPrice = Object.values(resPrice[0]);
-        const calSBDPrice = Object.values(resPrice[1])
-        this.steemPrice = calSteemPrice;
-        this.sbdPrice = calSBDPrice;
+        this.steemPrice = resPrice[0];
+        this.sbdPrice = resPrice[1];
         this.ngxService.stop();
       });
 
@@ -103,78 +101,10 @@ export class SellComponent implements OnInit {
    */
   calculatePrice(from: string, to: string, margin: number) {
     if (from == "STEEM") {
-      switch (to) {
-        case "USD":
-          return this.steemPrice[0] * (1 + margin / 100);
-        case "INR":
-          return this.steemPrice[1] * (1 + margin / 100);
-        case "KRW":
-          return this.steemPrice[2] * (1 + margin / 100);
-        case "BTC":
-          return this.steemPrice[3] * (1 + margin / 100);
-        case "EOS":
-          return this.steemPrice[4] * (1 + margin / 100);
-        case "ETH":
-          return this.steemPrice[5] * (1 + margin / 100);
-        case "ENG":
-          return (1 + margin / 100);
-        case "SWEET":
-          return (1 + margin / 100);
-        case "SUFB":
-          return (1 + margin / 100);
-        case "VEF":
-          return this.steemPrice[6] * (1 + margin / 100);
-        case "NGN":
-          return this.steemPrice[7] * (1 + margin / 100);
-        case "CAD":
-          return this.steemPrice[8] * (1 + margin / 100);
-        case "AUD":
-          return this.steemPrice[9] * (1 + margin / 100);
-        case "GBP":
-          return this.steemPrice[10] * (1 + margin / 100);
-        case "EUR":
-          return this.steemPrice[11] * (1 + margin / 100);
-        case "CNY":
-          return this.steemPrice[12] * (1 + margin / 100);
-      }
-
+      return (this.steemPrice[to.toLowerCase()] || 0) * (1 + margin / 100);
     }
     else if (from == "SBD") {
-      switch (to) {
-        case "USD":
-          return this.sbdPrice[0] * (1 + margin / 100);
-        case "INR":
-          return this.sbdPrice[1] * (1 + margin / 100);
-        case "KRW":
-          return this.sbdPrice[2] * (1 + margin / 100);
-        case "BTC":
-          return this.sbdPrice[3] * (1 + margin / 100);
-        case "EOS":
-          return this.sbdPrice[4] * (1 + margin / 100);
-        case "ETH":
-          return this.sbdPrice[5] * (1 + margin / 100);
-        case "ENG":
-          return (1 + margin / 100);
-        case "SWEET":
-          return (1 + margin / 100);
-        case "SUFB":
-          return (1 + margin / 100);
-        case "VEF":
-          return this.steemPrice[6] * (1 + margin / 100);
-        case "NGN":
-          return this.steemPrice[7] * (1 + margin / 100);
-        case "CAD":
-          return this.steemPrice[8] * (1 + margin / 100);
-        case "AUD":
-          return this.steemPrice[9] * (1 + margin / 100);
-        case "GBP":
-          return this.steemPrice[10] * (1 + margin / 100);
-        case "EUR":
-          return this.steemPrice[11] * (1 + margin / 100);
-        case "CNY":
-          return this.steemPrice[12] * (1 + margin / 100);
-      }
-
+      return (this.sbdPrice[to.toLowerCase()] || 0) * (1 + margin / 100);
     }
   }
 }
