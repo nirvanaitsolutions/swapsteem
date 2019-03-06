@@ -122,6 +122,18 @@ export class BuyComponent implements OnInit {
           return (1 + margin / 100);
         case "VEF":
           return this.steemPrice[6] * (1 + margin / 100);
+        case "NGN":
+          return this.steemPrice[7] * (1 + margin / 100);
+        case "CAD":
+          return this.steemPrice[8] * (1 + margin / 100);
+        case "AUD":
+          return this.steemPrice[9] * (1 + margin / 100);
+        case "GBP":
+          return this.steemPrice[10] * (1 + margin / 100);
+        case "EUR":
+          return this.steemPrice[11] * (1 + margin / 100);
+        case "CNY":
+          return this.steemPrice[12] * (1 + margin / 100);
       }
 
     }
@@ -147,6 +159,18 @@ export class BuyComponent implements OnInit {
           return (1 + margin / 100);
         case "VEF":
           return this.steemPrice[6] * (1 + margin / 100);
+        case "NGN":
+          return this.steemPrice[7] * (1 + margin / 100);
+        case "CAD":
+          return this.steemPrice[8] * (1 + margin / 100);
+        case "AUD":
+          return this.steemPrice[9] * (1 + margin / 100);
+        case "GBP":
+          return this.steemPrice[10] * (1 + margin / 100);
+        case "EUR":
+          return this.steemPrice[11] * (1 + margin / 100);
+        case "CNY":
+          return this.steemPrice[12] * (1 + margin / 100);
       }
 
     }

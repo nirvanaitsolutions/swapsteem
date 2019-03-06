@@ -134,7 +134,7 @@ export class PostTradeComponent implements OnInit {
     }));
   }
   changeCurrency(value) {
-    if (value === 'KRW'|| value === 'VEF') {
+    if (value === 'KRW'|| value === 'VEF' || value === 'NGN' || value === 'CAD' || value === 'AUD' || value === 'GBP'|| value === 'EUR'|| value === 'CNY') {
       this.fiat_payment_methods = ['Bank Transfer', 'PayPal'];
       if (this.advertisement.payment_method === 'UPI') {
         this.advertisement.payment_method = 'Bank Transfer'
@@ -144,7 +144,7 @@ export class PostTradeComponent implements OnInit {
     }
   }
   market = ['FIAT','CRYPTO','TOKEN']
-  fiat_options = ['INR', 'KRW', 'VEF']; // 'USD', 'KRW'
+  fiat_options = ['INR', 'KRW', 'VEF', 'NGN', 'CAD', 'AUD', 'GBP', 'EUR', 'CNY']; // 'USD', 'KRW'
   ad_type = ['BUY', 'SELL'];
   from = ['STEEM', 'SBD'];
   fiat_payment_methods = ['Bank Transfer',  'PayPal', 'UPI']; 
