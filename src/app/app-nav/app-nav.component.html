@@ -4,8 +4,8 @@
       <a class="navbar-brand" routerLink="/">
         <img src="assets/logo.png" class="image-css">
       </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-        aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
@@ -15,8 +15,8 @@
             <a class="nav-link navbar-collapse" routerLink="market/crypto">Crypto Market</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link navbar-collapse" routerLink="market/fiat">Fiat Market</a>
-            </li>
+            <a class="nav-link navbar-collapse" routerLink="market/fiat">Fiat Market</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="market/token">Token Market</a>
           </li>
@@ -52,8 +52,11 @@
             </div>
           </div>
           <ng-template #guest>
-            <button class="btn btn-primary signInLink login-button" (click)="auth.login() ">
-              <i class="fa fa-user" aria-hidden="true"></i> Login</button>
+           
+            <button  mat-flat-button class="btn btn-primary signInLink login-button" (click)="auth.login() " [matTooltip]="loginTooltipInfo"
+              aria-label="Button that displays a tooltip in various positions">
+              <i class="fa fa-user" aria-hidden="true"></i>   Login
+            </button>
             &nbsp;
             <button class="btn btn-primary signInLink sign-up-button" (click)="openSignupDialog()">
               <i class="fa fa-user-plus" aria-hidden="true"></i> Signup</button>
