@@ -102,11 +102,16 @@ export interface UserData {
 export interface MongoUserData {
   createdAt?: string;
   updatedAt?: string;
-  username: string;
+  username?: string;
   tos_accepted?: boolean;
   whitelisted?: boolean;
   __v?: number;
   _id?: number;
+  password?:string;
+  email?:string;
+  email_valid?:boolean;
+  reset_password_flag?:boolean;
+  referredby?:string|null;
 }
 
 @Injectable()

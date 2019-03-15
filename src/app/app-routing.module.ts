@@ -14,6 +14,7 @@ import { OrderComponent } from './order/order.component';
 import { AuthGuard } from '../guards/auth-guard.service';
 import { HelppageComponent } from './helppage/helppage.component'
 import {SignupstatusComponent} from './components/signupstatus/signupstatus.component';
+import { LoginComponent } from './login/login.component'
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'market/:market', component: HomeComponent },
@@ -61,6 +62,12 @@ const appRoutes: Routes = [
   },
   {
     path: 'steemconnect/signup/failure', component: SignupstatusComponent
+  },
+  {
+    path: 'login', component: LoginComponent
+  },
+  {
+    path: 'register', component: LoginComponent
   },
   {
     path: '',

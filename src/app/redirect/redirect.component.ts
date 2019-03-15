@@ -44,7 +44,7 @@ export class RedirectComponent implements OnInit {
   showTermsAndConditionsModal(userInfo) {
     this.api.setUserData({
       username: userInfo.username
-    }, userInfo.access_token).subscribe((user: MongoUserData) => {
+    }).subscribe((user: MongoUserData) => {
       this.scAuthService.mongoUserData = user;
       console.info('environment.SKIP_WHITE_LIST', environment.SKIP_WHITE_LIST)
       if (!this.scAuthService.mongoUserData.whitelisted && !environment.SKIP_WHITE_LIST) {

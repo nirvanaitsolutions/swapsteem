@@ -72,14 +72,12 @@ export class APIService {
   getAdsByUser(user: string) {
     return this._http.get<AdvertisementResponse[]>(`${environment.API_URL}/listings/by_user/${user}`);
   }
-  getUser(user: string) {
-    //httpOptions.headers = httpOptions.headers.append("Authorization",this.token.access_token);
-    return this._http.get(`${environment.API_URL}/users/` + user);
+  getUser() {
+    return this._http.get(`${environment.API_URL}/users/`);
   }
-  setUserData(user: MongoUserData, access_token: string): Observable<MongoUserData> {
+  setUserData(user: MongoUserData): Observable<MongoUserData> {
     console.log(user);
-    const headers = new HttpHeaders({ 'No-Auth': 'True', 'Authorization': access_token, 'Content-Type':  'application/json' });
-    return this._http.post<MongoUserData>(`${environment.API_URL}/users/`, JSON.stringify(user), {headers});
+    return this._http.put<MongoUserData>(`${environment.API_URL}/users/`, JSON.stringify(user));
   }
   getOpenOrdersForUser(user: string) {
     return this._http.get<OrderResponse[]>(`${environment.API_URL}/orders/by_reciever/${user}`);
@@ -95,9 +93,9 @@ export class APIService {
   }
 
   getPrice() {
-    const headers = new HttpHeaders({ 'No-Auth': 'True' }); 
+    const headers = new HttpHeaders({ 'No-Auth': 'True' });
     return this._http.get(`https://api.coingecko.com/api/v3/simple/price?ids=steem%2Csteem-dollars&vs_currencies=usd,inr,krw,btc,eos,eth,vef,ngn,cad,aud,gbp,eur,cny,xrp,ltc,bch,usdt,bnb,xlm,trx`, { headers: headers })
-    .map(result => this.result = result);
+      .map(result => this.result = result);
 
   }
 
@@ -187,6 +185,34 @@ export class APIService {
   */
   getReviews(id: string, by_type: string) {
     return this._http.get<[ReviewResponse]>(`${environment.API_URL}/reviews/${by_type}/${id || ''}`);
+  }
+
+  /**
+   *
+   * @name login 
+   *
+   * @description
+   * This method used to get review details
+   * @param user user details
+   * @returns {Api response}
+  */
+  login(user) {
+    const headers = new HttpHeaders({ 'No-Auth': 'True', 'Content-Type': 'application/json' });
+    return this._http.post<MongoUserData>(`${environment.API_URL}/users/login/`, JSON.stringify(user), { headers });
+  }
+
+
+  /**
+   *
+   * @name login 
+   *
+   * @description
+   * This method used to get review details
+   * @param user user details
+   * @returns {Api response}
+  */
+  logout() {
+    return this._http.get(`${environment.API_URL}/users/logout/`);
   }
 
 }

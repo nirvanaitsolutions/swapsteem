@@ -3,6 +3,7 @@ import { SteemconnectAuthService } from '../steemconnect/services/steemconnect-a
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { APIService } from '../../service/api.service';
+import { AuthService } from '../../service/auth.service';
 import { AdvertisementResponse } from '../module/advertisement';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { ReviewResponse } from '../module/review';
@@ -26,7 +27,7 @@ export class ProfileComponent implements OnInit {
   selectedAdId: string = '';
   noAds: boolean;
   userNameFromParams: string | undefined = '';
-  constructor(private ngxService: NgxUiLoaderService, private _auth: SteemconnectAuthService,
+  constructor(private ngxService: NgxUiLoaderService, private auth: AuthService,
     private apiSer: APIService, private route: ActivatedRoute, private router: Router) {
     route.params.subscribe(val => {
       const hasButtons = this.advertisementDisplayedColumns.indexOf('buttons');
@@ -69,26 +70,8 @@ export class ProfileComponent implements OnInit {
   */
   getReviewsAndAdvt(username) {
     this.ngxService.start();
-    if (username) {
-      this.userData = {
-        user: username,
-        _id: username,
-        name: username,
-        scope: [],
-        user_metadata: {},
-        account: {
-          reputationScore: 0
-        }
-      }
-
-    } else {
-      this.userData = this._auth.userData;
-      this.userData.account.reputationScore = calculateReputation(this.userData.account.reputation);
-    }
-
-    console.log(this.userData);
-    this.openAds = this.apiSer.getAdsByUser(this.userData.name);
-    this.reviews = this.apiSer.getReviews(this.userData._id, 'by_creator');
+    this.openAds = this.apiSer.getAdsByUser(username || this.auth.userData.email);
+    this.reviews = this.apiSer.getReviews(username || this.auth.userData.email, 'by_creator');
     forkJoin(this.openAds, this.reviews).subscribe((data) => {
       // Hack for check data existance
       const advertisements = data && data[0] && data[0].length ? data[0] : [];
@@ -99,13 +82,6 @@ export class ProfileComponent implements OnInit {
       this.reviewsDataSource = new MatTableDataSource(reviews);
       this.reviewsDataSource.paginator = this.reviewsPaginator;
     });
-    if (!this.userNameFromParams) {
-      this.balance_sbd = this.userData.account.sbd_balance.split(" ")[0];
-      this.balance_steem = this.userData.account.balance.split(" ")[0];
-      this.balance_sp = this.userData.account.vesting_shares.split(" ")[0];
-      this.profile = this.userData.account.json_metadata ? JSON.parse(this.userData.account.json_metadata) : {};
-    }
-    this.profile_url = `https://steemitimages.com/u/${this.userData.name}/avatar`;
     this.ngxService.stop();
   }
 

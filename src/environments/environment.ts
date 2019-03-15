@@ -10,7 +10,7 @@ export const environment = {
     clientId: 'steemlinked.app',
     scope: ['custom_json']
   },
-  API_URL: 'https://swapsteem-api.herokuapp.com',
+  API_URL: 'http://localhost:4000',
   REFERRER: 'swapsteem',
   SKIP_WHITE_LIST: false
 };

@@ -1,0 +1,31 @@
+<form (ngSubmit)="form.valid ? currentUrl === '/login' ? onLogin() : onRegister() : ''" novalidate #form="ngForm">
+  <div class="section">
+    <h3>
+      {{currentUrl === '/login' ? 'Login' : 'Register'}}
+    </h3>
+    <div class="username">
+      <mat-form-field class="username-input-field">
+        <mat-icon matPrefix>person</mat-icon>
+        <input matInput #email type="email" name="email" placeholder="Email" [(ngModel)]="userData.email" required />
+      </mat-form-field>
+    </div>
+    <div class="password">
+      <mat-form-field class="username-input-field">
+        <mat-icon matPrefix>lock</mat-icon>
+        <input matInput #password type="password" name="password" placeholder="Passowrd" [(ngModel)]="userData.password"
+          required />
+      </mat-form-field>
+    </div>
+    <div class="submit">
+      <button class="submit-button" color="primary" mat-raised-button type="submit">
+        {{currentUrl === '/login' ? 'Login' : 'Register'}}
+      </button>
+    </div>
+    <a routerLink="/register" *ngIf="currentUrl === '/login'">
+      Create a new account
+    </a>
+    <a routerLink="/login" *ngIf="currentUrl === '/register'">
+      Already have a account
+    </a>
+  </div>
+</form>

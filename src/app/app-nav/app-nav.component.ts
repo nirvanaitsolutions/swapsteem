@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { SteemconnectAuthService } from '../steemconnect/services/steemconnect-auth.service';
+import { Router } from '@angular/router';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { APIService } from '../../service/api.service';
+import { AuthService } from '../../service/auth.service';
 import { SignupComponent } from '../components/signup/signup.component';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { CookieService } from 'ngx-cookie';
+import { takeWhile } from 'rxjs/operators';
+
 @Component({
   selector: 'app-nav',
   templateUrl: './app-nav.component.html',
@@ -23,10 +27,13 @@ export class AppNavComponent implements OnInit {
   userData: any = {};
   profile: any = {};
   profile_url: string = '';
-  showProfileDropDown: boolean = false
-  constructor(private breakpointObserver: BreakpointObserver,
-    public auth: SteemconnectAuthService,
-    private _apiService: APIService, public dialog: MatDialog) {
+  showProfileDropDown: boolean = false;
+  isAlive = true;
+  public getUserDataSubscribe = null;
+  logoutSubscribe = null;
+  constructor(
+    public auth: AuthService,
+    private _apiService: APIService, public dialog: MatDialog, private ngxService: NgxUiLoaderService, private snackBar: MatSnackBar, private cookieService: CookieService, private router: Router) {
 
     /**
      *
@@ -35,20 +42,12 @@ export class AppNavComponent implements OnInit {
      * @description
      * Use fro getting user info like name and profile Image URL
     */
-   
-    this.auth.authState.subscribe((authState)=> {
-      console.log('authState', authState)
-      if(!authState) return;
-      this.auth.getUserData().subscribe((auth) => {
-        if (auth) {
-          this.auth.userData = auth;
-          this.userData = auth;
-          this.profile = this.userData.account.json_metadata ? JSON.parse(this.userData.account.json_metadata) : {};
-          this.profile_url = this.profile && this.profile.profile ? this.profile.profile.profile_image : '';
-        }
-      });
+
+    this.getUserDataSubscribe = this._apiService.getUser().subscribe((userData) => {
+      this.auth.userData = userData;
+      this.userData = userData;
     })
- }
+  }
   ngOnInit() {
     this._apiService.getPrice().subscribe(data => {
       console.log(data);
@@ -72,5 +71,27 @@ export class AppNavComponent implements OnInit {
       width: '700px',
       disableClose: true
     });
+  }
+
+  logout() {
+    this.ngxService.start();
+    this.logoutSubscribe = this._apiService.logout().pipe(takeWhile(() => this.isAlive)).subscribe(() => {
+      this.ngxService.stop();
+      this.cookieService.remove('user_token');
+      this.snackBar.open('Successfully logout', null, {
+        duration: 2000
+      });
+      this.auth.userData = null;
+      this.router.navigate(['/home'])
+    });
+  }
+
+  ngOnDestroy() {
+    this.isAlive = false;
+    if (this.getUserDataSubscribe && this.getUserDataSubscribe.unsubscribe)
+      this.getUserDataSubscribe.unsubscribe();
+    if (this.logoutSubscribe && this.logoutSubscribe.unsubscribe)
+      this.logoutSubscribe.unsubscribe();
+    this.ngxService.stop();
   }
 }
