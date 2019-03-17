@@ -9,7 +9,7 @@ mat-card {
     position: absolute;
     padding: 0;
     right: 0;
-    height: 25px!important;
+    height: 25px;
     width: 25px;
     top: 0;
     display: flex;
@@ -18,10 +18,10 @@ mat-card {
     border-radius: 2px;
 }
 .referralLink {
-    border: none !important;
+    border: none;
 
 }
 
 .referralLink:focus {
-    border: none !important;
+    border: none;
 }
