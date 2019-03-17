@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { takeWhile } from "rxjs/operators";
+import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { forkJoin } from 'rxjs';
+import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { each } from 'lodash';
 import { ActivatedRoute } from '@angular/router';
 import { APIService } from '../../service/api.service';
 import { AdvertisementResponse } from '../module/advertisement';
 import { AdverstisementService } from '../../service/adverstisement.service'
-import { NgxUiLoaderService } from 'ngx-ui-loader';
-import { forkJoin } from 'rxjs';
-import { MatPaginator, MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-sell',
@@ -47,15 +48,18 @@ export class SellComponent implements OnInit {
 */
   fetchSellSteem(market = 'CRYPTO') {
     this.ngxService.start();
-    forkJoin(this.purchaseSer.getSellAds(), this.purchaseSer.getPrice())
-      .pipe(takeWhile(() => this.isAlive)).subscribe((data) => {
+    forkJoin(this.purchaseSer.getSellAds(), this.purchaseSer.getPrice(), this.purchaseSer.getBtcPrice())
+    .pipe(takeWhile(() => this.isAlive)).subscribe((data:any) => {
         this.sellSteem = data && data[0] && data[0].length ? data[0] : [];
         this.sellSteem = this.sellSteem.filter((ad) => (ad.ad_status === 'open' && ad.market === market))
         this.sellSteemDataSource = new MatTableDataSource(this.sellSteem);
         this.sellSteemDataSource.paginator = this.sellSteemPaginator;
-        const resPrice = Object.values(data[1]);
-        this.steemPrice = resPrice[0];
-        this.sbdPrice = resPrice[1];
+        each(data[2].bitcoin, (value, key)=> {
+          data[1].steem[key] = value *  data[1].steem.btc;
+          data[1]['steem-dollars'][key] = value *  data[1]['steem-dollars'].btc;
+        });
+        this.steemPrice = data[1].steem;
+        this.sbdPrice = data[1]['steem-dollars'];
         this.ngxService.stop();
       });
 
