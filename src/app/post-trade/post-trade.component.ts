@@ -1,5 +1,5 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { SteemconnectBroadcastService } from '../steemconnect/services/steemconnect-broadcast.service';
+import { takeWhile } from "rxjs/operators";
 import { AdvertisementRequest } from '../module/advertisement';
 import { APIService } from '../../service/api.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -59,7 +59,7 @@ export class PostTradeComponent implements OnInit {
   cryptos: any;
   effectivePrice: any;
   adId: string = '';
-
+  private isAlive = true;
   ngOnInit() {
     this.adId = this.route.snapshot.paramMap.get('id');
     this.getSelectedTradeFromAPI(this.adId);
@@ -67,7 +67,7 @@ export class PostTradeComponent implements OnInit {
     this.userData = this.auth.userData;
     this.advertisement.createdby = this.userData.name;
     console.log(this.userData);
-    this.api.getPriceByPair(this.advertisement.from, this.advertisement.to).subscribe(data => {
+    this.api.getPriceByPair(this.advertisement.from, this.advertisement.to).pipe(takeWhile(() => this.isAlive)).subscribe(data => {
       this.cryptos = data;
       console.log(data)
       this.ngxService.stop();
@@ -78,7 +78,7 @@ export class PostTradeComponent implements OnInit {
   getSelectedTradeFromAPI(id: string) {
     if (id) {
       this.ngxService.start();
-      this.api.getSelectedTradeFromAPI(id).subscribe((res) => this.zone.run(() => {
+      this.api.getSelectedTradeFromAPI(id).pipe(takeWhile(() => this.isAlive)).subscribe((res) => this.zone.run(() => {
         this.advertisement = {
           ...this.advertisement, ...{
             createdby: res.createdby,
@@ -128,7 +128,7 @@ export class PostTradeComponent implements OnInit {
   onSubmit(tradeForm) {
     console.log('tradeForm', tradeForm)
     this.ngxService.start();
-    this.api.createAd(this.advertisement, this.adId).subscribe(res => this.zone.run(() => {
+    this.api.createAd(this.advertisement, this.adId).pipe(takeWhile(() => this.isAlive)).subscribe(res => this.zone.run(() => {
       this.router.navigate(['profile'])
       this.ngxService.stop();
     }));
@@ -142,6 +142,10 @@ export class PostTradeComponent implements OnInit {
     } else {
       this.fiat_payment_methods = ['Bank Transfer',  'PayPal', 'UPI'];
     }
+  }
+
+  ngOnDestroy() {
+    this.isAlive = false;
   }
   market = ['FIAT','CRYPTO','TOKEN']
   fiat_options = ['INR', 'KRW', 'VEF', 'NGN', 'CAD', 'AUD', 'GBP', 'EUR', 'CNY']; // 'USD', 'KRW'

@@ -1,5 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { takeWhile } from "rxjs/operators";
 import { Inject, Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie';
 import { BehaviorSubject } from 'rxjs';
@@ -112,6 +113,7 @@ export interface MongoUserData {
 
 @Injectable()
 export class SteemconnectAuthService {
+  private isAlive = true;
   /**
    * Observalbe is truthy if user is logged in, falsy otherwise.
    */
@@ -198,7 +200,7 @@ export class SteemconnectAuthService {
           return of(err);
         })
       )
-      .subscribe();
+      .pipe(takeWhile(() => this.isAlive)).subscribe();
   }
 
   /**
@@ -259,5 +261,9 @@ export class SteemconnectAuthService {
    */
   private deleteCookie(): void {
     this.cookieService.remove('access_token');
+  }
+
+  ngOnDestroy() {
+    this.isAlive = false;
   }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit, NgZone } from '@angular/core';
+import { takeWhile } from "rxjs/operators";
 import { OrderRequest } from '../module/order';
 import { AdvertisementResponse } from '../module/advertisement';
 import { APIService } from '../../service/api.service';
@@ -94,9 +95,10 @@ export class PurchaseComponent implements OnInit {
 
   userData: any = [];
   price: any;
+  private isAlive = true;
   ngOnInit() {
     let id = this.route.snapshot.paramMap.get('id');
-    this.purchaseServ.getSelectedTradeFromAPI(id).subscribe(data => {
+    this.purchaseServ.getSelectedTradeFromAPI(id).pipe(takeWhile(() => this.isAlive)).subscribe(data => {
       console.log(data);
       this.selectedTrade = data;
 
@@ -111,7 +113,7 @@ export class PurchaseComponent implements OnInit {
       //todo - calculate rate from margin
       //this.order.order_rate=this.selectedTrade.margin;
       if (this.order.from == "STEEM") {
-        this.purchaseServ.getPriceByPair(this.order.from, this.order.to).subscribe(data => {
+        this.purchaseServ.getPriceByPair(this.order.from, this.order.to).pipe(takeWhile(() => this.isAlive)).subscribe(data => {
           console.log('data', data)
           let priceResponse = data['steem'];
           console.log(data, 'data')
@@ -125,7 +127,7 @@ export class PurchaseComponent implements OnInit {
 
       }
       else if (this.order.from == "SBD") {
-        this.purchaseServ.getPriceByPair(this.order.from, this.order.to).subscribe(data => {
+        this.purchaseServ.getPriceByPair(this.order.from, this.order.to).pipe(takeWhile(() => this.isAlive)).subscribe(data => {
           let priceResponse = data['steem-dollars'];
           if (this.order.to == "ENG" || this.order.to == "SWEET" || this.order.to == "SUFB") {
             this.price = (1 + this.selectedTrade.margin / 100)
@@ -138,7 +140,7 @@ export class PurchaseComponent implements OnInit {
       console.log(this.selectedTrade)
 
 
-      // this.purchaseServ.getPrice().subscribe(data => {
+      // this.purchaseServ.getPrice().pipe(takeWhile(() => this.isAlive)).subscribe(data => {
       //   this.price = data;
       // });
     });
@@ -165,7 +167,7 @@ export class PurchaseComponent implements OnInit {
     this.order.escrowID = Math.floor(now.getTime() / 1000);
     this.order.escrow_rat_deadline = new Date(moment().add(2, 'hours').format());
     this.order.escrow_exp_deadline = new Date(moment().add(3, 'days').format());;
-    this.purchaseServ.createOrder(this.order).subscribe((res: any) => this.zone.run(() => {
+    this.purchaseServ.createOrder(this.order).pipe(takeWhile(() => this.isAlive)).subscribe((res: any) => this.zone.run(() => {
       this.router.navigate([`order/${res._id}`])
     }));
   }
@@ -187,5 +189,9 @@ export class PurchaseComponent implements OnInit {
     if (this.order.from == "SBD") {
       this.order.order_coin_amount = this.order.order_fiat_amount * (1 / this.price);
     }
+  }
+
+  ngOnDestroy() {
+    this.isAlive = false;
   }
 }

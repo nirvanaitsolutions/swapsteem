@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { BreakpointObserver } from '@angular/cdk/layout';
+import { takeWhile } from "rxjs/operators";
 import { SteemconnectAuthService } from '../steemconnect/services/steemconnect-auth.service';
 import { APIService } from '../../service/api.service';
 import { SignupComponent } from '../components/signup/signup.component';
@@ -23,8 +23,9 @@ export class AppNavComponent implements OnInit {
   userData: any = {};
   profile: any = {};
   profile_url: string = '';
-  showProfileDropDown: boolean = false
-  constructor(private breakpointObserver: BreakpointObserver,
+  showProfileDropDown: boolean = false;
+  private isAlive = true;
+  constructor(
     public auth: SteemconnectAuthService,
     private _apiService: APIService, public dialog: MatDialog) {
 
@@ -35,11 +36,11 @@ export class AppNavComponent implements OnInit {
      * @description
      * Use fro getting user info like name and profile Image URL
     */
-   
-    this.auth.authState.subscribe((authState)=> {
+
+    this.auth.authState.pipe(takeWhile(() => this.isAlive)).subscribe((authState) => {
       console.log('authState', authState)
-      if(!authState) return;
-      this.auth.getUserData().subscribe((auth) => {
+      if (!authState) return;
+      this.auth.getUserData().pipe(takeWhile(() => this.isAlive)).subscribe((auth) => {
         if (auth) {
           this.auth.userData = auth;
           this.userData = auth;
@@ -48,9 +49,9 @@ export class AppNavComponent implements OnInit {
         }
       });
     })
- }
+  }
   ngOnInit() {
-    this._apiService.getPrice().subscribe(data => {
+    this._apiService.getPrice().pipe(takeWhile(() => this.isAlive)).subscribe(data => {
       console.log(data);
       this.price = data;
     });
@@ -72,5 +73,9 @@ export class AppNavComponent implements OnInit {
       width: '700px',
       disableClose: true
     });
+  }
+
+  ngOnDestroy() {
+    this.isAlive = false;
   }
 }
