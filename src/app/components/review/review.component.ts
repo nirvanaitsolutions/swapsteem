@@ -11,6 +11,7 @@
  */
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { takeWhile } from "rxjs/operators";
 import { ReviewRequest } from '../../module/review';
 import { APIService } from '../../../service/api.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
@@ -37,6 +38,7 @@ export class ReviewComponent implements OnInit {
     review_score: 1,
     review_text: ''
   }
+  private isAlive = true;
   constructor(public dialogRef: MatDialogRef<ReviewComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ReviewDialogData, public apiService: APIService, public ngxService: NgxUiLoaderService, ) { }
 
@@ -46,10 +48,14 @@ export class ReviewComponent implements OnInit {
   submitReview(form) {
     if (form.valid) {
       this.ngxService.start();
-      this.apiService.createReview(Object.assign({}, this.reviewData, this.data)).subscribe((res) => {
+      this.apiService.createReview(Object.assign({}, this.reviewData, this.data)).pipe(takeWhile(() => this.isAlive)).subscribe((res) => {
         this.ngxService.stop();
         this.dialogRef.close(res);
       })
     }
+  }
+
+  ngOnDestroy() {
+    this.isAlive = false;
   }
 }

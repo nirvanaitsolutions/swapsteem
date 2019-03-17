@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { takeWhile } from "rxjs/operators";
 import { SteemconnectAuthService } from '../steemconnect/services/steemconnect-auth.service';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -26,9 +27,10 @@ export class ProfileComponent implements OnInit {
   selectedAdId: string = '';
   noAds: boolean;
   userNameFromParams: string | undefined = '';
+  private isAlive = true;
   constructor(private ngxService: NgxUiLoaderService, private _auth: SteemconnectAuthService,
     private apiSer: APIService, private route: ActivatedRoute, private router: Router) {
-    route.params.subscribe(val => {
+    route.params.pipe(takeWhile(() => this.isAlive)).subscribe(val => {
       const hasButtons = this.advertisementDisplayedColumns.indexOf('buttons');
       console.log(val)
       if (val && val.id && val.id[0] === '@') {
@@ -89,7 +91,7 @@ export class ProfileComponent implements OnInit {
     console.log(this.userData);
     this.openAds = this.apiSer.getAdsByUser(this.userData.name);
     this.reviews = this.apiSer.getReviews(this.userData._id, 'by_creator');
-    forkJoin(this.openAds, this.reviews).subscribe((data) => {
+    forkJoin(this.openAds, this.reviews).pipe(takeWhile(() => this.isAlive)).subscribe((data) => {
       // Hack for check data existance
       const advertisements = data && data[0] && data[0].length ? data[0] : [];
       this.advertisementsDataSource = new MatTableDataSource(advertisements);
@@ -126,9 +128,9 @@ export class ProfileComponent implements OnInit {
   */
   pauseAd(id: string, currentStatus: string) {
     this.ngxService.start();
-    this.apiSer.pauseAd(id, currentStatus).subscribe(res => {
+    this.apiSer.pauseAd(id, currentStatus).pipe(takeWhile(() => this.isAlive)).subscribe(res => {
       this.openAds = this.apiSer.getAdsByUser(this.userData.name);
-      this.openAds.subscribe((data) => {
+      this.openAds.pipe(takeWhile(() => this.isAlive)).subscribe((data) => {
         const advertisements = data || [];
         this.advertisementsDataSource = new MatTableDataSource(advertisements);
         this.noOfOpenAds = advertisements.filter((ad) => (ad.ad_status === 'open')).length;
@@ -148,9 +150,9 @@ export class ProfileComponent implements OnInit {
   */
   deleteAd(id: string) {
     this.ngxService.start();
-    this.apiSer.deleteAd(id).subscribe(res => {
+    this.apiSer.deleteAd(id).pipe(takeWhile(() => this.isAlive)).subscribe(res => {
       this.openAds = this.apiSer.getAdsByUser(this.userData.name);
-      this.openAds.subscribe((data) => {
+      this.openAds.pipe(takeWhile(() => this.isAlive)).subscribe((data) => {
         const advertisements = data || [];
         this.advertisementsDataSource = new MatTableDataSource(advertisements);
         this.noOfOpenAds = advertisements.filter((ad) => (ad.ad_status === 'open')).length;
@@ -158,6 +160,10 @@ export class ProfileComponent implements OnInit {
       })
 
     });
+  }
+
+  ngOnDestroy() {
+    this.isAlive = false;
   }
 
 }

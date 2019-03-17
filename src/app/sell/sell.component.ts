@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { takeWhile } from "rxjs/operators";
 import { ActivatedRoute } from '@angular/router';
 import { APIService } from '../../service/api.service';
 import { AdvertisementResponse } from '../module/advertisement';
@@ -14,10 +15,10 @@ import { MatPaginator, MatTableDataSource } from '@angular/material';
 })
 export class SellComponent implements OnInit {
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-
+  private isAlive = true;
   constructor(private ngxService: NgxUiLoaderService,
     private purchaseSer: APIService, private adverstisementService: AdverstisementService, private route: ActivatedRoute) {
-    route.params.subscribe(val => {
+    route.params.pipe(takeWhile(() => this.isAlive)).subscribe(val => {
       const market = val.market ? ['FIAT', 'CRYPTO', 'TOKEN'].includes(val.market.toUpperCase()) ? val.market.toUpperCase() : 'CRYPTO' : 'CRYPTO';
       this.fetchSellSteem(market);
     });
@@ -47,7 +48,7 @@ export class SellComponent implements OnInit {
   fetchSellSteem(market = 'CRYPTO') {
     this.ngxService.start();
     forkJoin(this.purchaseSer.getSellAds(), this.purchaseSer.getPrice())
-      .subscribe((data) => {
+      .pipe(takeWhile(() => this.isAlive)).subscribe((data) => {
         this.sellSteem = data && data[0] && data[0].length ? data[0] : [];
         this.sellSteem = this.sellSteem.filter((ad) => (ad.ad_status === 'open' && ad.market === market))
         this.sellSteemDataSource = new MatTableDataSource(this.sellSteem);
@@ -59,11 +60,11 @@ export class SellComponent implements OnInit {
       });
 
     // Added suscribe for all filter(Observable) for real time data change 
-    this.adverstisementService.currencyFilter.subscribe(filter => {
+    this.adverstisementService.currencyFilter.pipe(takeWhile(() => this.isAlive)).subscribe(filter => {
       this.currencyFilter = filter;
       this.updateSellSteemDataSource();
     })
-    this.adverstisementService.adCoinFilter.subscribe(filter => {
+    this.adverstisementService.adCoinFilter.pipe(takeWhile(() => this.isAlive)).subscribe(filter => {
       this.adCoinFilter = filter;
       this.updateSellSteemDataSource();
     });
@@ -106,5 +107,9 @@ export class SellComponent implements OnInit {
     else if (from == "SBD") {
       return (this.sbdPrice[to.toLowerCase()] || 0) * (1 + margin / 100);
     }
+  }
+
+  ngOnDestroy() {
+    this.isAlive = false;
   }
 }
