@@ -106,7 +106,8 @@ export interface MongoUserData {
   tos_accepted?: boolean;
   whitelisted?: boolean;
   __v?: number;
-  _id?: number;
+  _id?: string;
+  referredby?:string | undefined;
 }
 
 @Injectable()
