@@ -12,14 +12,7 @@ import { SignupComponent } from '../components/signup/signup.component';
 export class AppNavComponent implements OnInit {
   loginTooltipInfo: string = `Users need to have a Steem account to be able to trade on swapSteem. Please click sign up if you don't have a Steem account. 
   Note : Account creation fee = $2.50`;
-  price: any = {
-    steem: {
-      usd: ''
-    },
-    'steem-dollars': {
-      usd: ''
-    }
-  };
+
   userData: any = {};
   profile: any = {};
   profile_url: string = '';
@@ -51,10 +44,7 @@ export class AppNavComponent implements OnInit {
     })
   }
   ngOnInit() {
-    this._apiService.getPrice().pipe(takeWhile(() => this.isAlive)).subscribe(data => {
-      console.log(data);
-      this.price = data;
-    });
+  
   }
   showDropDown() {
     this.showProfileDropDown = !this.showProfileDropDown;

@@ -63,15 +63,8 @@ export class PostTradeComponent implements OnInit {
   ngOnInit() {
     this.adId = this.route.snapshot.paramMap.get('id');
     this.getSelectedTradeFromAPI(this.adId);
-    this.ngxService.start();
     this.userData = this.auth.userData;
     this.advertisement.createdby = this.userData.name;
-    console.log(this.userData);
-    this.api.getPriceByPair(this.advertisement.from, this.advertisement.to).pipe(takeWhile(() => this.isAlive)).subscribe(data => {
-      this.cryptos = data;
-      console.log(data)
-      this.ngxService.stop();
-    });
   }
 
 

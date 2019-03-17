@@ -1,12 +1,14 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { takeWhile } from "rxjs/operators";
+import { NgForm } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { forkJoin } from 'rxjs';
+import { each } from 'lodash';
+import { SteemconnectAuthService } from '../steemconnect/services/steemconnect-auth.service';
+import * as moment from 'moment';
 import { OrderRequest } from '../module/order';
 import { AdvertisementResponse } from '../module/advertisement';
 import { APIService } from '../../service/api.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { SteemconnectAuthService } from '../steemconnect/services/steemconnect-auth.service';
-import * as moment from 'moment';
-import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-purchase',
@@ -113,22 +115,29 @@ export class PurchaseComponent implements OnInit {
       //todo - calculate rate from margin
       //this.order.order_rate=this.selectedTrade.margin;
       if (this.order.from == "STEEM") {
-        this.purchaseServ.getPriceByPair(this.order.from, this.order.to).pipe(takeWhile(() => this.isAlive)).subscribe(data => {
-          console.log('data', data)
-          let priceResponse = data['steem'];
-          console.log(data, 'data')
-          console.log("price ", data['steem'], 'steem');
-          if (this.order.to == "ENG" || this.order.to == "SWEET" || this.order.to == "SUFB") {
-            this.price = (1 + this.selectedTrade.margin / 100)
-          } else
-            this.price = priceResponse[this.order.to.toLowerCase()] * (1 + this.selectedTrade.margin / 100)
-          this.order.order_rate = this.price;
-        });
+        forkJoin(this.purchaseServ.getPrice(), this.purchaseServ.getBtcPrice())
+          .pipe(takeWhile(() => this.isAlive)).subscribe((data: any) => {
+            console.log('data', data)
+            each(data[1].bitcoin, (value, key)=> {
+              data[0].steem[key] = value *  data[0].steem.btc;
+            });
+            let priceResponse = data[0].steem;
+            if (this.order.to == "ENG" || this.order.to == "SWEET" || this.order.to == "SUFB") {
+              this.price = (1 + this.selectedTrade.margin / 100)
+            } else
+              this.price = priceResponse[this.order.to.toLowerCase()] * (1 + this.selectedTrade.margin / 100)
+            this.order.order_rate = this.price;
+          });
 
       }
       else if (this.order.from == "SBD") {
-        this.purchaseServ.getPriceByPair(this.order.from, this.order.to).pipe(takeWhile(() => this.isAlive)).subscribe(data => {
-          let priceResponse = data['steem-dollars'];
+        forkJoin(this.purchaseServ.getPrice(), this.purchaseServ.getBtcPrice())
+          .pipe(takeWhile(() => this.isAlive)).subscribe((data: any) => {
+            console.log('data', data)
+            each(data[1].bitcoin, (value, key)=> {
+              data[0]['steem-dollars'][key] = value *  data[0]['steem-dollars'].btc;
+            });
+          let priceResponse = data[0]['steem-dollars'];
           if (this.order.to == "ENG" || this.order.to == "SWEET" || this.order.to == "SUFB") {
             this.price = (1 + this.selectedTrade.margin / 100)
           } else
@@ -136,13 +145,6 @@ export class PurchaseComponent implements OnInit {
           this.order.order_rate = this.price;
         });
       }
-
-      console.log(this.selectedTrade)
-
-
-      // this.purchaseServ.getPrice().pipe(takeWhile(() => this.isAlive)).subscribe(data => {
-      //   this.price = data;
-      // });
     });
     this.userData = this.auth.userData;
     this.order.createdby = this.userData.name;
