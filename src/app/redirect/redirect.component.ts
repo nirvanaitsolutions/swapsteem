@@ -4,6 +4,7 @@ import { TermsAndConditionsComponent } from '../terms-and-conditions/terms-and-c
 import {
   SteemconnectAuthService, MongoUserData
 } from '../steemconnect/services/steemconnect-auth.service';
+import { CookieService } from 'ngx-cookie';
 import { APIService } from '../../service/api.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import {
@@ -18,8 +19,8 @@ import { environment } from '../../environments/environment';
   styleUrls: ['./redirect.component.css']
 })
 export class RedirectComponent implements OnInit {
-
-  constructor(public ngxService: NgxUiLoaderService, private activatedRoute: ActivatedRoute, private scAuthService: SteemconnectAuthService, public dialog: MatDialog, private api: APIService, private router: Router) {
+  public refSubInstance = null;
+  constructor(private cookieService: CookieService, public ngxService: NgxUiLoaderService, private activatedRoute: ActivatedRoute, private scAuthService: SteemconnectAuthService, public dialog: MatDialog, private api: APIService, private router: Router) {
 
   }
 
@@ -45,6 +46,19 @@ export class RedirectComponent implements OnInit {
     this.api.setUserData({
       username: userInfo.username
     }, userInfo.access_token).subscribe((user: MongoUserData) => {
+      console.log(user)
+      let referredby = this.cookieService.get('ref');
+      if(user && !user.referredby && referredby && userInfo.username !== referredby) {
+        this.refSubInstance = this.api.setUserData({
+          username: userInfo.username,
+          referredby
+        }, userInfo.access_token).subscribe((user:MongoUserData) => {
+          this.cookieService.remove('ref');
+          if(this.refSubInstance && typeof this.refSubInstance.unsubscribe === 'function') {
+            this.refSubInstance.unsubscribe();
+          }
+        })
+      }
       this.scAuthService.mongoUserData = user;
       console.info('environment.SKIP_WHITE_LIST', environment.SKIP_WHITE_LIST)
       if (!this.scAuthService.mongoUserData.whitelisted && !environment.SKIP_WHITE_LIST) {
