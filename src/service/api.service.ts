@@ -78,8 +78,8 @@ export class APIService {
   }
   setUserData(user: MongoUserData, access_token: string): Observable<MongoUserData> {
     console.log(user);
-    const headers = new HttpHeaders({ 'No-Auth': 'True', 'Authorization': access_token, 'Content-Type':  'application/json' });
-    return this._http.post<MongoUserData>(`${environment.API_URL}/users/`, JSON.stringify(user), {headers});
+    const headers = new HttpHeaders({ 'No-Auth': 'True', 'Authorization': access_token, 'Content-Type': 'application/json' });
+    return this._http.post<MongoUserData>(`${environment.API_URL}/users/`, JSON.stringify(user), { headers });
   }
   getOpenOrdersForUser(user: string) {
     return this._http.get<OrderResponse[]>(`${environment.API_URL}/orders/by_reciever/${user}`);
@@ -95,9 +95,23 @@ export class APIService {
   }
 
   getPrice() {
-    const headers = new HttpHeaders({ 'No-Auth': 'True' }); 
-    return this._http.get(`https://api.coingecko.com/api/v3/simple/price?ids=steem%2Csteem-dollars&vs_currencies=usd,inr,krw,btc,eos,eth,vef,ngn,cad,aud,gbp,eur,cny,xrp,ltc,bch,usdt,bnb,xlm,trx`, { headers: headers })
-    .map(result => this.result = result);
+    const headers = new HttpHeaders({ 'No-Auth': 'True' });
+    return this._http.get(`https://api.coingecko.com/api/v3/simple/price?ids=steem%2Csteem-dollars&vs_currencies=btc`, { headers: headers })
+      .map(result => this.result = result);
+
+  }
+  /**
+     *
+     * @name getBtcPrice 
+     *
+     * @description
+     * This method used to get steem/sbd price in bitcoin
+     * @returns {Api response}
+    */
+  getBtcPrice() {
+    const headers = new HttpHeaders({ 'No-Auth': 'True' });
+    return this._http.get(`https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd,inr,krw,btc,eos,eth,vef,ngn,cad,aud,gbp,eur,cny,xrp,ltc,bch,usdt,bnb,xlm,trx`, { headers: headers })
+      .map(result => this.result = result);
 
   }
 

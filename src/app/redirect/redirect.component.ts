@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { takeWhile } from "rxjs/operators";
 import { MatDialog } from '@angular/material';
 import { TermsAndConditionsComponent } from '../terms-and-conditions/terms-and-conditions.component';
 import {
@@ -20,13 +21,14 @@ import { environment } from '../../environments/environment';
 })
 export class RedirectComponent implements OnInit {
   public refSubInstance = null;
+  private isAlive = true;
   constructor(private cookieService: CookieService, public ngxService: NgxUiLoaderService, private activatedRoute: ActivatedRoute, private scAuthService: SteemconnectAuthService, public dialog: MatDialog, private api: APIService, private router: Router) {
 
   }
 
   ngOnInit() {
     console.log('constructor called');
-    this.activatedRoute.queryParams.subscribe(params => {
+    this.activatedRoute.queryParams.pipe(takeWhile(() => this.isAlive)).subscribe(params => {
       console.log(params)
       this.showTermsAndConditionsModal({
         username: params['username'],
@@ -45,14 +47,14 @@ export class RedirectComponent implements OnInit {
   showTermsAndConditionsModal(userInfo) {
     this.api.setUserData({
       username: userInfo.username
-    }, userInfo.access_token).subscribe((user: MongoUserData) => {
+    }, userInfo.access_token).pipe(takeWhile(() => this.isAlive)).subscribe((user: MongoUserData) => {
       console.log(user)
       let referredby = this.cookieService.get('ref');
       if(user && !user.referredby && referredby && userInfo.username !== referredby) {
         this.refSubInstance = this.api.setUserData({
           username: userInfo.username,
           referredby
-        }, userInfo.access_token).subscribe((user:MongoUserData) => {
+        }, userInfo.access_token).pipe(takeWhile(() => this.isAlive)).subscribe((user:MongoUserData) => {
           this.cookieService.remove('ref');
           if(this.refSubInstance && typeof this.refSubInstance.unsubscribe === 'function') {
             this.refSubInstance.unsubscribe();
@@ -78,7 +80,7 @@ export class RedirectComponent implements OnInit {
           expires_in: userInfo.expires_in
         });
         this.ngxService.start();
-        this.scAuthService.getUserData().subscribe((scAuthService) => {
+        this.scAuthService.getUserData().pipe(takeWhile(() => this.isAlive)).subscribe((scAuthService) => {
           this.ngxService.stop();
           if (scAuthService) {
             this.scAuthService.userData = scAuthService;
@@ -103,5 +105,8 @@ export class RedirectComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    this.isAlive = false;
+  }
 
 }

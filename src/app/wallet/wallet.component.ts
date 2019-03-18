@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { takeWhile } from "rxjs/operators";
 import { Observable } from 'rxjs';
 import { OrderResponse } from '../module/order';
 import { APIService } from '../../service/api.service';
@@ -15,7 +16,7 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 })
 export class WalletComponent implements OnInit {
 
-
+  private isAlive = true;
   userData: any = {};
   @ViewChild('openordersforyou') openOrdersForYouPaginator: MatPaginator;
   @ViewChild('openordersbyyou') closeOrdersPaginator: MatPaginator;
@@ -49,7 +50,7 @@ export class WalletComponent implements OnInit {
     this.ngxService.start();
     this.userData = this._auth.userData;
     forkJoin(this.apiSer.getOpenOrdersForUser(this.userData.name), this.apiSer.getOpenOrdersByUser(this.userData.name))
-      .subscribe((data) => {
+      .pipe(takeWhile(() => this.isAlive)).subscribe((data) => {
         const openOrdersForYou = data && data[0] && data[0].length ? data[0] : [];
         this.openOrdersForYouDataSource = new MatTableDataSource(openOrdersForYou.filter((order: OrderResponse) => (order.order_status !== 'canceled' && order.order_status !== 'order_complete')));
         this.openOrdersForYouDataSource.paginator = this.openOrdersForYouPaginator;
@@ -68,5 +69,9 @@ export class WalletComponent implements OnInit {
         this.canceledOrdersDataSource.paginator = this.canceledOrdersPaginator;
         this.ngxService.stop();
       });
+  }
+
+  ngOnDestroy() {
+    this.isAlive = false;
   }
 }
