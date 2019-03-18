@@ -9,7 +9,7 @@
       <ng-container matColumnDef="createdby">
         <th mat-header-cell *matHeaderCellDef> Seller </th>
         <td mat-cell *matCellDef="let element">
-          {{element.createdby ? element.createdby : '-'}}
+            <a href="https://swapsteem.com/profile/@{{element.createdby ? element.createdby : '-'}}">{{element.createdby ? element.createdby : '-'}}</a>
         </td>
       </ng-container>
       <!--  PAYMENT METHODS  Column -->
