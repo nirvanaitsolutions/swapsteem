@@ -9,6 +9,7 @@
  */
 
 import { Component, OnInit, NgZone, ViewChild } from '@angular/core';
+import { takeWhile } from "rxjs/operators";
 import { ChatService } from '../../service/chat.service';
 import { APIService } from '../../service/api.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -63,6 +64,7 @@ export class OrderComponent implements OnInit {
     }
   @ViewChild('transfercountdown') transferCountdown: CountdownComponent;
   @ViewChild('relesecountdown') releseCountdown: CountdownComponent;
+  private isAlive = true;
   constructor(public ngxService: NgxUiLoaderService, public _chatService: ChatService, public auth: SteemconnectAuthService,
     public _apiSer: APIService,
     public router: Router,
@@ -81,7 +83,7 @@ export class OrderComponent implements OnInit {
       this.updateOrderStatus(status, true);
       return;
     }
-    this._apiSer.getSelectedOrderFromAPI(id).subscribe(data => this.zone.run(() => {
+    this._apiSer.getSelectedOrderFromAPI(id).pipe(takeWhile(() => this.isAlive)).subscribe(data => this.zone.run(() => {
       this.selectedOrder = data;
       this.selectedOrder.escrow_rat_deadline ? this.rDeadline = moment(this.selectedOrder.escrow_rat_deadline) : '';
       this.selectedOrder.escrow_exp_deadline ? this.eDeadline = moment(this.selectedOrder.escrow_exp_deadline) : '';
@@ -98,7 +100,7 @@ export class OrderComponent implements OnInit {
       }
       console.log(this.selectedOrder, this.userData);
       forkJoin(this._apiSer.getSelectedTradeFromAPI(this.selectedOrder.ad_id), this._apiSer.getReviews(this.selectedOrder._id, 'by_order'))
-        .subscribe(res => {
+        .pipe(takeWhile(() => this.isAlive)).subscribe(res => {
           this.selectedAd = res[0] || {
             terms: '',
             payment_methods: [''],
@@ -215,7 +217,7 @@ export class OrderComponent implements OnInit {
   updateOrderStatus(order_status: string, getAdd?: boolean) {
     this._apiSer.updateSelectedOrderFromAPI(this.selectedOrder._id, JSON.stringify({
       order_status
-    })).subscribe((data) => this.zone.run(() => {
+    })).pipe(takeWhile(() => this.isAlive)).subscribe((data) => this.zone.run(() => {
       this.selectedOrder = data;
       this.selectedOrder.order_status = order_status;
       this.selectedOrder.escrow_rat_deadline ? this.rDeadline = moment(this.selectedOrder.escrow_rat_deadline) : '';
@@ -233,7 +235,7 @@ export class OrderComponent implements OnInit {
       }
       if (getAdd) {
         forkJoin(this._apiSer.getSelectedTradeFromAPI(this.selectedOrder.ad_id), this._apiSer.getReviews(this.selectedOrder._id, 'by_order'))
-          .subscribe(res => {
+          .pipe(takeWhile(() => this.isAlive)).subscribe(res => {
             this.selectedAd = res[0] || {
               terms: '',
               payment_methods: [''],
@@ -279,7 +281,7 @@ export class OrderComponent implements OnInit {
       }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().pipe(takeWhile(() => this.isAlive)).subscribe(result => {
       this.reviews.push(result);
       if (result && result._id && this.reviews.findIndex((review) => review.createdby === this.reciever) > -1 && this.reviews.findIndex((review) => review.createdby === this.sender) > -1)
         this.updateOrderStatus('order_complete', true);
@@ -345,5 +347,9 @@ export class OrderComponent implements OnInit {
         this.progressBarStatus = 0;
         break;
     }
+  }
+
+  ngOnDestroy() {
+    this.isAlive = false;
   }
 }
