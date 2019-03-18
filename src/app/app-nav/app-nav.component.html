@@ -12,13 +12,24 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link navbar-collapse" routerLink="market/crypto">Crypto Market</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link navbar-collapse" routerLink="market/fiat">Fiat Market</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="market/token">Token Market</a>
+            <button mat-button [matMenuTriggerFor]="menu">Markets</button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>
+                <a  routerLink="market/crypto">Crypto Market</a>
+              </button>
+              <button mat-menu-item>
+                <a class="" routerLink="market/token">Steem-Engine Tokens Market</a>
+              </button>
+              <button mat-menu-item>
+                <a class="" routerLink="market/fiat">Fiat Market</a>
+              </button>
+              <button mat-menu-item>
+                <a class="" routerLink="market/erc20-tokens">ERC20 Tokens Market</a>
+              </button>
+              <button mat-menu-item>
+                <a class="" routerLink="market/eos-tokens">EOS Tokens Market</a>
+              </button>
+            </mat-menu>
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="post-trade">Create New Listing</a>
