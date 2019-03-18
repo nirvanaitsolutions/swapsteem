@@ -62,11 +62,7 @@ export class RedirectComponent implements OnInit {
         })
       }
       this.scAuthService.mongoUserData = user;
-      console.info('environment.SKIP_WHITE_LIST', environment.SKIP_WHITE_LIST)
-      if (!this.scAuthService.mongoUserData.whitelisted && !environment.SKIP_WHITE_LIST) {
-        this.showWhitelistModal();
-        this.router.navigate(['/home']);
-      } else if (!this.scAuthService.mongoUserData.tos_accepted) {
+       if (!this.scAuthService.mongoUserData.tos_accepted) {
         this.dialog.open(TermsAndConditionsComponent, {
           width: '2000px',
           disableClose: true,
