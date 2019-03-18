@@ -17,6 +17,7 @@ export class AppNavComponent implements OnInit {
   profile: any = {};
   profile_url: string = '';
   showProfileDropDown: boolean = false;
+  showMarketDropDown: boolean = false;
   private isAlive = true;
   constructor(
     public auth: SteemconnectAuthService,
@@ -47,6 +48,9 @@ export class AppNavComponent implements OnInit {
   
   }
   showDropDown() {
+    this.showProfileDropDown = !this.showProfileDropDown;
+  }
+  showmDropDown() {
     this.showProfileDropDown = !this.showProfileDropDown;
   }
 
