@@ -13,7 +13,9 @@ import { RedirectComponent } from './redirect/redirect.component';
 import { OrderComponent } from './order/order.component';
 import { AuthGuard } from '../guards/auth-guard.service';
 import { HelppageComponent } from './helppage/helppage.component'
-import {SignupstatusComponent} from './components/signupstatus/signupstatus.component';
+import { SignupstatusComponent } from './components/signupstatus/signupstatus.component';
+import { ReferralComponent } from './referral/referral.component'
+
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'market/:market', component: HomeComponent },
@@ -32,10 +34,22 @@ const appRoutes: Routes = [
       },
     ]
   },
+  {
+    path: 'profile',
+    children: [
+      {
+        path: ':id',
+        component: ProfileComponent,
+      },
+      {
+        path: '',
+        component: ProfileComponent,
+        canActivate: [AuthGuard]
+      }
+    ]
+  },
   { path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard] },
   { path: 'wallet', component: WalletComponent, canActivate: [AuthGuard] },
-
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'purchase/:id', component: PurchaseComponent, canActivate: [AuthGuard] },
   {
@@ -49,6 +63,9 @@ const appRoutes: Routes = [
   },
   {
     path: 'steemconnect/signup/failure', component: SignupstatusComponent
+  },
+  {
+    path: 'refer', component: ReferralComponent, canActivate: [AuthGuard]
   },
   {
     path: '',

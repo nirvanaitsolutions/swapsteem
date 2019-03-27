@@ -51,6 +51,8 @@ import { SignupstatusComponent } from './components/signupstatus/signupstatus.co
 import { SignupstatusmodalComponent } from './components/signupstatusmodal/signupstatusmodal.component';
 import { BannerComponentComponent } from './banner-component/banner-component.component';
 import { LoginComponent } from './components/login/login.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { ReferralComponent } from './referral/referral.component';
 const config: SocketIoConfig = { url: environment.API_URL, options: {} };
 
 @NgModule({
@@ -87,6 +89,7 @@ const config: SocketIoConfig = { url: environment.API_URL, options: {} };
     WhitelistComponent,
     BannerComponentComponent,
     LoginComponent,
+    ReferralComponent,
   ],
   entryComponents: [ReviewComponent,TermsAndConditionsComponent, WhitelistComponent, SignupComponent, SignupstatusmodalComponent, LoginComponent],
   imports: [
@@ -105,7 +108,8 @@ const config: SocketIoConfig = { url: environment.API_URL, options: {} };
     SocketIoModule.forRoot(config),
     BarRatingModule,
     CountdownModule,
-    DemoMaterialModule
+    DemoMaterialModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, AuthGuard],
   bootstrap: [AppComponent]

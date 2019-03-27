@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { takeWhile } from "rxjs/operators";
 import { SteemconnectAuthService } from '../steemconnect/services/steemconnect-auth.service';
 import { Observable } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 import { APIService } from '../../service/api.service';
 import { AdvertisementResponse } from '../module/advertisement';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
@@ -24,11 +26,32 @@ export class ProfileComponent implements OnInit {
   profile;
   selectedAdId: string = '';
   noAds: boolean;
+  userNameFromParams: string | undefined = '';
+  private isAlive = true;
   constructor(private ngxService: NgxUiLoaderService, private _auth: SteemconnectAuthService,
-    private apiSer: APIService) {
+    private apiSer: APIService, private route: ActivatedRoute, private router: Router) {
+    route.params.pipe(takeWhile(() => this.isAlive)).subscribe(val => {
+      const hasButtons = this.advertisementDisplayedColumns.indexOf('buttons');
+      console.log(val)
+      if (val && val.id && val.id[0] === '@') {
+        if(hasButtons === this.advertisementDisplayedColumns.length -1) {
+          this.advertisementDisplayedColumns.pop()
+        }
+        this.userNameFromParams = val.id.substring(1);
+        this.getReviewsAndAdvt(this.userNameFromParams);
+      } else if (val && val.id) {
+        this.router.navigate(['/home']);
+      } else {
+        this.userNameFromParams = '';
+        if(hasButtons === -1) {
+          this.advertisementDisplayedColumns.push('buttons');
+        }
+        this.getReviewsAndAdvt('');
+      }
+    });
   }
   reviewsDisplayedColumns: string[] = ['order_id', 'review_text', 'review_score'];
-  advertisementDisplayedColumns: string[] = ['payment_methods', 'ad_type', 'from', 'to', 'ad_coin_amount','buttons'];
+  advertisementDisplayedColumns: string[] = ['payment_method', 'ad_type', 'from', 'to', 'ad_coin_amount'];
   advertisementsDataSource: MatTableDataSource<AdvertisementResponse> = new MatTableDataSource([]);
   reviewsDataSource: MatTableDataSource<ReviewResponse> = new MatTableDataSource([]);
   @ViewChild('reviews') reviewsPaginator: MatPaginator;
@@ -36,13 +59,6 @@ export class ProfileComponent implements OnInit {
   openAds: Observable<AdvertisementResponse[]>;
   reviews: Observable<ReviewResponse[]>;
 
-  ngOnInit() {
-    setTimeout(()=> {
-     console.log( window['steem_keychain'])
-    },1000)
-   // this._auth.keyChainAuthCheck();
-    //this.getReviewsAndAdvt();
-  }
 
 
   /**
@@ -53,14 +69,29 @@ export class ProfileComponent implements OnInit {
    * This method used to get user reviews on order and advertisement
    * @requires username current login username
   */
-  getReviewsAndAdvt() {
+  getReviewsAndAdvt(username) {
     this.ngxService.start();
-    this.userData = this._auth.userData;
-    this.userData.account.reputationScore = calculateReputation(this.userData.account.reputation);
+    if (username) {
+      this.userData = {
+        user: username,
+        _id: username,
+        name: username,
+        scope: [],
+        user_metadata: {},
+        account: {
+          reputationScore: 0
+        }
+      }
+
+    } else {
+      this.userData = this._auth.userData;
+      this.userData.account.reputationScore = calculateReputation(this.userData.account.reputation);
+    }
+
     console.log(this.userData);
     this.openAds = this.apiSer.getAdsByUser(this.userData.name);
     this.reviews = this.apiSer.getReviews(this.userData._id, 'by_creator');
-    forkJoin(this.openAds, this.reviews).subscribe((data) => {
+    forkJoin(this.openAds, this.reviews).pipe(takeWhile(() => this.isAlive)).subscribe((data) => {
       // Hack for check data existance
       const advertisements = data && data[0] && data[0].length ? data[0] : [];
       this.advertisementsDataSource = new MatTableDataSource(advertisements);
@@ -70,12 +101,18 @@ export class ProfileComponent implements OnInit {
       this.reviewsDataSource = new MatTableDataSource(reviews);
       this.reviewsDataSource.paginator = this.reviewsPaginator;
     });
-    this.balance_sbd = this.userData.account.sbd_balance.split(" ")[0];
-    this.balance_steem = this.userData.account.balance.split(" ")[0];
-    this.balance_sp = this.userData.account.vesting_shares.split(" ")[0];
-    this.profile = this.userData.account.json_metadata ? JSON.parse(this.userData.account.json_metadata) : {};
-    this.profile_url = this.profile && this.profile.profile ? this.profile.profile.profile_image : '';
+    if (!this.userNameFromParams) {
+      this.balance_sbd = this.userData.account.sbd_balance.split(" ")[0];
+      this.balance_steem = this.userData.account.balance.split(" ")[0];
+      this.balance_sp = this.userData.account.vesting_shares.split(" ")[0];
+      this.profile = this.userData.account.json_metadata ? JSON.parse(this.userData.account.json_metadata) : {};
+    }
+    this.profile_url = `https://steemitimages.com/u/${this.userData.name}/avatar`;
     this.ngxService.stop();
+  }
+
+  ngOnInit() {
+
   }
 
 
@@ -91,9 +128,9 @@ export class ProfileComponent implements OnInit {
   */
   pauseAd(id: string, currentStatus: string) {
     this.ngxService.start();
-    this.apiSer.pauseAd(id, currentStatus).subscribe(res => {
+    this.apiSer.pauseAd(id, currentStatus).pipe(takeWhile(() => this.isAlive)).subscribe(res => {
       this.openAds = this.apiSer.getAdsByUser(this.userData.name);
-      this.openAds.subscribe((data) => {
+      this.openAds.pipe(takeWhile(() => this.isAlive)).subscribe((data) => {
         const advertisements = data || [];
         this.advertisementsDataSource = new MatTableDataSource(advertisements);
         this.noOfOpenAds = advertisements.filter((ad) => (ad.ad_status === 'open')).length;
@@ -113,9 +150,9 @@ export class ProfileComponent implements OnInit {
   */
   deleteAd(id: string) {
     this.ngxService.start();
-    this.apiSer.deleteAd(id).subscribe(res => {
+    this.apiSer.deleteAd(id).pipe(takeWhile(() => this.isAlive)).subscribe(res => {
       this.openAds = this.apiSer.getAdsByUser(this.userData.name);
-      this.openAds.subscribe((data) => {
+      this.openAds.pipe(takeWhile(() => this.isAlive)).subscribe((data) => {
         const advertisements = data || [];
         this.advertisementsDataSource = new MatTableDataSource(advertisements);
         this.noOfOpenAds = advertisements.filter((ad) => (ad.ad_status === 'open')).length;
@@ -123,6 +160,10 @@ export class ProfileComponent implements OnInit {
       })
 
     });
+  }
+
+  ngOnDestroy() {
+    this.isAlive = false;
   }
 
 }

@@ -1,12 +1,14 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { AdvertisementResponse } from '../module/advertisement';
-import { OrderRequest } from '../module/order';
-import { SteemconnectBroadcastService } from '../steemconnect/services/steemconnect-broadcast.service';
-import { APIService } from '../../service/api.service';
+import { takeWhile } from "rxjs/operators";
+import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { forkJoin } from 'rxjs';
+import { each } from 'lodash';
 import { SteemconnectAuthService } from '../steemconnect/services/steemconnect-auth.service';
 import * as moment from 'moment';
-import { NgForm } from '@angular/forms';
+import { OrderRequest } from '../module/order';
+import { AdvertisementResponse } from '../module/advertisement';
+import { APIService } from '../../service/api.service';
 
 @Component({
   selector: 'app-purchase',
@@ -20,7 +22,48 @@ export class PurchaseComponent implements OnInit {
     private zone: NgZone,
     public auth: SteemconnectAuthService) { }
 
-  selectedTrade: any;
+  selectedTrade: AdvertisementResponse = {
+    _id: '',
+    createdby: '',
+    ad_type: '',
+    market: '',
+    payment_method: '',
+    to: '',
+    margin: 0,
+    limit_from: 0,
+    ad_status: '',
+    limit_to: 0,
+    restricted_amounts: [],
+    from: '',
+    ad_coin_amount: 0,
+    terms: '',
+    __v: 0,
+    ad_details: {
+      minimum_volume: 0,
+      minimum_reputation_score: 0,
+      new_buyer_limit: 0,
+      track_liquidity: false
+    },
+    security_details: {
+      identified_people_only: false,
+      identify_user_before_continuing_trade: false,
+      real_name_required: false,
+      sms_verification_required: false,
+      trusted_people_only: false
+    },
+    payment_details: {
+      account_holder_name: '',
+      account_number: 0,
+      bank_name: '',
+      bank_address: '',
+      swift_bic_code: '',
+      bank_code: '',
+      paypal_email: '',
+      place_of_exchange: '',
+      upi_id: '',
+      crypto_address: ''
+    }
+  };
   order: OrderRequest = {
     ad_id: '',
     createdby: '',
@@ -54,70 +97,58 @@ export class PurchaseComponent implements OnInit {
 
   userData: any = [];
   price: any;
+  private isAlive = true;
   ngOnInit() {
     let id = this.route.snapshot.paramMap.get('id');
-    this.selectedTrade = this.purchaseServ.getSelectedTradeFromAPI(id).subscribe(data => {
+    this.purchaseServ.getSelectedTradeFromAPI(id).pipe(takeWhile(() => this.isAlive)).subscribe(data => {
+      console.log(data);
       this.selectedTrade = data;
-      console.log(this.selectedTrade);
+
       this.order.ad_id = this.selectedTrade._id;
       this.order.createdfor = this.selectedTrade.createdby;
       //todo - reverse ad type
       this.order.order_type = this.selectedTrade.ad_type == "BUY" ? "sell" : "buy";
       this.order.from = this.selectedTrade.from;
-      this.order.order_payment_method = this.selectedTrade.payment_methods;
+      this.order.order_payment_method = this.selectedTrade.payment_method;
       this.order.market = this.selectedTrade.market;
       this.order.to = this.selectedTrade.to;
       //todo - calculate rate from margin
       //this.order.order_rate=this.selectedTrade.margin;
       if (this.order.from == "STEEM") {
-        this.purchaseServ.getPriceByPair(this.order.from, this.order.to).subscribe(data => {
-          let priceResponse = data['steem'];
-          console.log(data, 'data')
-          console.log("price ", data['steem'], 'steem');
-          if (this.order.to == "ENG" || this.order.to == "SWEET" || this.order.to == "SUFB"){
-            this.price =  (1 + this.selectedTrade.margin / 100) 
-          } else
-          if (this.order.to == "INR" || this.order.to == "KRW"){
-            this.price = priceResponse['inr'] ? priceResponse['inr'] * (1 + this.selectedTrade.margin / 100) : priceResponse['krw'] * (1 + this.selectedTrade.margin / 100) 
-          }
-          else{
-            this.price = priceResponse['btc'] ? priceResponse['btc'] * (1 + this.selectedTrade.margin / 100)  : priceResponse['eos'] * (1 + this.selectedTrade.margin / 100) ;
-          }
-          this.order.order_rate = this.price;
-        });
+        forkJoin(this.purchaseServ.getPrice(), this.purchaseServ.getBtcPrice())
+          .pipe(takeWhile(() => this.isAlive)).subscribe((data: any) => {
+            console.log('data', data)
+            each(data[1].bitcoin, (value, key)=> {
+              data[0].steem[key] = value *  data[0].steem.btc;
+            });
+            let priceResponse = data[0].steem;
+            if (this.order.to == "ENG" || this.order.to == "SWEET" || this.order.to == "SUFB") {
+              this.price = (1 + this.selectedTrade.margin / 100)
+            } else
+              this.price = priceResponse[this.order.to.toLowerCase()] * (1 + this.selectedTrade.margin / 100)
+            this.order.order_rate = this.price;
+          });
 
       }
       else if (this.order.from == "SBD") {
-        this.purchaseServ.getPriceByPair(this.order.from, this.order.to).subscribe(data => {
-          let priceResponse = data['sbd'];
-          console.log(data, 'data')
-          console.log("price ", data['sbd'], 'sbd');
-          if (this.order.to == "ENG" || this.order.to == "SWEET" || this.order.to == "SUFB"){
-            this.price =  (1 + this.selectedTrade.margin / 100) 
+        forkJoin(this.purchaseServ.getPrice(), this.purchaseServ.getBtcPrice())
+          .pipe(takeWhile(() => this.isAlive)).subscribe((data: any) => {
+            console.log('data', data)
+            each(data[1].bitcoin, (value, key)=> {
+              data[0]['steem-dollars'][key] = value *  data[0]['steem-dollars'].btc;
+            });
+          let priceResponse = data[0]['steem-dollars'];
+          if (this.order.to == "ENG" || this.order.to == "SWEET" || this.order.to == "SUFB") {
+            this.price = (1 + this.selectedTrade.margin / 100)
           } else
-          if (this.order.to == "INR" || this.order.to == "KRW"){
-            this.price = priceResponse['inr'] ? priceResponse['inr'] * (1 + this.selectedTrade.margin / 100) : priceResponse['krw'] * (1 + this.selectedTrade.margin / 100) 
-          } else{
-            this.price = priceResponse['btc'] ? priceResponse['btc'] * (1 + this.selectedTrade.margin / 100) : priceResponse['eos'] * (1 + this.selectedTrade.margin / 100) 
-          }
+            this.price = priceResponse[this.order.to.toLowerCase()] * (1 + this.selectedTrade.margin / 100)
           this.order.order_rate = this.price;
         });
-
       }
-
-
-      // this.purchaseServ.getPrice().subscribe(data => {
-      //   this.price = data;
-      // });
     });
-
-    console.log("selected trade" + this.selectedTrade);
     this.userData = this.auth.userData;
     this.order.createdby = this.userData.name;
     console.log(this.userData);
-
-
-
   }
 
   createOrderEvent(form) {
@@ -132,13 +163,13 @@ export class PurchaseComponent implements OnInit {
    * This method used to create a new order
    * @requires order order derails
   */
-  onSubmit(f:NgForm) {
+  onSubmit(f: NgForm) {
     console.log("onsubmit called")
     let now = new Date();
     this.order.escrowID = Math.floor(now.getTime() / 1000);
     this.order.escrow_rat_deadline = new Date(moment().add(2, 'hours').format());
     this.order.escrow_exp_deadline = new Date(moment().add(3, 'days').format());;
-    this.purchaseServ.createOrder(this.order).subscribe((res: any) => this.zone.run(() => {
+    this.purchaseServ.createOrder(this.order).pipe(takeWhile(() => this.isAlive)).subscribe((res: any) => this.zone.run(() => {
       this.router.navigate([`order/${res._id}`])
     }));
   }
@@ -160,5 +191,9 @@ export class PurchaseComponent implements OnInit {
     if (this.order.from == "SBD") {
       this.order.order_coin_amount = this.order.order_fiat_amount * (1 / this.price);
     }
+  }
+
+  ngOnDestroy() {
+    this.isAlive = false;
   }
 }

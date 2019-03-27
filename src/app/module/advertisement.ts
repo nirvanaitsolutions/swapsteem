@@ -79,5 +79,5 @@ export interface AdvertisementResponse {
     place_of_exchange?: string;
     upi_id?:string;
     crypto_address?:string
-  }
+  },
 }

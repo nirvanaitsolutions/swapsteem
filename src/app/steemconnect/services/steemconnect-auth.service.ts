@@ -1,5 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { takeWhile } from "rxjs/operators";
 import { Inject, Injectable } from '@angular/core';
 import { SteemKeychainService } from '@steeveproject/ngx-steem-keychain';
 import { CookieService } from 'ngx-cookie';
@@ -95,7 +96,7 @@ export interface UserData {
   user: string;
   _id: string;
   name: string;
-  account: Account;
+  account?: Account;
   scope: string[];
   user_metadata: Object;
 }
@@ -107,11 +108,13 @@ export interface MongoUserData {
   tos_accepted?: boolean;
   whitelisted?: boolean;
   __v?: number;
-  _id?: number;
+  _id?: string;
+  referredby?: string | undefined;
 }
 
 @Injectable()
 export class SteemconnectAuthService {
+  private isAlive = true;
   /**
    * Observalbe is truthy if user is logged in, falsy otherwise.
    */
@@ -196,15 +199,14 @@ export class SteemconnectAuthService {
         .pipe(
           tap(() => this.deleteCookie()),
           catchError(err => {
-            console.log(err)
+            this.authStateSubject.next(true);
             return of(err);
           })
         )
-        .subscribe();
+        .pipe(takeWhile(() => this.isAlive)).subscribe();
+
     }
-
   }
-
   /**
    * Sets `authState`.
    * It doesn't make sense to use this method outside `SteemconnectModule`.
@@ -273,5 +275,8 @@ export class SteemconnectAuthService {
       .subscribe((auth) => {
         console.log(auth)
       });
+  }
+  ngOnDestroy() {
+    this.isAlive = false;
   }
 }

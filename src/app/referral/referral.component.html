@@ -1,0 +1,8 @@
+<mat-card>
+  <div>
+      <input id="referralLink" class="referralLink" [(ngModel)]="referralLink" readonly>
+    <button class="clippy-button" matTooltip="Copy to Clipboard">
+      <img (click)="copyToClipboard('referralLink')" class="clippy" width="13" alt="Copy to clipboard" src="assets/icons/clippy.svg">
+    </button>
+  </div>
+</mat-card>

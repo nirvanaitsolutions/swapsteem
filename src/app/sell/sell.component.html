@@ -7,30 +7,30 @@
     <table mat-table [dataSource]="sellSteemDataSource" class="mat-elevation-z8 w-100">
       <!-- Seller Column -->
       <ng-container matColumnDef="createdby">
-        <th mat-header-cell *matHeaderCellDef> Seller </th>
+        <th mat-header-cell *matHeaderCellDef> Seller</th>
         <td mat-cell *matCellDef="let element">
-          {{element.createdby ? element.createdby : '-'}}
+            <a href="https://swapsteem.com/profile/@{{element.createdby ? element.createdby : '-'}}">{{element.createdby ? element.createdby : '-'}}</a>
         </td>
       </ng-container>
       <!--  PAYMENT METHODS  Column -->
-      <ng-container matColumnDef="payment_methods">
+      <ng-container matColumnDef="payment_method">
         <th mat-header-cell *matHeaderCellDef> PAYMENT METHODS </th>
-        <td mat-cell *matCellDef="let element"> {{element.payment_methods ? element.payment_methods : '-'}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.payment_method ? element.payment_method : '-'}} </td>
       </ng-container>
       <!-- Coin Column -->
       <ng-container matColumnDef="from">
-        <th mat-header-cell *matHeaderCellDef> From </th>
+        <th mat-header-cell *matHeaderCellDef> Buying </th>
         <td mat-cell *matCellDef="let element"> {{element.from ? element.from : '-'}} </td>
       </ng-container>
 
       <!-- Fiat Column -->
       <ng-container matColumnDef="to">
-        <th mat-header-cell *matHeaderCellDef> To </th>
+        <th mat-header-cell *matHeaderCellDef> For </th>
         <td mat-cell *matCellDef="let element"> {{element.to ? element.to : '-'}} </td>
       </ng-container>
       <!-- Price/Coin Column -->
       <ng-container matColumnDef="price">
-        <th mat-header-cell *matHeaderCellDef> Price/Coin </th>
+        <th mat-header-cell *matHeaderCellDef>At Price/Coin </th>
         <td mat-cell *matCellDef="let element"> {{calculatePrice(element.from,element.to, element.margin)}}
         </td>
       </ng-container>

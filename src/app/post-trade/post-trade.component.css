@@ -4,7 +4,6 @@
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 6px 0px;;;
     margin-top: 20px;
     background-color: white;
-    height: calc(100vh - 50px);
 }
 
 .full-width {
@@ -26,5 +25,13 @@
 .postTradeWrapper{
 display: flex;
 align-items: center;
-height: calc(100% - 210px);
+/*height: calc(100% - 210px);*/
 }
+@media (max-width: 900px) {
+    .buttonLocation{
+        max-width: 200px!important;
+    }
+    .postTradeWrapper{
+        height: auto;
+    }
+  }

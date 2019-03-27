@@ -2,14 +2,14 @@
   <div class="banner">
     <div class="container flex-center height-200">
       <div class="row flex-center">
-        <img src="{{profile_url}}" alt="ProfileImg" height="50px" width="50px" class="rounded float-left profile-image">
+        <img [src]="profile_url" alt="ProfileImg" height="50px" width="50px" class="rounded float-left profile-image">
         <div class="profile-name">
           <h4 style="color: white;">{{userData.name}}</h4>
-          <p *ngIf="userData && userData.account" class="medium">Registered: {{userData.account.created | date}}</p>
-          <button class="edit-profile">Edit Profile</button>
+          <p *ngIf="userData && userData.account && userData.account.created" class="medium">Registered: {{userData.account.created | date}}</p>
+          <!-- <button class="edit-profile">Edit Profile</button> -->
         </div>
       </div>
-      <div class="balance">
+      <div class="balance" *ngIf="!userNameFromParams">
         <div class="row">
           <div class="col text-center">
             <h2>{{balance_steem}}</h2>
@@ -56,10 +56,10 @@
                         The actual rendered columns are set as a property on the row definition" -->
 
           <!-- Payment Methods Column -->
-          <ng-container matColumnDef="payment_methods">
+          <ng-container matColumnDef="payment_method">
             <th mat-header-cell fxFlex="100" *matHeaderCellDef> Payment Methods </th>
             <td mat-cell fxFlex="100" *matCellDef="let element">
-              {{element.payment_methods}}
+              {{element.payment_method}}
             </td>
           </ng-container>
 
@@ -92,7 +92,7 @@
           </ng-container>
 
           <!-- Actions  Column -->
-          <ng-container matColumnDef="buttons">
+          <ng-container matColumnDef="buttons" *ngIf="!userNameFromParams">
             <th mat-header-cell *matHeaderCellDef> Actions </th>
             <td mat-cell *matCellDef="let element">
               <div class="dropdown">

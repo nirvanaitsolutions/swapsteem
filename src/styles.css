@@ -5,3 +5,10 @@ html, body { height: 100%; }
 body{
     font-family: 'Muli', sans-serif !important;
 }
+
+app-referral {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100% - 225px);
+}

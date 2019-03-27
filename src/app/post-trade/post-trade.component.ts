@@ -1,5 +1,5 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { SteemconnectBroadcastService } from '../steemconnect/services/steemconnect-broadcast.service';
+import { takeWhile } from "rxjs/operators";
 import { AdvertisementRequest } from '../module/advertisement';
 import { APIService } from '../../service/api.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -59,26 +59,19 @@ export class PostTradeComponent implements OnInit {
   cryptos: any;
   effectivePrice: any;
   adId: string = '';
-
+  private isAlive = true;
   ngOnInit() {
     this.adId = this.route.snapshot.paramMap.get('id');
     this.getSelectedTradeFromAPI(this.adId);
-    this.ngxService.start();
     this.userData = this.auth.userData;
     this.advertisement.createdby = this.userData.name;
-    console.log(this.userData);
-    this.api.getPriceByPair(this.advertisement.from, this.advertisement.to).subscribe(data => {
-      this.cryptos = data;
-      console.log(data)
-      this.ngxService.stop();
-    });
   }
 
 
   getSelectedTradeFromAPI(id: string) {
     if (id) {
       this.ngxService.start();
-      this.api.getSelectedTradeFromAPI(id).subscribe((res) => this.zone.run(() => {
+      this.api.getSelectedTradeFromAPI(id).pipe(takeWhile(() => this.isAlive)).subscribe((res) => this.zone.run(() => {
         this.advertisement = {
           ...this.advertisement, ...{
             createdby: res.createdby,
@@ -128,28 +121,33 @@ export class PostTradeComponent implements OnInit {
   onSubmit(tradeForm) {
     console.log('tradeForm', tradeForm)
     this.ngxService.start();
-    this.api.createAd(this.advertisement, this.adId).subscribe(res => this.zone.run(() => {
+    this.api.createAd(this.advertisement, this.adId).pipe(takeWhile(() => this.isAlive)).subscribe(res => this.zone.run(() => {
       this.router.navigate(['profile'])
       this.ngxService.stop();
     }));
   }
   changeCurrency(value) {
-    if (value === 'KRW') {
-      this.fiat_payment_methods = ['Bank Transfer', 'In Cash', 'PayPal'];
+    if (value === 'KRW'|| value === 'VEF' || value === 'NGN' || value === 'CAD' || value === 'AUD' || value === 'GBP'|| value === 'EUR'|| value === 'CNY') {
+      this.fiat_payment_methods = ['Bank Transfer', 'PayPal'];
       if (this.advertisement.payment_method === 'UPI') {
         this.advertisement.payment_method = 'Bank Transfer'
       }
     } else {
-      this.fiat_payment_methods = ['Bank Transfer', 'In Cash', 'PayPal', 'UPI'];
+      this.fiat_payment_methods = ['Bank Transfer',  'PayPal', 'UPI'];
     }
   }
-  market = ['FIAT','CRYPTO','TOKEN']
-  fiat_options = ['INR', 'KRW']; // 'USD', 'KRW'
+
+  ngOnDestroy() {
+    this.isAlive = false;
+  }
+  market = ['FIAT','CRYPTO','TOKEN', 'ERC20', 'EOS']
+  fiat_options = ['INR', 'KRW', 'VEF', 'NGN', 'CAD', 'AUD', 'GBP', 'EUR', 'CNY']; // 'USD', 'KRW'
   ad_type = ['BUY', 'SELL'];
   from = ['STEEM', 'SBD'];
   fiat_payment_methods = ['Bank Transfer',  'PayPal', 'UPI']; 
   crypto_payment_methods = ['Crypto Transfer']; // In cash
   token_options = ['SWEET', 'ENG', 'SUFB']
-  crypto_options = ['BTC','EOS' ]
-  
+  crypto_options = ['BTC','EOS', 'XRP', 'LTC', 'BCH','BNB', 'XLM','ENU']
+  erc20_options = ['BNB']
+  eos_options = ['KARMA']
 }

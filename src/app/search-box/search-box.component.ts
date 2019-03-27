@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { takeWhile } from "rxjs/operators";
 import { Router } from '@angular/router';
 import { AdverstisementService } from '../../service/adverstisement.service'
 
@@ -16,11 +17,12 @@ export class SearchBoxComponent implements OnInit {
   to: any = ''
   payment_methods: any = '';
   ad_type: any = '';
+  private isAlive = true;
   constructor(public adverstisementService: AdverstisementService, private router: Router) {
-    this.adverstisementService.currencyFilter.subscribe(filter => this.from = filter)
-    this.adverstisementService.adCoinFilter.subscribe(filter => this.from = filter)
-    this.adverstisementService.paymentMethodFilter.subscribe(filter => this.payment_methods = filter)
-    this.adverstisementService.adTypeFilter.subscribe(filter => this.ad_type = filter)
+    this.adverstisementService.currencyFilter.pipe(takeWhile(() => this.isAlive)).subscribe(filter => this.from = filter)
+    this.adverstisementService.adCoinFilter.pipe(takeWhile(() => this.isAlive)).subscribe(filter => this.from = filter)
+    this.adverstisementService.paymentMethodFilter.pipe(takeWhile(() => this.isAlive)).subscribe(filter => this.payment_methods = filter)
+    this.adverstisementService.adTypeFilter.pipe(takeWhile(() => this.isAlive)).subscribe(filter => this.ad_type = filter)
   }
 
   ngOnInit() {
@@ -34,5 +36,9 @@ export class SearchBoxComponent implements OnInit {
       this.router.navigate(['/buy-online'])
     }
     this.adverstisementService.changefilter(ad_type, from, to, payment_methods)
+  }
+
+  ngOnDestroy() {
+    this.isAlive = false;
   }
 }
