@@ -22,7 +22,7 @@ export class BuyComponent implements OnInit {
   constructor(private ngxService: NgxUiLoaderService,
     private purchaseSer: APIService, private adverstisementService: AdverstisementService, private route: ActivatedRoute) {
     route.params.pipe(takeWhile(() => this.isAlive)).subscribe(val => {
-      const market = val.market ? ['FIAT', 'CRYPTO', 'TOKEN','ERC20-TOKENS','EOS-TOKENS'].includes(val.market.toUpperCase()) ? val.market.toUpperCase() : 'CRYPTO' : 'CRYPTO';
+      const market = val.market ? ['FIAT', 'CRYPTO', 'TOKEN','ERC20','EOS', 'TRC20'].includes(val.market.toUpperCase()) ? val.market.toUpperCase() : 'CRYPTO' : 'CRYPTO';
       this.fetchBuySteem(market);
     });
   }
@@ -107,10 +107,10 @@ export class BuyComponent implements OnInit {
   calculatePrice(from: string, to: string, margin: number) {
     console.log( this.steemPrice)
     if (from == "STEEM") {
-      return (this.steemPrice[to.toLowerCase()] || 0) * (1 + margin / 100);
+      return (this.steemPrice[to.toLowerCase()] || 1) * (1 + margin / 110);
     }
     else if (from == "SBD") {
-      return (this.sbdPrice[to.toLowerCase()] || 0) * (1 + margin / 100);
+      return (this.sbdPrice[to.toLowerCase()] || 1) * (1 + margin / 100);
     }
   }
 

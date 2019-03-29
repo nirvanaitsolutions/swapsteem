@@ -127,26 +127,28 @@ export class PostTradeComponent implements OnInit {
     }));
   }
   changeCurrency(value) {
-    if (value === 'KRW'|| value === 'VEF' || value === 'NGN' || value === 'CAD' || value === 'AUD' || value === 'GBP'|| value === 'EUR'|| value === 'CNY') {
+    if (value === 'KRW' || value === 'VEF' || value === 'NGN' || value === 'CAD' || value === 'AUD' || value === 'GBP' || value === 'EUR' || value === 'CNY') {
       this.fiat_payment_methods = ['Bank Transfer', 'PayPal'];
       if (this.advertisement.payment_method === 'UPI') {
         this.advertisement.payment_method = 'Bank Transfer'
       }
     } else {
-      this.fiat_payment_methods = ['Bank Transfer',  'PayPal', 'UPI'];
+      this.fiat_payment_methods = ['Bank Transfer', 'PayPal', 'UPI'];
     }
   }
 
   ngOnDestroy() {
     this.isAlive = false;
   }
-  market = ['FIAT','CRYPTO','TOKEN']
+  market = ['FIAT', 'CRYPTO', 'TOKEN', 'ERC20', 'EOS', 'TRC20']
   fiat_options = ['INR', 'KRW', 'VEF', 'NGN', 'CAD', 'AUD', 'GBP', 'EUR', 'CNY']; // 'USD', 'KRW'
   ad_type = ['BUY', 'SELL'];
   from = ['STEEM', 'SBD'];
-  fiat_payment_methods = ['Bank Transfer',  'PayPal', 'UPI']; 
+  fiat_payment_methods = ['Bank Transfer', 'PayPal', 'UPI'];
   crypto_payment_methods = ['Crypto Transfer']; // In cash
   token_options = ['SWEET', 'ENG', 'SUFB']
-  crypto_options = ['BTC','EOS', 'XRP', 'LTC', 'BCH','BNB', 'XLM','ENU']
-  
+  crypto_options = ['BTC', 'EOS', 'XRP', 'LTC', 'BCH', 'BNB', 'XLM', 'ENU']
+  erc20_options = ['BNB']
+  eos_options = ['KARMA'];
+  trc20_options = ['TRON']
 }
