@@ -80,7 +80,6 @@
         </mat-form-field>
         <mat-form-field class="full-width">
           <input matInput placeholder="With margin on current price of" type="number" name="margin" id="margin" [(ngModel)]="advertisement.margin">
-          <span mdSuffix *ngIf="showPercentSymbol">%</span>
         </mat-form-field>
         <mat-form-field class="full-width" *ngIf="advertisement.market === 'FIAT'">
           <mat-select [(ngModel)]="advertisement.payment_method" placeholder="With payment method " name="payment_method" required>
