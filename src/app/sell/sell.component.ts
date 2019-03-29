@@ -20,7 +20,7 @@ export class SellComponent implements OnInit {
   constructor(private ngxService: NgxUiLoaderService,
     private purchaseSer: APIService, private adverstisementService: AdverstisementService, private route: ActivatedRoute) {
     route.params.pipe(takeWhile(() => this.isAlive)).subscribe(val => {
-      const market = val.market ? ['FIAT', 'CRYPTO', 'TOKEN'].includes(val.market.toUpperCase()) ? val.market.toUpperCase() : 'CRYPTO' : 'CRYPTO';
+      const market = val.market ?  ['FIAT', 'CRYPTO', 'TOKEN','ERC20','EOS', 'TRC20'].includes(val.market.toUpperCase()) ? val.market.toUpperCase() : 'CRYPTO' : 'CRYPTO';
       this.fetchSellSteem(market);
     });
   }
