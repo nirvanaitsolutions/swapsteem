@@ -34,7 +34,7 @@ export class ProfileComponent implements OnInit {
       const hasButtons = this.advertisementDisplayedColumns.indexOf('buttons');
       console.log(val)
       if (val && val.id && val.id[0] === '@') {
-        if(hasButtons === this.advertisementDisplayedColumns.length -1) {
+        if (hasButtons === this.advertisementDisplayedColumns.length - 1) {
           this.advertisementDisplayedColumns.pop()
         }
         this.userNameFromParams = val.id.substring(1);
@@ -43,7 +43,7 @@ export class ProfileComponent implements OnInit {
         this.router.navigate(['/home']);
       } else {
         this.userNameFromParams = '';
-        if(hasButtons === -1) {
+        if (hasButtons === -1) {
           this.advertisementDisplayedColumns.push('buttons');
         }
         this.getReviewsAndAdvt('');
@@ -85,7 +85,9 @@ export class ProfileComponent implements OnInit {
 
     } else {
       this.userData = this._auth.userData;
-      this.userData.account.reputationScore = calculateReputation(this.userData.account.reputation);
+      if (this.userData.account)
+        this.userData.account.reputationScore = calculateReputation(this.userData.account.reputation);
+      
     }
 
     console.log(this.userData);
@@ -101,7 +103,7 @@ export class ProfileComponent implements OnInit {
       this.reviewsDataSource = new MatTableDataSource(reviews);
       this.reviewsDataSource.paginator = this.reviewsPaginator;
     });
-    if (!this.userNameFromParams) {
+    if (!this.userNameFromParams && this.userData.account) {
       this.balance_sbd = this.userData.account.sbd_balance.split(" ")[0];
       this.balance_steem = this.userData.account.balance.split(" ")[0];
       this.balance_sp = this.userData.account.vesting_shares.split(" ")[0];

@@ -16,22 +16,21 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
     const keychainSignInToken = this.cookieService.getObject('access_token_key_chain');
-    const keychainSignInTokenString: string = keychainSignInToken ? JSON.stringify(keychainSignInToken) : ''
+    const keychainSignInTokenString: string = keychainSignInToken ? JSON.stringify(keychainSignInToken) : '';
+    const keychainSignInUsername = this.cookieService.getObject('username_key_chain');
+    const keychainSignInUsernameString: string = keychainSignInToken ? JSON.stringify(keychainSignInToken) : '';
     if (this.auth.userData) {
       return true;
     }
-    if (keychainSignInToken) {
-      console.log('tt')
-      return Observable.create(() => {
-        console.log( window['steem_keychain'])
-        return this.steemKeychain.requestVerifyKey('svijay1692', keychainSignInTokenString, 'Active').map((data) => {
-          console.log(data)
-          return true
-        })
+    if (keychainSignInToken && keychainSignInTokenString && keychainSignInUsernameString && keychainSignInUsername) {
+      this.auth.userData = {
+        user: keychainSignInUsernameString,
+        _id: keychainSignInUsernameString,
+        name: keychainSignInUsernameString,
+        scope: [],
+        user_metadata: {},
       }
-      ).pipe(delay(5000))
-
-
+      return true;
     }
     if (this.auth.token && this.auth.token.access_token) {
       return this.auth.getUserData().map((auth) => {

@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
- 
+
   onLoginWithKeychain() {
     //DO Keychain Login
     console.log("callled");
@@ -48,13 +48,16 @@ export class LoginComponent implements OnInit {
           .subscribe(
             (data) => {
               console.log(data)
-              if(data && data.success && data.result) {
-                
+              if (data && data.success && data.result) {
+                const expires = new Date(Date.now() + 604800 * 1000);
+                this.cookieService.putObject('access_token_key_chain', data.result, {
+                  expires
+                });
+                this.cookieService.putObject('username_key_chain', this.userData.username, {
+                  expires
+                });
               }
-              this.cookieService.putObject('access_token_key_chain', data.result, {
-                expires: new Date(Date.now() + 604800 * 1000)
-              });
-              //this.router.navigate([`profile`])
+              this.router.navigate([`profile`])
             },
             (error) => {
               //Called when error

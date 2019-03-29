@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { takeWhile } from "rxjs/operators";
 import { SteemconnectAuthService } from '../steemconnect/services/steemconnect-auth.service';
-import { APIService } from '../../service/api.service';
 import { SignupComponent } from '../components/signup/signup.component';
 import { LoginComponent } from '../components/login/login.component';
+import { SteemKeychainService } from '@steeveproject/ngx-steem-keychain';
 @Component({
   selector: 'app-nav',
   templateUrl: './app-nav.component.html',
@@ -22,7 +22,7 @@ export class AppNavComponent implements OnInit {
   private isAlive = true;
   constructor(
     public auth: SteemconnectAuthService,
-    private _apiService: APIService, public dialog: MatDialog) {
+     public dialog: MatDialog, private steemKeychain: SteemKeychainService) {
 
     /**
      *

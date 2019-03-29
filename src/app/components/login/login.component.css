@@ -43,14 +43,14 @@
 }
 
 .submit-icon {
-    font-size: 31px;
+    font-size: large;
     font-weight: bolder;
     margin-bottom: 10px;
 }
 
 .submit-button {
     padding: 10px;
-    font-size: 31px;
+    font-size: large;
     font-weight: bolder;
     margin-bottom: 10px;
 }

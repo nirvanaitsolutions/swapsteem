@@ -105,7 +105,6 @@ export class BuyComponent implements OnInit {
     * @requires sbdPrice sbd price value for different to
    */
   calculatePrice(from: string, to: string, margin: number) {
-    console.log( this.steemPrice)
     if (from == "STEEM") {
       return (this.steemPrice[to.toLowerCase()] || 0) * (1 + margin / 100);
     }
