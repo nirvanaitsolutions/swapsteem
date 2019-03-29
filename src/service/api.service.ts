@@ -110,7 +110,7 @@ export class APIService {
     */
   getBtcPrice() {
     const headers = new HttpHeaders({ 'No-Auth': 'True' });
-    return this._http.get(`https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd,inr,krw,btc,eos,eth,vef,ngn,cad,aud,gbp,eur,cny,xrp,ltc,bch,usdt,bnb,xlm,trx,Karma`, { headers: headers })
+    return this._http.get(`https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd,inr,krw,btc,eos,eth,vef,ngn,cad,aud,gbp,eur,cny,xrp,ltc,bch,usdt,bnb,xlm,trx,Karma,tron`, { headers: headers })
       .map(result => this.result = result);
 
   }

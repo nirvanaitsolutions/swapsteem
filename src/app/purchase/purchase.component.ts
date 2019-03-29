@@ -125,7 +125,7 @@ export class PurchaseComponent implements OnInit {
             if (this.order.to == "ENG" || this.order.to == "SWEET" || this.order.to == "SUFB") {
               this.price = (1 + this.selectedTrade.margin / 100)
             } else
-              this.price = priceResponse[this.order.to.toLowerCase()] * (1 + this.selectedTrade.margin / 100)
+              this.price = (priceResponse[this.order.to.toLowerCase()] || 1) * (1 + this.selectedTrade.margin / 100)
             this.order.order_rate = this.price;
           });
 
@@ -141,7 +141,7 @@ export class PurchaseComponent implements OnInit {
           if (this.order.to == "ENG" || this.order.to == "SWEET" || this.order.to == "SUFB") {
             this.price = (1 + this.selectedTrade.margin / 100)
           } else
-            this.price = priceResponse[this.order.to.toLowerCase()] * (1 + this.selectedTrade.margin / 100)
+            this.price = (priceResponse[this.order.to.toLowerCase()] || 1) * (1 + this.selectedTrade.margin / 100)
           this.order.order_rate = this.price;
         });
       }

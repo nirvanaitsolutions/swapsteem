@@ -54,6 +54,14 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
+        <mat-form-field class="full-width" *ngIf="advertisement.market === 'TRC20'">
+          <mat-select (selectionChange)="changeCurrency($event.value)" [(ngModel)]="advertisement.to" placeholder="to" name="to"
+            required>
+            <mat-option *ngFor="let count of trc20_options" [value]="count">
+              {{count}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
         <mat-form-field class="full-width" *ngIf="advertisement.market === 'EOS'">
           <mat-select (selectionChange)="changeCurrency($event.value)" [(ngModel)]="advertisement.to" placeholder="to" name="to"
             required>
