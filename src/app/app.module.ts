@@ -52,6 +52,8 @@ import { SignupstatusmodalComponent } from './components/signupstatusmodal/signu
 import { BannerComponentComponent } from './banner-component/banner-component.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { ReferralComponent } from './referral/referral.component';
+import { InstaComponent } from './insta/insta.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 const config: SocketIoConfig = { url: environment.API_URL, options: {} };
 
 @NgModule({
@@ -88,6 +90,8 @@ const config: SocketIoConfig = { url: environment.API_URL, options: {} };
     WhitelistComponent,
     BannerComponentComponent,
     ReferralComponent,
+    InstaComponent,
+    LandingPageComponent,
   ],
   entryComponents: [ReviewComponent,TermsAndConditionsComponent, WhitelistComponent, SignupComponent, SignupstatusmodalComponent],
   imports: [

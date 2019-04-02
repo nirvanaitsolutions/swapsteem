@@ -15,11 +15,14 @@ import { AuthGuard } from '../guards/auth-guard.service';
 import { HelppageComponent } from './helppage/helppage.component'
 import { SignupstatusComponent } from './components/signupstatus/signupstatus.component';
 import { ReferralComponent } from './referral/referral.component'
+import { InstaComponent } from './insta/insta.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 
 const appRoutes: Routes = [
-  { path: 'home', component: HomeComponent },
+  { path: 'home', component: LandingPageComponent },
   { path: 'market/:market', component: HomeComponent },
   { path: 'help', component: HelppageComponent },
+  { path: 'insta', component: InstaComponent },
   {
     path: 'post-trade',
     canActivate: [AuthGuard],
