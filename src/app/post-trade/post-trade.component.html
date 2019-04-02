@@ -70,6 +70,14 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
+        <mat-form-field class="full-width" *ngIf="advertisement.market === 'BTS-UIA'">
+          <mat-select (selectionChange)="changeCurrency($event.value)" [(ngModel)]="advertisement.to" placeholder="to" name="to"
+            required>
+            <mat-option *ngFor="let count of btsuia_options" [value]="count">
+              {{count}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
         <mat-form-field class="full-width" *ngIf="advertisement.market === 'TOKEN'">
           <mat-select (selectionChange)="changeCurrency($event.value)" [(ngModel)]="advertisement.to" placeholder="to" name="to"
             required>

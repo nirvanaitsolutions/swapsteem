@@ -102,7 +102,7 @@ export class APIService {
   }
   /**
      *
-     * @name getBtcPrice 
+     * @name getBtcPrice
      *
      * @description
      * This method used to get steem/sbd price in bitcoin
@@ -110,7 +110,7 @@ export class APIService {
     */
   getBtcPrice() {
     const headers = new HttpHeaders({ 'No-Auth': 'True' });
-    return this._http.get(`https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd,inr,krw,btc,eos,eth,vef,ngn,cad,aud,gbp,eur,cny,xrp,ltc,bch,usdt,bnb,xlm,trx,Karma,tron`, { headers: headers })
+    return this._http.get(`https://api.coingecko.com/api/v3/simple/price?ids=usd,inr,krw,bitcoin,eos,eth,vef,ngn,cad,aud,gbp,eur,cny,ripple,litecoin,bitcoin-cash,tether,binancecoin,stellar,tron,enumivo,karma-coin,bittorrent-2&vs_currencies=btc`, { headers: headers })
       .map(result => this.result = result);
 
   }
@@ -148,7 +148,7 @@ export class APIService {
 
   /**
    *
-   * @name pauseAd 
+   * @name pauseAd
    *
    * @description
    * This method used to open/paused a advertisement
@@ -164,7 +164,7 @@ export class APIService {
 
   /**
    *
-   * @name updateSelectedOrderFromAPI 
+   * @name updateSelectedOrderFromAPI
    *
    * @description
    * This method used to update order details
@@ -179,7 +179,7 @@ export class APIService {
 
   /**
    *
-   * @name createReview 
+   * @name createReview
    *
    * @description
    * This method used to add review details
@@ -192,7 +192,7 @@ export class APIService {
 
   /**
    *
-   * @name getReviews 
+   * @name getReviews
    *
    * @description
    * This method used to get review details
