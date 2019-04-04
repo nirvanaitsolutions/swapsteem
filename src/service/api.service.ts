@@ -58,15 +58,15 @@ export class APIService {
     'CRYPTO': [
       {
         "label": "BTC",
-        "value": "BTC"
+        "value": "btc"
       },
       {
         "label": "EOS",
-        "value": "EOS"
+        "value": "eos"
       },
       {
         "label": "XRP",
-        "value": "RIPPLE"
+        "value": "ripple"
       },
       {
         "label": "LTC",
@@ -180,7 +180,7 @@ export class APIService {
 
   getPrice() {
     const headers = new HttpHeaders({ 'No-Auth': 'True' });
-    return this._http.get(`https://api.coingecko.com/api/v3/simple/price?ids=steem%2Csteem-dollars&vs_currencies=btc`, { headers: headers })
+    return this._http.get(`https://api.coingecko.com/api/v3/simple/price?ids=steem%2Csteem-dollars&vs_currencies=btc,usd,inr,krw,ngn,cad,aud,gbp,eur,cny,vef,`, { headers: headers })
       .map(result => this.result = result);
 
   }
@@ -194,7 +194,7 @@ export class APIService {
     */
   getBtcPrice() {
     const headers = new HttpHeaders({ 'No-Auth': 'True' });
-    return this._http.get(`https://api.coingecko.com/api/v3/simple/price?ids=usd,inr,krw,bitcoin,eos,eth,vef,ngn,cad,aud,gbp,eur,cny,ripple,litecoin,bitcoin-cash,tether,binancecoin,stellar,tron,enumivo,karma-coin,bittorrent-2&vs_currencies=btc`, { headers: headers })
+    return this._http.get(`https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,eos,eth,ripple,litecoin,bitcoin-cash,tether,binancecoin,stellar,tron,enumivo,karma-coin,bittorrent-2&vs_currencies=btc`, { headers: headers })
       .map(result => this.result = result);
 
   }
