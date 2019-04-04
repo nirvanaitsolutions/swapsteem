@@ -97,13 +97,15 @@ export class PurchaseComponent implements OnInit {
 
   userData: any = [];
   price: any;
+  showTo = '';
   private isAlive = true;
   ngOnInit() {
     let id = this.route.snapshot.paramMap.get('id');
     this.purchaseServ.getSelectedTradeFromAPI(id).pipe(takeWhile(() => this.isAlive)).subscribe(data => {
       console.log(data);
       this.selectedTrade = data;
-
+      const to = this.purchaseServ.coinsByMarket[this.selectedTrade.market].find((coin)=> coin.value === this.selectedTrade.to);
+      this.showTo = to ? to.label : this.selectedTrade.to;
       this.order.ad_id = this.selectedTrade._id;
       this.order.createdfor = this.selectedTrade.createdby;
       //todo - reverse ad type

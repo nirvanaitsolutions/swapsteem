@@ -35,7 +35,91 @@ export class APIService {
   selectedAd: any = null;
   token: OAuth2Token = this.auth.token;
   result: any;
-
+  public coinsByMarket = {
+    'FIAT': [{
+      label: 'INR', value: 'INR'
+    }, {
+      label: 'KRW', value: 'KRW'
+    }, {
+      label: 'VEF', value: 'VEF'
+    }, {
+      label: 'NGN', value: 'NGN'
+    }, {
+      label: 'CAD', value: 'CAD'
+    }, {
+      label: 'AUD', value: 'AUD'
+    }, {
+      label: 'GBP', value: 'GBP'
+    }, {
+      label: 'EUR', value: 'EUR'
+    }, {
+      label: 'CNY', value: 'CNY'
+    }],
+    'CRYPTO': [
+      {
+        "label": "BTC",
+        "value": "BTC"
+      },
+      {
+        "label": "EOS",
+        "value": "EOS"
+      },
+      {
+        "label": "XRP",
+        "value": "RIPPLE"
+      },
+      {
+        "label": "LTC",
+        "value": "litecoin"
+      },
+      {
+        "label": "BCH",
+        "value": "bitcoin-cash"
+      },
+      {
+        "label": "TRX",
+        "value": "tron"
+      },
+      {
+        "label": "XLM",
+        "value": "stellar"
+      },
+      {
+        "label": "ENU",
+        "value": "enumivo"
+      }
+    ],
+    'TOKEN': [
+      {
+        "label": "SWEET",
+        "value": "SWEET"
+      },
+      {
+        "label": "ENG",
+        "value": "ENG"
+      },
+      {
+        "label": "SUFB",
+        "value": "SUFB"
+      }
+    ],
+    'ERC20': [{
+      "label": "BNB",
+      "value": "binancecoin"
+    }],
+    'EOS': [{
+      "label": "KARMA",
+      "value": "karma-coin"
+    }],
+    'TRC20': [{
+      "label": "ANTE",
+      "value": "tronbet"
+    }],
+    'BTS-UIA': [{
+      "label": "OPEN.USD",
+      "value": "bitUSD"
+    }],
+  }
   selectTradeEvent(trade: AdvertisementResponse
   ) {
     this.selectedTrade = trade;
