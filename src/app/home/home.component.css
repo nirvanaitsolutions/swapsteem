@@ -20,3 +20,16 @@
     margin: auto;
     margin-top: 50px;
 }
+
+.select-header {
+    display: flex !important;
+}
+
+mat-select {
+    width: 75px!important;
+}
+
+.blank-div {
+    width: 20px !important;
+    text-align: center !important;
+}
