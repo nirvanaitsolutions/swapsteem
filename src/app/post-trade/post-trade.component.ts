@@ -60,11 +60,13 @@ export class PostTradeComponent implements OnInit {
   effectivePrice: any;
   adId: string = '';
   private isAlive = true;
+  public coinsByMarket = {};
   ngOnInit() {
     this.adId = this.route.snapshot.paramMap.get('id');
     this.getSelectedTradeFromAPI(this.adId);
     this.userData = this.auth.userData;
     this.advertisement.createdby = this.userData.name;
+    this.coinsByMarket = this.api.coinsByMarket;
   }
 
 

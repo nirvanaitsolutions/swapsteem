@@ -23,76 +23,11 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <!-- <mat-form-field class="full-width">
-          <mat-select [(ngModel)]="advertisement.from" placeholder="To" name="from" required>
-            <mat-option *ngFor="let count of from" [value]="count">
-              {{count}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field> -->
-        <mat-form-field class="full-width" *ngIf="advertisement.market === 'FIAT'">
-          <mat-select (selectionChange)="changeCurrency($event.value)" [(ngModel)]="advertisement.to" placeholder="to" name="to"
-            required>
-            <mat-option *ngFor="let count of fiat_options" [value]="count">
-              {{count}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field class="full-width" *ngIf="advertisement.market === 'CRYPTO'">
-          <mat-select (selectionChange)="changeCurrency($event.value)" [(ngModel)]="advertisement.to" placeholder="to" name="to"
-            required>
-            <mat-option *ngFor="let count of crypto_options" [value]="count">
-              {{count}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field class="full-width" *ngIf="advertisement.market === 'ERC20'">
-          <mat-select (selectionChange)="changeCurrency($event.value)" [(ngModel)]="advertisement.to" placeholder="to" name="to"
-            required>
-            <mat-option *ngFor="let count of erc20_options" [value]="count">
-              {{count}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field class="full-width" *ngIf="advertisement.market === 'TRC20'">
-          <mat-select (selectionChange)="changeCurrency($event.value)" [(ngModel)]="advertisement.to" placeholder="to" name="to"
-            required>
-            <mat-option *ngFor="let count of trc20_options" [value]="count">
-              {{count}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field class="full-width" *ngIf="advertisement.market === 'EOS'">
-          <mat-select (selectionChange)="changeCurrency($event.value)" [(ngModel)]="advertisement.to" placeholder="to" name="to"
-            required>
-            <mat-option *ngFor="let count of eos_options" [value]="count">
-              {{count}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field class="full-width" *ngIf="advertisement.market === 'BTS-UIA'">
-          <mat-select (selectionChange)="changeCurrency($event.value)" [(ngModel)]="advertisement.to" placeholder="to" name="to"
-            required>
-            <mat-option *ngFor="let count of btsuia_options" [value]="count">
-              {{count}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field class="full-width" *ngIf="advertisement.market === 'TOKEN'">
-          <mat-select (selectionChange)="changeCurrency($event.value)" [(ngModel)]="advertisement.to" placeholder="to" name="to"
-            required>
-            <mat-option *ngFor="let count of token_options" [value]="count">
-              {{count}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
         <mat-form-field class="full-width">
-          <input matInput placeholder="With margin on current price of" type="number" name="margin" id="margin" [(ngModel)]="advertisement.margin">
-        </mat-form-field>
-        <mat-form-field class="full-width" *ngIf="advertisement.market === 'FIAT'">
-          <mat-select [(ngModel)]="advertisement.payment_method" placeholder="With payment method " name="payment_method" required>
-            <mat-option *ngFor="let count of fiat_payment_methods" [value]="count">
-              {{count}}
+          <mat-select (selectionChange)="changeCurrency($event.value)" [(ngModel)]="advertisement.to" placeholder="to" name="to"
+            required>
+            <mat-option *ngFor="let count of coinsByMarket[advertisement.market]" [value]="count.value">
+              {{count.label}}
             </mat-option>
           </mat-select>
         </mat-form-field>
