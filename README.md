@@ -9,8 +9,3 @@ Swapsteem is a peer to peer exchange, similar to localbitcoins.com. With increas
 - Pick an task from the project board and get it assigned to yourself.
 - Implement features or bug fixes in a feature branch
 - Create a PR 
-
-# RoadMap 
-[x] Add Steemconnect Auth
-[] Add Steemconnect Hot Sign Features 
-[] Add WSS Notifications and messages
