@@ -54,6 +54,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { ReferralComponent } from './referral/referral.component';
 import { InstaComponent } from './insta/insta.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { ChartComponent } from './chart/chart.component';
 const config: SocketIoConfig = { url: environment.API_URL, options: {} };
 
 @NgModule({
@@ -92,6 +93,7 @@ const config: SocketIoConfig = { url: environment.API_URL, options: {} };
     ReferralComponent,
     InstaComponent,
     LandingPageComponent,
+    ChartComponent,
   ],
   entryComponents: [ReviewComponent,TermsAndConditionsComponent, WhitelistComponent, SignupComponent, SignupstatusmodalComponent],
   imports: [
