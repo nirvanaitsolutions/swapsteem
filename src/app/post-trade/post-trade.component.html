@@ -39,6 +39,10 @@
           </mat-select>
         </mat-form-field>
         <mat-form-field class="full-width">
+            <input matInput placeholder="with Margin on Market Price of " type="number" name="margin" id="margin" [(ngModel)]="advertisement.margin"
+              required>
+          </mat-form-field>
+        <mat-form-field class="full-width">
           <input matInput placeholder="with Maximum Amount" type="number" name="ad_coin_amount" id="ad_coin_amount" [(ngModel)]="advertisement.ad_coin_amount"
             required>
         </mat-form-field>
