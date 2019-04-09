@@ -6,6 +6,6 @@ We have installed a dynamic system on the SwapSteem UI, where trading parties si
 
 # How to contribute
 - fork and Clone the repo 
-- Pick an task from the project board and get it assigned to yourself.
+- Pick any task from the project board and get it assigned to yourself.
 - Implement features or bug fixes in a feature branch
 - Create a PR 
