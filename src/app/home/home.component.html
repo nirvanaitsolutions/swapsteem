@@ -1,4 +1,36 @@
 <div class="home-page-wrapper container">
+  <div class="select-header">
+    <mat-select [(ngModel)]="selectedFrom" placeholder="" name="selectedFrom"
+      (selectionChange)="updateQuery(selectedFrom, selectedCoin)">
+      <mat-option [value]="'STEEM'">
+        STEEM
+      </mat-option>
+      <mat-option [value]="'SBD'">
+        SBD
+      </mat-option>
+    </mat-select>
+    <div class="blank-div">
+        /
+    </div>
+    <mat-select [(ngModel)]="selectedCoin" placeholder="" name="selectedCoin"
+      (selectionChange)="updateQuery(selectedFrom, selectedCoin)">
+      <mat-option *ngFor="let coin of coinsByMarket[selectedMarket]" [value]="coin.value">
+          {{coin.label}}
+      </mat-option>
+    </mat-select>
+  </div>
+  <!-- <mat-chip-list aria-label="Fish selection">
+
+    <mat-chip color="primary" [selected]="selectedFrom === 'STEEM'"
+      (click)="selectedFrom = 'STEEM';updateQuery(selectedFrom, selectedCoin)">Steem</mat-chip>
+    <mat-chip color="primary" [selected]="selectedFrom === 'SBD'"
+      (click)="selectedFrom = 'SBD';updateQuery(selectedFrom, selectedCoin)">SBD</mat-chip>
+  </mat-chip-list>
+  <mat-chip-list aria-label="Fish selection">
+    <mat-chip *ngFor="let coin of coinsByMarket[selectedMarket]" color="primary"
+      [selected]="selectedCoin === coin.value"
+      (click)="selectedCoin = coin.value;updateQuery(selectedFrom, selectedCoin)">{{coin.label}}</mat-chip>
+  </mat-chip-list> -->
   <mat-tab-group>
     <mat-tab label="Buy">
       <app-buy></app-buy>

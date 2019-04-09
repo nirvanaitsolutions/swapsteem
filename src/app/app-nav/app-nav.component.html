@@ -20,9 +20,9 @@
               <button mat-menu-item>
                 <a  routerLink="market/crypto">Crypto Market</a>
               </button>
-              <button mat-menu-item>
+              <!-- <button mat-menu-item>
                 <a class="" routerLink="market/token">Steem-Engine Tokens Market</a>
-              </button>
+              </button> -->
               <button mat-menu-item>
                 <a class="" routerLink="market/fiat">Fiat Market</a>
               </button>
@@ -82,8 +82,13 @@
               <i class="fa fa-user" aria-hidden="true"></i>   Login
             </button>
             &nbsp;
-            <button class="btn btn-primary signInLink sign-up-button" (click)="openSignupDialog()">
-              <i class="fa fa-user-plus" aria-hidden="true"></i> Signup</button>
+            <button class="btn btn-primary signInLink sign-up-button">
+              <a title="Create Steem account Instantly!"
+              data-name="SwapSteem"
+               data-image="https://cdn.steemitimages.com/DQmbUoHnngVBFDMFPqFz16tbjDn7mUqG1wmabMEZHXSgxB6/IMG_1553967609945.jpg"
+               data-referrer="swapsteem" href="https://widget.steem.ninja/widget.html?referrer=swapsteem"
+               class="ninja-widget">
+               <i class="fa fa-user-plus" aria-hidden="true"></i>Sign Up</a></button>
           </ng-template>
         </div>
       </div>

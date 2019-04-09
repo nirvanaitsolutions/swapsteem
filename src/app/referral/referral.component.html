@@ -1,8 +1,12 @@
 <mat-card>
   <div>
-      <input id="referralLink" class="referralLink" [(ngModel)]="referralLink" readonly>
+      <h1 align="center">Refer Your Friends And Earn 5% Commission on Fees paid by Them for Lifetime!</h1>
+      <h3 align="center">Share the link below to Refer a Freind</h3>
+  </div>
+  <div>
+    <input id="referralLink" class="referralLink" [(ngModel)]="referralLink" readonly>
     <button class="clippy-button" matTooltip="Copy to Clipboard">
-      <img (click)="copyToClipboard('referralLink')" class="clippy" width="13" alt="Copy to clipboard" src="assets/icons/clippy.svg">
+    <img (click)="copyToClipboard('referralLink')" class="clippy" width="13" alt="Copy to clipboard" src="assets/icons/clippy.svg">
     </button>
   </div>
 </mat-card>

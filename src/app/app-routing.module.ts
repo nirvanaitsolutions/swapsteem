@@ -70,6 +70,10 @@ const appRoutes: Routes = [
   {
     path: 'refer', component: ReferralComponent, canActivate: [AuthGuard]
   },
+
+  { path: 'market',
+   redirectTo: '/market/fiat'
+  },
   {
     path: '',
     redirectTo: '/home',

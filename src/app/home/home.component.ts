@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { takeWhile } from "rxjs/operators";
-import { CookieService } from 'ngx-cookie';
-import { SteemconnectAuthService } from '../steemconnect/services/steemconnect-auth.service';
+import { APIService } from '../../service/api.service';
 
 @Component({
   selector: 'app-home',
@@ -10,19 +9,36 @@ import { SteemconnectAuthService } from '../steemconnect/services/steemconnect-a
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  private isAlive = true;
-  constructor(private route: ActivatedRoute, private auth: SteemconnectAuthService, private cookieService: CookieService) {
-    this.route.queryParamMap.pipe(takeWhile(() => this.isAlive)).subscribe(params => {
-      if (!this.auth.userData)
-        this.cookieService.put('ref', params.get('ref') || '');
-      else
-        this.cookieService.remove('ref');
+  selectedFrom = 'STEEM';
+  isAlive = true;
+  coinsByMarket = {};
+  selectedMarket = 'CRYPTO';
+  selectedCoin = '';
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private route: ActivatedRoute, private api: APIService) {
+    this.coinsByMarket = this.api.coinsByMarket;
+    route.params.pipe(takeWhile(() => this.isAlive)).subscribe(val => {
+      this.selectedMarket = val.market ? ['FIAT', 'CRYPTO', 'TOKEN', 'ERC20', 'EOS', 'TRC20', 'BTS-UIA'].includes(val.market.toUpperCase()) ? val.market.toUpperCase() : 'CRYPTO' : 'CRYPTO';
     });
-
+    route.queryParams.pipe(takeWhile(() => this.isAlive)).subscribe(val => {
+      this.selectedFrom = val.from ? val.from : 'STEEM';
+      this.selectedCoin = val.coin ? val.coin : this.coinsByMarket[this.selectedMarket][0].value;
+    });
   }
+
   ngOnInit() {
   }
-
+  updateQuery(from, coin) {
+    this.router.navigate(
+      [],
+      {
+        relativeTo: this.activatedRoute,
+        queryParams: {
+          from,
+          coin,
+        },
+        queryParamsHandling: "merge", // remove to replace all query params by provided
+      });
+  }
   ngOnDestroy() {
     this.isAlive = false;
   }
