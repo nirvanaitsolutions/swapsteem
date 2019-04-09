@@ -1,6 +1,5 @@
 mat-card {
     width:  fit-content;
-    display: flex;
     position: relative;
     margin: 10px;
 }
@@ -19,9 +18,14 @@ mat-card {
 }
 .referralLink {
     border: none;
+    box-align: center;
 
 }
 
 .referralLink:focus {
     border: none;
+}
+.refCard {
+  margin: 0 auto;
+    width: 40%;
 }
