@@ -31,6 +31,20 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
+        <mat-form-field class="full-width" *ngIf="advertisement.market === 'FIAT' && advertisement.to ==='INR' ">
+          <mat-select [(ngModel)]="advertisement.payment_method" placeholder="With Payment Method" name="payment_method" required>
+            <mat-option *ngFor="let count of inr_payment_methods" [value]="count">
+              {{count}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="full-width" *ngIf="advertisement.market === 'FIAT' && advertisement.to !=='INR' ">
+          <mat-select [(ngModel)]="advertisement.payment_method" placeholder="With Payment Method" name="payment_method" required>
+            <mat-option *ngFor="let count of fiat_payment_methods" [value]="count">
+              {{count}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
         <mat-form-field class="full-width" *ngIf="advertisement.market === 'CRYPTO' || advertisement.market === 'TRC20' || advertisement.market === 'BTS-UIA'|| advertisement.market === 'ERC20'|| advertisement.market === 'EOS'">
           <mat-select [(ngModel)]="advertisement.payment_method" placeholder="With Payment Method" name="payment_method" required>
             <mat-option *ngFor="let count of crypto_payment_methods" [value]="count">

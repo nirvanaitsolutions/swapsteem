@@ -146,12 +146,13 @@ export class PostTradeComponent implements OnInit {
   fiat_options = ['INR', 'KRW', 'VEF', 'NGN', 'CAD', 'AUD', 'GBP', 'EUR', 'CNY']; // 'USD', 'KRW'
   ad_type = ['BUY', 'SELL'];
   from = ['STEEM', 'SBD'];
-  fiat_payment_methods = ['Bank Transfer', 'PayPal', 'UPI'];
-  crypto_payment_methods = ['Crypto Transfer']; // In cash
+  fiat_payment_methods = ['Bank Transfer', 'PayPal'];
+  inr_payment_methods = ['Bank Transfer', 'UPI'];
+  crypto_payment_methods = ['Crypto Transfer']; //
   token_options = ['SWEET', 'ENG', 'SUFB']
   crypto_options = ['BTC', 'EOS', 'XRP', 'LTC', 'BCH', 'BNB', 'XLM', 'ENU']
   erc20_options = ['BNB']
   eos_options = ['KARMA'];
   trc20_options = ['TRON'];
-  btsuia_options = ['OPEN.USD', 'BTS.BTC'];
+  btsuia_options = ['bitUSD'];
 }
