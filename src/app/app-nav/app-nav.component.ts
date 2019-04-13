@@ -39,7 +39,7 @@ export class AppNavComponent implements OnInit {
           this.auth.userData = auth;
           this.userData = auth;
           this.profile = this.userData.account.json_metadata ? JSON.parse(this.userData.account.json_metadata) : {};
-          this.profile_url = this.profile && this.profile.profile ? this.profile.profile.profile_image : '';
+          this.profile_url = `https://steemitimages.com/u/${this.userData.name}/avatar`;
         }
       });
     })
