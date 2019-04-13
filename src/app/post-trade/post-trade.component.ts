@@ -5,6 +5,7 @@ import { APIService } from '../../service/api.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SteemconnectAuthService } from '../steemconnect/services/steemconnect-auth.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { SteemconnectBroadcastService } from '../steemconnect/services/steemconnect-broadcast.service';
 @Component({
   selector: 'app-post-trade',
   templateUrl: './post-trade.component.html',
@@ -12,7 +13,7 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 })
 export class PostTradeComponent implements OnInit {
 
-  constructor(private ngxService: NgxUiLoaderService, public api: APIService, private router: Router, private zone: NgZone, private auth: SteemconnectAuthService, private route: ActivatedRoute) {
+  constructor(private broadcastApi: SteemconnectBroadcastService, private ngxService: NgxUiLoaderService, public api: APIService, private router: Router, private zone: NgZone, private auth: SteemconnectAuthService, private route: ActivatedRoute) {
   }
 
   advertisement: AdvertisementRequest = {
@@ -124,8 +125,11 @@ export class PostTradeComponent implements OnInit {
     console.log('tradeForm', tradeForm)
     this.ngxService.start();
     this.api.createAd(this.advertisement, this.adId).pipe(takeWhile(() => this.isAlive)).subscribe(res => this.zone.run(() => {
-      this.router.navigate(['profile'])
-      this.ngxService.stop();
+      this.broadcastApi.broadcastCustomJson('swap-listing', 'swap-listing', this.advertisement)
+        .pipe(takeWhile(() => this.isAlive)).subscribe(() => this.zone.run(() => {
+          this.router.navigate(['profile']);
+          this.ngxService.stop();
+        }))
     }));
   }
   changeCurrency(value) {
@@ -143,7 +147,7 @@ export class PostTradeComponent implements OnInit {
     this.isAlive = false;
   }
   market = ['FIAT', 'CRYPTO', 'TOKEN', 'ERC20', 'EOS', 'TRC20', 'BTS-UIA'];
-  fiat_options = ['USD','INR', 'KRW', 'VEF', 'NGN', 'CAD', 'AUD', 'GBP', 'EUR', 'CNY']; // 'USD', 'KRW'
+  fiat_options = ['USD', 'INR', 'KRW', 'VEF', 'NGN', 'CAD', 'AUD', 'GBP', 'EUR', 'CNY']; // 'USD', 'KRW'
   ad_type = ['BUY', 'SELL'];
   from = ['STEEM', 'SBD'];
   fiat_payment_methods = ['Bank Transfer', 'PayPal'];

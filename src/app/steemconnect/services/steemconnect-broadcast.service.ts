@@ -30,7 +30,7 @@ export class SteemconnectBroadcastService {
   constructor(
     private scAuthService: SteemconnectAuthService,
     private http: HttpClient
-  ) {}
+  ) { }
 
   public broadcastOperations(
     operations: Array<Operation>
@@ -50,7 +50,7 @@ export class SteemconnectBroadcastService {
         },
         {
           headers: new HttpHeaders({
-            Authorization: accessToken,
+            Authorization: `${accessToken}`,
             'Content-Type': 'application/json',
             Accept: 'application/json'
           })
@@ -75,10 +75,10 @@ export class SteemconnectBroadcastService {
       [
         'custom_json',
         {
-          required_auths: [],
-          required_posting_auths: [username],
+          required_auths: [username],
+          required_posting_auths: [],
           id,
-          json: JSON.stringify([jsonType,JSON.stringify(customJson)])
+          json: JSON.stringify([jsonType, JSON.stringify(customJson)])
         }
       ]
     ]);
