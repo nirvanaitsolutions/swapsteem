@@ -140,7 +140,7 @@ export class PostTradeComponent implements OnInit {
   ngOnDestroy() {
     this.isAlive = false;
   }
-  market = ['FIAT', 'CRYPTO', 'TOKEN', 'ERC20', 'EOS', 'TRC20', 'BTS-UIA'];
+  market = ['FIAT', 'TOKEN'];//, 'ERC20','CRYPTO', 'EOS', 'TRC20', 'BTS-UIA'
   fiat_options = ['USD', 'INR', 'KRW', 'NGN', 'CAD', 'AUD', 'GBP', 'EUR', 'CNY']; // 'USD', 'KRW'
   ad_type = ['BUY', 'SELL'];
   from = ['STEEM', 'SBD', 'SWEET'];
@@ -149,11 +149,11 @@ export class PostTradeComponent implements OnInit {
   inr_payment_methods = ['Bank Transfer','PayPal', 'UPI'];
   crypto_payment_methods = ['Crypto Transfer']; //
   token_options = [ 'ENG', 'SUFB']
-  crypto_options = ['BTC', 'EOS', 'XRP', 'LTC', 'BCH', 'XLM', 'ENU']
-  erc20_options = ['BNB']
-  eos_options = ['KARMA'];
-  trc20_options = ['ANTE'];
-  btsuia_options = ['bitUSD'];
+  // crypto_options = ['BTC', 'EOS', 'XRP', 'LTC', 'BCH', 'XLM', 'ENU']
+  // erc20_options = ['BNB']
+  // eos_options = ['KARMA'];
+  // trc20_options = ['ANTE'];
+  // btsuia_options = ['bitUSD'];
 
     /**
    *
