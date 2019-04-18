@@ -61,6 +61,13 @@
             required>
         </mat-form-field>
         <mat-form-field class="full-width">
+          <mat-select [(ngModel)]="advertisement.from" placeholder="Prefrred Agents " name="preferred_agents" required>
+            <mat-option *ngFor="let count of agents" [value]="count">
+              {{count}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="full-width">
           <textarea matInput placeholder="And my Terms for the trade are " name="ad_coin_amount" id="terms" [(ngModel)]="advertisement.terms" required></textarea>
         </mat-form-field>
       </div>
