@@ -5,12 +5,10 @@ import { SteemConnectConfig } from '../app/steemconnect/steemconnect.module';
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 export const environment = {
   production: false,
-  SIGNUP_KEY: "",
   steemconnectConfig: {
     clientId: 'steemlinked.app',
     scope: ['custom_json']
   },
   API_URL: 'https://swapsteem-api.herokuapp.com',
-  REFERRER: 'swapsteem',
   SKIP_WHITE_LIST: false
 };
