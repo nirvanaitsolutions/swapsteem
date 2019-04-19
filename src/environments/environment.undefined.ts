@@ -1,12 +1,10 @@
 
 export const environment = {
   production: false,
-  SIGNUP_KEY: "undefined",
   steemconnectConfig: {
-    clientId: "https://swapsteem-api.herokuapp.com",
-    scope: ['custom_json']
+    clientId: "steemlinked.app",
+    scope: ['custom_json','vote']
   },
   API_URL: "https://swapsteem-api.herokuapp.com",
-  REFERRER: "undefined",
-  SKIP_WHITE_LIST: false
+  SKIP_WHITE_LIST: true
 };

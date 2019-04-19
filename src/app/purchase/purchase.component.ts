@@ -9,6 +9,7 @@ import * as moment from 'moment';
 import { OrderRequest } from '../module/order';
 import { AdvertisementResponse } from '../module/advertisement';
 import { APIService } from '../../service/api.service';
+import { SteemconnectBroadcastService } from '../steemconnect/services/steemconnect-broadcast.service';
 
 @Component({
   selector: 'app-purchase',
@@ -17,6 +18,7 @@ import { APIService } from '../../service/api.service';
 })
 export class PurchaseComponent implements OnInit {
   constructor(private purchaseServ: APIService,
+    private broadcastApi: SteemconnectBroadcastService,
     private router: Router,
     private route: ActivatedRoute,
     private zone: NgZone,
@@ -38,31 +40,31 @@ export class PurchaseComponent implements OnInit {
     ad_coin_amount: 0,
     terms: '',
     __v: 0,
-    ad_details: {
-      minimum_volume: 0,
-      minimum_reputation_score: 0,
-      new_buyer_limit: 0,
-      track_liquidity: false
-    },
-    security_details: {
-      identified_people_only: false,
-      identify_user_before_continuing_trade: false,
-      real_name_required: false,
-      sms_verification_required: false,
-      trusted_people_only: false
-    },
-    payment_details: {
-      account_holder_name: '',
-      account_number: 0,
-      bank_name: '',
-      bank_address: '',
-      swift_bic_code: '',
-      bank_code: '',
-      paypal_email: '',
-      place_of_exchange: '',
-      upi_id: '',
-      crypto_address: ''
-    }
+    // ad_details: {
+    //   minimum_volume: 0,
+    //   minimum_reputation_score: 0,
+    //   new_buyer_limit: 0,
+    //   track_liquidity: false
+    // },
+    // security_details: {
+    //   identified_people_only: false,
+    //   identify_user_before_continuing_trade: false,
+    //   real_name_required: false,
+    //   sms_verification_required: false,
+    //   trusted_people_only: false
+    // },
+    // payment_details: {
+    //   account_holder_name: '',
+    //   account_number: 0,
+    //   bank_name: '',
+    //   bank_address: '',
+    //   swift_bic_code: '',
+    //   bank_code: '',
+    //   paypal_email: '',
+    //   place_of_exchange: '',
+    //   upi_id: '',
+    //   crypto_address: ''
+    // }
   };
   order: OrderRequest = {
     ad_id: '',
@@ -81,18 +83,18 @@ export class PurchaseComponent implements OnInit {
     to: '',
     escrow_rat_deadline: new Date(moment().add(2, 'hours').format('YYYY-MM-DDTHH:MM:SS')),
     escrow_exp_deadline: new Date(moment().add(3, 'days').format('YYYY-MM-DDTHH:MM:SS')),
-    payment_details: {
-      account_holder_name: '',
-      account_number: 0,
-      bank_name: '',
-      bank_address: '',
-      swift_bic_code: '',
-      bank_code: '',
-      paypal_email: '',
-      place_of_exchange: '',
-      upi_id: '',
-      crypto_address: ''
-    }
+    // payment_details: {
+    //   account_holder_name: '',
+    //   account_number: 0,
+    //   bank_name: '',
+    //   bank_address: '',
+    //   swift_bic_code: '',
+    //   bank_code: '',
+    //   paypal_email: '',
+    //   place_of_exchange: '',
+    //   upi_id: '',
+    //   crypto_address: ''
+    // }
   };
 
   userData: any = [];
@@ -172,7 +174,8 @@ export class PurchaseComponent implements OnInit {
     this.order.escrow_rat_deadline = new Date(moment().add(2, 'hours').format());
     this.order.escrow_exp_deadline = new Date(moment().add(3, 'days').format());;
     this.purchaseServ.createOrder(this.order).pipe(takeWhile(() => this.isAlive)).subscribe((res: any) => this.zone.run(() => {
-      this.router.navigate([`order/${res._id}`])
+      //this.createOrder()
+      this.router.navigate([`order/${res._id}`]);
     }));
   }
 
@@ -197,5 +200,9 @@ export class PurchaseComponent implements OnInit {
 
   ngOnDestroy() {
     this.isAlive = false;
+  }
+  createOrder() {
+ 
+    window.location.href = `https://app.steemconnect.com/sign/custom-json?required_auths=[]&required_posting_auths=[]&id=ssc-mainnet1&json=${JSON.stringify(this.order)}&redirect_uri=${window.location.origin}/wallet&auto_return=1`;
   }
 }

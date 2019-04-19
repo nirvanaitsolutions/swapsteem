@@ -13,13 +13,11 @@ const targetPath = `./src/environments/environment.${environment}.ts`;
 const envConfigFile = `
 export const environment = {
   production: ${isProd},
-  SIGNUP_KEY: "${process.env.SIGNUP_KEY}",
   steemconnectConfig: {
     clientId: "${process.env.STEEM_CONNECT_CLIENT_ID || 'https://swapsteem-api.herokuapp.com'}",
-    scope: ['custom_json']
+    scope: ['custom_json','vote']
   },
   API_URL: "${process.env.API_URL || 'https://swapsteem-api.herokuapp.com'}",
-  REFERRER: "${process.env.REFERRER}",
   SKIP_WHITE_LIST: ${process.env.SKIP_WHITE_LIST ? JSON.parse(process.env.SKIP_WHITE_LIST) : false}
 };
 `

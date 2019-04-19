@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { takeWhile } from "rxjs/operators";
 import { APIService } from '../../service/api.service';
-
+import { ChartComponent } from '../chart/chart.component';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
