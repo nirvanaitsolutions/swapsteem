@@ -45,7 +45,7 @@
             <a class="nav-link" routerLink="post-trade">Create New Listing</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="refer">Refer & Earn</a>
+            <a class="nav-link" routerLink="refer">SWEET'Drop</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="help">Help</a>
@@ -80,16 +80,21 @@
 
             <button  mat-flat-button class="btn btn-primary signInLink login-button" (click)="auth.login() " [matTooltip]="loginTooltipInfo"
               aria-label="Button that displays a tooltip in various positions">
-              <i class="fa fa-user" aria-hidden="true"></i>   Login
+              <i class="fa fa-user" aria-hidden="true"></i>   Log In
             </button>
             &nbsp;
-            <button class="btn btn-primary signInLink sign-up-button">
+            <button class="btn btn-primary signInLink sign-up-button"
+             [matTooltip]="SignUpTooltipInfo"
+             aria-label="Button that displays a tooltip in various positions">
               <a title="Create Steem account Instantly!"
               data-name="SwapSteem"
                data-image="https://cdn.steemitimages.com/DQmbUoHnngVBFDMFPqFz16tbjDn7mUqG1wmabMEZHXSgxB6/IMG_1553967609945.jpg"
                data-referrer="swapsteem" href="https://widget.steem.ninja/widget.html?referrer=swapsteem"
                class="ninja-widget">
-               <i class="fa fa-user-plus" aria-hidden="true"></i>Create STEEM account!</a></button>
+               <i class="fa fa-user-plus" aria-hidden="true"></i>
+               Sign Up
+              </a>
+            </button>
           </ng-template>
         </div>
       </div>
