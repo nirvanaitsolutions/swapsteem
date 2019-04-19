@@ -126,7 +126,9 @@ export class PostTradeComponent implements OnInit {
     console.log('tradeForm', tradeForm)
     this.ngxService.start();
     this.api.createAd(this.advertisement, this.adId).pipe(takeWhile(() => this.isAlive)).subscribe(res => this.zone.run(() => {
-      this.createListing()
+      //this.createListing()
+      this.router.navigate(['profile']);
+      this.ngxService.stop();
     }));
   }
   changeCurrency(value) {
