@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material';
 import { takeWhile } from "rxjs/operators";
 import { SteemconnectAuthService } from '../steemconnect/services/steemconnect-auth.service';
 import { APIService } from '../../service/api.service';
-import { SignupComponent } from '../components/signup/signup.component';
 @Component({
   selector: 'app-nav',
   templateUrl: './app-nav.component.html',
@@ -56,20 +55,6 @@ export class AppNavComponent implements OnInit {
     this.showProfileDropDown = !this.showProfileDropDown;
   }
 
-  /**
-    *
-    * @name openSignupDialog 
-    *
-    * @description
-    * This method used to open signup component in modal
-   */
-
-  openSignupDialog(): void {
-    this.dialog.open(SignupComponent, {
-      width: '700px',
-      disableClose: true
-    });
-  }
 
   ngOnDestroy() {
     this.isAlive = false;

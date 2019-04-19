@@ -46,7 +46,6 @@ import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-co
 import { WhitelistComponent } from './components/whitelist/whitelist.component';
 import { HelppageComponent } from './helppage/helppage.component';
 import { DemoMaterialModule } from './material-module';
-import { SignupComponent } from './components/signup/signup.component';
 import { SignupstatusComponent } from './components/signupstatus/signupstatus.component';
 import { SignupstatusmodalComponent } from './components/signupstatusmodal/signupstatusmodal.component';
 import { BannerComponentComponent } from './banner-component/banner-component.component';
@@ -84,7 +83,6 @@ const config: SocketIoConfig = { url: environment.API_URL, options: {} };
     OrderComponent,
     ReviewComponent,
     HelppageComponent,
-    SignupComponent,
     SignupstatusComponent,
     SignupstatusmodalComponent,
     TermsAndConditionsComponent,
@@ -95,7 +93,7 @@ const config: SocketIoConfig = { url: environment.API_URL, options: {} };
     LandingPageComponent,
     ChartComponent,
   ],
-  entryComponents: [ReviewComponent,TermsAndConditionsComponent, WhitelistComponent, SignupComponent, SignupstatusmodalComponent],
+  entryComponents: [ReviewComponent,TermsAndConditionsComponent, WhitelistComponent, SignupstatusmodalComponent],
   imports: [
     NgxAutoScrollModule,
     MomentModule,
