@@ -142,7 +142,7 @@ export class PostTradeComponent implements OnInit {
   ngOnDestroy() {
     this.isAlive = false;
   }
-  market = ['FIAT', 'TOKEN'];//, 'ERC20','CRYPTO', 'EOS', 'TRC20', 'BTS-UIA'
+  market = ['FIAT'];//, 'ERC20','CRYPTO', 'EOS', 'TRC20', 'BTS-UIA', 'TOKEN'
   fiat_options = ['USD', 'INR', 'KRW', 'NGN', 'CAD', 'AUD', 'GBP', 'EUR', 'CNY']; // 'USD', 'KRW'
   ad_type = ['BUY', 'SELL'];
   from = ['STEEM', 'SBD', 'SWEET'];
