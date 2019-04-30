@@ -3,14 +3,15 @@ import { MatDialog } from '@angular/material';
 import { takeWhile } from "rxjs/operators";
 import { SteemconnectAuthService } from '../steemconnect/services/steemconnect-auth.service';
 import { APIService } from '../../service/api.service';
-import { SignupComponent } from '../components/signup/signup.component';
 @Component({
   selector: 'app-nav',
   templateUrl: './app-nav.component.html',
   styleUrls: ['./app-nav.component.css'],
 })
 export class AppNavComponent implements OnInit {
-  loginTooltipInfo: string = `Users need to have a Steem account to be able to trade on swapSteem. Please click sign up if you don't have a Steem account. 
+  loginTooltipInfo: string = `Users need to have a Steem account to be able to trade on swapSteem. Please click "Sign Up" button to create a new steem account if you don't have one already. 
+  `;
+  SignUpTooltipInfo: string = `Users need to have a Steem account to be able to trade on swapSteem. Please click "Log In" button if you already have a Steem account. 
   Note : Account creation fee = $2.50`;
 
   userData: any = {};
@@ -54,20 +55,6 @@ export class AppNavComponent implements OnInit {
     this.showProfileDropDown = !this.showProfileDropDown;
   }
 
-  /**
-    *
-    * @name openSignupDialog 
-    *
-    * @description
-    * This method used to open signup component in modal
-   */
-
-  openSignupDialog(): void {
-    this.dialog.open(SignupComponent, {
-      width: '700px',
-      disableClose: true
-    });
-  }
 
   ngOnDestroy() {
     this.isAlive = false;

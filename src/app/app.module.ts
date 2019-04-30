@@ -46,7 +46,6 @@ import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-co
 import { WhitelistComponent } from './components/whitelist/whitelist.component';
 import { HelppageComponent } from './helppage/helppage.component';
 import { DemoMaterialModule } from './material-module';
-import { SignupComponent } from './components/signup/signup.component';
 import { SignupstatusComponent } from './components/signupstatus/signupstatus.component';
 import { SignupstatusmodalComponent } from './components/signupstatusmodal/signupstatusmodal.component';
 import { BannerComponentComponent } from './banner-component/banner-component.component';
@@ -55,6 +54,7 @@ import { ReferralComponent } from './referral/referral.component';
 import { InstaComponent } from './insta/insta.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { ChartComponent } from './chart/chart.component';
+import { BuySweetComponent } from './buy-sweet/buy-sweet.component';
 const config: SocketIoConfig = { url: environment.API_URL, options: {} };
 
 @NgModule({
@@ -84,7 +84,6 @@ const config: SocketIoConfig = { url: environment.API_URL, options: {} };
     OrderComponent,
     ReviewComponent,
     HelppageComponent,
-    SignupComponent,
     SignupstatusComponent,
     SignupstatusmodalComponent,
     TermsAndConditionsComponent,
@@ -94,8 +93,9 @@ const config: SocketIoConfig = { url: environment.API_URL, options: {} };
     InstaComponent,
     LandingPageComponent,
     ChartComponent,
+    BuySweetComponent,
   ],
-  entryComponents: [ReviewComponent,TermsAndConditionsComponent, WhitelistComponent, SignupComponent, SignupstatusmodalComponent],
+  entryComponents: [ReviewComponent,TermsAndConditionsComponent, WhitelistComponent, SignupstatusmodalComponent],
   imports: [
     NgxAutoScrollModule,
     MomentModule,

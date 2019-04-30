@@ -12,14 +12,20 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
+            <a class="nav-link" routerLink="iso">Buy SWEET!</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" routerLink="insta">Insta Swap</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" routerLink="market/fiat"> P2P Fiat Market</a>
+          </li>
+          <!-- <li class="nav-item">
             <button mat-button [matMenuTriggerFor]="menu">P2P Exchange</button>
             <mat-menu #menu="matMenu">
-              <!-- <button mat-menu-item>
+               <button mat-menu-item>
                 <a  routerLink="market/crypto">Crypto Market</a>
-              </button> -->
+              </button>
               
               <button mat-menu-item>
                 <a class="" routerLink="market/fiat">Fiat Market</a>
@@ -27,7 +33,7 @@
               <button mat-menu-item>
                 <a class="" routerLink="market/token">Steem-Engine Tokens Market</a>
               </button>
-              <!-- <button mat-menu-item>
+               <button mat-menu-item>
                 <a class="" routerLink="market/erc20">ERC20 Tokens Market</a>
               </button>
               <button mat-menu-item>
@@ -38,15 +44,15 @@
               </button>
               <button mat-menu-item>
                 <a class="" routerLink="market/bts-uia">BTS UIA Market</a>
-              </button> -->
+              </button> 
             </mat-menu>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a class="nav-link" routerLink="post-trade">Create New Listing</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="refer">Refer & Earn</a>
-          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link" routerLink="refer">SWEET'Drop</a>
+          </li> -->
           <li class="nav-item">
             <a class="nav-link" routerLink="help">Help</a>
           </li>
@@ -80,16 +86,21 @@
 
             <button  mat-flat-button class="btn btn-primary signInLink login-button" (click)="auth.login() " [matTooltip]="loginTooltipInfo"
               aria-label="Button that displays a tooltip in various positions">
-              <i class="fa fa-user" aria-hidden="true"></i>   Login
+              <i class="fa fa-user" aria-hidden="true"></i>   Log In
             </button>
             &nbsp;
-            <button class="btn btn-primary signInLink sign-up-button">
+            <button class="btn btn-primary signInLink sign-up-button"
+             [matTooltip]="SignUpTooltipInfo"
+             aria-label="Button that displays a tooltip in various positions">
               <a title="Create Steem account Instantly!"
               data-name="SwapSteem"
                data-image="https://cdn.steemitimages.com/DQmbUoHnngVBFDMFPqFz16tbjDn7mUqG1wmabMEZHXSgxB6/IMG_1553967609945.jpg"
                data-referrer="swapsteem" href="https://widget.steem.ninja/widget.html?referrer=swapsteem"
                class="ninja-widget">
-               <i class="fa fa-user-plus" aria-hidden="true"></i>Create STEEM account!</a></button>
+               <i class="fa fa-user-plus" aria-hidden="true"></i>
+               Sign Up
+              </a>
+            </button>
           </ng-template>
         </div>
       </div>
