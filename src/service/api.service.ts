@@ -37,6 +37,8 @@ export class APIService {
   result: any;
   public coinsByMarket = {
     'FIAT': [{
+      label: 'USD', value: 'USD'
+    },{
       label: 'INR', value: 'INR'
     }, {
       label: 'KRW', value: 'KRW'

@@ -21,6 +21,7 @@ export class ProfileComponent implements OnInit {
   noOfOpenAds: number = 0;
   balance_steem;
   balance_sbd;
+  balance_sweet;
   balance_sp;
   profile_url;
   profile;

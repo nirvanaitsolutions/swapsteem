@@ -54,6 +54,7 @@ import { ReferralComponent } from './referral/referral.component';
 import { InstaComponent } from './insta/insta.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { ChartComponent } from './chart/chart.component';
+import { BuySweetComponent } from './buy-sweet/buy-sweet.component';
 const config: SocketIoConfig = { url: environment.API_URL, options: {} };
 
 @NgModule({
@@ -92,6 +93,7 @@ const config: SocketIoConfig = { url: environment.API_URL, options: {} };
     InstaComponent,
     LandingPageComponent,
     ChartComponent,
+    BuySweetComponent,
   ],
   entryComponents: [ReviewComponent,TermsAndConditionsComponent, WhitelistComponent, SignupstatusmodalComponent],
   imports: [

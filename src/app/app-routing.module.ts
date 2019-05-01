@@ -17,12 +17,14 @@ import { SignupstatusComponent } from './components/signupstatus/signupstatus.co
 import { ReferralComponent } from './referral/referral.component'
 import { InstaComponent } from './insta/insta.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { BuySweetComponent } from './buy-sweet/buy-sweet.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: LandingPageComponent },
   { path: 'market/:market', component: HomeComponent },
   { path: 'help', component: HelppageComponent },
   { path: 'insta', component: InstaComponent },
+  { path: 'iso', component: BuySweetComponent },
   {
     path: 'post-trade',
     canActivate: [AuthGuard],

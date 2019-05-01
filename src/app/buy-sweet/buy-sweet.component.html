@@ -1,0 +1,22 @@
+<div class="d-flex justify-content-between">
+    <h2 mat-dialog-title>&nbsp;</h2>
+    <button mat-icon-button mat-dialog-close class="close">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <form (ngSubmit)="form.valid ? onBuySweet() : ''" novalidate #form="ngForm">
+    <mat-dialog-content>
+      <div class="heading">
+        <h2 mat-dialog-title>Buy SWEET now and get 50% Bonus</h2>
+      </div>
+      <div class="username">
+        <mat-form-field class="username-input-field">
+          <mat-icon matPrefix>Amount</mat-icon>
+          <input matInput #steemamount name="amount" placeholder="Steem Amount" [(ngModel)]="userData.username" required />
+        </mat-form-field>
+      </div>
+      <div class="submit">
+        <button class="submit-button" color="primary" mat-raised-button type="submit">Buy With Steemconnect </button>
+      </div>
+    </mat-dialog-content>
+  </form>
