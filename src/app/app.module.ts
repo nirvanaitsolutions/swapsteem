@@ -95,7 +95,7 @@ const config: SocketIoConfig = { url: environment.API_URL, options: {} };
     ChartComponent,
     BuySweetComponent,
   ],
-  entryComponents: [ReviewComponent,TermsAndConditionsComponent, WhitelistComponent, SignupstatusmodalComponent],
+  entryComponents: [ReviewComponent,TermsAndConditionsComponent, WhitelistComponent, SignupstatusmodalComponent,BuySweetComponent],
   imports: [
     NgxAutoScrollModule,
     MomentModule,
