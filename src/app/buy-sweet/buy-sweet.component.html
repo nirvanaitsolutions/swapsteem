@@ -1,22 +1,42 @@
-<div class="d-flex justify-content-between">
-    <h2 mat-dialog-title>&nbsp;</h2>
-    <button mat-icon-button mat-dialog-close class="close">
-      <mat-icon>close</mat-icon>
-    </button>
-  </div>
-  <form  novalidate #form="ngForm">
+<div class="wrapper container">
+  <form #buySweetForm="ngForm" (ngSubmit)="submitForm(buySweetForm.value)">
     <mat-dialog-content>
       <div class="heading">
         <h2 mat-dialog-title>Buy SWEET now and get 50% Bonus</h2>
       </div>
-      <div class="username">
-        <mat-form-field class="username-input-field">
+      <div class="steemAmount">
+        <mat-form-field class="steemAmount-input-field">
           <mat-icon matPrefix>Amount</mat-icon>
-          <input matInput #steemamount name="amount" placeholder="Steem Amount" required />
+          <input
+            matInput
+            name="amount"
+            type="number"
+            min="0"
+            step="any"
+            placeholder="Steem Amount"
+            required
+            ngModel
+            autocomplete="off"
+          />
+          <mat-error *ngIf="buySweetForm.touched && buySweetForm.invalid"
+            >Steem Amount is required</mat-error
+          >
         </mat-form-field>
       </div>
+      <div *ngIf="buySweetForm.value.amount">
+        You will get <strong>{{ buySweetForm.value.amount * 1.5 }}</strong> SWEET amount
+      </div>
       <div class="submit">
-        <button class="submit-button" color="primary" mat-raised-button type="submit">Buy With Steemconnect </button>
+        <button
+          class="submit-button"
+          color="primary"
+          mat-raised-button
+          type="submit"
+          [disabled]="buySweetForm.invalid"
+        >
+          Buy With Steemconnect
+        </button>
       </div>
     </mat-dialog-content>
   </form>
+</div>
