@@ -11,6 +11,6 @@ export class BuySweetComponent implements OnInit {
   ngOnInit() {}
 
   submitForm(data) {
-    window.location.href = `https://app.steemconnect.com/?amount=${data.amount}&token=${data.amount*1.5}`;
+    window.location.href = `https://app.steemconnect.com/sign/transfer?to=swapsteem&&amount=${data.amount} STEEM`;
   }
 }
