@@ -1,0 +1,12 @@
+.wrapper {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 6px 0px;
+  margin: 80px;
+  border-radius: 10px;
+  margin: auto;
+  margin-top: 50px;
+  padding: 30px 25px;
+}
+
+.mat-raised-button {
+  margin-top: 20px;
+}
