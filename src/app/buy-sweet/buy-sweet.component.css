@@ -10,3 +10,14 @@
 .mat-raised-button {
   margin-top: 20px;
 }
+
+.container_450 {
+  max-width: 480px;
+  text-align: center;
+  width: calc(100% - 30px);
+}
+
+.container_450 .mat-form-field {
+  max-width: 270px;
+  width: 100%;
+}
