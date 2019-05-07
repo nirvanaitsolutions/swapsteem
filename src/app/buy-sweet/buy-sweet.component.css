@@ -5,19 +5,16 @@
   margin: auto;
   margin-top: 50px;
   padding: 30px 25px;
+  max-width: 480px;
+  text-align: center;
+  width: calc(100% - 30px);
 }
 
 .mat-raised-button {
   margin-top: 20px;
 }
 
-.container_450 {
-  max-width: 480px;
-  text-align: center;
-  width: calc(100% - 30px);
-}
-
-.container_450 .mat-form-field {
+.wrapper .mat-form-field {
   max-width: 270px;
   width: 100%;
 }
