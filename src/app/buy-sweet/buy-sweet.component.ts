@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./buy-sweet.component.css']
 })
 export class BuySweetComponent implements OnInit {
-  conversionRate = 125;
+  conversionRate = 12.5;
 
   constructor() {}
 
