@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { takeWhile } from "rxjs/operators";
+import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { forkJoin } from 'rxjs';
+import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { each } from 'lodash';
 import { ActivatedRoute } from '@angular/router';
 import { APIService } from '../../service/api.service';
 import { AdvertisementResponse } from '../module/advertisement';
 import { AdverstisementService } from '../../service/adverstisement.service'
-import { NgxUiLoaderService } from 'ngx-ui-loader';
-import { forkJoin } from 'rxjs';
-import { MatPaginator, MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-sell',
@@ -14,12 +16,21 @@ import { MatPaginator, MatTableDataSource } from '@angular/material';
 })
 export class SellComponent implements OnInit {
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-
+  private isAlive = true;
+  public selectedFrom = 'STEEM';
+  public selectedMarket = 'CRYPTO';
+  public selectedCoin = '';
   constructor(private ngxService: NgxUiLoaderService,
     private purchaseSer: APIService, private adverstisementService: AdverstisementService, private route: ActivatedRoute) {
-    route.params.subscribe(val => {
-      const market = val.market ? ['FIAT', 'CRYPTO', 'TOKEN'].includes(val.market.toUpperCase()) ? val.market.toUpperCase() : 'CRYPTO' : 'CRYPTO';
-      this.fetchSellSteem(market);
+    route.params.pipe(takeWhile(() => this.isAlive)).subscribe(val => {
+      this.selectedMarket = val.market ? ['FIAT', 'CRYPTO', 'TOKEN', 'ERC20', 'EOS', 'TRC20', 'BTS-UIA'].includes(val.market.toUpperCase()) ? val.market.toUpperCase() : 'CRYPTO' : 'CRYPTO';
+      this.fetchSellSteem(this.selectedMarket, this.selectedFrom, this.selectedCoin);
+
+    });
+    route.queryParams.pipe(takeWhile(() => this.isAlive)).subscribe(val => {
+      this.selectedFrom = val.from ? val.from : 'STEEM';
+      this.selectedCoin = val.coin ? val.coin : this.purchaseSer.coinsByMarket[this.selectedMarket][0].value;
+      this.fetchSellSteem(this.selectedMarket, this.selectedFrom, this.selectedCoin);
     });
   }
 
@@ -44,26 +55,33 @@ export class SellComponent implements OnInit {
  * This method update filter advertisement table
  * @param market market filter value
 */
-  fetchSellSteem(market = 'CRYPTO') {
+  fetchSellSteem(market = 'CRYPTO', from = 'STEEM', to = '') {
     this.ngxService.start();
-    forkJoin(this.purchaseSer.getSellAds(), this.purchaseSer.getPrice())
-      .subscribe((data) => {
+    forkJoin(this.purchaseSer.getSellAds(), this.purchaseSer.getPrice(), this.purchaseSer.getBtcPrice())
+      .pipe(takeWhile(() => this.isAlive)).subscribe((data: any) => {
         this.sellSteem = data && data[0] && data[0].length ? data[0] : [];
-        this.sellSteem = this.sellSteem.filter((ad) => (ad.ad_status === 'open' && ad.market === market))
+        this.sellSteem = this.sellSteem.filter((ad) => (ad.ad_status === 'open' && ad.market === market && ad.from === from && ad.to === to));
+        this.sellSteem.forEach((ad) => {
+          const to = this.purchaseSer.coinsByMarket[ad.market].find((coin) => coin.value === ad.to);
+          ad.to = to ? to.label : ad.to;
+        })
         this.sellSteemDataSource = new MatTableDataSource(this.sellSteem);
         this.sellSteemDataSource.paginator = this.sellSteemPaginator;
-        const resPrice = Object.values(data[1]);
-        this.steemPrice = resPrice[0];
-        this.sbdPrice = resPrice[1];
+        each(data[2].bitcoin, (value, key) => {
+          data[1].steem[key] = value * data[1].steem.btc;
+          data[1]['steem-dollars'][key] = value * data[1]['steem-dollars'].btc;
+        });
+        this.steemPrice = data[1].steem;
+        this.sbdPrice = data[1]['steem-dollars'];
         this.ngxService.stop();
       });
 
     // Added suscribe for all filter(Observable) for real time data change 
-    this.adverstisementService.currencyFilter.subscribe(filter => {
+    this.adverstisementService.currencyFilter.pipe(takeWhile(() => this.isAlive)).subscribe(filter => {
       this.currencyFilter = filter;
       this.updateSellSteemDataSource();
     })
-    this.adverstisementService.adCoinFilter.subscribe(filter => {
+    this.adverstisementService.adCoinFilter.pipe(takeWhile(() => this.isAlive)).subscribe(filter => {
       this.adCoinFilter = filter;
       this.updateSellSteemDataSource();
     });
@@ -83,6 +101,10 @@ export class SellComponent implements OnInit {
     let filterSellSteem: Array<AdvertisementResponse> = this.sellSteem;
     this.currencyFilter ? filterSellSteem = filterSellSteem.filter((ad) => (ad.to === this.currencyFilter)) : '';
     this.adCoinFilter ? filterSellSteem = filterSellSteem.filter((ad) => (ad.from === this.adCoinFilter)) : '';
+    filterSellSteem.forEach((ad) => {
+      const to = this.purchaseSer.coinsByMarket[ad.market].find((coin) => coin.value === ad.to);
+      ad.to = to ? to.label : ad.to;
+    })
     this.sellSteemDataSource = new MatTableDataSource(filterSellSteem);
     this.sellSteemDataSource.paginator = this.sellSteemPaginator;
   }
@@ -106,5 +128,9 @@ export class SellComponent implements OnInit {
     else if (from == "SBD") {
       return (this.sbdPrice[to.toLowerCase()] || 0) * (1 + margin / 100);
     }
+  }
+
+  ngOnDestroy() {
+    this.isAlive = false;
   }
 }

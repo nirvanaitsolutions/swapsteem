@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Injectable } from '@angular/core';
+import { takeWhile } from "rxjs/operators";
 import * as busy from 'busyjs'
 import { SteemconnectAuthService } from '../../app/steemconnect/services/steemconnect-auth.service';
-import { of } from 'rxjs'
 import { Notification } from './../module/notification';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 
@@ -23,7 +22,7 @@ export class NotificationsComponent implements OnInit {
   token: OAuth2Token = this.auth.token;
   notifications: Notification[] = [];
   today: number = Date.now();
-
+  private isAlive = true;
 
   constructor(private ngxService: NgxUiLoaderService, private auth: SteemconnectAuthService) {
 
@@ -31,7 +30,7 @@ export class NotificationsComponent implements OnInit {
 
   ngOnInit() {
     this.ngxService.start();
-    this.busy.subscribe((err, result) => {
+    this.busy.pipe(takeWhile(() => this.isAlive)).subscribe((err, result) => {
       if (result.type == 'notification') {
 
         let notif: Notification = {
@@ -78,6 +77,10 @@ export class NotificationsComponent implements OnInit {
     })
     this.busy.call('get_messages', [this.token.access_token, "0"], function (err, result) {
     })
+  }
+
+  ngOnDestroy() {
+    this.isAlive = false;
   }
 
 }

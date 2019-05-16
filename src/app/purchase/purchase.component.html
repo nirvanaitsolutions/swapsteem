@@ -40,7 +40,7 @@
                                     {{selectedTrade.from}} must be less than or equal to 20
                                 </div>
                             </div><br><br>
-                    <div class="btn btn-info form-row mr-2">{{selectedTrade.to}} <span><input min="0" type="number"
+                    <div class="btn btn-info form-row mr-2">{{showTo}} <span><input min="0" type="number"
                                 step="any" name="order_fiat_amount" [(ngModel)]="order.order_fiat_amount"
                                 (ngModelChange)="changeToCoin()" /></span></div>
                     <div class="form-group mt-3"><button  class="btn btn-success">Create Order</button></div>

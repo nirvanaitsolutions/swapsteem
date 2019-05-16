@@ -3,12 +3,13 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "dev": "ng serve",
     "start": "node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "npm run config -- --environment=prod && ng build --aot --prod",
+    "postinstall": "npm run config --environment=prod && ng build --aot --prod",
     "config": "ts-node -r dotenv/config ./set-env.ts"
   },
   "engines": {
@@ -38,6 +39,7 @@
     "express": "^4.16.4",
     "fs": "0.0.1-security",
     "jw-angular-social-buttons": "^1.0.0",
+    "jquery": "^3.3.1",
     "moment": "^2.23.0",
     "ngx-auto-scroll": "^1.1.0",
     "ngx-bar-rating": "^1.1.0",

@@ -1,11 +1,15 @@
 import { Component, OnInit, NgZone } from '@angular/core';
+import { takeWhile } from "rxjs/operators";
+import { NgForm } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { forkJoin } from 'rxjs';
+import { each } from 'lodash';
+import { SteemconnectAuthService } from '../steemconnect/services/steemconnect-auth.service';
+import * as moment from 'moment';
 import { OrderRequest } from '../module/order';
 import { AdvertisementResponse } from '../module/advertisement';
 import { APIService } from '../../service/api.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { SteemconnectAuthService } from '../steemconnect/services/steemconnect-auth.service';
-import * as moment from 'moment';
-import { NgForm } from '@angular/forms';
+import { SteemconnectBroadcastService } from '../steemconnect/services/steemconnect-broadcast.service';
 
 @Component({
   selector: 'app-purchase',
@@ -14,6 +18,7 @@ import { NgForm } from '@angular/forms';
 })
 export class PurchaseComponent implements OnInit {
   constructor(private purchaseServ: APIService,
+    private broadcastApi: SteemconnectBroadcastService,
     private router: Router,
     private route: ActivatedRoute,
     private zone: NgZone,
@@ -35,31 +40,31 @@ export class PurchaseComponent implements OnInit {
     ad_coin_amount: 0,
     terms: '',
     __v: 0,
-    ad_details: {
-      minimum_volume: 0,
-      minimum_reputation_score: 0,
-      new_buyer_limit: 0,
-      track_liquidity: false
-    },
-    security_details: {
-      identified_people_only: false,
-      identify_user_before_continuing_trade: false,
-      real_name_required: false,
-      sms_verification_required: false,
-      trusted_people_only: false
-    },
-    payment_details: {
-      account_holder_name: '',
-      account_number: 0,
-      bank_name: '',
-      bank_address: '',
-      swift_bic_code: '',
-      bank_code: '',
-      paypal_email: '',
-      place_of_exchange: '',
-      upi_id: '',
-      crypto_address: ''
-    }
+    // ad_details: {
+    //   minimum_volume: 0,
+    //   minimum_reputation_score: 0,
+    //   new_buyer_limit: 0,
+    //   track_liquidity: false
+    // },
+    // security_details: {
+    //   identified_people_only: false,
+    //   identify_user_before_continuing_trade: false,
+    //   real_name_required: false,
+    //   sms_verification_required: false,
+    //   trusted_people_only: false
+    // },
+    // payment_details: {
+    //   account_holder_name: '',
+    //   account_number: 0,
+    //   bank_name: '',
+    //   bank_address: '',
+    //   swift_bic_code: '',
+    //   bank_code: '',
+    //   paypal_email: '',
+    //   place_of_exchange: '',
+    //   upi_id: '',
+    //   crypto_address: ''
+    // }
   };
   order: OrderRequest = {
     ad_id: '',
@@ -78,28 +83,31 @@ export class PurchaseComponent implements OnInit {
     to: '',
     escrow_rat_deadline: new Date(moment().add(2, 'hours').format('YYYY-MM-DDTHH:MM:SS')),
     escrow_exp_deadline: new Date(moment().add(3, 'days').format('YYYY-MM-DDTHH:MM:SS')),
-    payment_details: {
-      account_holder_name: '',
-      account_number: 0,
-      bank_name: '',
-      bank_address: '',
-      swift_bic_code: '',
-      bank_code: '',
-      paypal_email: '',
-      place_of_exchange: '',
-      upi_id: '',
-      crypto_address: ''
-    }
+    // payment_details: {
+    //   account_holder_name: '',
+    //   account_number: 0,
+    //   bank_name: '',
+    //   bank_address: '',
+    //   swift_bic_code: '',
+    //   bank_code: '',
+    //   paypal_email: '',
+    //   place_of_exchange: '',
+    //   upi_id: '',
+    //   crypto_address: ''
+    // }
   };
 
   userData: any = [];
   price: any;
+  showTo = '';
+  private isAlive = true;
   ngOnInit() {
     let id = this.route.snapshot.paramMap.get('id');
-    this.purchaseServ.getSelectedTradeFromAPI(id).subscribe(data => {
+    this.purchaseServ.getSelectedTradeFromAPI(id).pipe(takeWhile(() => this.isAlive)).subscribe(data => {
       console.log(data);
       this.selectedTrade = data;
-
+      const to = this.purchaseServ.coinsByMarket[this.selectedTrade.market].find((coin)=> coin.value === this.selectedTrade.to);
+      this.showTo = to ? to.label : this.selectedTrade.to;
       this.order.ad_id = this.selectedTrade._id;
       this.order.createdfor = this.selectedTrade.createdby;
       //todo - reverse ad type
@@ -111,36 +119,36 @@ export class PurchaseComponent implements OnInit {
       //todo - calculate rate from margin
       //this.order.order_rate=this.selectedTrade.margin;
       if (this.order.from == "STEEM") {
-        this.purchaseServ.getPriceByPair(this.order.from, this.order.to).subscribe(data => {
-          console.log('data', data)
-          let priceResponse = data['steem'];
-          console.log(data, 'data')
-          console.log("price ", data['steem'], 'steem');
-          if (this.order.to == "ENG" || this.order.to == "SWEET" || this.order.to == "SUFB") {
-            this.price = (1 + this.selectedTrade.margin / 100)
-          } else
-            this.price = priceResponse[this.order.to.toLowerCase()] * (1 + this.selectedTrade.margin / 100)
-          this.order.order_rate = this.price;
-        });
+        forkJoin(this.purchaseServ.getPrice(), this.purchaseServ.getBtcPrice())
+          .pipe(takeWhile(() => this.isAlive)).subscribe((data: any) => {
+            console.log('data', data)
+            each(data[1].bitcoin, (value, key)=> {
+              data[0].steem[key] = value *  data[0].steem.btc;
+            });
+            let priceResponse = data[0].steem;
+            if (this.order.to == "ENG" || this.order.to == "SWEET" || this.order.to == "SUFB") {
+              this.price = (1 + this.selectedTrade.margin / 100)
+            } else
+              this.price = (priceResponse[this.order.to.toLowerCase()] || 1) * (1 + this.selectedTrade.margin / 100)
+            this.order.order_rate = this.price;
+          });
 
       }
       else if (this.order.from == "SBD") {
-        this.purchaseServ.getPriceByPair(this.order.from, this.order.to).subscribe(data => {
-          let priceResponse = data['steem-dollars'];
+        forkJoin(this.purchaseServ.getPrice(), this.purchaseServ.getBtcPrice())
+          .pipe(takeWhile(() => this.isAlive)).subscribe((data: any) => {
+            console.log('data', data)
+            each(data[1].bitcoin, (value, key)=> {
+              data[0]['steem-dollars'][key] = value *  data[0]['steem-dollars'].btc;
+            });
+          let priceResponse = data[0]['steem-dollars'];
           if (this.order.to == "ENG" || this.order.to == "SWEET" || this.order.to == "SUFB") {
             this.price = (1 + this.selectedTrade.margin / 100)
           } else
-            this.price = priceResponse[this.order.to.toLowerCase()] * (1 + this.selectedTrade.margin / 100)
+            this.price = (priceResponse[this.order.to.toLowerCase()] || 1) * (1 + this.selectedTrade.margin / 100)
           this.order.order_rate = this.price;
         });
       }
-
-      console.log(this.selectedTrade)
-
-
-      // this.purchaseServ.getPrice().subscribe(data => {
-      //   this.price = data;
-      // });
     });
     this.userData = this.auth.userData;
     this.order.createdby = this.userData.name;
@@ -165,8 +173,9 @@ export class PurchaseComponent implements OnInit {
     this.order.escrowID = Math.floor(now.getTime() / 1000);
     this.order.escrow_rat_deadline = new Date(moment().add(2, 'hours').format());
     this.order.escrow_exp_deadline = new Date(moment().add(3, 'days').format());;
-    this.purchaseServ.createOrder(this.order).subscribe((res: any) => this.zone.run(() => {
-      this.router.navigate([`order/${res._id}`])
+    this.purchaseServ.createOrder(this.order).pipe(takeWhile(() => this.isAlive)).subscribe((res: any) => this.zone.run(() => {
+      //this.createOrder()
+      this.router.navigate([`order/${res._id}`]);
     }));
   }
 
@@ -187,5 +196,13 @@ export class PurchaseComponent implements OnInit {
     if (this.order.from == "SBD") {
       this.order.order_coin_amount = this.order.order_fiat_amount * (1 / this.price);
     }
+  }
+
+  ngOnDestroy() {
+    this.isAlive = false;
+  }
+  createOrder() {
+ 
+    window.location.href = `https://app.steemconnect.com/sign/custom-json?required_auths=[]&required_posting_auths=[]&id=ssc-mainnet1&json=${JSON.stringify(this.order)}&redirect_uri=${window.location.origin}/wallet&auto_return=1`;
   }
 }

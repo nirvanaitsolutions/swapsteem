@@ -3,83 +3,68 @@
     <div class="row">
       <div class="col-md-4 margin-auto">
         <mat-form-field class="full-width">
-          <mat-select [(ngModel)]="advertisement.ad_type" placeholder="Ad Type" name="ad_type" required>
+          <mat-select [(ngModel)]="advertisement.ad_type" placeholder="I want to " name="ad_type" required>
             <mat-option *ngFor="let count of ad_type" [value]="count">
               {{count}}
             </mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field class="full-width">
-          <mat-select [(ngModel)]="advertisement.from" placeholder="From" name="from" required>
+          <mat-select [(ngModel)]="advertisement.from" placeholder="Some " name="from" required>
             <mat-option *ngFor="let count of from" [value]="count">
               {{count}}
             </mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field class="full-width">
-          <mat-select [(ngModel)]="advertisement.market" placeholder="Market" name="market" required>
+          <mat-select [(ngModel)]="advertisement.market" placeholder="In Market " name="market" required>
             <mat-option *ngFor="let count of market" [value]="count">
               {{count}}
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <!-- <mat-form-field class="full-width">
-          <mat-select [(ngModel)]="advertisement.from" placeholder="To" name="from" required>
-            <mat-option *ngFor="let count of from" [value]="count">
-              {{count}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field> -->
-        <mat-form-field class="full-width" *ngIf="advertisement.market === 'FIAT'">
-          <mat-select (selectionChange)="changeCurrency($event.value)" [(ngModel)]="advertisement.to" placeholder="to" name="to"
-            required>
-            <mat-option *ngFor="let count of fiat_options" [value]="count">
-              {{count}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field class="full-width" *ngIf="advertisement.market === 'CRYPTO'">
-          <mat-select (selectionChange)="changeCurrency($event.value)" [(ngModel)]="advertisement.to" placeholder="to" name="to"
-            required>
-            <mat-option *ngFor="let count of crypto_options" [value]="count">
-              {{count}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field class="full-width" *ngIf="advertisement.market === 'TOKEN'">
-          <mat-select (selectionChange)="changeCurrency($event.value)" [(ngModel)]="advertisement.to" placeholder="to" name="to"
-            required>
-            <mat-option *ngFor="let count of token_options" [value]="count">
-              {{count}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
         <mat-form-field class="full-width">
-          <input matInput placeholder="Margin" type="number" name="margin" id="margin" [(ngModel)]="advertisement.margin">
+          <mat-select (selectionChange)="changeCurrency($event.value)" [(ngModel)]="advertisement.to" placeholder="For Some" name="to"
+            required>
+            <mat-option *ngFor="let count of coinsByMarket[advertisement.market]" [value]="count.value">
+              {{count.label}}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
-        <mat-form-field class="full-width" *ngIf="advertisement.market === 'FIAT'">
-          <mat-select [(ngModel)]="advertisement.payment_method" placeholder="Payment Method" name="payment_method" required>
+        <mat-form-field class="full-width" *ngIf="advertisement.market === 'FIAT' && advertisement.to ==='INR' ">
+          <mat-select [(ngModel)]="advertisement.payment_method" placeholder="With Payment Method" name="payment_method" required>
+            <mat-option *ngFor="let count of inr_payment_methods" [value]="count">
+              {{count}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="full-width" *ngIf="advertisement.market === 'FIAT' && advertisement.to !=='INR' ">
+          <mat-select [(ngModel)]="advertisement.payment_method" placeholder="With Payment Method" name="payment_method" required>
             <mat-option *ngFor="let count of fiat_payment_methods" [value]="count">
               {{count}}
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field class="full-width" *ngIf="advertisement.market === 'CRYPTO' || advertisement.market === 'Token'">
-          <mat-select [(ngModel)]="advertisement.payment_method" placeholder="Payment Methods" name="payment_method" required>
+        <!-- <mat-form-field class="full-width" *ngIf="advertisement.market === 'CRYPTO' || advertisement.market === 'TRC20' || advertisement.market === 'BTS-UIA'|| advertisement.market === 'ERC20'|| advertisement.market === 'EOS'">
+          <mat-select [(ngModel)]="advertisement.payment_method" placeholder="With Payment Method" name="payment_method" required>
             <mat-option *ngFor="let count of crypto_payment_methods" [value]="count">
               {{count}}
             </mat-option>
           </mat-select>
-        </mat-form-field>
+        </mat-form-field> -->
         <mat-form-field class="full-width">
-          <input matInput placeholder="Ad Coin Amount" type="number" name="ad_coin_amount" id="ad_coin_amount" [(ngModel)]="advertisement.ad_coin_amount"
+            <input matInput placeholder="with Margin on Market Price of " type="number" name="margin" id="margin" [(ngModel)]="advertisement.margin"
+              required>
+          </mat-form-field>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="with Maximum Amount" type="number" name="ad_coin_amount" id="ad_coin_amount" [(ngModel)]="advertisement.ad_coin_amount"
             required>
         </mat-form-field>
         <mat-form-field class="full-width">
-          <textarea matInput placeholder="Terms" name="ad_coin_amount" id="terms" [(ngModel)]="advertisement.terms" required></textarea>
+          <textarea matInput placeholder="And my Terms for the trade are " name="ad_coin_amount" id="terms" [(ngModel)]="advertisement.terms" required></textarea>
         </mat-form-field>
       </div>
-      <div class="col-md-4 margin-auto margin-auto" *ngIf="advertisement.ad_type == 'SELL' && advertisement.payment_method === 'Bank Transfer'">
+      <!-- <div class="col-md-4 margin-auto margin-auto" *ngIf="advertisement.ad_type == 'SELL' && advertisement.payment_method === 'Bank Transfer'">
         <mat-form-field class="full-width">
           <input matInput placeholder="Account holder name" type="text" name="account_holder_name" id="account_holder_name" [(ngModel)]="advertisement.payment_details.account_holder_name"
             required>
@@ -102,8 +87,8 @@
         <mat-form-field class="full-width">
           <input matInput placeholder="SWIFT/BIC code" type="text" name="swift_bic_code" id="swift_bic_code" [(ngModel)]="advertisement.payment_details.swift_bic_code">
         </mat-form-field>
-      </div>
-      <div class="col-md-4 margin-auto " *ngIf="advertisement.ad_type == 'SELL' && advertisement.payment_method === 'PayPal'">
+      </div> -->
+      <!-- <div class="col-md-4 margin-auto " *ngIf="advertisement.ad_type == 'SELL' && advertisement.payment_method === 'PayPal'">
         <mat-form-field class="full-width">
           <input matInput #paypalEmail="ngModel" placeholder="Email" type="email" name="paypal_email" id="paypal_email" [(ngModel)]="advertisement.payment_details.paypal_email"
             pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required />
@@ -111,25 +96,25 @@
             Please enter a valid email address
           </mat-error>
         </mat-form-field>
-      </div>
-      <div class="col-md-4 margin-auto" *ngIf="advertisement.ad_type == 'SELL' && advertisement.payment_method === 'UPI'">
+      </div> -->
+      <!-- <div class="col-md-4 margin-auto" *ngIf="advertisement.ad_type == 'SELL' && advertisement.payment_method === 'UPI'">
         <mat-form-field class="full-width">
           <input matInput #upiId="ngModel" placeholder="UPI ID" type="text" name="upi_id" id="upi_id" [(ngModel)]="advertisement.payment_details.upi_id"
             required />
 
         </mat-form-field>
-      </div>
-      <div class="col-md-4 margin-auto" *ngIf="advertisement.ad_type == 'SELL' && advertisement.payment_method === 'Crypto Transfer'">
+      </div> -->
+      <!-- <div class="col-md-4 margin-auto" *ngIf="advertisement.ad_type == 'SELL' && advertisement.payment_method === 'Crypto Transfer'">
         <mat-form-field class="full-width">
           <input matInput #upiId="ngModel" placeholder="Crypto Address" type="text" name="crypto_address" id="crypto_address" [(ngModel)]="advertisement.payment_details.crypto_address"
             required />
 
         </mat-form-field>
-      </div>
+      </div> -->
     </div>
     <div class="row" style="display : block ; text-align : center">
       <button type="submit" class="col-sm-5 col-md-3 btn btn-success buttonLocation form-control ml-3 mt-3">
-        Publish Advertisement</button>
+        Publish New Listing</button>
     </div>
   </form>
   <div style="margin-bottom: 20px;"></div>

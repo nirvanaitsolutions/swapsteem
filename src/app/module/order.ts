@@ -15,18 +15,18 @@ export interface OrderRequest {
     order_status: string,
     escrow_rat_deadline: Date;
     escrow_exp_deadline: Date;
-    payment_details?: {
-        account_holder_name?: string;
-        account_number?: number;
-        bank_name?: string;
-        bank_address?: string;
-        swift_bic_code?: string;
-        bank_code?: string;
-        paypal_email?: string;
-        place_of_exchange?: string;
-        upi_id?:string;
-        crypto_address?:string;
-    }
+    // payment_details?: {
+    //     account_holder_name?: string;
+    //     account_number?: number;
+    //     bank_name?: string;
+    //     bank_address?: string;
+    //     swift_bic_code?: string;
+    //     bank_code?: string;
+    //     paypal_email?: string;
+    //     place_of_exchange?: string;
+    //     upi_id?:string;
+    //     crypto_address?:string;
+    //}
 }
 
 export interface OrderResponse {

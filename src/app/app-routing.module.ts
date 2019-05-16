@@ -13,11 +13,18 @@ import { RedirectComponent } from './redirect/redirect.component';
 import { OrderComponent } from './order/order.component';
 import { AuthGuard } from '../guards/auth-guard.service';
 import { HelppageComponent } from './helppage/helppage.component'
-import {SignupstatusComponent} from './components/signupstatus/signupstatus.component';
+import { SignupstatusComponent } from './components/signupstatus/signupstatus.component';
+import { ReferralComponent } from './referral/referral.component'
+import { InstaComponent } from './insta/insta.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
+import { BuySweetComponent } from './buy-sweet/buy-sweet.component';
+
 const appRoutes: Routes = [
-  { path: 'home', component: HomeComponent },
+  { path: 'home', component: LandingPageComponent },
   { path: 'market/:market', component: HomeComponent },
   { path: 'help', component: HelppageComponent },
+  { path: 'insta', component: InstaComponent },
+  { path: 'iso', component: BuySweetComponent },
   {
     path: 'post-trade',
     canActivate: [AuthGuard],
@@ -61,6 +68,13 @@ const appRoutes: Routes = [
   },
   {
     path: 'steemconnect/signup/failure', component: SignupstatusComponent
+  },
+  {
+    path: 'refer', component: ReferralComponent, canActivate: [AuthGuard]
+  },
+
+  { path: 'market',
+   redirectTo: '/market/fiat'
   },
   {
     path: '',

@@ -35,7 +35,91 @@ export class APIService {
   selectedAd: any = null;
   token: OAuth2Token = this.auth.token;
   result: any;
-
+  public coinsByMarket = {
+    'FIAT': [{
+      label: 'USD', value: 'USD'
+    },{
+      label: 'INR', value: 'INR'
+    }, {
+      label: 'KRW', value: 'KRW'
+    }, {
+      label: 'NGN', value: 'NGN'
+    }, {
+      label: 'CAD', value: 'CAD'
+    }, {
+      label: 'AUD', value: 'AUD'
+    }, {
+      label: 'GBP', value: 'GBP'
+    }, {
+      label: 'EUR', value: 'EUR'
+    }, {
+      label: 'CNY', value: 'CNY'
+    }],
+    'CRYPTO': [
+      {
+        "label": "BTC",
+        "value": "btc"
+      },
+      {
+        "label": "EOS",
+        "value": "eos"
+      },
+      {
+        "label": "XRP",
+        "value": "ripple"
+      },
+      {
+        "label": "LTC",
+        "value": "litecoin"
+      },
+      {
+        "label": "BCH",
+        "value": "bitcoin-cash"
+      },
+      {
+        "label": "TRX",
+        "value": "tron"
+      },
+      {
+        "label": "XLM",
+        "value": "stellar"
+      },
+      {
+        "label": "ENU",
+        "value": "enumivo"
+      }
+    ],
+    'TOKEN': [
+      {
+        "label": "SWEET",
+        "value": "SWEET"
+      },
+      {
+        "label": "ENG",
+        "value": "ENG"
+      },
+      {
+        "label": "SUFB",
+        "value": "SUFB"
+      }
+    ],
+    'ERC20': [{
+      "label": "BNB",
+      "value": "binancecoin"
+    }],
+    'EOS': [{
+      "label": "KARMA",
+      "value": "karma-coin"
+    }],
+    'TRC20': [{
+      "label": "ANTE",
+      "value": "tronbet"
+    }],
+    'BTS-UIA': [{
+      "label": "OPEN.USD",
+      "value": "bitUSD"
+    }],
+  }
   selectTradeEvent(trade: AdvertisementResponse
   ) {
     this.selectedTrade = trade;
@@ -78,8 +162,8 @@ export class APIService {
   }
   setUserData(user: MongoUserData, access_token: string): Observable<MongoUserData> {
     console.log(user);
-    const headers = new HttpHeaders({ 'No-Auth': 'True', 'Authorization': access_token, 'Content-Type':  'application/json' });
-    return this._http.post<MongoUserData>(`${environment.API_URL}/users/`, JSON.stringify(user), {headers});
+    const headers = new HttpHeaders({ 'No-Auth': 'True', 'Authorization': access_token, 'Content-Type': 'application/json' });
+    return this._http.post<MongoUserData>(`${environment.API_URL}/users/`, JSON.stringify(user), { headers });
   }
   getOpenOrdersForUser(user: string) {
     return this._http.get<OrderResponse[]>(`${environment.API_URL}/orders/by_reciever/${user}`);
@@ -95,9 +179,23 @@ export class APIService {
   }
 
   getPrice() {
-    const headers = new HttpHeaders({ 'No-Auth': 'True' }); 
-    return this._http.get(`https://api.coingecko.com/api/v3/simple/price?ids=steem%2Csteem-dollars&vs_currencies=usd,inr,krw,btc,eos,eth,vef,ngn,cad,aud,gbp,eur,cny,xrp,ltc,bch,usdt,bnb,xlm,trx`, { headers: headers })
-    .map(result => this.result = result);
+    const headers = new HttpHeaders({ 'No-Auth': 'True' });
+    return this._http.get(`https://api.coingecko.com/api/v3/simple/price?ids=steem%2Csteem-dollars&vs_currencies=btc,usd,inr,krw,ngn,cad,aud,gbp,eur,cny,vef,`, { headers: headers })
+      .map(result => this.result = result);
+
+  }
+  /**
+     *
+     * @name getBtcPrice
+     *
+     * @description
+     * This method used to get steem/sbd price in bitcoin
+     * @returns {Api response}
+    */
+  getBtcPrice() {
+    const headers = new HttpHeaders({ 'No-Auth': 'True' });
+    return this._http.get(`https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,eos,eth,ripple,litecoin,bitcoin-cash,tether,binancecoin,stellar,tron,enumivo,karma-coin,bittorrent-2&vs_currencies=btc`, { headers: headers })
+      .map(result => this.result = result);
 
   }
 
@@ -134,7 +232,7 @@ export class APIService {
 
   /**
    *
-   * @name pauseAd 
+   * @name pauseAd
    *
    * @description
    * This method used to open/paused a advertisement
@@ -150,7 +248,7 @@ export class APIService {
 
   /**
    *
-   * @name updateSelectedOrderFromAPI 
+   * @name updateSelectedOrderFromAPI
    *
    * @description
    * This method used to update order details
@@ -165,7 +263,7 @@ export class APIService {
 
   /**
    *
-   * @name createReview 
+   * @name createReview
    *
    * @description
    * This method used to add review details
@@ -178,7 +276,7 @@ export class APIService {
 
   /**
    *
-   * @name getReviews 
+   * @name getReviews
    *
    * @description
    * This method used to get review details

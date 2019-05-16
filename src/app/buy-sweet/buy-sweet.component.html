@@ -1,0 +1,49 @@
+<div class="wrapper container">
+  <form #buySweetForm="ngForm" (ngSubmit)="submitForm(buySweetForm.value)">
+    <mat-dialog-content>
+      <div class="heading">
+        <h2 mat-dialog-title>Participate in the first ever IEO on a p2p platform and get 25% Bonus!</h2>
+        <br>
+        <h3 mat-dialog-title>Rate : 0.100 STEEM / SWEET</h3>
+        <h3 mat-dialog-title>Soft Cap : 5000 STEEM</h3>
+        <h3 mat-dialog-title>Hard Cap : 30000 STEEM</h3>
+        <h3 mat-dialog-title>Bonus : 25%, no minimum Amount</h3>
+      </div>
+      <div class="steemAmount">
+        <mat-form-field class="steemAmount-input-field">
+          <mat-icon matPrefix>Amount</mat-icon>
+          <input
+            matInput
+            name="amount"
+            type="number"
+            min="0"
+            step="any"
+            placeholder="Steem Amount"
+            required
+            ngModel
+            autocomplete="off"
+          />
+          <mat-error *ngIf="buySweetForm.touched && buySweetForm.invalid"
+            >Steem Amount is required</mat-error
+          >
+        </mat-form-field>
+      </div>
+      <div *ngIf="buySweetForm.value.amount">
+        You will get
+        <strong>{{ buySweetForm.value.amount * conversionRate }}</strong> SWEET
+        tokens!
+      </div>
+      <div class="submit">
+        <button
+          class="submit-button"
+          color="primary"
+          mat-raised-button
+          type="submit"
+          [disabled]="buySweetForm.invalid"
+        >
+          Buy With Steemconnect
+        </button>
+      </div>
+    </mat-dialog-content>
+  </form>
+</div>
