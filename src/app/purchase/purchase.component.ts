@@ -174,7 +174,7 @@ export class PurchaseComponent implements OnInit {
     this.order.escrow_rat_deadline = new Date(moment().add(2, 'hours').format());
     this.order.escrow_exp_deadline = new Date(moment().add(3, 'days').format());;
     this.purchaseServ.createOrder(this.order).pipe(takeWhile(() => this.isAlive)).subscribe((res: any) => this.zone.run(() => {
-      this.broadcastApi.broadcastCustomJson('swap-order', 'swap-order', this.order)
+      this.broadcastApi.broadcastCustomJson('swap-order', this.order)
       .pipe(takeWhile(() => this.isAlive)).subscribe(() => this.zone.run(() => {
         this.router.navigate([`order/${res._id}`])
       }))

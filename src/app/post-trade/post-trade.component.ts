@@ -42,17 +42,6 @@ export class PostTradeComponent implements OnInit {
       real_name_required: true,
       sms_verification_required: true,
       trusted_people_only: true
-    },
-    payment_details: {
-      account_holder_name: '',
-      account_number: 0,
-      bank_name: '',
-      bank_address: '',
-      swift_bic_code: '',
-      bank_code: '',
-      paypal_email: '',
-      place_of_exchange: '',
-      upi_id: ''
     }
   };
   objectKeys = Object.keys;
