@@ -43,8 +43,6 @@ export class APIService {
     }, {
       label: 'KRW', value: 'KRW'
     }, {
-      label: 'VEF', value: 'VEF'
-    }, {
       label: 'NGN', value: 'NGN'
     }, {
       label: 'CAD', value: 'CAD'
