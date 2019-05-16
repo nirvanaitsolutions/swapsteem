@@ -8,7 +8,7 @@ import { CookieModule } from 'ngx-cookie';
 import { AppComponent } from './app.component';
 import { FooterComponent } from './footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { JwSocialButtonsModule } from 'jw-angular-social-buttons';
 import { AppNavComponent } from './app-nav/app-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { HomeComponent } from './home/home.component';
@@ -113,6 +113,7 @@ const config: SocketIoConfig = { url: environment.API_URL, options: {} };
     BarRatingModule,
     CountdownModule,
     DemoMaterialModule,
+    JwSocialButtonsModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, AuthGuard],
