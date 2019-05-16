@@ -102,17 +102,6 @@ export class PostTradeComponent implements OnInit {
               real_name_required: res.security_details.real_name_required,
               sms_verification_required: res.security_details.sms_verification_required,
               trusted_people_only: res.security_details.trusted_people_only
-            },
-            payment_details: {
-              account_holder_name: res.payment_details.account_holder_name,
-              account_number: res.payment_details.account_number,
-              bank_name: res.payment_details.bank_name,
-              bank_address: res.payment_details.bank_address,
-              swift_bic_code: res.payment_details.swift_bic_code,
-              bank_code: res.payment_details.bank_code,
-              paypal_email: res.payment_details.paypal_email,
-              upi_id: res.payment_details.upi_id,
-              crypto_address: res.payment_details.crypto_address
             }
           }
         };
@@ -125,7 +114,7 @@ export class PostTradeComponent implements OnInit {
     console.log('tradeForm', tradeForm)
     this.ngxService.start();
     this.api.createAd(this.advertisement, this.adId).pipe(takeWhile(() => this.isAlive)).subscribe(res => this.zone.run(() => {
-      this.broadcastApi.broadcastCustomJson('swap-listing', 'swap-listing', this.advertisement)
+      this.broadcastApi.broadcastCustomJson('swap-listing', this.advertisement)
         .pipe(takeWhile(() => this.isAlive)).subscribe(() => this.zone.run(() => {
           this.router.navigate(['profile']);
           this.ngxService.stop();
