@@ -145,7 +145,7 @@ export class PostTradeComponent implements OnInit {
   market = ['FIAT'];//, 'ERC20','CRYPTO', 'EOS', 'TRC20', 'BTS-UIA', 'TOKEN'
   fiat_options = ['USD', 'INR', 'KRW', 'NGN', 'CAD', 'AUD', 'GBP', 'EUR', 'CNY']; // 'USD', 'KRW'
   ad_type = ['BUY', 'SELL'];
-  from = ['STEEM', 'SBD', 'SWEET'];
+  from = ['STEEM', 'SBD'];
   agents = ['swapsteem', 'firepower', 'bobinson'];
   fiat_payment_methods = ['Bank Transfer', 'PayPal'];
   inr_payment_methods = ['Bank Transfer','PayPal', 'UPI'];
