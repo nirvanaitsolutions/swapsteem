@@ -31,21 +31,6 @@ export class PostTradeComponent implements OnInit {
     ad_status: 'open',
     ad_coin_amount: 0,
     terms: '',
-<<<<<<< HEAD
-    ad_details: {
-      minimum_volume: 0,
-      minimum_reputation_score: 25,
-      new_buyer_limit: 0,
-      track_liquidity: true
-    },
-    security_details: {
-      identified_people_only: true,
-      identify_user_before_continuing_trade: true,
-      real_name_required: true,
-      sms_verification_required: true,
-      trusted_people_only: true
-    }
-=======
     // ad_details: {
     //   minimum_volume: 0,
     //   minimum_reputation_score: 25,
@@ -70,7 +55,6 @@ export class PostTradeComponent implements OnInit {
     //   place_of_exchange: '',
     //   upi_id: ''
     // }
->>>>>>> origin/develop
   };
   objectKeys = Object.keys;
   userData: any = [];
@@ -107,21 +91,6 @@ export class PostTradeComponent implements OnInit {
             ad_status: res.ad_status,
             ad_coin_amount: res.ad_coin_amount,
             terms: res.terms,
-<<<<<<< HEAD
-            ad_details: {
-              minimum_volume: res.ad_details.minimum_volume,
-              minimum_reputation_score: res.ad_details.minimum_reputation_score,
-              new_buyer_limit: res.ad_details.new_buyer_limit,
-              track_liquidity: res.ad_details.track_liquidity
-            },
-            security_details: {
-              identified_people_only: res.security_details.identified_people_only,
-              identify_user_before_continuing_trade: res.security_details.identify_user_before_continuing_trade,
-              real_name_required: res.security_details.real_name_required,
-              sms_verification_required: res.security_details.sms_verification_required,
-              trusted_people_only: res.security_details.trusted_people_only
-            }
-=======
             // ad_details: {
             //   minimum_volume: res.ad_details.minimum_volume,
             //   minimum_reputation_score: res.ad_details.minimum_reputation_score,
@@ -146,7 +115,6 @@ export class PostTradeComponent implements OnInit {
             //   upi_id: res.payment_details.upi_id,
             //   crypto_address: res.payment_details.crypto_address
             // }
->>>>>>> origin/develop
           }
         };
         this.ngxService.stop();
@@ -158,17 +126,9 @@ export class PostTradeComponent implements OnInit {
     console.log('tradeForm', tradeForm)
     this.ngxService.start();
     this.api.createAd(this.advertisement, this.adId).pipe(takeWhile(() => this.isAlive)).subscribe(res => this.zone.run(() => {
-<<<<<<< HEAD
-      this.broadcastApi.broadcastCustomJson('swap-listing', this.advertisement)
-        .pipe(takeWhile(() => this.isAlive)).subscribe(() => this.zone.run(() => {
-          this.router.navigate(['profile']);
-          this.ngxService.stop();
-        }))
-=======
       //this.createListing()
       this.router.navigate(['profile']);
       this.ngxService.stop();
->>>>>>> origin/develop
     }));
   }
   changeCurrency(value) {

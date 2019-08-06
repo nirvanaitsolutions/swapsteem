@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private route: ActivatedRoute, private api: APIService) {
     this.coinsByMarket = this.api.coinsByMarket;
     route.params.pipe(takeWhile(() => this.isAlive)).subscribe(val => {
-      this.selectedMarket = val.market ? ['FIAT', 'CRYPTO', 'TOKEN', 'ERC20', 'EOS', 'TRC20', 'BTS-UIA'].includes(val.market.toUpperCase()) ? val.market.toUpperCase() : 'CRYPTO' : 'CRYPTO';
+      this.selectedMarket = val.market ? ['FIAT'].includes(val.market.toUpperCase()) ? val.market.toUpperCase() : 'FIAT' : 'FIAT';
     });
     route.queryParams.pipe(takeWhile(() => this.isAlive)).subscribe(val => {
       this.selectedFrom = val.from ? val.from : 'STEEM';

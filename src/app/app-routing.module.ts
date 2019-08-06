@@ -23,8 +23,8 @@ const appRoutes: Routes = [
   { path: 'home', component: LandingPageComponent },
   { path: 'market/:market', component: HomeComponent },
   { path: 'help', component: HelppageComponent },
-  { path: 'insta', component: InstaComponent },
-  { path: 'iso', component: BuySweetComponent },
+  //{ path: 'insta', component: InstaComponent },
+ // { path: 'iso', component: BuySweetComponent },
   {
     path: 'post-trade',
     canActivate: [AuthGuard],

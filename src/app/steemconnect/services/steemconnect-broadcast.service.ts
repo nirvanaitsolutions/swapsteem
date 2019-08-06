@@ -77,11 +77,7 @@ export class SteemconnectBroadcastService {
           required_auths: [],
           required_posting_auths: [username],
           id,
-<<<<<<< HEAD
-          json: JSON.stringify(JSON.stringify(customJson))
-=======
           json: JSON.stringify([JSON.stringify(customJson)])
->>>>>>> origin/develop
         }
       ]
     ]);
