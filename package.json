@@ -40,7 +40,7 @@
     "fs": "0.0.1-security",
     "jw-angular-social-buttons": "^1.0.0",
     "jquery": "^3.3.1",
-    "moment": "^2.23.0",
+    "moment": "^2.29.2",
     "ngx-auto-scroll": "^1.1.0",
     "ngx-bar-rating": "^1.1.0",
     "ngx-cookie": "^4.0.2",
